@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Grpc.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Grpc.Client.GrpcProxy">
+            <summary>
+            grpc代理
+            </summary>
+        </member>
+        <member name="F:Dry.Grpc.Client.GrpcProxy._grpcChannel">
+            <summary>
+            grpc通讯通道
+            </summary>
+        </member>
+        <member name="M:Dry.Grpc.Client.GrpcProxy.#cctor">
+            <summary>
+            静态构造器
+            </summary>
+        </member>
+        <member name="M:Dry.Grpc.Client.GrpcProxy.#ctor(System.String)">
+            <summary>
+            构造器
+            </summary>
+            <param name="address"></param>
+        </member>
+        <member name="M:Dry.Grpc.Client.GrpcProxy.GetInstance(System.String)">
+            <summary>
+            获取grpc代理
+            </summary>
+            <param name="address"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Grpc.Client.GrpcProxy.GetService``1">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Grpc.Client.GrpcProxy.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+    </members>
+</doc>

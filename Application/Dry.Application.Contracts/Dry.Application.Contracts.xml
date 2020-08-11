@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Application.Contracts.Dtos.ICreateDto">
+            <summary>
+            新建dto
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.IEditDto">
+            <summary>
+            编辑dto
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.IQueryDto">
+            <summary>
+            查询dto
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.QueryDto`1">
+            <summary>
+            查询dto
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.QueryDto`1.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.QueryDto`1.IdNotEqual">
+            <summary>
+            系统id不等于
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.QueryDto`1.Ids">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.QueryDto`1.IdsNotEqual">
+            <summary>
+            系统id不等于
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.IResultDto">
+            <summary>
+            结果Dto
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.PagedQueryDto">
+            <summary>
+            分页查询dto
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto.PageIndex">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto.PageSize">
+            <summary>
+            每页条目数
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.PagedQueryDto`1">
+            <summary>
+            分页查询dto
+            </summary>
+            <typeparam name="TQueryDto"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto`1.Param">
+            <summary>
+            查询参数
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.PagedResultDto`1">
+            <summary>
+            分页返回dto
+            </summary>
+            <typeparam name="TResultDto"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.PagedResultDto`1.Total">
+            <summary>
+            总条目数
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.PagedResultDto`1.Items">
+            <summary>
+            返回条目
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`2">
+            <summary>
+            应用服务新建接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationCreateService`2.CreateAsync(`1)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationDeleteService`1">
+            <summary>
+            应用服务删除接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationDeleteService`1.DeleteAsync(System.Object)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationDeleteService`1.DeleteAsync(System.Object[])">
+            <summary>
+            删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationEditService`2">
+            <summary>
+            应用服务编辑接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationEditService`2.EditAsync(System.Object,`1)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationEditService`2.EditAsync(System.Object[],`1)">
+            <summary>
+            编辑
+            </summary>
+            <param name="ids"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryService`2">
+            <summary>
+            应用服务条件查询接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.AnyAsync(`1)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.CountAsync(`1)">
+            <summary>
+            数量查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.LongCountAsync(`1)">
+            <summary>
+            数量查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.FirstAsync(`1)">
+            <summary>
+            条件查询第一条
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.ArrayAsync(`1)">
+            <summary>
+            条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`1})">
+            <summary>
+            分页条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationService`1">
+            <summary>
+            应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.CountAsync">
+            <summary>
+            数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.LongCountAsync">
+            <summary>
+            数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.ArrayAsync">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+            <summary>
+            分页条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationService`3">
+            <summary>
+            应用服务增删改接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationService`4">
+            <summary>
+            应用服务增删查改接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+    </members>
+</doc>

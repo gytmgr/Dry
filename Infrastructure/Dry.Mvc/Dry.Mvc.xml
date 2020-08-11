@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Mvc.Extensions.ModelStateExtensions">
+            <summary>
+            http状态扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Extensions.ModelStateExtensions.GetErrorMessages(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            获取错误信息
+            </summary>
+            <param name="dictionary"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Mvc.Infrastructure.InvalidModelStateResponseFactory">
+            <summary>
+            无效状态返回工厂
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.InvalidModelStateResponseFactory.ProduceErrorResponse(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            生成错误返回
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Mvc.Resources.ErrorResource">
+            <summary>
+            错误资源
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Resources.ErrorResource.ErrorCode">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Resources.ErrorResource.Messages">
+            <summary>
+            失败信息
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Resources.ErrorResource.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="errorCode"></param>
+        </member>
+        <member name="M:Dry.Mvc.Resources.ErrorResource.#ctor(System.String[])">
+            <summary>
+            构造体
+            </summary>
+            <param name="messages"></param>
+        </member>
+        <member name="M:Dry.Mvc.Resources.ErrorResource.#ctor(System.String,System.String[])">
+            <summary>
+            构造体
+            </summary>
+            <param name="errorCode"></param>
+            <param name="messages"></param>
+        </member>
+    </members>
+</doc>

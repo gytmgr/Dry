@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Domain.Entities.IAggregateRoot">
+            <summary>
+            聚合根
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IAggregateRoot`1">
+            <summary>
+            单一主键聚合根
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Domain.Entities.IEntity">
+            <summary>
+            实体
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IEntity`1">
+            <summary>
+            单一主键实体
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.Domain.Entities.IEntity`1.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.IBoundedContext">
+            <summary>
+            限界上下文
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Repositories.IRepository`1">
+            <summary>
+            仓储接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.FindAsync(System.Object[])">
+            <summary>
+            主键查询
+            </summary>
+            <param name="keyValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.FindAllAsync">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.AddAsync(`0,System.Boolean)">
+            <summary>
+            新增
+            </summary>
+            <param name="entitiy"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.AddAsync(`0[],System.Boolean)">
+            <summary>
+            新增
+            </summary>
+            <param name="entities"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.UpdateAsync(`0,System.Boolean)">
+            <summary>
+            更新
+            </summary>
+            <param name="entitiy"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.UpdateAsync(`0[],System.Boolean)">
+            <summary>
+            更新
+            </summary>
+            <param name="entities"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.RemoveAsync(System.Object,System.Boolean)">
+            <summary>
+            主键删除
+            </summary>
+            <param name="keyValue"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.RemoveAsync(System.Object[],System.Boolean)">
+            <summary>
+            主键删除
+            </summary>
+            <param name="keyValues"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.RemoveAsync(`0,System.Boolean)">
+            <summary>
+            删除
+            </summary>
+            <param name="entitiy"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.RemoveAsync(`0[],System.Boolean)">
+            <summary>
+            删除
+            </summary>
+            <param name="entities"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Repositories.IUnitOfWork`1">
+            <summary>
+            工作单元
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IUnitOfWork`1.CompleteAsync">
+            <summary>
+            提交
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.ValueObjects.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.ValueObjects.Sex.Man">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.ValueObjects.Sex.Woman">
+            <summary>
+            女
+            </summary>
+        </member>
+    </members>
+</doc>

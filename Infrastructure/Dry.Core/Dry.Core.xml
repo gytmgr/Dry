@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Core.Model.Result`1">
+            <summary>
+            通用返回结果
+            </summary>
+            <typeparam name="TCode"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.Result`1.Code">
+            <summary>
+            返回代码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.Result`1.Message">
+            <summary>
+            返回信息
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(`0)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(System.String)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(`0,System.String)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Model.Result`2">
+            <summary>
+            通用返回结果
+            </summary>
+            <typeparam name="TCode"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.Result`2.Data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`0,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(System.String,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`0,System.String,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.EnumHelper">
+            <summary>
+            枚举帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumHelper.GetDescription(System.Enum,System.Boolean)">
+            <summary>
+            获取指定枚举项说明
+            </summary>
+            <param name="value"></param>
+            <param name="nameInstead"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumHelper.GetEnumDic``1">
+            <summary>
+            获取指定类型枚举列表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.HttpRequester">
+            <summary>
+            http请求
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Utilities.HttpRequester._method">
+            <summary>
+            http方法
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Utilities.HttpRequester._uriString">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.HttpRequester.Headers">
+            <summary>
+            http头
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.HttpRequester.Content">
+            <summary>
+            http内容
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.HttpRequester.Client">
+            <summary>
+            http客户端
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.HttpRequester.Version">
+            <summary>
+            http版本（默认1.1）
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.#ctor(System.Net.Http.HttpMethod,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="method"></param>
+            <param name="uriString"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            https验证处理（忽略）
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetResult">
+            <summary>
+            返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetStringResult">
+            <summary>
+            获取字符串结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetByteResult">
+            <summary>
+            获取字节结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetStreamResult">
+            <summary>
+            获取流结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HttpRequester.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Utilities.EnumerableExpression">
+            <summary>
+            Enumerable扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumerableExpression.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object}}[])">
+            <summary>
+            多字段排序
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumerableExpression.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object},System.Collections.Generic.IComparer{System.Object}}[])">
+            <summary>
+            使用比较器多字段排序
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.QueryableExpression">
+            <summary>
+            Queryable扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.QueryableExpression.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            多字段排序
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.QueryableExpression.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Collections.Generic.IComparer{System.Object}}[])">
+            <summary>
+            使用比较器多字段排序
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.LinqHelper">
+            <summary>
+            linq帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.LinqHelper.GetKeySelector``1(System.String)">
+            <summary>
+            获取根据字段名获取Lambda表达式
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="keyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.StringHelper">
+            <summary>
+            字符串操作
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToBool(System.String)">
+            <summary>
+            转换为可为空的bool
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToSByte(System.String)">
+            <summary>
+            转换为可为空的sbyte
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToByte(System.String)">
+            <summary>
+            转换为可为空的byte
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToShort(System.String)">
+            <summary>
+            转换为可为空的short
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToUShort(System.String)">
+            <summary>
+            转换为可为空的ushort
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToInt(System.String)">
+            <summary>
+            转换为可为空的int
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToUInt(System.String)">
+            <summary>
+            转换为可为空的uint
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToLong(System.String)">
+            <summary>
+            转换为可为空的long
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToULong(System.String)">
+            <summary>
+            转换为可为空的ulong
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToFloat(System.String)">
+            <summary>
+            转换为可为空的float
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToDouble(System.String)">
+            <summary>
+            转换为可为空的double
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToDecimal(System.String)">
+            <summary>
+            转换为可为空的decimal
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToChar(System.String)">
+            <summary>
+            转换为可为空的char
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToEnum``1(System.String)">
+            <summary>
+            转换为可为空的Enum
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToGuid(System.String)">
+            <summary>
+            转换为可为空的guid
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToDateTime(System.String)">
+            <summary>
+            转换为可为空的DateTime
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.ToTimeSpan(System.String)">
+            <summary>
+            转换为可为空的TimeSpan
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.EmptyToNull(System.String)">
+            <summary>
+            将空字符处理为null
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringHelper.NullToEmpty(System.String)">
+            <summary>
+            将null处理为Empty
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.StructHelper">
+            <summary>
+            结构操作
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.StructHelper.DefaultToNull``1(``0)">
+            <summary>
+            将默认值转成null
+            </summary>
+            <typeparam name="TStruct"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.TypeExtension">
+            <summary>
+            类型扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.TypeExtension.IsDerivedFrom(System.Type,System.Type)">
+            <summary>
+            判断 <paramref name="type"/> 指定的类型是否继承自 <paramref name="pattern"/> 指定的类型，或实现了 <paramref name="pattern"/> 指定的接口
+            支持未知类型参数的泛型，如typeof(List&lt;&gt;)
+            </summary>
+            <param name="type">需要测试的类型</param>
+            <param name="pattern">要匹配的类型，如 typeof(int)，typeof(IEnumerable)，typeof(List&lt;&gt;)，typeof(List&lt;int&gt;)，typeof(IDictionary&lt;,&gt;)</param>
+            <returns>如果 <paramref name="type"/> 指定的类型继承自 <paramref name="pattern"/> 指定的类型，或实现了 <paramref name="pattern"/> 指定的接口，则返回 true，否则返回 false</returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.TypeExtension.DefaultValue(System.Type)">
+            <summary>
+            获取类型默认值
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.UrlHelper">
+            <summary>
+            url帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.UrlHelper.ObjectToUriParam(System.Object)">
+            <summary>
+            对象转url参数
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

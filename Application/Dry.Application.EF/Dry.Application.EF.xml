@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Application.EF</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Application.EF.Services.ApplicationKeyService`6">
+            <summary>
+            单一主键应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationKeyService`6.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationKeyService`6.GetQueryable(System.Linq.IQueryable{`0},`2)">
+            <summary>
+            根据查询对象获取linq表达式
+            </summary>
+            <param name="queryable"></param>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.EF.Services.ApplicationKeyService`4">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationKeyService`4.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="T:Dry.Application.EF.Services.ApplicationService`5">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="F:Dry.Application.EF.Services.ApplicationService`5._mapper">
+            <summary>
+            对象映射
+            </summary>
+        </member>
+        <member name="F:Dry.Application.EF.Services.ApplicationService`5._repository">
+            <summary>
+            仓储
+            </summary>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.GetQueryable(System.Linq.IQueryable{`0},`2)">
+            <summary>
+            根据查询对象获取linq表达式
+            </summary>
+            <param name="queryable"></param>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.CountAsync">
+            <summary>
+            数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.LongCountAsync">
+            <summary>
+            数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.ArrayAsync">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+            <summary>
+            分页条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.AnyAsync(`2)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.CountAsync(`2)">
+            <summary>
+            数量查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.LongCountAsync(`2)">
+            <summary>
+            数量查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.FirstAsync(`2)">
+            <summary>
+            条件查询第一条
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.ArrayAsync(`2)">
+            <summary>
+            条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
+            <summary>
+            分页条件查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.CreateAsync(`3)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.EditAsync(System.Object,`4)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.EditAsync(System.Object[],`4)">
+            <summary>
+            编辑
+            </summary>
+            <param name="ids"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.DeleteAsync(System.Object)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`5.DeleteAsync(System.Object[])">
+            <summary>
+            删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.EF.Services.ApplicationService`4">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`4.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="T:Dry.Application.EF.Services.ApplicationService`3">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`3.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="T:Dry.Application.EF.Services.ApplicationService`2">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="M:Dry.Application.EF.Services.ApplicationService`2.#ctor(AutoMapper.IMapper,Dry.EF.Repositories.IEFRepository{`0})">
+            <summary>
+            构造体
+            </summary>
+            <param name="repository"></param>
+            <param name="mapper"></param>
+        </member>
+    </members>
+</doc>

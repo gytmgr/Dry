@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Swagger</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Swagger.SwaggerExtensions">
+            <summary>
+            Swagger中间件扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.SwaggerExtensions.AddCustomSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly)">
+            <summary>
+            添加Swagger服务注册
+            </summary>
+            <param name="services"></param>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Swagger.SwaggerExtensions.UseCustomSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用Swagger
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
