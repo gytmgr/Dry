@@ -1,6 +1,7 @@
 ﻿using Dry.Core.Model;
 using Dry.Core.Utilities;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -9,37 +10,56 @@ using System.Threading.Tasks;
 namespace Dry.Http.Client
 {
     /// <summary>
-    /// http接口客户端
+    /// http接口信息
     /// </summary>
-    public static class ApiClient
+    public class ApiInfo
     {
+        /// <summary>
+        /// 请求方法
+        /// </summary>
+        public HttpMethod HttpMethod { get; set; }
+
+        /// <summary>
+        /// 接口地址
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// 补充接口地址格式
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public ApiInfo UrlFormat([NotNull] params object[] args)
+        {
+            Url = string.Format(Url, args);
+            return this;
+        }
+
         /// <summary>
         /// http异步请求
         /// </summary>
         /// <typeparam name="TData"></typeparam>
-        /// <param name="method"></param>
-        /// <param name="url"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static async Task<Result<HttpStatusCode, TData>> RequestAsync<TData>(HttpMethod method, string url, object param = null)
+        public async Task<Result<HttpStatusCode, TData>> RequestAsync<TData>(object param = null)
         {
-            if (method == HttpMethod.Head || method == HttpMethod.Get || method == HttpMethod.Delete)
+            if (HttpMethod == HttpMethod.Head || HttpMethod == HttpMethod.Get || HttpMethod == HttpMethod.Delete)
             {
                 if (param != null)
                 {
                     var urlParam = UrlHelper.ObjectToUriParam(param);
-                    if (url.Contains("?"))
+                    if (Url.Contains("?"))
                     {
-                        url = $"{url}&{urlParam}";
+                        Url = $"{Url}&{urlParam}";
                     }
                     else
                     {
-                        url = $"{url}?{urlParam}";
+                        Url = $"{Url}?{urlParam}";
                     }
                 }
             }
-            using var requester = new HttpRequester(method, url);
-            if (method == HttpMethod.Post || method == HttpMethod.Put)
+            using var requester = new HttpRequester(HttpMethod, Url);
+            if (HttpMethod == HttpMethod.Post || HttpMethod == HttpMethod.Put)
             {
                 if (param != null)
                 {
