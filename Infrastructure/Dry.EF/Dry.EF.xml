@@ -169,48 +169,50 @@
             <param name="services"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.EF.Repositories.EFRepository`1">
+        <member name="T:Dry.EF.Repositories.Repository`1">
             <summary>
             ef仓储
             </summary>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="F:Dry.EF.Repositories.EFRepository`1._provider">
+        <member name="F:Dry.EF.Repositories.Repository`1._provider">
             <summary>
             服务提供者
             </summary>
         </member>
-        <member name="F:Dry.EF.Repositories.EFRepository`1._context">
+        <member name="F:Dry.EF.Repositories.Repository`1._context">
             <summary>
             ef上下文
             </summary>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.EF.Repositories.Repository`1.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="provider"></param>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.GetQueryable">
+        <member name="M:Dry.EF.Repositories.Repository`1.GetQueryable">
             <summary>
             获取linq查询表达式
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FindAsync(System.Object[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.Include(System.Linq.IQueryable{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            提前加载
+            </summary>
+            <param name="queryable"></param>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.FindAsync(System.Object[])">
             <summary>
             主键查询
             </summary>
             <param name="keyValues"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FindAllAsync">
-            <summary>
-            查询所有
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AddAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0,System.Boolean)">
             <summary>
             新增
             </summary>
@@ -218,7 +220,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AddAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0[],System.Boolean)">
             <summary>
             新增
             </summary>
@@ -226,7 +228,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.UpdateAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0,System.Boolean)">
             <summary>
             更新
             </summary>
@@ -234,7 +236,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.UpdateAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0[],System.Boolean)">
             <summary>
             更新
             </summary>
@@ -242,7 +244,16 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.RemoveAsync(System.Object,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(System.Action{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
+            <summary>
+            条件更新
+            </summary>
+            <param name="set"></param>
+            <param name="predicate"></param>
+            <param name="autoSave"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object,System.Boolean)">
             <summary>
             主键删除
             </summary>
@@ -250,7 +261,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.RemoveAsync(System.Object[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object[],System.Boolean)">
             <summary>
             主键删除
             </summary>
@@ -258,7 +269,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.RemoveAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0,System.Boolean)">
             <summary>
             删除
             </summary>
@@ -266,7 +277,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.RemoveAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0[],System.Boolean)">
             <summary>
             删除
             </summary>
@@ -274,16 +285,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.UpdateAsync(System.Action{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
-            <summary>
-            条件更新
-            </summary>
-            <param name="set"></param>
-            <param name="predicate"></param>
-            <param name="autoSave"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.RemoveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
             <summary>
             条件删除
             </summary>
@@ -291,7 +293,7 @@
             <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             是否所有记录都满足条件
             </summary>
@@ -299,42 +301,63 @@
             <param name="wherePredicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             是否存在
             </summary>
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.CountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AnyAsync(System.Linq.IQueryable{`0})">
+            <summary>
+            Any
+            </summary>
+            <param name="querable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.CountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             数量查询
             </summary>
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.LongCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.CountAsync(System.Linq.IQueryable{`0})">
+            <summary>
+            数量查询
+            </summary>
+            <param name="querable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.LongCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             数量查询
             </summary>
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.LongCountAsync(System.Linq.IQueryable{`0})">
+            <summary>
+            数量查询
+            </summary>
+            <param name="querable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序查询第一条
             </summary>
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             条件查询第一条
             </summary>
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             条件查询第一条并排序
             </summary>
@@ -342,7 +365,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
             <summary>
             条件查询第一条并提前加载导航属性
             </summary>
@@ -350,7 +373,7 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             条件查询第一条并排序提前加载导航属性
             </summary>
@@ -359,7 +382,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序查询第一条指定字段
             </summary>
@@ -368,7 +391,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序条件查询第一条指定字段
             </summary>
@@ -378,312 +401,29 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            条件查询
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序查询
-            </summary>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询并排序
-            </summary>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            条件查询并提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询并排序提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.MaxAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            最大值
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.MinAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            最小值
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.EFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.EF.Repositories.IEFRepository`1">
-            <summary>
-            ef仓储接口
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.GetQueryable">
-            <summary>
-            获取linq查询表达式
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.UpdateAsync(System.Action{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
-            <summary>
-            条件更新
-            </summary>
-            <param name="set"></param>
-            <param name="predicate"></param>
-            <param name="autoSave"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.RemoveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
-            <summary>
-            条件删除
-            </summary>
-            <param name="predicate"></param>
-            <param name="autoSave"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            是否所有记录都满足条件
-            </summary>
-            <param name="allPredicate"></param>
-            <param name="wherePredicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            是否存在
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.CountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            数量查询
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.LongCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            数量查询
-            </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.FirstAsync``1(System.Linq.IQueryable{``0})">
             <summary>
             条件查询第一条
             </summary>
-            <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序查询第一条
-            </summary>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询第一条并排序
-            </summary>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            条件查询第一条并提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询第一条并排序提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序查询第一条指定字段
-            </summary>
             <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="orderBys"></param>
+            <param name="querable"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询第一条指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             条件查询
             </summary>
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync(System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序查询
             </summary>
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             条件查询并排序
             </summary>
@@ -691,7 +431,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
             <summary>
             条件查询并提前加载导航属性
             </summary>
@@ -699,7 +439,7 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             条件查询并排序提前加载导航属性
             </summary>
@@ -708,7 +448,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序查询指定字段
             </summary>
@@ -717,7 +457,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序查询指定字段
             </summary>
@@ -726,7 +466,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序条件查询指定字段
             </summary>
@@ -736,7 +476,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序条件查询指定字段
             </summary>
@@ -746,7 +486,15 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            条件查询
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="querable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             汇总
             </summary>
@@ -754,7 +502,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             汇总
             </summary>
@@ -762,7 +510,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             汇总
             </summary>
@@ -770,7 +518,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             汇总
             </summary>
@@ -778,7 +526,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             汇总
             </summary>
@@ -786,7 +534,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.MaxAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.MaxAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             最大值
             </summary>
@@ -795,7 +543,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.MinAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.MinAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             最小值
             </summary>
@@ -804,7 +552,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             平均值
             </summary>
@@ -812,7 +560,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             平均值
             </summary>
@@ -820,7 +568,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             平均值
             </summary>
@@ -828,7 +576,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             平均值
             </summary>
@@ -836,7 +584,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.IEFRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+        <member name="M:Dry.EF.Repositories.Repository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             平均值
             </summary>

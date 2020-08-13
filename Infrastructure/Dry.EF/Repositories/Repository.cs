@@ -1,6 +1,7 @@
 ﻿using Dry.Core.Utilities;
 using Dry.Domain;
 using Dry.Domain.Entities;
+using Dry.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Dry.EF.Repositories
     /// ef仓储
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class EFRepository<TEntity> : IEFRepository<TEntity> where TEntity : class, IAggregateRoot, IBoundedContext
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot, IBoundedContext
     {
         /// <summary>
         /// 服务提供者
@@ -30,7 +31,7 @@ namespace Dry.EF.Repositories
         /// 构造体
         /// </summary>
         /// <param name="provider"></param>
-        public EFRepository(IServiceProvider provider)
+        public Repository(IServiceProvider provider)
         {
             _provider = provider;
             var interfaces = typeof(TEntity).GetInterfaces();
@@ -42,12 +43,22 @@ namespace Dry.EF.Repositories
         /// 获取linq查询表达式
         /// </summary>
         /// <returns></returns>
-        public IQueryable<TEntity> GetQueryable()
-        {
-            return _context.Set<TEntity>().AsNoTracking();
-        }
+        public IQueryable<TEntity> GetQueryable() => _context.Set<TEntity>().AsNoTracking();
 
-        #region 基础仓储实现
+        /// <summary>
+        /// 提前加载
+        /// </summary>
+        /// <param name="queryable"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public IQueryable<TEntity> Include(IQueryable<TEntity> queryable, params Expression<Func<TEntity, dynamic>>[] paths)
+        {
+            foreach (var path in paths)
+            {
+                queryable = queryable.Include(path);
+            }
+            return queryable;
+        }
 
         /// <summary>
         /// 主键查询
@@ -64,14 +75,7 @@ namespace Dry.EF.Repositories
             return entity;
         }
 
-        /// <summary>
-        /// 查询所有
-        /// </summary>
-        /// <returns></returns>
-        public virtual async Task<TEntity[]> FindAllAsync()
-        {
-            return await GetQueryable().ToArrayAsync();
-        }
+        #region Add
 
         /// <summary>
         /// 新增
@@ -103,6 +107,10 @@ namespace Dry.EF.Repositories
             }
         }
 
+        #endregion
+
+        #region Update
+
         /// <summary>
         /// 更新
         /// </summary>
@@ -132,6 +140,30 @@ namespace Dry.EF.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        /// <summary>
+        /// 条件更新
+        /// </summary>
+        /// <param name="set"></param>
+        /// <param name="predicate"></param>
+        /// <param name="autoSave"></param>
+        /// <returns></returns>
+        public virtual async Task UpdateAsync(Action<TEntity> set, Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
+        {
+            var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
+            foreach (var entity in entities)
+            {
+                set(entity);
+            }
+            if (autoSave)
+            {
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        #endregion
+
+        #region Remove
 
         /// <summary>
         /// 主键删除
@@ -201,30 +233,6 @@ namespace Dry.EF.Repositories
             }
         }
 
-        #endregion
-
-        #region EF仓储实现
-
-        /// <summary>
-        /// 条件更新
-        /// </summary>
-        /// <param name="set"></param>
-        /// <param name="predicate"></param>
-        /// <param name="autoSave"></param>
-        /// <returns></returns>
-        public virtual async Task UpdateAsync(Action<TEntity> set, Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
-        {
-            var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
-            foreach (var entity in entities)
-            {
-                set(entity);
-            }
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
-        }
-
         /// <summary>
         /// 条件删除
         /// </summary>
@@ -240,6 +248,8 @@ namespace Dry.EF.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        #endregion
 
         #region All
 
@@ -280,6 +290,14 @@ namespace Dry.EF.Repositories
             }
         }
 
+        /// <summary>
+        /// Any
+        /// </summary>
+        /// <param name="querable"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> AnyAsync(IQueryable<TEntity> querable)
+            => await querable.AnyAsync();
+
         #endregion
 
         #region Count
@@ -304,6 +322,13 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 数量查询
         /// </summary>
+        /// <param name="querable"></param>
+        /// <returns></returns>
+        public virtual async Task<int> CountAsync(IQueryable<TEntity> querable) => await querable.CountAsync();
+
+        /// <summary>
+        /// 数量查询
+        /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
         public virtual async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
@@ -318,6 +343,13 @@ namespace Dry.EF.Repositories
             }
         }
 
+        /// <summary>
+        /// 数量查询
+        /// </summary>
+        /// <param name="querable"></param>
+        /// <returns></returns>
+        public virtual async Task<int> LongCountAsync(IQueryable<TEntity> querable) => await querable.CountAsync();
+
         #endregion
 
         #region First
@@ -328,9 +360,7 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity> FirstAsync(params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            return await GetQueryable().OrderBy(orderBys).FirstOrDefaultAsync();
-        }
+            => await GetQueryable().OrderBy(orderBys).FirstOrDefaultAsync();
 
         /// <summary>
         /// 条件查询第一条
@@ -356,9 +386,7 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            return await GetQueryable().Where(predicate).OrderBy(orderBys).FirstOrDefaultAsync();
-        }
+            => await GetQueryable().Where(predicate).OrderBy(orderBys).FirstOrDefaultAsync();
 
         /// <summary>
         /// 条件查询第一条并提前加载导航属性
@@ -428,6 +456,15 @@ namespace Dry.EF.Repositories
             return await queryable.Select(selector).FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// 条件查询第一条
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="querable"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> FirstAsync<TResult>(IQueryable<TResult> querable)
+            => await querable.FirstOrDefaultAsync();
+
         #endregion
 
         #region ToArray
@@ -453,9 +490,7 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity[]> ToArrayAsync(params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            return await GetQueryable().OrderBy(orderBys).ToArrayAsync();
-        }
+            => await GetQueryable().OrderBy(orderBys).ToArrayAsync();
 
         /// <summary>
         /// 条件查询并排序
@@ -464,9 +499,7 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            return await GetQueryable().Where(predicate).OrderBy(orderBys).ToArrayAsync();
-        }
+            => await GetQueryable().Where(predicate).OrderBy(orderBys).ToArrayAsync();
 
         /// <summary>
         /// 条件查询并提前加载导航属性
@@ -570,6 +603,15 @@ namespace Dry.EF.Repositories
             }
             return await queryable.SelectMany(selector).ToArrayAsync();
         }
+
+        /// <summary>
+        /// 条件查询
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="querable"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>(IQueryable<TResult> querable)
+            => await querable.ToArrayAsync();
 
         #endregion
 
@@ -780,8 +822,6 @@ namespace Dry.EF.Repositories
             }
             return await queryable.AverageAsync(selector);
         }
-
-        #endregion
 
         #endregion
     }

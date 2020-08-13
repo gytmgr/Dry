@@ -3,13 +3,12 @@ using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
 using Dry.Domain;
 using Dry.Domain.Entities;
-using Dry.EF.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Dry.Domain.Repositories;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dry.Application.EF.Services
+namespace Dry.Application.Services
 {
     /// <summary>
     /// 应用服务
@@ -35,7 +34,7 @@ namespace Dry.Application.EF.Services
         /// <summary>
         /// 仓储
         /// </summary>
-        protected readonly IEFRepository<TEntity> _repository;
+        protected readonly IRepository<TEntity> _repository;
 
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IEFRepository<TEntity> repository)
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository)
         {
             _mapper = mapper;
             _repository = repository;
@@ -93,11 +92,11 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto query)
+        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync(PagedQueryDto query)
         {
             var queryable = _repository.GetQueryable();
-            var total = await queryable.CountAsync();
-            var entities = await queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize).ToArrayAsync();
+            var total = await _repository.CountAsync(queryable);
+            var entities = await _repository.ToArrayAsync(queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize));
             return new PagedResultDto<TResult>
             {
                 Total = total,
@@ -117,7 +116,7 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query);
             }
-            return await queryable.AnyAsync();
+            return await _repository.AnyAsync(queryable);
         }
 
         /// <summary>
@@ -132,7 +131,7 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query);
             }
-            return await queryable.CountAsync();
+            return await _repository.CountAsync(queryable);
         }
 
         /// <summary>
@@ -147,7 +146,7 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query);
             }
-            return await queryable.LongCountAsync();
+            return await _repository.LongCountAsync(queryable);
         }
 
         /// <summary>
@@ -162,7 +161,7 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query);
             }
-            var entity = await queryable.FirstOrDefaultAsync();
+            var entity = await _repository.FirstAsync(queryable);
             if (entity != null)
             {
                 return _mapper.Map<TResult>(entity);
@@ -182,7 +181,7 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query);
             }
-            var entities = await queryable.ToArrayAsync();
+            var entities = await _repository.ToArrayAsync(queryable);
             return _mapper.Map<TResult[]>(entities);
         }
 
@@ -198,8 +197,8 @@ namespace Dry.Application.EF.Services
             {
                 queryable = GetQueryable(queryable, query.Param);
             }
-            var total = await queryable.CountAsync();
-            var entities = await queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize).ToArrayAsync();
+            var total = await _repository.CountAsync(queryable);
+            var entities = await _repository.ToArrayAsync(queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize));
             return new PagedResultDto<TResult>
             {
                 Total = total,
@@ -225,7 +224,7 @@ namespace Dry.Application.EF.Services
         /// <param name="id"></param>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync(object id, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> EditAsync(object id, TEdit editDto)
         {
             var entity = await _repository.FindAsync(id);
             if (entity != null)
@@ -243,7 +242,7 @@ namespace Dry.Application.EF.Services
         /// <param name="ids"></param>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync(object[] ids, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> EditAsync(object[] ids, TEdit editDto)
         {
             var entity = await _repository.FindAsync(ids);
             if (entity != null)
@@ -307,7 +306,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IEFRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
     }
@@ -329,7 +328,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IEFRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
     }
@@ -349,7 +348,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IEFRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
     }

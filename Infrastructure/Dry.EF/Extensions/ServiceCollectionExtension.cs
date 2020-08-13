@@ -17,8 +17,7 @@ namespace Dry.EF.Extensions
         public static IServiceCollection AddEF(this IServiceCollection services)
         {
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-            services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
-            services.AddScoped(typeof(IEFRepository<>), typeof(EFRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             return services;
         }

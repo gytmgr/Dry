@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Dry.Application.EF.xml</DocumentationFile>
+    <DocumentationFile>Dry.Application.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Dry.EF\Dry.EF.csproj" />
+    <ProjectReference Include="..\..\Domain\Dry.Domain\Dry.Domain.csproj" />
     <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
   </ItemGroup>
 

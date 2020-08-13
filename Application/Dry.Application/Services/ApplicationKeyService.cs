@@ -2,12 +2,12 @@
 using Dry.Application.Contracts.Dtos;
 using Dry.Domain;
 using Dry.Domain.Entities;
-using Dry.EF.Repositories;
+using Dry.Domain.Repositories;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Dry.Application.EF.Services
+namespace Dry.Application.Services
 {
     /// <summary>
     /// 单一主键应用服务
@@ -31,7 +31,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationKeyService(IMapper mapper, IEFRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationKeyService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
 
@@ -84,7 +84,7 @@ namespace Dry.Application.EF.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationKeyService(IMapper mapper, IEFRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationKeyService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
     }
