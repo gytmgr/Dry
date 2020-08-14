@@ -25,7 +25,7 @@ namespace Dry.Core.Utilities
                     var name = string.IsNullOrEmpty(propertyName) ? property.Name : $"{propertyName}.{property.Name}";
                     var value = property.GetValue(obj, null);
 
-                    if (value.Equals(property.PropertyType.DefaultValue()))
+                    if (value == null || value.Equals(property.PropertyType.DefaultValue()))
                     {
                         continue;
                     }
