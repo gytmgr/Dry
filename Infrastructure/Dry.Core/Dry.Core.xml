@@ -106,6 +106,39 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="T:Dry.Core.Utilities.HashEncrypt">
+            <summary>
+            Hash加密
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.String,System.Text.Encoding)">
+            <summary>
+            字符加密
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="hash"></param>
+            <param name="data"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.Byte[])">
+            <summary>
+            字节加密
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="hash"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.IO.Stream)">
+            <summary>
+            流加密
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="hash"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.HttpRequester">
             <summary>
             http请求

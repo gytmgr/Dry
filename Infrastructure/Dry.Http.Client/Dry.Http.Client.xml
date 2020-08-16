@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Http.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Http.Client.ApiInfo">
+            <summary>
+            http接口信息
+            </summary>
+        </member>
+        <member name="P:Dry.Http.Client.ApiInfo.HttpMethod">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="P:Dry.Http.Client.ApiInfo.Url">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="M:Dry.Http.Client.ApiInfo.UrlFormat(System.Object[])">
+            <summary>
+            补充接口地址格式
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Http.Client.ApiInfo.RequestAsync``1(System.Object)">
+            <summary>
+            http异步请求
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
