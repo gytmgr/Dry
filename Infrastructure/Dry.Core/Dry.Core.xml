@@ -4,6 +4,55 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Model.CodeData`1">
+            <summary>
+            编码数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`1.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.KeyData`2">
+            <summary>
+            键数据
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.KeyData`2.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.KeyData`2.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.NameData`1">
+            <summary>
+            名称数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.NameData`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.NameData`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
         <member name="T:Dry.Core.Model.Result`1">
             <summary>
             通用返回结果

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Dry.Core\Dry.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Dry.Application.Contracts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
