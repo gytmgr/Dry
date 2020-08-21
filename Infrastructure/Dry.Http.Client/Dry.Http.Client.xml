@@ -4,33 +4,43 @@
         <name>Dry.Http.Client</name>
     </assembly>
     <members>
-        <member name="T:Dry.Http.Client.ApiInfo">
+        <member name="T:Dry.Http.Client.ApiClient`1">
             <summary>
-            http接口信息
+            api客户端
+            </summary>
+            <typeparam name="TClient"></typeparam>
+        </member>
+        <member name="P:Dry.Http.Client.ApiClient`1.Instance">
+            <summary>
+            实例化
             </summary>
         </member>
-        <member name="P:Dry.Http.Client.ApiInfo.HttpMethod">
-            <summary>
-            请求方法
-            </summary>
-        </member>
-        <member name="P:Dry.Http.Client.ApiInfo.Url">
+        <member name="P:Dry.Http.Client.ApiClient`1.ApiUrl">
             <summary>
             接口地址
             </summary>
         </member>
-        <member name="M:Dry.Http.Client.ApiInfo.UrlFormat(System.Object[])">
+        <member name="M:Dry.Http.Client.ApiClient`1.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object)">
             <summary>
-            补充接口地址格式
-            </summary>
-            <param name="args"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Http.Client.ApiInfo.RequestAsync``1(System.Object)">
-            <summary>
-            http异步请求
+            http请求
             </summary>
             <typeparam name="TData"></typeparam>
+            <param name="method"></param>
+            <param name="apiPath"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Http.Client.HttpRequesterExtension">
+            <summary>
+            http请求扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Http.Client.HttpRequesterExtension.GetResultAsync``1(Dry.Core.Utilities.HttpRequester,System.Object)">
+            <summary>
+            返回泛型结果
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="requester"></param>
             <param name="param"></param>
             <returns></returns>
         </member>

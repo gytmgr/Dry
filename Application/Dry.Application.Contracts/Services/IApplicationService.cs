@@ -17,12 +17,6 @@ namespace Dry.Application.Contracts.Services
         Task<int> CountAsync();
 
         /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <returns></returns>
-        Task<long> LongCountAsync();
-
-        /// <summary>
         /// 查询所有
         /// </summary>
         /// <returns></returns>

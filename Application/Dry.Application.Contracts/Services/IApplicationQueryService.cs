@@ -26,13 +26,6 @@ namespace Dry.Application.Contracts.Services
         Task<int> CountAsync([NotNull] TQuery query);
 
         /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        Task<long> LongCountAsync([NotNull] TQuery query);
-
-        /// <summary>
         /// 条件查询第一条
         /// </summary>
         /// <param name="query"></param>

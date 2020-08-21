@@ -4,21 +4,28 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Model.CodeData`2">
+            <summary>
+            编码数据
+            </summary>
+            <typeparam name="TCode"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`2.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`2.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
         <member name="T:Dry.Core.Model.CodeData`1">
             <summary>
             编码数据
             </summary>
             <typeparam name="TData"></typeparam>
-        </member>
-        <member name="P:Dry.Core.Model.CodeData`1.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:Dry.Core.Model.CodeData`1.Data">
-            <summary>
-            数据
-            </summary>
         </member>
         <member name="T:Dry.Core.Model.KeyData`2">
             <summary>
@@ -193,12 +200,12 @@
             http请求
             </summary>
         </member>
-        <member name="F:Dry.Core.Utilities.HttpRequester._method">
+        <member name="P:Dry.Core.Utilities.HttpRequester.Method">
             <summary>
             http方法
             </summary>
         </member>
-        <member name="F:Dry.Core.Utilities.HttpRequester._uriString">
+        <member name="P:Dry.Core.Utilities.HttpRequester.Url">
             <summary>
             请求地址
             </summary>
@@ -228,7 +235,7 @@
             构造体
             </summary>
             <param name="method"></param>
-            <param name="uriString"></param>
+            <param name="url"></param>
         </member>
         <member name="M:Dry.Core.Utilities.HttpRequester.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
             <summary>
@@ -240,13 +247,13 @@
             <param name="errors"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.HttpRequester.GetResult">
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetResultAsync">
             <summary>
             返回结果
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.HttpRequester.GetStringResult">
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetStringResultAsync">
             <summary>
             获取字符串结果
             </summary>

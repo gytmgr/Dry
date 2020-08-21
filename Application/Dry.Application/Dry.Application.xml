@@ -87,12 +87,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.LongCountAsync">
-            <summary>
-            数量查询
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Application.Services.ApplicationService`5.ArrayAsync">
             <summary>
             查询所有
@@ -114,13 +108,6 @@
             <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`5.CountAsync(`2)">
-            <summary>
-            数量查询
-            </summary>
-            <param name="query"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.LongCountAsync(`2)">
             <summary>
             数量查询
             </summary>

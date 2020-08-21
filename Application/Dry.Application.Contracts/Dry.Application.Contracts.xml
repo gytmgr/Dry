@@ -170,13 +170,6 @@
             <param name="query"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.LongCountAsync(`1)">
-            <summary>
-            数量查询
-            </summary>
-            <param name="query"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.FirstAsync(`1)">
             <summary>
             条件查询第一条
@@ -205,12 +198,6 @@
             <typeparam name="TResult"></typeparam>
         </member>
         <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.CountAsync">
-            <summary>
-            数量查询
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.LongCountAsync">
             <summary>
             数量查询
             </summary>

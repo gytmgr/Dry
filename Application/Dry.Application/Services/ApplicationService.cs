@@ -69,15 +69,6 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <returns></returns>
-        public virtual async Task<long> LongCountAsync()
-        {
-            return await _repository.LongCountAsync();
-        }
-
-        /// <summary>
         /// 查询所有
         /// </summary>
         /// <returns></returns>
@@ -132,21 +123,6 @@ namespace Dry.Application.Services
                 queryable = GetQueryable(queryable, query);
             }
             return await _repository.CountAsync(queryable);
-        }
-
-        /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<long> LongCountAsync(TQuery query)
-        {
-            var queryable = _repository.GetQueryable();
-            if (query != null)
-            {
-                queryable = GetQueryable(queryable, query);
-            }
-            return await _repository.LongCountAsync(queryable);
         }
 
         /// <summary>

@@ -19,12 +19,12 @@ namespace Dry.Core.Utilities
         /// <summary>
         /// http方法
         /// </summary>
-        private readonly HttpMethod _method;
+        public HttpMethod Method { get; set; }
 
         /// <summary>
         /// 请求地址
         /// </summary>
-        private readonly string _uriString;
+        public string Url { get; set; }
 
         /// <summary>
         /// http头
@@ -50,11 +50,11 @@ namespace Dry.Core.Utilities
         /// 构造体
         /// </summary>
         /// <param name="method"></param>
-        /// <param name="uriString"></param>
-        public HttpRequester(HttpMethod method, string uriString)
+        /// <param name="url"></param>
+        public HttpRequester(HttpMethod method, string url)
         {
-            _method = method;
-            _uriString = uriString;
+            Method = method;
+            Url = url;
         }
 
         /// <summary>
@@ -74,10 +74,10 @@ namespace Dry.Core.Utilities
         /// 返回结果
         /// </summary>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> GetResult()
+        public async Task<HttpResponseMessage> GetResultAsync()
         {
-            using var request = new HttpRequestMessage(_method, new Uri(_uriString));
-            if (_uriString.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            using var request = new HttpRequestMessage(Method, new Uri(Url));
+            if (Url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             }
@@ -110,9 +110,9 @@ namespace Dry.Core.Utilities
         /// 获取字符串结果
         /// </summary>
         /// <returns></returns>
-        public async Task<Result<HttpStatusCode, string>> GetStringResult()
+        public async Task<Result<HttpStatusCode, string>> GetStringResultAsync()
         {
-            using var httpResponseMessage = await GetResult();
+            using var httpResponseMessage = await GetResultAsync();
             var result = await httpResponseMessage.Content.ReadAsStringAsync();
             return Result<HttpStatusCode, string>.Create(httpResponseMessage.StatusCode, result);
         }
@@ -123,7 +123,7 @@ namespace Dry.Core.Utilities
         /// <returns></returns>
         public async Task<Result<HttpStatusCode, byte[]>> GetByteResult()
         {
-            using var httpResponseMessage = await GetResult();
+            using var httpResponseMessage = await GetResultAsync();
             var result = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             return Result<HttpStatusCode, byte[]>.Create(httpResponseMessage.StatusCode, result);
         }
@@ -134,7 +134,7 @@ namespace Dry.Core.Utilities
         /// <returns></returns>
         public async Task<Result<HttpStatusCode, Stream>> GetStreamResult()
         {
-            using var httpResponseMessage = await GetResult();
+            using var httpResponseMessage = await GetResultAsync();
             var result = await httpResponseMessage.Content.ReadAsStreamAsync();
             return Result<HttpStatusCode, Stream>.Create(httpResponseMessage.StatusCode, result);
         }
