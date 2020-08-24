@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Dry.Http.Client\Dry.Http.Client.csproj" />
+    <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

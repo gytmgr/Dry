@@ -4,23 +4,17 @@
         <name>Dry.Http.Client</name>
     </assembly>
     <members>
-        <member name="T:Dry.Http.Client.ApiClient`1">
+        <member name="T:Dry.Http.Client.ApiClient">
             <summary>
             api客户端
             </summary>
-            <typeparam name="TClient"></typeparam>
         </member>
-        <member name="P:Dry.Http.Client.ApiClient`1.Instance">
-            <summary>
-            实例化
-            </summary>
-        </member>
-        <member name="P:Dry.Http.Client.ApiClient`1.ApiUrl">
+        <member name="P:Dry.Http.Client.ApiClient.ApiUrl">
             <summary>
             接口地址
             </summary>
         </member>
-        <member name="M:Dry.Http.Client.ApiClient`1.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object)">
+        <member name="M:Dry.Http.Client.ApiClient.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object)">
             <summary>
             http请求
             </summary>

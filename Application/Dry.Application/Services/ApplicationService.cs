@@ -15,16 +15,10 @@ namespace Dry.Application.Services
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
-    /// <typeparam name="TEdit"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TQuery, TCreate, TEdit> :
-        IApplicationService<TResult, TQuery, TCreate, TEdit>
+    public abstract class ApplicationService<TEntity, TResult> :
+        IApplicationService<TResult>
         where TEntity : IAggregateRoot, IBoundedContext
         where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
-        where TEdit : IEditDto
     {
         /// <summary>
         /// 对象映射
@@ -36,7 +30,6 @@ namespace Dry.Application.Services
         /// </summary>
         protected readonly IRepository<TEntity> _repository;
 
-
         /// <summary>
         /// 构造体
         /// </summary>
@@ -46,17 +39,6 @@ namespace Dry.Application.Services
         {
             _mapper = mapper;
             _repository = repository;
-        }
-
-        /// <summary>
-        /// 根据查询对象获取linq表达式
-        /// </summary>
-        /// <param name="queryable"></param>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        protected virtual IQueryable<TEntity> GetQueryable([NotNull] IQueryable<TEntity> queryable, TQuery query)
-        {
-            return queryable;
         }
 
         /// <summary>
@@ -81,105 +63,41 @@ namespace Dry.Application.Services
         /// <summary>
         /// 分页条件查询
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync(PagedQueryDto query)
+        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto queryDto)
         {
             var queryable = _repository.GetQueryable();
             var total = await _repository.CountAsync(queryable);
-            var entities = await _repository.ToArrayAsync(queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize));
+            var entities = await _repository.ToArrayAsync(queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
             return new PagedResultDto<TResult>
             {
                 Total = total,
                 Items = _mapper.Map<TResult[]>(entities)
             };
         }
+    }
 
+    /// <summary>
+    /// 新增应用服务接口
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
+    /// <typeparam name="TCreate"></typeparam>
+    public abstract class ApplicationService<TEntity, TResult, TCreate> :
+        ApplicationService<TEntity, TResult>,
+        IApplicationService<TResult, TCreate>
+        where TEntity : IAggregateRoot, IBoundedContext
+        where TResult : IResultDto
+        where TCreate : ICreateDto
+    {
         /// <summary>
-        /// 是否存在
+        /// 构造体
         /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<bool> AnyAsync(TQuery query)
+        /// <param name="repository"></param>
+        /// <param name="mapper"></param>
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
-            var queryable = _repository.GetQueryable();
-            if (query != null)
-            {
-                queryable = GetQueryable(queryable, query);
-            }
-            return await _repository.AnyAsync(queryable);
-        }
-
-        /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<int> CountAsync(TQuery query)
-        {
-            var queryable = _repository.GetQueryable();
-            if (query != null)
-            {
-                queryable = GetQueryable(queryable, query);
-            }
-            return await _repository.CountAsync(queryable);
-        }
-
-        /// <summary>
-        /// 条件查询第一条
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> FirstAsync(TQuery query)
-        {
-            var queryable = _repository.GetQueryable();
-            if (query != null)
-            {
-                queryable = GetQueryable(queryable, query);
-            }
-            var entity = await _repository.FirstAsync(queryable);
-            if (entity != null)
-            {
-                return _mapper.Map<TResult>(entity);
-            }
-            return default;
-        }
-
-        /// <summary>
-        /// 条件查询
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult[]> ArrayAsync(TQuery query)
-        {
-            var queryable = _repository.GetQueryable();
-            if (query != null)
-            {
-                queryable = GetQueryable(queryable, query);
-            }
-            var entities = await _repository.ToArrayAsync(queryable);
-            return _mapper.Map<TResult[]>(entities);
-        }
-
-        /// <summary>
-        /// 分页条件查询
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync(PagedQueryDto<TQuery> query)
-        {
-            var queryable = _repository.GetQueryable();
-            if (query.Param != null)
-            {
-                queryable = GetQueryable(queryable, query.Param);
-            }
-            var total = await _repository.CountAsync(queryable);
-            var entities = await _repository.ToArrayAsync(queryable.Skip((query.PageIndex - 1) * query.PageSize).Take(query.PageSize));
-            return new PagedResultDto<TResult>
-            {
-                Total = total,
-                Items = _mapper.Map<TResult[]>(entities)
-            };
         }
 
         /// <summary>
@@ -187,47 +105,46 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> CreateAsync(TCreate createDto)
+        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
             await _repository.AddAsync(entity, true);
             return _mapper.Map<TResult>(entity);
         }
+    }
 
+    /// <summary>
+    /// 增删应用服务接口
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
+    /// <typeparam name="TCreate"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    public abstract class ApplicationService<TEntity, TResult, TCreate, TKey> :
+        ApplicationService<TEntity, TResult, TCreate>,
+        IApplicationService<TResult, TCreate, TKey>
+        where TEntity : IAggregateRoot<TKey>, IBoundedContext
+        where TResult : IResultDto
+        where TCreate : ICreateDto
+    {
         /// <summary>
-        /// 编辑
+        /// 构造体
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="editDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> EditAsync(object id, TEdit editDto)
+        /// <param name="repository"></param>
+        /// <param name="mapper"></param>
+        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
-            var entity = await _repository.FindAsync(id);
-            if (entity != null)
-            {
-                _mapper.Map(editDto, entity);
-                await _repository.UpdateAsync(entity, true);
-                return _mapper.Map<TResult>(entity);
-            }
-            return default;
         }
 
         /// <summary>
-        /// 编辑
+        /// 主键查询
         /// </summary>
-        /// <param name="ids"></param>
-        /// <param name="editDto"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync(object[] ids, TEdit editDto)
+        public virtual async Task<TResult> FindAsync([NotNull] TKey id)
         {
-            var entity = await _repository.FindAsync(ids);
-            if (entity != null)
-            {
-                _mapper.Map(editDto, entity);
-                await _repository.UpdateAsync(entity, true);
-                return _mapper.Map<TResult>(entity);
-            }
-            return default;
+            var entity = await _repository.FindAsync(id);
+            return _mapper.Map<TResult>(entity);
         }
 
         /// <summary>
@@ -235,25 +152,9 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync(object id)
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
-            if (entity != null)
-            {
-                await _repository.RemoveAsync(entity, true);
-                return _mapper.Map<TResult>(entity);
-            }
-            return default;
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync(object[] ids)
-        {
-            var entity = await _repository.FindAsync(ids);
             if (entity != null)
             {
                 await _repository.RemoveAsync(entity, true);
@@ -264,15 +165,17 @@ namespace Dry.Application.Services
     }
 
     /// <summary>
-    /// 应用服务
+    /// 增删改应用服务接口
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TCreate, TEdit> :
-        ApplicationService<TEntity, TResult, IQueryDto, TCreate, TEdit>
-        where TEntity : IAggregateRoot, IBoundedContext
+    /// <typeparam name="TKey"></typeparam>
+    public abstract class ApplicationService<TEntity, TResult, TCreate, TEdit, TKey> :
+        ApplicationService<TEntity, TResult, TCreate, TKey>,
+        IApplicationService<TResult, TCreate, TEdit, TKey>
+        where TEntity : IAggregateRoot<TKey>, IBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
         where TEdit : IEditDto
@@ -285,47 +188,23 @@ namespace Dry.Application.Services
         public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
         {
         }
-    }
 
-    /// <summary>
-    /// 应用服务
-    /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TQuery"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TQuery> :
-        ApplicationService<TEntity, TResult, TQuery, ICreateDto, IEditDto>
-        where TEntity : IAggregateRoot, IBoundedContext
-        where TResult : IResultDto
-        where TQuery : IQueryDto
-    {
         /// <summary>
-        /// 构造体
+        /// 编辑
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
+        /// <param name="id"></param>
+        /// <param name="editDto"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
         {
-        }
-    }
-
-    /// <summary>
-    /// 应用服务
-    /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult> :
-        ApplicationService<TEntity, TResult, IQueryDto>
-        where TEntity : IAggregateRoot, IBoundedContext
-        where TResult : IResultDto
-    {
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
+            var entity = await _repository.FindAsync(id);
+            if (entity != null)
+            {
+                _mapper.Map(editDto, entity);
+                await _repository.UpdateAsync(entity, true);
+                return _mapper.Map<TResult>(entity);
+            }
+            return default;
         }
     }
 }

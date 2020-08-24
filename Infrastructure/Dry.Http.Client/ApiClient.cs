@@ -7,14 +7,8 @@ namespace Dry.Http.Client
     /// <summary>
     /// api客户端
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class ApiClient<T> where T : new()
+    public abstract class ApiClient
     {
-        /// <summary>
-        /// 实例化
-        /// </summary>
-        public static T Instance { get { return new T(); } }
-
         /// <summary>
         /// 接口地址
         /// </summary>
