@@ -4,6 +4,29 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Model.BizException">
+            <summary>
+            业务异常类
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.BizException.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.Core.Model.BizException.#ctor(System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
         <member name="T:Dry.Core.Model.CodeData`2">
             <summary>
             编码数据
@@ -26,6 +49,36 @@
             编码数据
             </summary>
             <typeparam name="TData"></typeparam>
+        </member>
+        <member name="T:Dry.Core.Model.ITree`1">
+            <summary>
+            值类型id的树状接口
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.ITree`1.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.ITree`1.ParentId">
+            <summary>
+            上级id
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IStringTree">
+            <summary>
+            string类型id的树状接口
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IStringTree.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IStringTree.ParentId">
+            <summary>
+            上级id
+            </summary>
         </member>
         <member name="T:Dry.Core.Model.KeyData`2">
             <summary>
@@ -485,6 +538,50 @@
             </summary>
             <typeparam name="TStruct"></typeparam>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.TreeHelper">
+            <summary>
+            树状结构帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.TreeHelper.BuildTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建树结构
+            </summary>
+            <typeparam name="TSource">源类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="idField">id字段的名称</param>
+            <param name="parentField">父id字段的名称</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.TreeHelper.BuildTree``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建值类型主键的树结构
+            </summary>
+            <typeparam name="TSource">ITree接口实现类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <typeparam name="TType">TSource的id类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.TreeHelper.BuildStringTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建string类型主键的树结构
+            </summary>
+            <typeparam name="TSource">IStringTree接口实现类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.TypeExtension">

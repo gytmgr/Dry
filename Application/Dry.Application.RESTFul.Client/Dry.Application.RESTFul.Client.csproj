@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Dry.Application.RESTFul.Client.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

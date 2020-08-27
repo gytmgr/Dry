@@ -31,9 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Mvc", "Infrastructure\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Swagger", "Infrastructure\Dry.Swagger\Dry.Swagger.csproj", "{2514BC7F-C3E3-4290-8156-08E2371EF942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dry.Application.RESTFul.Api", "Application\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj", "{5F908261-D2CA-4B8E-A167-4C98BDAF81AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Application.RESTFul.Api", "Application\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj", "{5F908261-D2CA-4B8E-A167-4C98BDAF81AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dry.Application.RESTFul.Client", "Application\Dry.Application.RESTFul.Client\Dry.Application.RESTFul.Client.csproj", "{C4340EC1-4928-4686-A6AB-127CF37E982D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Application.RESTFul.Client", "Application\Dry.Application.RESTFul.Client\Dry.Application.RESTFul.Client.csproj", "{C4340EC1-4928-4686-A6AB-127CF37E982D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dry.Application.Mvc", "Application\Dry.Application.Mvc\Dry.Application.Mvc.csproj", "{00060A2B-4335-4F06-9D04-5B76E6BC8025}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,10 @@ Global
 		{C4340EC1-4928-4686-A6AB-127CF37E982D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4340EC1-4928-4686-A6AB-127CF37E982D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4340EC1-4928-4686-A6AB-127CF37E982D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00060A2B-4335-4F06-9D04-5B76E6BC8025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00060A2B-4335-4F06-9D04-5B76E6BC8025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00060A2B-4335-4F06-9D04-5B76E6BC8025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00060A2B-4335-4F06-9D04-5B76E6BC8025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

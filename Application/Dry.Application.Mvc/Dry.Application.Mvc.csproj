@@ -5,19 +5,16 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Dry.Grpc.Client.xml</DocumentationFile>
+    <DocumentationFile>Dry.Application.Mvc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client" Version="2.30.0" />
-    <PackageReference Include="protobuf-net.Grpc" Version="1.0.123" />
+    <ProjectReference Include="..\..\Infrastructure\Dry.Mvc\Dry.Mvc.csproj" />
+    <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Dry.Grpc.Client.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Dry.GrpcClient.xml">
+    <None Update="Dry.Application.Mvc.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

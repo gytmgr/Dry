@@ -15,7 +15,7 @@ namespace Dry.EF.Repositories
     /// ef仓储
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot, IBoundedContext
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, IBoundedContext
     {
         /// <summary>
         /// 服务提供者

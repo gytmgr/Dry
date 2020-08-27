@@ -22,7 +22,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`1.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`1.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
             <summary>
             分页条件查询
             </summary>
@@ -117,7 +117,7 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`2.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`1})">
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`1})">
             <summary>
             分页条件查询
             </summary>

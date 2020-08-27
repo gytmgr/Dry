@@ -9,8 +9,7 @@ namespace Dry.Application.Contracts.Services
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery> :
-        IApplicationService<TResult>
+    public interface IApplicationQueryService<TResult, TQuery>
         where TResult : IResultDto
         where TQuery : IQueryDto
     {
@@ -19,35 +18,35 @@ namespace Dry.Application.Contracts.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<bool> AnyAsync([NotNull] TQuery queryDto);
+        Task<bool> AnyAsync(TQuery queryDto = default);
 
         /// <summary>
         /// 数量查询
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<int> CountAsync([NotNull] TQuery queryDto);
+        Task<int> CountAsync(TQuery queryDto = default);
 
         /// <summary>
         /// 条件查询第一条
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<TResult> FirstAsync([NotNull] TQuery queryDto);
+        Task<TResult> FirstAsync(TQuery queryDto = default);
 
         /// <summary>
         /// 条件查询
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<TResult[]> ArrayAsync([NotNull] TQuery queryDto);
+        Task<TResult[]> ArrayAsync(TQuery queryDto = default);
 
         /// <summary>
         /// 分页条件查询
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto);
+        Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto);
     }
 
     /// <summary>
@@ -56,9 +55,7 @@ namespace Dry.Application.Contracts.Services
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate> :
-        IApplicationQueryService<TResult, TQuery>,
-        IApplicationService<TResult, TCreate>
+    public interface IApplicationQueryService<TResult, TQuery, TCreate> : IApplicationQueryService<TResult, TQuery>, IApplicationCreateService<TResult, TCreate>
         where TResult : IResultDto
         where TQuery : IQueryDto
         where TCreate : ICreateDto
@@ -71,9 +68,7 @@ namespace Dry.Application.Contracts.Services
     /// <typeparam name="TQuery"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate, TKey> :
-        IApplicationQueryService<TResult, TQuery, TCreate>,
-        IApplicationService<TResult, TCreate, TKey>
+    public interface IApplicationQueryService<TResult, TQuery, TCreate, TKey> : IApplicationQueryService<TResult, TQuery, TCreate>, IApplicationDeleteService<TResult, TKey>
         where TResult : IResultDto
         where TQuery : IQueryDto
         where TCreate : ICreateDto
@@ -87,9 +82,7 @@ namespace Dry.Application.Contracts.Services
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> :
-        IApplicationQueryService<TResult, TQuery, TCreate, TKey>,
-        IApplicationService<TResult, TCreate, TEdit, TKey>
+    public interface IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> : IApplicationQueryService<TResult, TQuery, TCreate, TKey>, IApplicationEditService<TResult, TEdit, TKey>
         where TResult : IResultDto
         where TQuery : IQueryDto
         where TCreate : ICreateDto

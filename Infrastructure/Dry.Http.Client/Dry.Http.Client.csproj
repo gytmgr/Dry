@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Dry.Http.Client.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

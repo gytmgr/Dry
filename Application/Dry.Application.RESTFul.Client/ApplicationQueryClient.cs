@@ -1,5 +1,6 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
+using Dry.Http.Client;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Dry.Application.RESTFul.Client
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
     public abstract class ApplicationQueryClient<TResult, TQuery> :
-        ApplicationClient<TResult>,
+        ApiClient,
         IApplicationQueryService<TResult, TQuery>
         where TResult : IResultDto
         where TQuery : IQueryDto
@@ -22,7 +23,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<bool> AnyAsync([NotNull] TQuery queryDto)
+        public virtual async Task<bool> AnyAsync(TQuery queryDto)
         {
             return await RequestAsync<bool>(HttpMethod.Get, "/Any", queryDto);
         }
@@ -32,7 +33,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<int> CountAsync([NotNull] TQuery queryDto)
+        public virtual async Task<int> CountAsync(TQuery queryDto)
         {
             return await RequestAsync<int>(HttpMethod.Get, "/Count", queryDto);
         }
@@ -42,7 +43,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<TResult> FirstAsync([NotNull] TQuery queryDto)
+        public virtual async Task<TResult> FirstAsync(TQuery queryDto)
         {
             return await RequestAsync<TResult>(HttpMethod.Get, "/First", queryDto);
         }
@@ -52,7 +53,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<TResult[]> ArrayAsync([NotNull] TQuery queryDto)
+        public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
         {
             return await RequestAsync<TResult[]>(HttpMethod.Get, null, queryDto);
         }
@@ -62,7 +63,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
+        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
         {
             return await RequestAsync<PagedResultDto<TResult>>(HttpMethod.Get, "/Paged", queryDto);
         }
@@ -86,7 +87,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        public async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             return await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
         }
@@ -111,7 +112,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TResult> FindAsync([NotNull] TKey id)
+        public virtual async Task<TResult> FindAsync([NotNull] TKey id)
         {
             return await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
         }
@@ -121,7 +122,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TResult> DeleteAsync([NotNull] TKey id)
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             return await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
         }
@@ -149,7 +150,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="id"></param>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        public async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
         {
             return await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto);
         }

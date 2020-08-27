@@ -18,19 +18,30 @@ namespace Dry.Application.Services
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
     public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
-        ApplicationService<TEntity, TResult>,
         IApplicationQueryService<TResult, TQuery>
         where TEntity : IAggregateRoot, IBoundedContext
         where TResult : IResultDto
         where TQuery : IQueryDto
     {
         /// <summary>
+        /// 对象映射
+        /// </summary>
+        protected readonly IMapper _mapper;
+
+        /// <summary>
+        /// 仓储
+        /// </summary>
+        protected readonly IRepository<TEntity> _repository;
+
+        /// <summary>
         /// 构造体
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
-        public ApplicationQueryService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
+        public ApplicationQueryService(IMapper mapper, IRepository<TEntity> repository)
         {
+            _mapper = mapper;
+            _repository = repository;
         }
 
         /// <summary>
@@ -46,13 +57,10 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<bool> AnyAsync([NotNull] TQuery queryDto)
+        public virtual async Task<bool> AnyAsync(TQuery queryDto)
         {
             var queryable = _repository.GetQueryable();
-            if (queryDto != null)
-            {
-                queryable = GetQueryable(queryable, queryDto);
-            }
+            queryable = GetQueryable(queryable, queryDto);
             return await _repository.AnyAsync(queryable);
         }
 
@@ -61,13 +69,10 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<int> CountAsync([NotNull] TQuery queryDto)
+        public virtual async Task<int> CountAsync(TQuery queryDto)
         {
             var queryable = _repository.GetQueryable();
-            if (queryDto != null)
-            {
-                queryable = GetQueryable(queryable, queryDto);
-            }
+            queryable = GetQueryable(queryable, queryDto);
             return await _repository.CountAsync(queryable);
         }
 
@@ -76,13 +81,10 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> FirstAsync([NotNull] TQuery queryDto)
+        public virtual async Task<TResult> FirstAsync(TQuery queryDto)
         {
             var queryable = _repository.GetQueryable();
-            if (queryDto != null)
-            {
-                queryable = GetQueryable(queryable, queryDto);
-            }
+            queryable = GetQueryable(queryable, queryDto);
             var entity = await _repository.FirstAsync(queryable);
             if (entity != null)
             {
@@ -96,13 +98,10 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult[]> ArrayAsync([NotNull] TQuery queryDto)
+        public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
         {
             var queryable = _repository.GetQueryable();
-            if (queryDto != null)
-            {
-                queryable = GetQueryable(queryable, queryDto);
-            }
+            queryable = GetQueryable(queryable, queryDto);
             var entities = await _repository.ToArrayAsync(queryable);
             return _mapper.Map<TResult[]>(entities);
         }
@@ -112,13 +111,10 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
+        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
         {
             var queryable = _repository.GetQueryable();
-            if (queryDto.Param != null)
-            {
-                queryable = GetQueryable(queryable, queryDto.Param);
-            }
+            queryable = GetQueryable(queryable, queryDto.Param);
             var total = await _repository.CountAsync(queryable);
             var entities = await _repository.ToArrayAsync(queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
             return new PagedResultDto<TResult>
@@ -150,8 +146,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationQueryService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 新建
@@ -188,8 +183,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationQueryService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 根据查询对象获取linq表达式
@@ -273,8 +267,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationQueryService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 编辑
@@ -282,7 +275,7 @@ namespace Dry.Application.Services
         /// <param name="id"></param>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull]  TEdit editDto)
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
         {
             var entity = await _repository.FindAsync(id);
             if (entity != null)

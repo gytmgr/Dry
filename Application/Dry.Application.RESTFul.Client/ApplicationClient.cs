@@ -20,18 +20,18 @@ namespace Dry.Application.RESTFul.Client
         /// 数量查询
         /// </summary>
         /// <returns></returns>
-        public async Task<int> CountAsync()
+        public virtual async Task<int> CountAsync()
         {
-            return await RequestAsync<int>(HttpMethod.Get, "/AllCount");
+            return await RequestAsync<int>(HttpMethod.Get, "/Count");
         }
 
         /// <summary>
         /// 查询所有
         /// </summary>
         /// <returns></returns>
-        public async Task<TResult[]> ArrayAsync()
+        public virtual async Task<TResult[]> ArrayAsync()
         {
-            return await RequestAsync<TResult[]>(HttpMethod.Get, "/All");
+            return await RequestAsync<TResult[]>(HttpMethod.Get);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto queryDto)
+        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto queryDto)
         {
-            return await RequestAsync<PagedResultDto<TResult>>(HttpMethod.Get, "/AllPaged", queryDto);
+            return await RequestAsync<PagedResultDto<TResult>>(HttpMethod.Get, "/Paged", queryDto);
         }
     }
 
@@ -61,7 +61,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        public async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             return await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
         }
@@ -84,7 +84,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TResult> FindAsync([NotNull] TKey id)
+        public virtual async Task<TResult> FindAsync([NotNull] TKey id)
         {
             return await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
         }
@@ -94,7 +94,7 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TResult> DeleteAsync([NotNull] TKey id)
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             return await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
         }
@@ -120,7 +120,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="id"></param>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        public async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
         {
             return await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto);
         }

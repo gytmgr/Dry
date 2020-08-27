@@ -12,6 +12,16 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
         </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryService`3._mapper">
+            <summary>
+            对象映射
+            </summary>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryService`3._repository">
+            <summary>
+            仓储
+            </summary>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`3.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
             <summary>
             构造体
@@ -55,7 +65,7 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`3.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
             <summary>
             分页条件查询
             </summary>
@@ -186,7 +196,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.PagedArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.Services.ApplicationService`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
             <summary>
             分页条件查询
             </summary>

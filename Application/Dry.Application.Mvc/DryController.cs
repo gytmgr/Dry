@@ -1,21 +1,19 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
+using Dry.Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Dry.Application.RESTFul.Api
+namespace Dry.Application.Mvc
 {
     /// <summary>
-    /// 应用控制器
+    /// 控制器基类
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
-    public abstract class ApplicationController<TResult> :
-        ControllerBase,
-        IApplicationService<TResult>
-        where TResult : IResultDto
+    public abstract class DryController<TResult> : ControllerBase where TResult : IResultDto
     {
         /// <summary>
-        /// 应用服务
+        /// 应用服务接口
         /// </summary>
         protected readonly IApplicationService<TResult> _applicationService;
 
@@ -23,7 +21,7 @@ namespace Dry.Application.RESTFul.Api
         /// 构造体
         /// </summary>
         /// <param name="applicationService"></param>
-        public ApplicationController(IApplicationService<TResult> applicationService)
+        public DryController(IApplicationService<TResult> applicationService)
         {
             _applicationService = applicationService;
         }
@@ -33,9 +31,10 @@ namespace Dry.Application.RESTFul.Api
         /// </summary>
         /// <returns></returns>
         [HttpGet("Count")]
-        public virtual async Task<int> CountAsync()
+        public virtual async Task<Result<int, int>> CountGetAsync()
         {
-            return await _applicationService.CountAsync();
+            var data = await _applicationService.CountAsync();
+            return Result<int, int>.Create(1, data);
         }
 
         /// <summary>
@@ -43,9 +42,10 @@ namespace Dry.Application.RESTFul.Api
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public virtual async Task<TResult[]> ArrayAsync()
+        public virtual async Task<Result<int, TResult[]>> GetAsync()
         {
-            return await _applicationService.ArrayAsync();
+            var data = await _applicationService.ArrayAsync();
+            return Result<int, TResult[]>.Create(1, data);
         }
 
         /// <summary>
@@ -54,25 +54,24 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="queryDto"></param>
         /// <returns></returns>
         [HttpGet("Paged")]
-        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([FromQuery] PagedQueryDto queryDto)
+        public virtual async Task<Result<int, PagedResultDto<TResult>>> PagedGetAsync([FromQuery] PagedQueryDto queryDto)
         {
-            return await _applicationService.ArrayAsync(queryDto);
+            var data = await _applicationService.ArrayAsync(queryDto);
+            return Result<int, PagedResultDto<TResult>>.Create(1, data);
         }
     }
 
     /// <summary>
-    /// 新增应用控制器
+    /// 新增控制器基类
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate> :
-        ApplicationController<TResult>,
-        IApplicationService<TResult, TCreate>
+    public abstract class DryController<TResult, TCreate> : DryController<TResult>
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
         /// <summary>
-        /// 应用服务
+        /// 应用服务接口
         /// </summary>
         protected readonly IApplicationService<TResult, TCreate> _applicationCreateService;
 
@@ -80,7 +79,7 @@ namespace Dry.Application.RESTFul.Api
         /// 构造体
         /// </summary>
         /// <param name="applicationCreateService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate> applicationCreateService) : base(applicationCreateService)
+        public DryController(IApplicationService<TResult, TCreate> applicationCreateService) : base(applicationCreateService)
         {
             _applicationCreateService = applicationCreateService;
         }
@@ -91,26 +90,25 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="createDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual async Task<TResult> CreateAsync([FromBody] TCreate createDto)
+        public virtual async Task<Result<int, TResult>> PostAsync([FromBody] TCreate createDto)
         {
-            return await _applicationCreateService.CreateAsync(createDto);
+            var data = await _applicationCreateService.CreateAsync(createDto);
+            return Result<int, TResult>.Create(1, data);
         }
     }
 
     /// <summary>
-    /// 增删应用控制器
+    /// 增删控制器基类
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate, TKey> :
-        ApplicationController<TResult, TCreate>,
-        IApplicationService<TResult, TCreate, TKey>
+    public abstract class DryController<TResult, TCreate, TKey> : DryController<TResult, TCreate>
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
         /// <summary>
-        /// 应用服务
+        /// 应用服务接口
         /// </summary>
         protected readonly IApplicationService<TResult, TCreate, TKey> _applicationDeleteService;
 
@@ -118,7 +116,7 @@ namespace Dry.Application.RESTFul.Api
         /// 构造体
         /// </summary>
         /// <param name="applicationDeleteService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate, TKey> applicationDeleteService) : base(applicationDeleteService)
+        public DryController(IApplicationService<TResult, TCreate, TKey> applicationDeleteService) : base(applicationDeleteService)
         {
             _applicationDeleteService = applicationDeleteService;
         }
@@ -129,9 +127,10 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public virtual async Task<TResult> FindAsync(TKey id)
+        public virtual async Task<Result<int, TResult>> GetAsync(TKey id)
         {
-            return await _applicationDeleteService.FindAsync(id);
+            var data = await _applicationDeleteService.FindAsync(id);
+            return Result<int, TResult>.Create(1, data);
         }
 
         /// <summary>
@@ -140,28 +139,27 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public virtual async Task<TResult> DeleteAsync(TKey id)
+        public virtual async Task<Result<int, TResult>> DeleteAsync(TKey id)
         {
-            return await _applicationDeleteService.DeleteAsync(id);
+            var data = await _applicationDeleteService.DeleteAsync(id);
+            return Result<int, TResult>.Create(1, data);
         }
     }
 
     /// <summary>
-    /// 增删改应用控制器
+    /// 增删改控制器基类
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate, TEdit, TKey> :
-        ApplicationController<TResult, TCreate, TKey>,
-        IApplicationService<TResult, TCreate, TEdit, TKey>
+    public abstract class DryController<TResult, TCreate, TEdit, TKey> : DryController<TResult, TCreate, TKey>
         where TResult : IResultDto
         where TCreate : ICreateDto
         where TEdit : IEditDto
     {
         /// <summary>
-        /// 应用服务
+        /// 应用服务接口
         /// </summary>
         protected readonly IApplicationService<TResult, TCreate, TEdit, TKey> _applicationEditService;
 
@@ -169,7 +167,7 @@ namespace Dry.Application.RESTFul.Api
         /// 构造体
         /// </summary>
         /// <param name="applicationEditService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate, TEdit, TKey> applicationEditService) : base(applicationEditService)
+        public DryController(IApplicationService<TResult, TCreate, TEdit, TKey> applicationEditService) : base(applicationEditService)
         {
             _applicationEditService = applicationEditService;
         }
@@ -181,9 +179,10 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="editDto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public virtual async Task<TResult> EditAsync(TKey id, [FromBody] TEdit editDto)
+        public virtual async Task<Result<int, TResult>> PutAsync(TKey id, [FromBody] TEdit editDto)
         {
-            return await _applicationEditService.EditAsync(id, editDto);
+            var data = await _applicationEditService.EditAsync(id, editDto);
+            return Result<int, TResult>.Create(1, data);
         }
     }
 }

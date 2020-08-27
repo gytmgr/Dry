@@ -65,7 +65,7 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> PagedArrayAsync([NotNull] PagedQueryDto queryDto)
+        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto queryDto)
         {
             var queryable = _repository.GetQueryable();
             var total = await _repository.CountAsync(queryable);
@@ -97,8 +97,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 新建
@@ -133,8 +132,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 主键查询
@@ -186,8 +184,7 @@ namespace Dry.Application.Services
         /// <param name="repository"></param>
         /// <param name="mapper"></param>
         public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        {
-        }
+        { }
 
         /// <summary>
         /// 编辑

@@ -12,7 +12,7 @@ namespace Dry.Domain.Repositories
     /// 仓储接口
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IRepository<TEntity> where TEntity : IAggregateRoot, IBoundedContext
+    public interface IRepository<TEntity> where TEntity : IEntity, IBoundedContext
     {
         /// <summary>
         /// 获取linq查询表达式
