@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 
 namespace Dry.Swagger
 {
@@ -18,33 +18,24 @@ namespace Dry.Swagger
         /// <param name="services"></param>
         /// <param name="assembly"></param>
         /// <returns></returns>
-        public static IServiceCollection AddCustomSwagger(this IServiceCollection services, Assembly assembly = null)
+        public static IServiceCollection AddCustomSwagger(this IServiceCollection services, string title = null)
         {
-            if (assembly == null)
+            if (title == null)
             {
-                assembly = Assembly.GetCallingAssembly();
+                title = "Blue API";
             }
             services.AddSwaggerGen(cfg =>
             {
                 cfg.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Supermarket API",
-                    Version = "v3",
-                    Description = "Simple RESTful API built with ASP.NET Core 3.1 to show how to create RESTful services using a decoupled, maintainable architecture.",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Evandro Gayer Gomes",
-                        Url = new Uri("https://evandroggomes.com.br/")
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "MIT",
-                    },
+                    Title = title,
+                    Version = "v1",
                 });
 
-                var xmlFile = $"{assembly.GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                cfg.IncludeXmlComments(xmlPath);
+                Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
+                {
+                    cfg.IncludeXmlComments(file, true);
+                });
             });
             return services;
         }
@@ -57,7 +48,7 @@ namespace Dry.Swagger
         {
             app.UseSwagger().UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Supermarket API");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blue API");
                 options.DocumentTitle = "Supermarket API";
             });
             return app;
