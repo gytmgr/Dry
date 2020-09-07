@@ -41,17 +41,15 @@ namespace Dry.Domain.Repositories
         /// 新增
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task AddAsync([NotNull] TEntity entitiy, bool autoSave = false);
+        Task AddAsync([NotNull] TEntity entitiy);
 
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task AddAsync([NotNull] TEntity[] entities, bool autoSave = false);
+        Task AddAsync([NotNull] TEntity[] entities);
 
         #endregion
 
@@ -61,26 +59,23 @@ namespace Dry.Domain.Repositories
         /// 更新
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task UpdateAsync([NotNull] TEntity entitiy, bool autoSave = false);
+        Task UpdateAsync([NotNull] TEntity entitiy);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task UpdateAsync([NotNull] TEntity[] entities, bool autoSave = false);
+        Task UpdateAsync([NotNull] TEntity[] entities);
 
         /// <summary>
         /// 条件更新
         /// </summary>
         /// <param name="set"></param>
         /// <param name="predicate"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task UpdateAsync([NotNull] Action<TEntity> set, Expression<Func<TEntity, bool>> predicate = null, bool autoSave = false);
+        Task UpdateAsync([NotNull] Action<TEntity> set, Expression<Func<TEntity, bool>> predicate = null);
 
         #endregion
 
@@ -90,41 +85,36 @@ namespace Dry.Domain.Repositories
         /// 主键删除
         /// </summary>
         /// <param name="keyValue"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task RemoveAsync([NotNull] object keyValue, bool autoSave = false);
+        Task RemoveAsync([NotNull] object keyValue);
 
         /// <summary>
         /// 主键删除
         /// </summary>
         /// <param name="keyValues"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task RemoveAsync([NotNull] object[] keyValues, bool autoSave = false);
+        Task RemoveAsync([NotNull] object[] keyValues);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task RemoveAsync([NotNull] TEntity entitiy, bool autoSave = false);
+        Task RemoveAsync([NotNull] TEntity entitiy);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task RemoveAsync([NotNull] TEntity[] entities, bool autoSave = false);
+        Task RemoveAsync([NotNull] TEntity[] entities);
 
         /// <summary>
         /// 条件删除
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        Task RemoveAsync([NotNull] Expression<Func<TEntity, bool>> predicate, bool autoSave = false);
+        Task RemoveAsync([NotNull] Expression<Func<TEntity, bool>> predicate);
 
         #endregion
 

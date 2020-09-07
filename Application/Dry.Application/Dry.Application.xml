@@ -12,6 +12,11 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
         </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryService`3._serviceProvider">
+            <summary>
+            服务生成器
+            </summary>
+        </member>
         <member name="F:Dry.Application.Services.ApplicationQueryService`3._mapper">
             <summary>
             对象映射
@@ -22,12 +27,11 @@
             仓储
             </summary>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`3.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`3.GetQueryable(System.Linq.IQueryable{`0},`2)">
             <summary>
@@ -72,47 +76,52 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationQueryService`4">
+        <member name="T:Dry.Application.Services.ApplicationQueryService`5">
             <summary>
             查增应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`4.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="F:Dry.Application.Services.ApplicationQueryService`5._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`5.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`4.CreateAsync(`3)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`5.CreateAsync(`4)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationQueryService`5">
+        <member name="T:Dry.Application.Services.ApplicationQueryService`6">
             <summary>
             查增删应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.GetQueryable(System.Linq.IQueryable{`0},`2)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetQueryable(System.Linq.IQueryable{`1},`3)">
             <summary>
             根据查询对象获取linq表达式
             </summary>
@@ -120,24 +129,25 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.FindAsync(`4)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.FindAsync(`5)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.DeleteAsync(`4)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.DeleteAsync(`5)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationQueryService`6">
+        <member name="T:Dry.Application.Services.ApplicationQueryService`7">
             <summary>
             查增删改应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
@@ -145,14 +155,13 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.EditAsync(`5,`4)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.EditAsync(`6,`5)">
             <summary>
             编辑
             </summary>
@@ -167,6 +176,11 @@
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
         </member>
+        <member name="F:Dry.Application.Services.ApplicationService`2._serviceProvider">
+            <summary>
+            服务生成器
+            </summary>
+        </member>
         <member name="F:Dry.Application.Services.ApplicationService`2._mapper">
             <summary>
             对象映射
@@ -177,12 +191,11 @@
             仓储
             </summary>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationService`2.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`2.CountAsync">
             <summary>
@@ -203,76 +216,81 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationService`3">
+        <member name="T:Dry.Application.Services.ApplicationService`4">
             <summary>
             新增应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`3.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="F:Dry.Application.Services.ApplicationService`4._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`3.CreateAsync(`2)">
+        <member name="M:Dry.Application.Services.ApplicationService`4.CreateAsync(`3)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationService`4">
+        <member name="T:Dry.Application.Services.ApplicationService`5">
             <summary>
             增删应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationService`5.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.FindAsync(`3)">
+        <member name="M:Dry.Application.Services.ApplicationService`5.FindAsync(`4)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.Services.ApplicationService`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationService`5">
+        <member name="T:Dry.Application.Services.ApplicationService`6">
             <summary>
             增删改应用服务接口
             </summary>
+            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.#ctor(AutoMapper.IMapper,Dry.Domain.Repositories.IRepository{`0})">
+        <member name="M:Dry.Application.Services.ApplicationService`6.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="repository"></param>
-            <param name="mapper"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.EditAsync(`4,`3)">
+        <member name="M:Dry.Application.Services.ApplicationService`6.EditAsync(`5,`4)">
             <summary>
             编辑
             </summary>

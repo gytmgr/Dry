@@ -212,85 +212,75 @@
             <param name="keyValues"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0)">
             <summary>
             新增
             </summary>
             <param name="entitiy"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.AddAsync(`0[])">
             <summary>
             新增
             </summary>
             <param name="entities"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0)">
             <summary>
             更新
             </summary>
             <param name="entitiy"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(`0[])">
             <summary>
             更新
             </summary>
             <param name="entities"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(System.Action{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.UpdateAsync(System.Action{`0},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             条件更新
             </summary>
             <param name="set"></param>
             <param name="predicate"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object)">
             <summary>
             主键删除
             </summary>
             <param name="keyValue"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Object[])">
             <summary>
             主键删除
             </summary>
             <param name="keyValues"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0,System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0)">
             <summary>
             删除
             </summary>
             <param name="entitiy"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0[],System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(`0[])">
             <summary>
             删除
             </summary>
             <param name="entities"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Boolean)">
+        <member name="M:Dry.EF.Repositories.Repository`1.RemoveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             条件删除
             </summary>
             <param name="predicate"></param>
-            <param name="autoSave"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Repositories.Repository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">

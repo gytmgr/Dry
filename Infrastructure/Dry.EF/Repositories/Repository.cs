@@ -43,7 +43,7 @@ namespace Dry.EF.Repositories
         /// 获取linq查询表达式
         /// </summary>
         /// <returns></returns>
-        public IQueryable<TEntity> GetQueryable() => _context.Set<TEntity>().AsNoTracking();
+        public IQueryable<TEntity> GetQueryable() => _context.Set<TEntity>();
 
         /// <summary>
         /// 提前加载
@@ -81,30 +81,20 @@ namespace Dry.EF.Repositories
         /// 新增
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task AddAsync(TEntity entitiy, bool autoSave = false)
+        public virtual async Task AddAsync(TEntity entitiy)
         {
             await _context.AddAsync(entitiy);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task AddAsync(TEntity[] entities, bool autoSave = false)
+        public virtual async Task AddAsync(TEntity[] entities)
         {
             await _context.AddRangeAsync(entities);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         #endregion
@@ -115,30 +105,22 @@ namespace Dry.EF.Repositories
         /// 更新
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task UpdateAsync(TEntity entitiy, bool autoSave = false)
+        public virtual Task UpdateAsync(TEntity entitiy)
         {
             _context.Update(entitiy);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task UpdateAsync(TEntity[] entities, bool autoSave = false)
+        public virtual Task UpdateAsync(TEntity[] entities)
         {
             _context.UpdateRange(entities);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -146,18 +128,13 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="set"></param>
         /// <param name="predicate"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task UpdateAsync(Action<TEntity> set, Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
+        public virtual async Task UpdateAsync(Action<TEntity> set, Expression<Func<TEntity, bool>> predicate)
         {
             var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
             foreach (var entity in entities)
             {
                 set(entity);
-            }
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
             }
         }
 
@@ -169,18 +146,13 @@ namespace Dry.EF.Repositories
         /// 主键删除
         /// </summary>
         /// <param name="keyValue"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(object keyValue, bool autoSave = false)
+        public virtual async Task RemoveAsync(object keyValue)
         {
             var entity = await _context.FindAsync<TEntity>(keyValue);
             if (entity != null)
             {
                 _context.Remove(entity);
-                if (autoSave)
-                {
-                    await _context.SaveChangesAsync();
-                }
             }
         }
 
@@ -188,18 +160,13 @@ namespace Dry.EF.Repositories
         /// 主键删除
         /// </summary>
         /// <param name="keyValues"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(object[] keyValues, bool autoSave = false)
+        public virtual async Task RemoveAsync(object[] keyValues)
         {
             var entity = await _context.FindAsync<TEntity>(keyValues);
             if (entity != null)
             {
                 _context.Remove(entity);
-                if (autoSave)
-                {
-                    await _context.SaveChangesAsync();
-                }
             }
         }
 
@@ -207,46 +174,31 @@ namespace Dry.EF.Repositories
         /// 删除
         /// </summary>
         /// <param name="entitiy"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(TEntity entitiy, bool autoSave = false)
+        public virtual async Task RemoveAsync(TEntity entitiy)
         {
             _context.Remove(entitiy);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(TEntity[] entities, bool autoSave = false)
+        public virtual async Task RemoveAsync(TEntity[] entities)
         {
             _context.RemoveRange(entities);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         /// <summary>
         /// 条件删除
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="autoSave"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
+        public virtual async Task RemoveAsync(Expression<Func<TEntity, bool>> predicate)
         {
             var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
             _context.RemoveRange(entities);
-            if (autoSave)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         #endregion

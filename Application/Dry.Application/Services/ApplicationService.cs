@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
+using Dry.Core.Model;
 using Dry.Domain;
 using Dry.Domain.Entities;
 using Dry.Domain.Repositories;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +23,11 @@ namespace Dry.Application.Services
         where TResult : IResultDto
     {
         /// <summary>
+        /// 服务生成器
+        /// </summary>
+        protected readonly IServiceProvider _serviceProvider;
+
+        /// <summary>
         /// 对象映射
         /// </summary>
         protected readonly IMapper _mapper;
@@ -33,12 +40,12 @@ namespace Dry.Application.Services
         /// <summary>
         /// 构造体
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository)
+        /// <param name="serviceProvider"></param>
+        public ApplicationService(IServiceProvider serviceProvider)
         {
-            _mapper = mapper;
-            _repository = repository;
+            _serviceProvider = serviceProvider;
+            _mapper = serviceProvider.GetService(typeof(IMapper)) as IMapper;
+            _repository = serviceProvider.GetService(typeof(IRepository<TEntity>)) as IRepository<TEntity>;
         }
 
         /// <summary>
@@ -81,23 +88,31 @@ namespace Dry.Application.Services
     /// <summary>
     /// 新增应用服务接口
     /// </summary>
+    /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TCreate> :
+    public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate> :
         ApplicationService<TEntity, TResult>,
         IApplicationService<TResult, TCreate>
-        where TEntity : IAggregateRoot, IBoundedContext
+        where TBoundedContext : IBoundedContext
+        where TEntity : IAggregateRoot, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
         /// <summary>
+        /// 工作单元
+        /// </summary>
+        protected readonly IUnitOfWork<TBoundedContext> _unitOfWork;
+
+        /// <summary>
         /// 构造体
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
-        { }
+        /// <param name="serviceProvider"></param>
+        public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+            _unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork<TBoundedContext>)) as IUnitOfWork<TBoundedContext>;
+        }
 
         /// <summary>
         /// 新建
@@ -107,7 +122,8 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
-            await _repository.AddAsync(entity, true);
+            await _repository.AddAsync(entity);
+            await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
     }
@@ -115,23 +131,24 @@ namespace Dry.Application.Services
     /// <summary>
     /// 增删应用服务接口
     /// </summary>
+    /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TCreate, TKey> :
-        ApplicationService<TEntity, TResult, TCreate>,
+    public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TKey> :
+        ApplicationService<TBoundedContext, TEntity, TResult, TCreate>,
         IApplicationService<TResult, TCreate, TKey>
-        where TEntity : IAggregateRoot<TKey>, IBoundedContext
+        where TBoundedContext : IBoundedContext
+        where TEntity : IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
         /// <summary>
         /// 构造体
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
+        /// <param name="serviceProvider"></param>
+        public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
         { }
 
         /// <summary>
@@ -153,27 +170,30 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
-                await _repository.RemoveAsync(entity, true);
-                return _mapper.Map<TResult>(entity);
+                throw new BizException("数据不存在");
             }
-            return default;
+            await _repository.RemoveAsync(entity);
+            await _unitOfWork.CompleteAsync();
+            return _mapper.Map<TResult>(entity);
         }
     }
 
     /// <summary>
     /// 增删改应用服务接口
     /// </summary>
+    /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult, TCreate, TEdit, TKey> :
-        ApplicationService<TEntity, TResult, TCreate, TKey>,
+    public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TEdit, TKey> :
+        ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TKey>,
         IApplicationService<TResult, TCreate, TEdit, TKey>
-        where TEntity : IAggregateRoot<TKey>, IBoundedContext
+        where TBoundedContext : IBoundedContext
+        where TEntity : IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
         where TEdit : IEditDto
@@ -181,9 +201,8 @@ namespace Dry.Application.Services
         /// <summary>
         /// 构造体
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="mapper"></param>
-        public ApplicationService(IMapper mapper, IRepository<TEntity> repository) : base(mapper, repository)
+        /// <param name="serviceProvider"></param>
+        public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
         { }
 
         /// <summary>
@@ -195,13 +214,13 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
         {
             var entity = await _repository.FindAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
-                _mapper.Map(editDto, entity);
-                await _repository.UpdateAsync(entity, true);
-                return _mapper.Map<TResult>(entity);
+                throw new BizException("数据不存在");
             }
-            return default;
+            _mapper.Map(editDto, entity);
+            await _unitOfWork.CompleteAsync();
+            return _mapper.Map<TResult>(entity);
         }
     }
 }
