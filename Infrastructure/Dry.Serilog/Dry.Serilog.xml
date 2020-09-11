@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Serilog</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Serilog.Extensions.HostBuilderExtension">
+            <summary>
+            日志扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Serilog.Extensions.HostBuilderExtension.UseDrySerilog(Microsoft.Extensions.Hosting.IHostBuilder,System.String)">
+            <summary>
+            日志配置
+            </summary>
+            <param name="hostBuilder"></param>
+            <param name="filePathConfigName">日志路径在AppSettings的配置名称</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

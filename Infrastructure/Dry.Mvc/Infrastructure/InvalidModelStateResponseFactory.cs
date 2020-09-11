@@ -1,6 +1,6 @@
-﻿using Dry.Mvc.Extensions;
-using Dry.Mvc.Resources;
+﻿using Dry.Mvc.Resources;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Dry.Mvc.Infrastructure
 {
@@ -16,9 +16,8 @@ namespace Dry.Mvc.Infrastructure
         /// <returns></returns>
         public static IActionResult ProduceErrorResponse(ActionContext context)
         {
-            var errors = context.ModelState.GetErrorMessages();
+            var errors = context.ModelState.SelectMany(m => m.Value.Errors).Select(m => m.ErrorMessage).ToArray();
             var response = new ErrorResource(messages: errors);
-
             return new BadRequestObjectResult(response);
         }
     }

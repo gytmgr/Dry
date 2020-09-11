@@ -4,17 +4,71 @@
         <name>Dry.Mvc</name>
     </assembly>
     <members>
-        <member name="T:Dry.Mvc.Extensions.ModelStateExtensions">
+        <member name="T:Dry.Mvc.Infrastructure.ExceptionFilter">
             <summary>
-            http状态扩展
+            异常处理
             </summary>
         </member>
-        <member name="M:Dry.Mvc.Extensions.ModelStateExtensions.GetErrorMessages(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+        <member name="M:Dry.Mvc.Infrastructure.ExceptionFilter.#ctor(Microsoft.Extensions.Logging.ILogger{Dry.Mvc.Infrastructure.ExceptionFilter})">
             <summary>
-            获取错误信息
+            构造体
             </summary>
-            <param name="dictionary"></param>
-            <returns></returns>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.ExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常触发
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.ExceptionFilter.Process(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Dry.Mvc.Infrastructure.FilterBase`1">
+            <summary>
+            过滤器基类
+            </summary>
+            <typeparam name="TContext"></typeparam>
+        </member>
+        <member name="P:Dry.Mvc.Infrastructure.FilterBase`1.Area">
+            <summary>
+            区域
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Infrastructure.FilterBase`1.Controller">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Infrastructure.FilterBase`1.Action">
+            <summary>
+            操作
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Infrastructure.FilterBase`1.Logger">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="P:Dry.Mvc.Infrastructure.FilterBase`1.FilterActions">
+            <summary>
+            过滤操作
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.FilterBase`1.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            构造体
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.FilterBase`1.OnFilter(`0)">
+            <summary>
+            过滤入口
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="T:Dry.Mvc.Infrastructure.InvalidModelStateResponseFactory">
             <summary>
