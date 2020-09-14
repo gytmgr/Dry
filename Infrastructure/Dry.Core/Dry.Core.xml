@@ -4,14 +4,38 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
-        <member name="T:Dry.Core.Model.BizException">
+        <member name="T:Dry.Core.Model.BizException`1">
             <summary>
             业务异常类
             </summary>
+            <typeparam name="TCode"></typeparam>
         </member>
-        <member name="P:Dry.Core.Model.BizException.Code">
+        <member name="P:Dry.Core.Model.BizException`1.Code">
             <summary>
             编码
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizException`1.#ctor">
+            <summary>
+            summary
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizException`1.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.Core.Model.BizException`1.#ctor(`0,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.BizException">
+            <summary>
+            默认业务异常类
             </summary>
         </member>
         <member name="M:Dry.Core.Model.BizException.#ctor(System.String)">
@@ -21,6 +45,18 @@
             <param name="msg"></param>
         </member>
         <member name="M:Dry.Core.Model.BizException.#ctor(System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.BizHttpRequestException">
+            <summary>
+            http请求异常类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizHttpRequestException.#ctor(System.Net.HttpStatusCode,System.String)">
             <summary>
             构造体
             </summary>

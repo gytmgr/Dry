@@ -1,4 +1,6 @@
-﻿using Dry.Core.Utilities;
+﻿using Dry.Core.Model;
+using Dry.Core.Utilities;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,6 +28,10 @@ namespace Dry.Http.Client
         {
             using var requester = new HttpRequester(method, ApiUrl + apiPath);
             var response = await requester.GetResultAsync<TData>(param);
+            if (response.Code != HttpStatusCode.OK && response.Code != HttpStatusCode.NoContent)
+            {
+                throw new BizHttpRequestException(response.Code, response.Message);
+            }
             return response.Data;
         }
     }
