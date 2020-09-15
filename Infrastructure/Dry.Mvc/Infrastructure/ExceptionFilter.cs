@@ -7,7 +7,7 @@ using System;
 namespace Dry.Mvc.Infrastructure
 {
     /// <summary>
-    /// 异常处理
+    /// 异常过滤器
     /// </summary>
     public class ExceptionFilter : FilterBase<ExceptionContext>, IExceptionFilter
     {
@@ -24,7 +24,7 @@ namespace Dry.Mvc.Infrastructure
         /// 异常触发
         /// </summary>
         /// <param name="context"></param>
-        public void OnException(ExceptionContext context)
+        public virtual void OnException(ExceptionContext context)
         {
             try
             {
@@ -43,21 +43,24 @@ namespace Dry.Mvc.Infrastructure
         /// <param name="context"></param>
         protected virtual void Process(ExceptionContext context)
         {
-            var result = Result<int>.Create(-1);
             switch (context.Exception)
             {
-                case BizException bizException:
-                    result.Message = bizException.Message;
+                case BizException exception:
+                    context.Result = new ContentResult
+                    {
+                        StatusCode = 400,
+                        Content = exception.Message
+                    };
                     break;
                 default:
-                    result.Message = "系统错误，请重新操作，若问题仍未解决请联系管理员。";
                     Logger.LogError(context.Exception, "未知异常");
+                    context.Result = new ContentResult
+                    {
+                        StatusCode = 500,
+                        Content = "系统错误，请重新操作，若问题仍未解决请联系管理员。"
+                    };
                     break;
             }
-            context.Result = new JsonResult(result)
-            {
-                ContentType = "application/json"
-            };
             context.ExceptionHandled = true;
         }
     }
