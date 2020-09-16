@@ -25,6 +25,7 @@ namespace Dry.Serilog.Extensions
                     filePath = "Logs/log.txt";
                 }
                 loggerConfig
+                .WriteTo.Async(x => x.Debug())
                 .WriteTo.Async(x => x.Console())
                 .WriteTo.Async(x => x.File(filePath, LogEventLevel.Warning, rollingInterval: RollingInterval.Day));
             });

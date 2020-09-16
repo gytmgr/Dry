@@ -16,11 +16,7 @@ namespace Dry.Application.Services
     /// 应用服务
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    public abstract class ApplicationService<TEntity, TResult> :
-        IApplicationService<TResult>
-        where TEntity : IAggregateRoot, IBoundedContext
-        where TResult : IResultDto
+    public abstract class ApplicationService<TEntity> where TEntity : IAggregateRoot, IBoundedContext
     {
         /// <summary>
         /// 服务生成器
@@ -46,6 +42,34 @@ namespace Dry.Application.Services
             _serviceProvider = serviceProvider;
             _mapper = serviceProvider.GetService(typeof(IMapper)) as IMapper;
             _repository = serviceProvider.GetService(typeof(IRepository<TEntity>)) as IRepository<TEntity>;
+        }
+
+        /// <summary>
+        /// 获取仓储
+        /// </summary>
+        /// <typeparam name="TOtherEntity"></typeparam>
+        /// <returns></returns>
+        protected IRepository<TOtherEntity> Repository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
+            => _serviceProvider.GetService(typeof(IRepository<TOtherEntity>)) as IRepository<TOtherEntity>;
+    }
+
+    /// <summary>
+    /// 应用服务
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
+    public abstract class ApplicationService<TEntity, TResult> :
+        ApplicationService<TEntity>,
+        IApplicationService<TResult>
+        where TEntity : IAggregateRoot, IBoundedContext
+        where TResult : IResultDto
+    {
+        /// <summary>
+        /// 构造体
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
         }
 
         /// <summary>

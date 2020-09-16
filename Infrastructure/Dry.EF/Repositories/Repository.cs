@@ -43,7 +43,8 @@ namespace Dry.EF.Repositories
         /// 获取linq查询表达式
         /// </summary>
         /// <returns></returns>
-        public IQueryable<TEntity> GetQueryable() => _context.Set<TEntity>();
+        public IQueryable<TEntity> GetQueryable()
+            => _context.Set<TEntity>();
 
         /// <summary>
         /// 提前加载
@@ -66,14 +67,7 @@ namespace Dry.EF.Repositories
         /// <param name="keyValues"></param>
         /// <returns></returns>
         public virtual async Task<TEntity> FindAsync(params object[] keyValues)
-        {
-            var entity = await _context.FindAsync<TEntity>(keyValues);
-            if (entity != null)
-            {
-                _context.Entry(entity).State = EntityState.Detached;
-            }
-            return entity;
-        }
+            => await _context.FindAsync<TEntity>(keyValues);
 
         #region Add
 
@@ -83,9 +77,7 @@ namespace Dry.EF.Repositories
         /// <param name="entitiy"></param>
         /// <returns></returns>
         public virtual async Task AddAsync(TEntity entitiy)
-        {
-            await _context.AddAsync(entitiy);
-        }
+            => await _context.AddAsync(entitiy);
 
         /// <summary>
         /// 新增
@@ -93,9 +85,7 @@ namespace Dry.EF.Repositories
         /// <param name="entities"></param>
         /// <returns></returns>
         public virtual async Task AddAsync(TEntity[] entities)
-        {
-            await _context.AddRangeAsync(entities);
-        }
+            => await _context.AddRangeAsync(entities);
 
         #endregion
 
@@ -175,9 +165,10 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="entitiy"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(TEntity entitiy)
+        public virtual Task RemoveAsync(TEntity entitiy)
         {
             _context.Remove(entitiy);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -185,9 +176,10 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(TEntity[] entities)
+        public virtual Task RemoveAsync(TEntity[] entities)
         {
             _context.RemoveRange(entities);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -276,7 +268,8 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="querable"></param>
         /// <returns></returns>
-        public virtual async Task<int> CountAsync(IQueryable<TEntity> querable) => await querable.CountAsync();
+        public virtual async Task<int> CountAsync(IQueryable<TEntity> querable)
+            => await querable.CountAsync();
 
         /// <summary>
         /// 数量查询
@@ -300,7 +293,8 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="querable"></param>
         /// <returns></returns>
-        public virtual async Task<int> LongCountAsync(IQueryable<TEntity> querable) => await querable.CountAsync();
+        public virtual async Task<int> LongCountAsync(IQueryable<TEntity> querable)
+            => await querable.CountAsync();
 
         #endregion
 

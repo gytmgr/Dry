@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Dry.Application.Contracts.Dtos;
+﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
 using Dry.Core.Model;
 using Dry.Domain;
@@ -19,35 +18,18 @@ namespace Dry.Application.Services
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
     public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
+        ApplicationService<TEntity>,
         IApplicationQueryService<TResult, TQuery>
         where TEntity : IAggregateRoot, IBoundedContext
         where TResult : IResultDto
         where TQuery : IQueryDto
     {
         /// <summary>
-        /// 服务生成器
-        /// </summary>
-        protected readonly IServiceProvider _serviceProvider;
-
-        /// <summary>
-        /// 对象映射
-        /// </summary>
-        protected readonly IMapper _mapper;
-
-        /// <summary>
-        /// 仓储
-        /// </summary>
-        protected readonly IRepository<TEntity> _repository;
-
-        /// <summary>
         /// 构造体
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public ApplicationQueryService(IServiceProvider serviceProvider)
+        public ApplicationQueryService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _serviceProvider = serviceProvider;
-            _mapper = serviceProvider.GetService(typeof(IMapper)) as IMapper;
-            _repository = serviceProvider.GetService(typeof(IRepository<TEntity>)) as IRepository<TEntity>;
         }
 
         /// <summary>
