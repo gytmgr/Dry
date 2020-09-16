@@ -4,6 +4,16 @@
         <name>Dry.Application</name>
     </assembly>
     <members>
+        <member name="T:Dry.Application.Mapping.EditMemberProfile">
+            <summary>
+            编辑成员映射
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Mapping.EditMemberProfile.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
         <member name="T:Dry.Application.Services.ApplicationQueryService`3">
             <summary>
             查询应用服务接口
@@ -11,21 +21,6 @@
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationQueryService`3._serviceProvider">
-            <summary>
-            服务生成器
-            </summary>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationQueryService`3._mapper">
-            <summary>
-            对象映射
-            </summary>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationQueryService`3._repository">
-            <summary>
-            仓储
-            </summary>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`3.#ctor(System.IServiceProvider)">
             <summary>
@@ -169,27 +164,46 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Application.Services.ApplicationService`1">
+            <summary>
+            应用服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationService`1._serviceProvider">
+            <summary>
+            服务生成器
+            </summary>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationService`1._mapper">
+            <summary>
+            对象映射
+            </summary>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationService`1._repository">
+            <summary>
+            仓储
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`1.Repository``1">
+            <summary>
+            获取仓储
+            </summary>
+            <typeparam name="TOtherEntity"></typeparam>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Application.Services.ApplicationService`2">
             <summary>
             应用服务
             </summary>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationService`2._serviceProvider">
-            <summary>
-            服务生成器
-            </summary>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationService`2._mapper">
-            <summary>
-            对象映射
-            </summary>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationService`2._repository">
-            <summary>
-            仓储
-            </summary>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`2.#ctor(System.IServiceProvider)">
             <summary>

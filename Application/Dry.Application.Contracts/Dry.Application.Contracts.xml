@@ -92,6 +92,17 @@
             返回条目
             </summary>
         </member>
+        <member name="T:Dry.Application.Contracts.Dtos.ValueDto`1">
+            <summary>
+            值
+            </summary>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.ValueDto`1.Value">
+            <summary>
+            值
+            </summary>
+        </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`2">
             <summary>
             新建应用服务接口
