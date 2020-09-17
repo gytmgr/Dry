@@ -4,12 +4,12 @@
         <name>Dry.Application</name>
     </assembly>
     <members>
-        <member name="T:Dry.Application.Mapping.EditMemberProfile">
+        <member name="T:Dry.Application.Mapping.ValueProfile">
             <summary>
-            编辑成员映射
+            值对象映射
             </summary>
         </member>
-        <member name="M:Dry.Application.Mapping.EditMemberProfile.#ctor">
+        <member name="M:Dry.Application.Mapping.ValueProfile.#ctor">
             <summary>
             构造体
             </summary>

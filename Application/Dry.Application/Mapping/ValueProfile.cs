@@ -5,14 +5,14 @@ using System;
 namespace Dry.Application.Mapping
 {
     /// <summary>
-    /// 编辑成员映射
+    /// 值对象映射
     /// </summary>
-    public class EditMemberProfile : Profile
+    public class ValueProfile : Profile
     {
         /// <summary>
         /// 构造体
         /// </summary>
-        public EditMemberProfile()
+        public ValueProfile()
         {
             CreateMap<ValueDto<string>, string>().ConvertUsing(Convert);
             CreateMap<ValueDto<byte>, byte>().ConvertUsing(Convert);
