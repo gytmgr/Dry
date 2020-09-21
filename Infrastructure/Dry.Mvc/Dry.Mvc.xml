@@ -4,6 +4,18 @@
         <name>Dry.Mvc</name>
     </assembly>
     <members>
+        <member name="T:Dry.Mvc.Controllers.DryController">
+            <summary>
+            基础控制器
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Controllers.DryController.Service``1">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Mvc.Infrastructure.ActionFilter">
             <summary>
             操作过滤器
