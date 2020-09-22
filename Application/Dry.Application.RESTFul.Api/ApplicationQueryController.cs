@@ -17,6 +17,17 @@ namespace Dry.Application.RESTFul.Api
         where TResult : IResultDto
         where TQuery : IQueryDto
     {
+        private IApplicationQueryService<TResult, TQuery> _appService;
+
+        /// <summary>
+        /// 构造体
+        /// </summary>
+        /// <param name="appService"></param>
+        public ApplicationQueryController(IApplicationQueryService<TResult, TQuery> appService)
+        {
+            _appService = appService;
+        }
+
         /// <summary>
         /// 是否存在
         /// </summary>
@@ -25,7 +36,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("Any")]
         public virtual async Task<bool> AnyAsync([FromQuery] TQuery queryDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery>>().AnyAsync(queryDto);
+            return await _appService.AnyAsync(queryDto);
         }
 
         /// <summary>
@@ -36,7 +47,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("Count")]
         public virtual async Task<int> CountAsync([FromQuery] TQuery queryDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery>>().CountAsync(queryDto);
+            return await _appService.CountAsync(queryDto);
         }
 
         /// <summary>
@@ -47,7 +58,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("First")]
         public virtual async Task<TResult> FirstAsync([FromQuery] TQuery queryDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery>>().FirstAsync(queryDto);
+            return await _appService.FirstAsync(queryDto);
         }
 
         /// <summary>
@@ -58,7 +69,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet]
         public virtual async Task<TResult[]> ArrayAsync([FromQuery] TQuery queryDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery>>().ArrayAsync(queryDto);
+            return await _appService.ArrayAsync(queryDto);
         }
 
         /// <summary>
@@ -69,7 +80,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("Paged")]
         public virtual async Task<PagedResultDto<TResult>> ArrayAsync([FromQuery] PagedQueryDto<TQuery> queryDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery>>().ArrayAsync(queryDto);
+            return await _appService.ArrayAsync(queryDto);
         }
     }
 
@@ -86,6 +97,17 @@ namespace Dry.Application.RESTFul.Api
         where TQuery : IQueryDto
         where TCreate : ICreateDto
     {
+        private IApplicationQueryService<TResult, TQuery, TCreate> _appService;
+
+        /// <summary>
+        /// 构造体
+        /// </summary>
+        /// <param name="appService"></param>
+        public ApplicationQueryController(IApplicationQueryService<TResult, TQuery, TCreate> appService) : base(appService)
+        {
+            _appService = appService;
+        }
+
         /// <summary>
         /// 新建
         /// </summary>
@@ -94,7 +116,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpPost]
         public virtual async Task<TResult> CreateAsync([FromBody] TCreate createDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery, TCreate>>().CreateAsync(createDto);
+            return await _appService.CreateAsync(createDto);
         }
     }
 
@@ -112,6 +134,17 @@ namespace Dry.Application.RESTFul.Api
         where TQuery : IQueryDto
         where TCreate : ICreateDto
     {
+        private IApplicationQueryService<TResult, TQuery, TCreate, TKey> _appService;
+
+        /// <summary>
+        /// 构造体
+        /// </summary>
+        /// <param name="appService"></param>
+        public ApplicationQueryController(IApplicationQueryService<TResult, TQuery, TCreate, TKey> appService) : base(appService)
+        {
+            _appService = appService;
+        }
+
         /// <summary>
         /// 主键查询
         /// </summary>
@@ -120,7 +153,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("{id}")]
         public virtual async Task<TResult> FindAsync(TKey id)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery, TCreate, TKey>>().FindAsync(id);
+            return await _appService.FindAsync(id);
         }
 
         /// <summary>
@@ -131,7 +164,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpDelete("{id}")]
         public virtual async Task<TResult> DeleteAsync(TKey id)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery, TCreate, TKey>>().DeleteAsync(id);
+            return await _appService.DeleteAsync(id);
         }
     }
 
@@ -151,6 +184,17 @@ namespace Dry.Application.RESTFul.Api
         where TCreate : ICreateDto
         where TEdit : IEditDto
     {
+        private IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> _appService;
+
+        /// <summary>
+        /// 构造体
+        /// </summary>
+        /// <param name="appService"></param>
+        public ApplicationQueryController(IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> appService) : base(appService)
+        {
+            _appService = appService;
+        }
+
         /// <summary>
         /// 编辑
         /// </summary>
@@ -160,7 +204,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpPut("{id}")]
         public virtual async Task<TResult> EditAsync(TKey id, [FromBody] TEdit editDto)
         {
-            return await Service<IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>>().EditAsync(id, editDto);
+            return await _appService.EditAsync(id, editDto);
         }
     }
 }
