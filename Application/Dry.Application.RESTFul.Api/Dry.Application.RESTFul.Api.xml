@@ -10,17 +10,6 @@
             </summary>
             <typeparam name="TResult"></typeparam>
         </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationController`1._applicationService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationService"></param>
-        </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.CountAsync">
             <summary>
             数量查询
@@ -47,17 +36,6 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationController`2._applicationCreateService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationCreateService"></param>
-        </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.CreateAsync(`1)">
             <summary>
             新建
@@ -72,17 +50,6 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
-        </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationController`3._applicationDeleteService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1,`2})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationDeleteService"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.FindAsync(`2)">
             <summary>
@@ -107,17 +74,6 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationController`4._applicationEditService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1,`2,`3})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationEditService"></param>
-        </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.EditAsync(`3,`2)">
             <summary>
             编辑
@@ -132,17 +88,6 @@
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
-        </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationQueryController`2._applicationQueryService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationQueryService"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.AnyAsync(`1)">
             <summary>
@@ -187,17 +132,6 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationQueryController`3._applicationQueryCreateService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationQueryCreateService"></param>
-        </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.CreateAsync(`2)">
             <summary>
             新建
@@ -213,17 +147,6 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
-        </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationQueryController`4._applicationQueryDeleteService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2,`3})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationQueryDeleteService"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.FindAsync(`3)">
             <summary>
@@ -248,17 +171,6 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
-        </member>
-        <member name="F:Dry.Application.RESTFul.Api.ApplicationQueryController`5._applicationQueryEditService">
-            <summary>
-            应用服务
-            </summary>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2,`3,`4})">
-            <summary>
-            构造体
-            </summary>
-            <param name="applicationQueryEditService"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.EditAsync(`4,`3)">
             <summary>

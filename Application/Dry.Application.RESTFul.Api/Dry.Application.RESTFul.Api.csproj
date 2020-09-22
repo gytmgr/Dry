@@ -9,10 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Dry.Mvc\Dry.Mvc.csproj" />
     <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
   </ItemGroup>
 
