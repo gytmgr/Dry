@@ -9,23 +9,26 @@ namespace Dry.Application.RESTFul.Api
     /// <summary>
     /// 应用控制器
     /// </summary>
+    /// <typeparam name="TService"></typeparam>
+    public abstract class ApplicationController<TService> : DryController
+    {
+        /// <summary>
+        /// 应用服务
+        /// </summary>
+        protected virtual TService AppService => Service<TService>();
+    }
+
+    /// <summary>
+    /// 应用控制器
+    /// </summary>
+    /// <typeparam name="TService"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public abstract class ApplicationController<TResult> :
-        DryController,
+    public abstract class ApplicationController<TService, TResult> :
+        ApplicationController<TService>,
         IApplicationService<TResult>
         where TResult : IResultDto
+        where TService : IApplicationService<TResult>
     {
-        private IApplicationService<TResult> _appService;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="appService"></param>
-        public ApplicationController(IApplicationService<TResult> appService)
-        {
-            _appService = appService;
-        }
-
         /// <summary>
         /// 数量查询
         /// </summary>
@@ -33,7 +36,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("Count")]
         public virtual async Task<int> CountAsync()
         {
-            return await _appService.CountAsync();
+            return await AppService.CountAsync();
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet]
         public virtual async Task<TResult[]> ArrayAsync()
         {
-            return await _appService.ArrayAsync();
+            return await AppService.ArrayAsync();
         }
 
         /// <summary>
@@ -54,32 +57,23 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("Paged")]
         public virtual async Task<PagedResultDto<TResult>> ArrayAsync([FromQuery] PagedQueryDto queryDto)
         {
-            return await _appService.ArrayAsync(queryDto);
+            return await AppService.ArrayAsync(queryDto);
         }
     }
 
     /// <summary>
     /// 新增应用控制器
     /// </summary>
+    /// <typeparam name="TService"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate> :
-        ApplicationController<TResult>,
+    public abstract class ApplicationController<TService, TResult, TCreate> :
+        ApplicationController<TService, TResult>,
         IApplicationService<TResult, TCreate>
         where TResult : IResultDto
         where TCreate : ICreateDto
+        where TService : IApplicationService<TResult, TCreate>
     {
-        private IApplicationService<TResult, TCreate> _appService;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="appService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate> appService) : base(appService)
-        {
-            _appService = appService;
-        }
-
         /// <summary>
         /// 新建
         /// </summary>
@@ -88,33 +82,24 @@ namespace Dry.Application.RESTFul.Api
         [HttpPost]
         public virtual async Task<TResult> CreateAsync([FromBody] TCreate createDto)
         {
-            return await _appService.CreateAsync(createDto);
+            return await AppService.CreateAsync(createDto);
         }
     }
 
     /// <summary>
     /// 增删应用控制器
     /// </summary>
+    /// <typeparam name="TService"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate, TKey> :
-        ApplicationController<TResult, TCreate>,
+    public abstract class ApplicationController<TService, TResult, TCreate, TKey> :
+        ApplicationController<TService, TResult, TCreate>,
         IApplicationService<TResult, TCreate, TKey>
         where TResult : IResultDto
         where TCreate : ICreateDto
+        where TService : IApplicationService<TResult, TCreate, TKey>
     {
-        private IApplicationService<TResult, TCreate, TKey> _appService;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="appService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate, TKey> appService) : base(appService)
-        {
-            _appService = appService;
-        }
-
         /// <summary>
         /// 主键查询
         /// </summary>
@@ -123,7 +108,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpGet("{id}")]
         public virtual async Task<TResult> FindAsync(TKey id)
         {
-            return await _appService.FindAsync(id);
+            return await AppService.FindAsync(id);
         }
 
         /// <summary>
@@ -134,35 +119,26 @@ namespace Dry.Application.RESTFul.Api
         [HttpDelete("{id}")]
         public virtual async Task<TResult> DeleteAsync(TKey id)
         {
-            return await _appService.DeleteAsync(id);
+            return await AppService.DeleteAsync(id);
         }
     }
 
     /// <summary>
     /// 增删改应用控制器
     /// </summary>
+    /// <typeparam name="TService"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationController<TResult, TCreate, TEdit, TKey> :
-        ApplicationController<TResult, TCreate, TKey>,
+    public abstract class ApplicationController<TService, TResult, TCreate, TEdit, TKey> :
+        ApplicationController<TService, TResult, TCreate, TKey>,
         IApplicationService<TResult, TCreate, TEdit, TKey>
         where TResult : IResultDto
         where TCreate : ICreateDto
         where TEdit : IEditDto
+        where TService : IApplicationService<TResult, TCreate, TEdit, TKey>
     {
-        private IApplicationService<TResult, TCreate, TEdit, TKey> _appService;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="appService"></param>
-        public ApplicationController(IApplicationService<TResult, TCreate, TEdit, TKey> appService) : base(appService)
-        {
-            _appService = appService;
-        }
-
         /// <summary>
         /// 编辑
         /// </summary>
@@ -172,7 +148,7 @@ namespace Dry.Application.RESTFul.Api
         [HttpPut("{id}")]
         public virtual async Task<TResult> EditAsync(TKey id, [FromBody] TEdit editDto)
         {
-            return await _appService.EditAsync(id, editDto);
+            return await AppService.EditAsync(id, editDto);
         }
     }
 }

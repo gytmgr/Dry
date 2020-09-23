@@ -26,6 +26,8 @@ namespace Dry.Swagger
             }
             services.AddSwaggerGen(cfg =>
             {
+                cfg.CustomSchemaIds(type => type.ToString());
+
                 cfg.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = title,

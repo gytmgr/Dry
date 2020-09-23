@@ -8,97 +8,88 @@
             <summary>
             应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
+        </member>
+        <member name="P:Dry.Application.RESTFul.Api.ApplicationController`1.AppService">
+            <summary>
+            应用服务
+            </summary>
+        </member>
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`2">
+            <summary>
+            应用控制器
+            </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.CountAsync">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.CountAsync">
             <summary>
             数量查询
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.ArrayAsync">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync">
             <summary>
             查询所有
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`1.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`2">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`3">
             <summary>
             新增应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.CreateAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.CreateAsync(`2)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`3">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`4">
             <summary>
             增删应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1,`2})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.FindAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.FindAsync(`3)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.DeleteAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`4">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`5">
             <summary>
             增删改应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.#ctor(Dry.Application.Contracts.Services.IApplicationService{`0,`1,`2,`3})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`4.EditAsync(`3,`2)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`5.EditAsync(`4,`3)">
             <summary>
             编辑
             </summary>
@@ -106,121 +97,101 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`2">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`3">
             <summary>
             查询应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.AnyAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.AnyAsync(`2)">
             <summary>
             是否存在
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.CountAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.CountAsync(`2)">
             <summary>
             数量查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.FirstAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.FirstAsync(`2)">
             <summary>
             条件查询第一条
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.ArrayAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(`2)">
             <summary>
             条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`1})">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`3">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`4">
             <summary>
             查增应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.CreateAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.CreateAsync(`3)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`4">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`5">
             <summary>
             查增删应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2,`3})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.FindAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.FindAsync(`4)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`5">
+        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`6">
             <summary>
             查增删改应用控制器
             </summary>
+            <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.#ctor(Dry.Application.Contracts.Services.IApplicationQueryService{`0,`1,`2,`3,`4})">
-            <summary>
-            构造体
-            </summary>
-            <param name="appService"></param>
-        </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`5.EditAsync(`4,`3)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`6.EditAsync(`5,`4)">
             <summary>
             编辑
             </summary>

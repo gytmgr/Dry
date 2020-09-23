@@ -13,7 +13,7 @@ namespace Dry.Mvc.Controllers
         /// </summary>
         /// <typeparam name="TService"></typeparam>
         /// <returns></returns>
-        protected TService Service<TService>()
+        protected virtual TService Service<TService>()
             => HttpContext.RequestServices.GetService<TService>();
     }
 }
