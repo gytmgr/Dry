@@ -9,7 +9,7 @@
             Swagger中间件扩展
             </summary>
         </member>
-        <member name="M:Dry.Swagger.SwaggerExtensions.AddCustomSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly)">
+        <member name="M:Dry.Swagger.SwaggerExtensions.AddCustomSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
             <summary>
             添加Swagger服务注册
             </summary>

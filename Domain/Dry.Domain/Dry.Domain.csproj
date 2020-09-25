@@ -2,15 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>gan</Authors>
+    <Company>Dry</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Dry.Domain.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Dry.Core\Dry.Core.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Update="Dry.Domain.xml">
