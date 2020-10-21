@@ -4,6 +4,16 @@
         <name>Dry.Domain</name>
     </assembly>
     <members>
+        <member name="T:Dry.Domain.Entities.IAddTimeEntity">
+            <summary>
+            有新增时间实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.IAddTimeEntity.AddTime">
+            <summary>
+            新增时间
+            </summary>
+        </member>
         <member name="T:Dry.Domain.Entities.IAggregateRoot">
             <summary>
             聚合根
@@ -29,6 +39,16 @@
         <member name="P:Dry.Domain.Entities.IEntity`1.Id">
             <summary>
             主键
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IUpdateTimeEntity">
+            <summary>
+            有更新时间实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.IUpdateTimeEntity.UpdateTime">
+            <summary>
+            更新时间
             </summary>
         </member>
         <member name="T:Dry.Domain.IBoundedContext">

@@ -21,6 +21,19 @@ namespace Dry.EF.Extensions
         }
 
         /// <summary>
+        /// 表说明
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TDependentEntity"></typeparam>
+        /// <param name="ownedNavigationBuilder"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public static OwnedNavigationBuilder<TEntity, TDependentEntity> HasDescription<TEntity, TDependentEntity>([NotNull] this OwnedNavigationBuilder<TEntity, TDependentEntity> ownedNavigationBuilder, [NotNull] string description) where TEntity : class where TDependentEntity : class
+        {
+            return ownedNavigationBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
+        }
+
+        /// <summary>
         /// 列说明
         /// </summary>
         /// <typeparam name="TProperty"></typeparam>

@@ -152,6 +152,10 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
+            if (entity is IAddTimeEntity addTimeEntity)
+            {
+                addTimeEntity.AddTime = DateTime.Now;
+            }
             await _repository.AddAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
@@ -283,6 +287,10 @@ namespace Dry.Application.Services
                 throw new BizException("数据不存在");
             }
             _mapper.Map(editDto, entity);
+            if (entity is IUpdateTimeEntity updateTimeEntity)
+            {
+                updateTimeEntity.UpdateTime = DateTime.Now;
+            }
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
