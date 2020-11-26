@@ -92,6 +92,22 @@
             返回条目
             </summary>
         </member>
+        <member name="T:Dry.Application.Contracts.Dtos.SortDto`1">
+            <summary>
+            排序
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.SortDto`1.Order">
+            <summary>
+            顺序，true为正序，false为倒序
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.SortDto`1.Field">
+            <summary>
+            排序字段
+            </summary>
+        </member>
         <member name="T:Dry.Application.Contracts.Dtos.ValueDto`1">
             <summary>
             值
