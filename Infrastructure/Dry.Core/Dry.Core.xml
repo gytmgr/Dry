@@ -201,6 +201,46 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Core.Utilities.DateHelper">
+            <summary>
+            日期帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.DateHelper.SolarToChineseWeek(System.DateTime)">
+            <summary>
+            获取中文星期
+            </summary>
+            <param name="solarDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.DateHelper.SolarToChineseLunisolarDate(System.DateTime)">
+            <summary>
+            公历转为农历的函数
+            </summary>
+            <param name="solarDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.Des3Encrypt">
+            <summary>
+            ES3 ECB加密类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.Des3Encrypt.Encrypt(System.String,System.String)">
+            <summary>
+            ES3 ECB模式加密
+            </summary>
+            <param name="str"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.Des3Encrypt.Decrypt(System.String,System.String)">
+            <summary>
+            DES3 ECB模式解密
+            </summary>
+            <param name="str"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.EnumHelper">
             <summary>
             枚举帮助类
@@ -260,6 +300,129 @@
             <param name="fileData"></param>
             <param name="path"></param>
             <returns>读取的文件扩展名</returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.FtpHelper">
+            <summary>
+            ftp帮助类
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.FtpHelper.FtpHost">
+            <summary>
+            ftp主机地址
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.FtpHelper.FtpUserID">
+            <summary>
+            ftp登录名
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.FtpHelper.FtpPassword">
+            <summary>
+            ftp登录密码
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.#ctor(System.String,System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="ftpServerIP"></param>
+            <param name="ftpUserID"></param>
+            <param name="ftpPassword"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="ftpServerIP"></param>
+            <param name="ftpServerPort"></param>
+            <param name="ftpUserID"></param>
+            <param name="ftpPassword"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.Connect(System.String)">
+            <summary>
+            连接ftp
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileList(System.String,System.String)">
+            <summary>
+            从ftp服务器上获得文件列表
+            </summary>
+            <param name="path"></param>
+            <param name="WRMethods"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileList(System.String)">
+            <summary>
+            从ftp服务器上获得文件列表
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileList">
+            <summary>
+            从ftp服务器上获得文件列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.Upload(System.String,System.String)">
+            <summary>
+            从ftp服务器上载文件的功能
+            </summary>
+            <param name="ftpFilePath"></param>
+            <param name="localFilePath"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.Download(System.String,System.String)">
+            <summary>
+            从ftp服务器下载文件
+            </summary>
+            <param name="localFilePath"></param>
+            <param name="ftpFilePath"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.DeleteFileName(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.MakeDir(System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="dirName"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.delDir(System.String)">
+            <summary>
+            删除目录
+            </summary>
+            <param name="dirName"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileSize(System.String)">
+            <summary>
+            获得文件大小
+            </summary>
+            <param name="filename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.Rename(System.String,System.String)">
+            <summary>
+            文件改名
+            </summary>
+            <param name="currentFilename"></param>
+            <param name="newFilename"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailList">
+            <summary>
+            获得文件明细
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailList(System.String)">
+            <summary>
+            获得文件明细
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.HashEncrypt">
             <summary>
@@ -432,6 +595,47 @@
             </summary>
             <typeparam name="TSource"></typeparam>
             <param name="keyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.LogHelper">
+            <summary>
+            日志帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.WriteException(System.IO.StreamWriter,System.Exception,System.Int32)">
+            <summary>
+            记录异常日志
+            </summary>
+            <param name="stream"></param>
+            <param name="e"></param>
+            <param name="level"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.Exception(System.String,System.String,System.Exception,System.String[])">
+            <summary>
+            记录异常
+            </summary>
+            <param name="className"></param>
+            <param name="methodName"></param>
+            <param name="e"></param>
+            <param name="otherInfo"></param>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.Action(System.String[])">
+            <summary>
+            记录日常日志
+            </summary>
+            <param name="paramList"></param>
+        </member>
+        <member name="T:Dry.Core.Utilities.ObjClone">
+            <summary>
+            对象克隆类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.ObjClone.DeepCopy``1(``0)">
+            <summary>
+            深拷贝
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.StringHelper">
