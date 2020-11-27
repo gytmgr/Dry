@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Dry.Mvc\Dry.Mvc.csproj" />
     <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Dry.Mvc\Dry.Mvc.csproj" />
   </ItemGroup>
 
   <ItemGroup>

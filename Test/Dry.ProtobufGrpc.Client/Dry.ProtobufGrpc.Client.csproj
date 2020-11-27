@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Dry.Grpc.Client\Dry.Grpc.Client.csproj" />
+    <ProjectReference Include="..\..\src\Dry.Grpc.Client\Dry.Grpc.Client.csproj" />
     <ProjectReference Include="..\Dry.ProtobufGrpc.Contracts\Dry.ProtobufGrpc.Contracts.csproj" />
   </ItemGroup>
 
