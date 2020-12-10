@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+
+<Layout Style="min-height: 100vh; ">
+    <Header Style="padding: 0 ;"></Header>
+    <Layout>
+        <Sider Collapsible Collapsed=@collapsed OnCollapse=@onCollapse>
+            <NavMenu />
+        </Sider>
+        <Layout Class="site-layout">
+            <Content Style="margin:0 16px;">
+                <div class="site-layout-background" style="padding: 24; min-height: 360px">
+                    @Body
+                </div>
+            </Content>
+            <Footer Style="text-align:center ">Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>
+    </Layout>
+</Layout>
+
+@code {
+    private bool collapsed = false;
+
+    private void onCollapse()
+    {
+        collapsed = !collapsed;
+    }
+}
+
+<style>
+    .site-layout .site-layout-background {
+        background: #fff;
+    }
+</style>

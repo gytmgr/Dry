@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Dry.EF\Dry.EF.csproj" />
+    <ProjectReference Include="..\Dry.Admin.Domain\Dry.Admin.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

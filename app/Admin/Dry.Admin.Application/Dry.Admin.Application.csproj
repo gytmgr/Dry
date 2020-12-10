@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Dry.Application\Dry.Application.csproj" />
+    <ProjectReference Include="..\Dry.Admin.Application.Contracts\Dry.Admin.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Dry.Admin.Domain\Dry.Admin.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

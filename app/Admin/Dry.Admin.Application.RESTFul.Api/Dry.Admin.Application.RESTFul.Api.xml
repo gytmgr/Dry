@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Admin.Application.RESTFul.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Admin.Application.RESTFul.Api.Controllers.ApplicationController">
+            <summary>
+            应用接口
+            </summary>
+        </member>
+    </members>
+</doc>

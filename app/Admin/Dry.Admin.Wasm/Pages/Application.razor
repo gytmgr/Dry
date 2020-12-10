@@ -1,0 +1,262 @@
+﻿@page "/application"
+
+@using System.ComponentModel.DataAnnotations;
+@using Dry.Admin.Application.Contracts.Services;
+@using Dry.Admin.Application.Contracts.Dtos;
+@using Dry.Application.Contracts.Dtos;
+
+@inject IApplicationAppService  ApplicationAppService
+@inject MessageService Message
+
+<Breadcrumb Style="margin:16px 0;">
+    <BreadcrumbItem><a href="/">首页</a></BreadcrumbItem>
+    <BreadcrumbItem>应用管理</BreadcrumbItem>
+</Breadcrumb>
+<Space>
+    <SpaceItem>
+        <Input Placeholder="编码" @bind-Value=_pagedQuery.Param.Id />
+    </SpaceItem>
+    <SpaceItem>
+        <Select @bind-Value=_pagedQuery.Param.TypeId TItemValue=int? TItem=string Style="width:174px" DefaultActiveFirstItem>
+            <SelectOptions>
+                <SelectOption TItemValue=int? TItem=string Value=null Label="请选择类型" />
+                @if (_types != null)
+                {
+                    foreach (var type in _types)
+                    {
+                        <SelectOption TItemValue=int? TItem=string Value=type.Key Label=@type.Value />
+                    }
+                }
+            </SelectOptions>
+        </Select>
+    </SpaceItem>
+    <SpaceItem>
+        <Input Placeholder="名称" @bind-Value=_pagedQuery.Param.NameLike />
+    </SpaceItem>
+    <SpaceItem>
+        <Select @bind-Value=_pagedQuery.Param.Enable TItemValue=bool? TItem=string Style="width:174px" DefaultActiveFirstItem>
+            <SelectOptions>
+                <SelectOption TItemValue=bool? TItem=string Value=null Label="请选择是否可用" />
+                <SelectOption TItemValue=bool? TItem=string Value=true Label="可用" />
+                <SelectOption TItemValue=bool? TItem=string Value=false Label="禁用" />
+            </SelectOptions>
+        </Select>
+    </SpaceItem>
+    <SpaceItem>
+        <Button Type="primary" OnClick=Search>查询</Button>
+    </SpaceItem>
+    <SpaceItem>
+        <Button Type="primary" OnClick=Create>新增</Button>
+    </SpaceItem>
+</Space>
+
+@if (_pagedApp == null)
+{
+    <Spin />
+}
+else
+{
+    <Table TItem=ApplicationDto DataSource=_pagedApp.Items Loading=_appLoading
+           Total=_pagedApp.Total PageIndex=_pagedQuery.PageIndex PageSize=_pagedQuery.PageSize PageIndexChanged=PageIndexChanged>
+        <Column Title="编码" @bind-Field=context.Id></Column>
+        <Column Title="类型" @bind-Field=context.TypeName></Column>
+        <Column Title="名称" @bind-Field=context.Name></Column>
+        <Column Title="地址" @bind-Field=context.Url></Column>
+        <Column Title="说明" @bind-Field=context.Description></Column>
+        <Column Title="是否可用" Field=context.Enable></Column>
+        <ActionColumn Title="操作">
+            <Space>
+                <SpaceItem><Button Type="primary" Size=@("small") OnClick="()=>Edit(context)">编辑</Button></SpaceItem>
+                <SpaceItem>
+                    <Popconfirm Title="确认删除?" OnConfirm="()=>Delete(context.Id)" OkText="Yes" CancelText="No">
+                        <Button Type="primary" Size=@("small") Danger>删除</Button>
+                    </Popconfirm>
+                </SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+}
+<Modal Title=_formTitile Visible=_modalVisible ConfirmLoading=_formLoading OnOk=ModalOk OnCancel=ModalCancel>
+    <Form @ref=_form Model=_formModel Loading=_formLoading LabelCol="new ColLayoutParam { Span = 4 }" WrapperCol="new ColLayoutParam { Span = 20 }"
+          OnFinish=FormFinish OnFinishFailed=FormFinishFailed>
+        <FormItem Label="编码">
+            <Input @bind-Value=context.Code Disabled=_codeDisabled />
+        </FormItem>
+        <FormItem Label="类型">
+            <Select DataSource=_types @bind-Value=context.Type ValueName="@nameof(KeyValuePair<int, string>.Key)" LabelName="@nameof(KeyValuePair<int, string>.Value)">
+            </Select>
+        </FormItem>
+        <FormItem Label="名称">
+            <Input @bind-Value=context.Name />
+        </FormItem>
+        <FormItem Label="地址">
+            <Input @bind-Value=context.Url />
+        </FormItem>
+        <FormItem Label="是否可用">
+            <Switch @bind-Value=context.Enable />
+        </FormItem>
+        <FormItem Label="说明">
+            <TextArea @bind-Value=context.Description MinRows="3" MaxRows="5" />
+        </FormItem>
+    </Form>
+</Modal>
+
+@code {
+    private PagedQueryDto<ApplicationQueryDto> _pagedQuery = new PagedQueryDto<ApplicationQueryDto>
+    {
+        PageSize = 10,
+        Param = new ApplicationQueryDto()
+    };
+    private bool _appLoading = false;
+    private PagedResultDto<ApplicationDto> _pagedApp;
+    private KeyValuePair<int, string>[] _types;
+
+    private bool _modalVisible = false;
+    private Form<FormModel> _form;
+    private FormModel _formModel = new FormModel();
+    private string _formTitile;
+    private bool _formLoading = false;
+    private bool _codeDisabled = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        _types = await ApplicationAppService.TypeArrayAsync();
+        await Search();
+    }
+
+    private async Task Search()
+    {
+        _appLoading = true;
+        _pagedApp = await ApplicationAppService.ArrayAsync(_pagedQuery);
+        _appLoading = false;
+    }
+
+    private async Task PageIndexChanged(int pageIndex)
+    {
+        _pagedQuery.PageIndex = pageIndex;
+        await Search();
+    }
+
+    private void Create()
+    {
+        _formTitile = "新增应用";
+        _formModel.Code = default;
+        _formModel.Type = _types.Length > 0 ? _types.FirstOrDefault().Key : null;
+        _formModel.Name = default;
+        _formModel.Url = default;
+        _formModel.Description = default;
+        _formModel.Enable = default;
+        _codeDisabled = false;
+        _modalVisible = true;
+    }
+
+    private void Edit(ApplicationDto editDto)
+    {
+        _formTitile = "编辑应用";
+        _formModel.Code = editDto.Id;
+        _formModel.Type = editDto.TypeId;
+        _formModel.Name = editDto.Name;
+        _formModel.Url = editDto.Url;
+        _formModel.Description = editDto.Description;
+        _formModel.Enable = editDto.Enable;
+        _codeDisabled = true;
+        _modalVisible = true;
+    }
+
+    private async Task Delete(string id)
+    {
+        await ApplicationAppService.DeleteAsync(id);
+        await Message.Info("操作成功");
+        await Search();
+    }
+
+    private void ModalOk()
+    {
+        _formLoading = true;
+        _form.Submit();
+    }
+
+    private void ModalCancel()
+    {
+        _formLoading = false;
+        _modalVisible = false;
+    }
+
+    private async Task FormFinish(EditContext editContext)
+    {
+        if (_codeDisabled)
+        {
+            var editDto = new ApplicationEditDto
+            {
+                Type = new ValueDto<int> { Value = _formModel.Type.Value },
+                Name = new ValueDto<string> { Value = _formModel.Name },
+                Url = new ValueDto<string> { Value = _formModel.Url },
+                Description = new ValueDto<string> { Value = _formModel.Description },
+                Enable = new ValueDto<bool> { Value = _formModel.Enable }
+            };
+            await ApplicationAppService.EditAsync(_formModel.Code, editDto);
+        }
+        else
+        {
+            var createDto = new ApplicationCreateDto
+            {
+                Id = _formModel.Code,
+                Type = _formModel.Type.Value,
+                Name = _formModel.Name,
+                Url = _formModel.Url,
+                Description = _formModel.Description,
+                Enable = _formModel.Enable
+            };
+            await ApplicationAppService.CreateAsync(createDto);
+        }
+        _formLoading = false;
+        _modalVisible = false;
+        await Message.Info("操作成功");
+        await Search();
+    }
+
+    private void FormFinishFailed(EditContext editContext)
+    {
+        _formLoading = false;
+    }
+
+    private class FormModel
+    {
+        /// <summary>
+        /// 系统编码
+        /// </summary>
+        [Required(ErrorMessage = "系统编码必须录入")]
+        [MaxLength(50, ErrorMessage = "系统编码的最大长度为50")]
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 应用类型id
+        /// </summary>
+        [Required(ErrorMessage = "应用类型必须选择")]
+        public int? Type { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        [Required(ErrorMessage = "名称必须录入")]
+        [MaxLength(50, ErrorMessage = "名称的最大长度为50")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// 说明
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        [Required(ErrorMessage = "是否可用必须录入")]
+        public bool Enable { get; set; }
+    }
+}

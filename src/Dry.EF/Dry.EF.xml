@@ -84,6 +84,16 @@
             <param name="description"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.EF.Extensions.DbDescriptionExtension.HasDescription``2(Microsoft.EntityFrameworkCore.Metadata.Builders.OwnedNavigationBuilder{``0,``1},System.String)">
+            <summary>
+            表说明
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TDependentEntity"></typeparam>
+            <param name="ownedNavigationBuilder"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.EF.Extensions.DbDescriptionExtension.HasDescription``1(Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder{``0},System.String)">
             <summary>
             列说明

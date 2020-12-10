@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Admin.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationDto">
+            <summary>
+            应用返回dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Url">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Enable">
+            <summary>
+            是否可用
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationQueryDto">
+            <summary>
+            应用查询dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationQueryDto.TypeId">
+            <summary>
+            类型id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationQueryDto.NameLike">
+            <summary>
+            名称模糊查询
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationQueryDto.Enable">
+            <summary>
+            是否可用
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto">
+            <summary>
+            应用新增dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Type">
+            <summary>
+            应用类型id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Url">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto.Enable">
+            <summary>
+            是否可用
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto">
+            <summary>
+            应用编辑dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto.Type">
+            <summary>
+            应用类型id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto.Url">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationEditDto.Enable">
+            <summary>
+            是否可用
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Services.IApplicationAppService">
+            <summary>
+            应用服务接口
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -4,6 +4,17 @@
         <name>Dry.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Dry.Application.Contracts.Dtos.CodeVauleDto`1">
+            <summary>
+            编码值
+            </summary>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.CodeVauleDto`1.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
         <member name="T:Dry.Application.Contracts.Dtos.ICreateDto">
             <summary>
             新建dto
