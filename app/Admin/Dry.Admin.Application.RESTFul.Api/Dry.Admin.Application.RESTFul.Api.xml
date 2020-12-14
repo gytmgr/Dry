@@ -9,5 +9,11 @@
             应用接口
             </summary>
         </member>
+        <member name="M:Dry.Admin.Application.RESTFul.Api.Controllers.ApplicationController.TypeArrayAsync">
+            <summary>
+            获取应用类型
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -1,0 +1,14 @@
+﻿@inherits ComponentBase
+@inject LoginUser<string> LoginUser
+@inject NavigationManager NavigationManager
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (LoginUser.UserInfo == null)
+        {
+            NavigationManager.NavigateTo("/Login");
+        }
+    }
+}

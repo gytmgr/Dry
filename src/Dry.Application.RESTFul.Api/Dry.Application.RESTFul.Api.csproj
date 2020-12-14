@@ -1,24 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Company>Dry</Company>
-    <Authors>gan</Authors>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Company>Dry</Company>
+		<Authors>gan</Authors>
+		<Version>1.1.0</Version>
+		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
-    <ProjectReference Include="..\Dry.Mvc\Dry.Mvc.csproj" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Update="Dry.Application.RESTFul.Api.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
+		<ProjectReference Include="..\Dry.Mvc\Dry.Mvc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Dry.Application.RESTFul.Api.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

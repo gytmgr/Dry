@@ -1,13 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
+		<Version>1.1.0</Version>
+		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile>Dry.Serilog.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DocumentationFile>Dry.Serilog.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

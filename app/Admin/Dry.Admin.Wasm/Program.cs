@@ -1,5 +1,6 @@
 using Dry.Admin.Application.RESTFul.Client;
 using Dry.Admin.Application.RESTFul.Client.Extensions;
+using Dry.Admin.Wasm.Common;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,6 +21,8 @@ namespace Dry.Admin.Wasm
             builder.Services.AddAdminClient();
             AdminClientStatic.ApiUrl = "http://localhost:61073";
             builder.Services.AddAntDesign();
+
+            builder.Services.AddSingleton<LoginUser<string>>();
 
             await builder.Build().RunAsync();
         }

@@ -14,9 +14,14 @@
             系统id
             </summary>
         </member>
-        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Type">
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.TypeId">
             <summary>
-            类型
+            类型id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.TypeName">
+            <summary>
+            类型名称
             </summary>
         </member>
         <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Name">
@@ -133,6 +138,12 @@
             <summary>
             应用服务接口
             </summary>
+        </member>
+        <member name="M:Dry.Admin.Application.Contracts.Services.IApplicationAppService.TypeArrayAsync">
+            <summary>
+            获取应用类型
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

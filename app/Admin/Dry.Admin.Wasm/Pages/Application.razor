@@ -1,10 +1,10 @@
-﻿@page "/application"
-
-@using System.ComponentModel.DataAnnotations;
+﻿@using System.ComponentModel.DataAnnotations;
 @using Dry.Admin.Application.Contracts.Services;
 @using Dry.Admin.Application.Contracts.Dtos;
 @using Dry.Application.Contracts.Dtos;
 
+@page "/application"
+@inherits AuthPage
 @inject IApplicationAppService  ApplicationAppService
 @inject MessageService Message
 
@@ -43,10 +43,10 @@
         </Select>
     </SpaceItem>
     <SpaceItem>
-        <Button Type="primary" OnClick=Search>查询</Button>
+        <Button Type=@ButtonType.Primary OnClick=Search>查询</Button>
     </SpaceItem>
     <SpaceItem>
-        <Button Type="primary" OnClick=Create>新增</Button>
+        <Button Type=@ButtonType.Primary OnClick=Create>新增</Button>
     </SpaceItem>
 </Space>
 
@@ -66,10 +66,10 @@ else
         <Column Title="是否可用" Field=context.Enable></Column>
         <ActionColumn Title="操作">
             <Space>
-                <SpaceItem><Button Type="primary" Size=@("small") OnClick="()=>Edit(context)">编辑</Button></SpaceItem>
+                <SpaceItem><Button Type=@ButtonType.Primary Size=@("small") OnClick="()=>Edit(context)">编辑</Button></SpaceItem>
                 <SpaceItem>
                     <Popconfirm Title="确认删除?" OnConfirm="()=>Delete(context.Id)" OkText="Yes" CancelText="No">
-                        <Button Type="primary" Size=@("small") Danger>删除</Button>
+                        <Button Type=@ButtonType.Primary Size=@("small") Danger>删除</Button>
                     </Popconfirm>
                 </SpaceItem>
             </Space>
@@ -120,7 +120,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
         _types = await ApplicationAppService.TypeArrayAsync();
         await Search();
     }

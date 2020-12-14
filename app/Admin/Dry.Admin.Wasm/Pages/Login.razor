@@ -1,0 +1,62 @@
+﻿@page "/login"
+@layout EmptyLayout
+@inject LoginUser<string> LoginUser
+@inject NavigationManager NavigationManager
+
+@using System.ComponentModel.DataAnnotations;
+
+<Layout>
+    <Content Style="margin:18% 40%;">
+        <Card Title="用户登录">
+            <Body>
+                <Form Model=_formModel Loading=_formLoading LabelColOffset=0 LabelColSpan=4
+                      OnFinish=FormFinish OnFinishFailed=FormFinishFailed>
+                    <FormItem Label="账户">
+                        <Input @bind-Value=context.Account />
+                    </FormItem>
+                    <FormItem Label="密码">
+                        <InputPassword @bind-Value=context.Password />
+                    </FormItem>
+                    <FormItem WrapperColOffset="4" WrapperColSpan="20">
+                        <Button Type=@ButtonType.Primary HtmlType="submit">
+                            登录
+                        </Button>
+                    </FormItem>
+                </Form>
+            </Body>
+        </Card>
+    </Content>
+</Layout>
+
+@code {
+    private FormModel _formModel = new FormModel();
+    private bool _formLoading = false;
+
+    private void FormFinish(EditContext editContext)
+    {
+        LoginUser.UserInfo = _formModel.Account;
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void FormFinishFailed(EditContext editContext)
+    {
+        _formLoading = false;
+    }
+
+    private class FormModel
+    {
+        /// <summary>
+        /// 账户
+        /// </summary>
+        [Required(ErrorMessage = "账户必须录入")]
+        [MaxLength(50, ErrorMessage = "账户最大长度为50")]
+        public string Account { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        [Required(ErrorMessage = "密码必须录入")]
+        [MaxLength(50, ErrorMessage = "密码最大长度为50")]
+        public string Password { get; set; }
+    }
+}
