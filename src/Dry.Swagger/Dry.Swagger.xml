@@ -9,12 +9,27 @@
             Swagger中间件扩展
             </summary>
         </member>
+        <member name="M:Dry.Swagger.SwaggerExtensions.BasicConfig(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions,System.String)">
+            <summary>
+            基础配置
+            </summary>
+            <param name="options"></param>
+            <param name="title"></param>
+        </member>
         <member name="M:Dry.Swagger.SwaggerExtensions.AddCustomSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
             <summary>
             添加Swagger服务注册
             </summary>
             <param name="services"></param>
-            <param name="assembly"></param>
+            <param name="title"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Swagger.SwaggerExtensions.AddJwtSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            添加基于jwt认证的Swagger服务注册
+            </summary>
+            <param name="services"></param>
+            <param name="title"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Swagger.SwaggerExtensions.UseCustomSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
