@@ -146,6 +146,50 @@
             <param name="context"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Mvc.Infrastructure.DateTimeConverter">
+            <summary>
+            时间格式转换
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.DateTimeConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.DateTimeConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Dry.Mvc.Infrastructure.DateTimeNullableConvert">
+            <summary>
+            可为空时间格式转换
+            </summary>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.DateTimeNullableConvert.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Mvc.Infrastructure.DateTimeNullableConvert.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.DateTime},System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
         <member name="T:Dry.Mvc.Infrastructure.ResourceFilter">
             <summary>
             资源过滤器

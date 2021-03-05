@@ -35,6 +35,8 @@ namespace Dry.Admin.Application.RESTFul.Api
             }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                options.JsonSerializerOptions.Converters.Add(new DateTimeNullableConvert());
             }).ConfigureApiBehaviorOptions(options =>
             {
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;
