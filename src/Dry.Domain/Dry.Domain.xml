@@ -4,16 +4,6 @@
         <name>Dry.Domain</name>
     </assembly>
     <members>
-        <member name="T:Dry.Domain.Entities.IAddTimeEntity">
-            <summary>
-            有新增时间实体
-            </summary>
-        </member>
-        <member name="P:Dry.Domain.Entities.IAddTimeEntity.AddTime">
-            <summary>
-            新增时间
-            </summary>
-        </member>
         <member name="T:Dry.Domain.Entities.IAggregateRoot">
             <summary>
             聚合根
@@ -24,6 +14,45 @@
             单一主键聚合根
             </summary>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Domain.Entities.ICreate`1">
+            <summary>
+            实体创建接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Entities.ICreate`1.CreateAsync(Dry.Domain.Repositories.IRepository{`0})">
+            <summary>
+            创建
+            </summary>
+            <param name="repository"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Entities.IDelete`1">
+            <summary>
+            实体删除接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Entities.IDelete`1.DeleteAsync(Dry.Domain.Repositories.IRepository{`0})">
+            <summary>
+            删除
+            </summary>
+            <param name="repository"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Entities.IEdit`1">
+            <summary>
+            实体编辑接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEdit`1.EditAsync(Dry.Domain.Repositories.IRepository{`0})">
+            <summary>
+            编辑
+            </summary>
+            <param name="repository"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Domain.Entities.IEntity">
             <summary>
@@ -41,12 +70,22 @@
             主键
             </summary>
         </member>
-        <member name="T:Dry.Domain.Entities.IUpdateTimeEntity">
+        <member name="T:Dry.Domain.Entities.IHasAddTime">
+            <summary>
+            有新增时间实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.IHasAddTime.AddTime">
+            <summary>
+            新增时间
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IHasUpdateTime">
             <summary>
             有更新时间实体
             </summary>
         </member>
-        <member name="P:Dry.Domain.Entities.IUpdateTimeEntity.UpdateTime">
+        <member name="P:Dry.Domain.Entities.IHasUpdateTime.UpdateTime">
             <summary>
             更新时间
             </summary>

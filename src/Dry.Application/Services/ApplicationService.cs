@@ -146,11 +146,22 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
-            if (entity is IAddTimeEntity addTimeEntity)
+            if (entity is ICreate<TEntity> create)
             {
-                addTimeEntity.AddTime = DateTime.Now;
+                var createResult = await create.CreateAsync(_repository);
+                if (createResult.Code <= 0)
+                {
+                    throw new BizException(createResult.Message);
+                }
             }
-            await _repository.AddAsync(entity);
+            else
+            {
+                if (entity is IHasAddTime addTimeEntity)
+                {
+                    addTimeEntity.AddTime = DateTime.Now;
+                }
+                await _repository.AddAsync(entity);
+            }
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -202,7 +213,18 @@ namespace Dry.Application.Services
             {
                 throw new BizException("数据不存在");
             }
-            await _repository.RemoveAsync(entity);
+            if (entity is IDelete<TEntity> delete)
+            {
+                var deleteResult = await delete.DeleteAsync(_repository);
+                if (deleteResult.Code <= 0)
+                {
+                    throw new BizException(deleteResult.Message);
+                }
+            }
+            else
+            {
+                await _repository.RemoveAsync(entity);
+            }
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -247,9 +269,20 @@ namespace Dry.Application.Services
                 throw new BizException("数据不存在");
             }
             _mapper.Map(editDto, entity);
-            if (entity is IUpdateTimeEntity updateTimeEntity)
+            if (entity is IEdit<TEntity> edit)
             {
-                updateTimeEntity.UpdateTime = DateTime.Now;
+                var editResult = await edit.EditAsync(_repository);
+                if (editResult.Code <= 0)
+                {
+                    throw new BizException(editResult.Message);
+                }
+            }
+            else
+            {
+                if (entity is IHasUpdateTime updateTimeEntity)
+                {
+                    updateTimeEntity.UpdateTime = DateTime.Now;
+                }
             }
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);

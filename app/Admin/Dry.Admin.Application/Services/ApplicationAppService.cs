@@ -3,7 +3,6 @@ using Dry.Admin.Application.Contracts.Services;
 using Dry.Admin.Domain;
 using Dry.Admin.Domain.ValueObjects;
 using Dry.Application.Services;
-using Dry.Core.Model;
 using Dry.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -39,20 +38,6 @@ namespace Dry.Admin.Application.Services
                 }
             }
             return queryable;
-        }
-
-        public async override Task<ApplicationDto> CreateAsync([NotNull] ApplicationCreateDto createDto)
-        {
-            if (await _repository.AnyAsync(x => x.Id == createDto.Id))
-            {
-                throw new BizException("编码已存在");
-            }
-            var entity = _mapper.Map<App>(createDto);
-            entity.Secret = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            entity.AddTime = DateTime.Now;
-            await _repository.AddAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            return _mapper.Map<ApplicationDto>(entity);
         }
 
         public Task<KeyValuePair<int, string>[]> TypeArrayAsync()

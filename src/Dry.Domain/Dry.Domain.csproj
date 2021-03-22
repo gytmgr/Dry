@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Authors>gan</Authors>
 		<Company>Dry</Company>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
 	</PropertyGroup>
 
@@ -15,6 +15,10 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DocumentationFile>Dry.Domain.xml</DocumentationFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="Dry.Domain.xml">

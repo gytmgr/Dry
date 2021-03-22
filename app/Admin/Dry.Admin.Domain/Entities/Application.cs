@@ -1,13 +1,17 @@
 ﻿using Dry.Admin.Domain.ValueObjects;
+using Dry.Core.Model;
 using Dry.Domain.Entities;
+using Dry.Domain.Repositories;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Dry.Admin.Domain.Entities
 {
     /// <summary>
     /// 应用
     /// </summary>
-    public class Application : IAggregateRoot<string>, IAdminContext, IAddTimeEntity
+    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, ICreate<Application>, IEdit<Application>, IDelete<Application>
     {
         /// <summary>
         /// 系统id
@@ -48,5 +52,22 @@ namespace Dry.Admin.Domain.Entities
         /// 添加时间
         /// </summary>
         public DateTime AddTime { get; set; }
+
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <returns></returns>
+        public virtual async Task<Result<int>> CreateAsync([NotNull] IRepository<Application> repository)
+        {
+            if (await repository.AnyAsync(x => x.Id == Id))
+            {
+                return Result<int>.Create(-1, "编码已存在");
+            }
+            Secret = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            AddTime = DateTime.Now;
+            await repository.AddAsync(this);
+            return Result<int>.Create(1);
+        }
     }
 }
