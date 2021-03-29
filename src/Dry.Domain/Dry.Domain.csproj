@@ -4,8 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Authors>gan</Authors>
 		<Company>Dry</Company>
-		<Version>1.1.1</Version>
-		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
+		<Version>1.1.2</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,7 +16,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

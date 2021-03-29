@@ -1,5 +1,6 @@
 ﻿using Dry.Core.Model;
 using Dry.Domain.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace Dry.Domain.Entities
         /// <summary>
         /// 创建
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public virtual async Task<Result<int>> CreateAsync([NotNull] IRepository<TEntity> repository)
+        public virtual async Task<Result<int>> CreateAsync([NotNull] IServiceProvider serviceProvider)
         {
             if (this is IHasAddTime addTimeEntity)
             {
@@ -25,7 +26,7 @@ namespace Dry.Domain.Entities
             }
             if (this is TEntity entity)
             {
-                await repository.AddAsync(entity);
+                await serviceProvider.GetService<IRepository<TEntity>>().AddAsync(entity);
                 return Result<int>.Create(1);
             }
             else

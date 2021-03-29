@@ -154,7 +154,7 @@ namespace Dry.Application.Services
             var entity = _mapper.Map<TEntity>(createDto);
             if (entity is ICreate<TEntity> create)
             {
-                var createResult = await create.CreateAsync(_repository);
+                var createResult = await create.CreateAsync(_serviceProvider);
                 if (createResult.Code <= 0)
                 {
                     throw new BizException(createResult.Message);
@@ -253,7 +253,7 @@ namespace Dry.Application.Services
             }
             if (entity is IDelete<TEntity> delete)
             {
-                var deleteResult = await delete.DeleteAsync(_repository);
+                var deleteResult = await delete.DeleteAsync(_serviceProvider);
                 if (deleteResult.Code <= 0)
                 {
                     throw new BizException(deleteResult.Message);
@@ -311,7 +311,7 @@ namespace Dry.Application.Services
             _mapper.Map(editDto, entity);
             if (entity is IEdit<TEntity> edit)
             {
-                var editResult = await edit.EditAsync(_repository);
+                var editResult = await edit.EditAsync(_serviceProvider);
                 if (editResult.Code <= 0)
                 {
                     throw new BizException(editResult.Message);

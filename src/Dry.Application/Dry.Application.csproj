@@ -5,7 +5,6 @@
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<Version>1.1.1</Version>
-		<PackageReleaseNotes></PackageReleaseNotes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

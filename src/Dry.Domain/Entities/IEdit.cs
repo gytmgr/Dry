@@ -1,5 +1,4 @@
 ﻿using Dry.Core.Model;
-using Dry.Domain.Repositories;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -15,9 +14,9 @@ namespace Dry.Domain.Entities
         /// <summary>
         /// 编辑
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public virtual Task<Result<int>> EditAsync([NotNull] IRepository<TEntity> repository)
+        public virtual Task<Result<int>> EditAsync([NotNull] IServiceProvider serviceProvider)
         {
             if (this is IHasUpdateTime updateTimeEntity)
             {

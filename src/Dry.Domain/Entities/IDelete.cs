@@ -1,5 +1,7 @@
 ﻿using Dry.Core.Model;
 using Dry.Domain.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -14,13 +16,13 @@ namespace Dry.Domain.Entities
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public virtual async Task<Result<int>> DeleteAsync([NotNull] IRepository<TEntity> repository)
+        public virtual async Task<Result<int>> DeleteAsync([NotNull] IServiceProvider serviceProvider)
         {
             if (this is TEntity entity)
             {
-                await repository.RemoveAsync(entity);
+                await serviceProvider.GetService<IRepository<TEntity>>().RemoveAsync(entity);
                 return Result<int>.Create(1);
             }
             else
