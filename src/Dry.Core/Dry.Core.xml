@@ -201,6 +201,17 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Core.Model.TypeBizException">
+            <summary>
+            类型异常类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
         <member name="T:Dry.Core.Utilities.DateHelper">
             <summary>
             日期帮助类
