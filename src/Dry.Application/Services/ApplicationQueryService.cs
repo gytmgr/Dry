@@ -152,13 +152,9 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
-            if (entity is ICreate<TEntity> create)
+            if (entity is ICreate create)
             {
-                var createResult = await create.CreateAsync(_serviceProvider);
-                if (createResult.Code <= 0)
-                {
-                    throw new BizException(createResult.Message);
-                }
+                await create.CreateAsync(_serviceProvider);
             }
             else
             {
@@ -166,8 +162,8 @@ namespace Dry.Application.Services
                 {
                     addTimeEntity.AddTime = DateTime.Now;
                 }
-                await _repository.AddAsync(entity);
             }
+            await _repository.AddAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -249,20 +245,13 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
-                throw new BizException("数据不存在");
+                throw new NullDataBizException();
             }
-            if (entity is IDelete<TEntity> delete)
+            if (entity is IDelete delete)
             {
-                var deleteResult = await delete.DeleteAsync(_serviceProvider);
-                if (deleteResult.Code <= 0)
-                {
-                    throw new BizException(deleteResult.Message);
-                }
+                await delete.DeleteAsync(_serviceProvider);
             }
-            else
-            {
-                await _repository.RemoveAsync(entity);
-            }
+            await _repository.RemoveAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -306,16 +295,12 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
-                throw new BizException("数据不存在");
+                throw new NullDataBizException();
             }
             _mapper.Map(editDto, entity);
-            if (entity is IEdit<TEntity> edit)
+            if (entity is IEdit edit)
             {
-                var editResult = await edit.EditAsync(_serviceProvider);
-                if (editResult.Code <= 0)
-                {
-                    throw new BizException(editResult.Message);
-                }
+                await edit.EditAsync(_serviceProvider);
             }
             else
             {

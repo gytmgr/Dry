@@ -29,6 +29,15 @@ namespace Dry.Domain.Repositories
         IQueryable<TEntity> Include([NotNull] IQueryable<TEntity> queryable, [NotNull] params Expression<Func<TEntity, dynamic>>[] paths);
 
         /// <summary>
+        /// 属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        bool PropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty>> propertyExpression);
+
+        /// <summary>
         /// 主键查询
         /// </summary>
         /// <param name="keyValues"></param>

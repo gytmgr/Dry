@@ -4,6 +4,7 @@ using Dry.Application.Contracts.Services;
 using Dry.Core.Model;
 using Dry.Domain;
 using Dry.Domain.Entities;
+using Dry.Domain.Extensions;
 using Dry.Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -42,7 +43,7 @@ namespace Dry.Application.Services
         {
             _serviceProvider = serviceProvider;
             _mapper = serviceProvider.GetService<IMapper>();
-            _repository = serviceProvider.GetService<IRepository<TEntity>>();
+            _repository = serviceProvider.GetRepository<TEntity>();
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Dry.Application.Services
         /// <typeparam name="TOtherEntity"></typeparam>
         /// <returns></returns>
         protected IRepository<TOtherEntity> Repository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
-            => _serviceProvider.GetService(typeof(IRepository<TOtherEntity>)) as IRepository<TOtherEntity>;
+            => _serviceProvider.GetRepository<TOtherEntity>();
     }
 
     /// <summary>
@@ -136,7 +137,7 @@ namespace Dry.Application.Services
         /// <param name="serviceProvider"></param>
         public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork<TBoundedContext>)) as IUnitOfWork<TBoundedContext>;
+            _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
         }
 
         /// <summary>
@@ -147,13 +148,9 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
         {
             var entity = _mapper.Map<TEntity>(createDto);
-            if (entity is ICreate<TEntity> create)
+            if (entity is ICreate create)
             {
-                var createResult = await create.CreateAsync(_serviceProvider);
-                if (createResult.Code <= 0)
-                {
-                    throw new BizException(createResult.Message);
-                }
+                await create.CreateAsync(_serviceProvider);
             }
             else
             {
@@ -161,8 +158,8 @@ namespace Dry.Application.Services
                 {
                     addTimeEntity.AddTime = DateTime.Now;
                 }
-                await _repository.AddAsync(entity);
             }
+            await _repository.AddAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -212,20 +209,13 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
-                throw new BizException("数据不存在");
+                throw new NullDataBizException();
             }
-            if (entity is IDelete<TEntity> delete)
+            if (entity is IDelete delete)
             {
-                var deleteResult = await delete.DeleteAsync(_serviceProvider);
-                if (deleteResult.Code <= 0)
-                {
-                    throw new BizException(deleteResult.Message);
-                }
+                await delete.DeleteAsync(_serviceProvider);
             }
-            else
-            {
-                await _repository.RemoveAsync(entity);
-            }
+            await _repository.RemoveAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
@@ -267,16 +257,12 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
-                throw new BizException("数据不存在");
+                throw new NullDataBizException();
             }
             _mapper.Map(editDto, entity);
-            if (entity is IEdit<TEntity> edit)
+            if (entity is IEdit edit)
             {
-                var editResult = await edit.EditAsync(_serviceProvider);
-                if (editResult.Code <= 0)
-                {
-                    throw new BizException(editResult.Message);
-                }
+                await edit.EditAsync(_serviceProvider);
             }
             else
             {

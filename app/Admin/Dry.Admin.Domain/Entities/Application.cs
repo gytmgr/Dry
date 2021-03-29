@@ -1,7 +1,7 @@
 ﻿using Dry.Admin.Domain.ValueObjects;
 using Dry.Core.Model;
 using Dry.Domain.Entities;
-using Dry.Domain.Repositories;
+using Dry.Domain.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace Dry.Admin.Domain.Entities
     /// <summary>
     /// 应用
     /// </summary>
-    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, ICreate<Application>, IEdit<Application>, IDelete<Application>
+    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, ICreate
     {
         /// <summary>
         /// 系统id
@@ -56,18 +56,16 @@ namespace Dry.Admin.Domain.Entities
         /// <summary>
         /// 创建
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public virtual async Task<Result<int>> CreateAsync([NotNull] IRepository<Application> repository)
+        public virtual async Task CreateAsync([NotNull] IServiceProvider serviceProvider)
         {
-            if (await repository.AnyAsync(x => x.Id == Id))
+            if (await serviceProvider.GetRepository<Application>().AnyAsync(x => x.Id == Id))
             {
-                return Result<int>.Create(-1, "编码已存在");
+                throw new BizException("编码已存在");
             }
             Secret = Guid.NewGuid().ToString().Replace("-", string.Empty);
             AddTime = DateTime.Now;
-            await repository.AddAsync(this);
-            return Result<int>.Create(1);
         }
     }
 }

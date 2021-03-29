@@ -4,8 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.0</Version>
-		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

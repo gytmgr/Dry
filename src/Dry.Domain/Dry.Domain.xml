@@ -15,39 +15,36 @@
             </summary>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="T:Dry.Domain.Entities.ICreate`1">
+        <member name="T:Dry.Domain.Entities.ICreate">
             <summary>
             实体创建接口
             </summary>
-            <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="M:Dry.Domain.Entities.ICreate`1.CreateAsync(System.IServiceProvider)">
+        <member name="M:Dry.Domain.Entities.ICreate.CreateAsync(System.IServiceProvider)">
             <summary>
             创建
             </summary>
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Domain.Entities.IDelete`1">
+        <member name="T:Dry.Domain.Entities.IDelete">
             <summary>
             实体删除接口
             </summary>
-            <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="M:Dry.Domain.Entities.IDelete`1.DeleteAsync(System.IServiceProvider)">
+        <member name="M:Dry.Domain.Entities.IDelete.DeleteAsync(System.IServiceProvider)">
             <summary>
             删除
             </summary>
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Domain.Entities.IEdit`1">
+        <member name="T:Dry.Domain.Entities.IEdit">
             <summary>
             实体编辑接口
             </summary>
-            <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="M:Dry.Domain.Entities.IEdit`1.EditAsync(System.IServiceProvider)">
+        <member name="M:Dry.Domain.Entities.IEdit.EditAsync(System.IServiceProvider)">
             <summary>
             编辑
             </summary>
@@ -90,6 +87,19 @@
             更新时间
             </summary>
         </member>
+        <member name="T:Dry.Domain.Extensions.ServiceProviderExtension">
+            <summary>
+            服务创建扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Extensions.ServiceProviderExtension.GetRepository``1(System.IServiceProvider)">
+            <summary>
+            获取仓储服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.IBoundedContext">
             <summary>
             限界上下文
@@ -113,6 +123,15 @@
             </summary>
             <param name="queryable"></param>
             <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.PropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            属性是否更改
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.FindAsync(System.Object[])">

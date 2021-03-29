@@ -215,6 +215,15 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.PropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            属性是否更改
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.EF.Repositories.Repository`1.FindAsync(System.Object[])">
             <summary>
             主键查询

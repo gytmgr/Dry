@@ -93,6 +93,26 @@ namespace Dry.Core.Utilities
             }
             return query;
         }
+
+        /// <summary>
+        /// 指定属性去重
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="keySelector"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> query, Func<TSource, TKey> keySelector)
+        {
+            var seenKeys = new HashSet<TKey>();
+            foreach (TSource element in query)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
+        }
     }
 
     /// <summary>

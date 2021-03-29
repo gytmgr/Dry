@@ -62,6 +62,16 @@ namespace Dry.EF.Repositories
         }
 
         /// <summary>
+        /// 属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public bool PropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty>> propertyExpression)
+            => _context.Entry(entitiy).Property(propertyExpression).IsModified;
+
+        /// <summary>
         /// 主键查询
         /// </summary>
         /// <param name="keyValues"></param>
