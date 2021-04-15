@@ -1,11 +1,12 @@
 ﻿using Dry.Core.Model;
 using Dry.Core.Utilities;
+using Dry.Http;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Dry.Http.Client
+namespace Dry.Application.RESTFul.Client
 {
     /// <summary>
     /// api客户端

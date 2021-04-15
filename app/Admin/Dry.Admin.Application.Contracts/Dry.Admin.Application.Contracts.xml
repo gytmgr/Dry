@@ -69,6 +69,31 @@
             是否可用
             </summary>
         </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationQueryDto.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationQuerySortField">
+            <summary>
+            应用查询排序字段
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Application.Contracts.Dtos.ApplicationQuerySortField.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Application.Contracts.Dtos.ApplicationQuerySortField.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Application.Contracts.Dtos.ApplicationQuerySortField.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
         <member name="T:Dry.Admin.Application.Contracts.Dtos.ApplicationCreateDto">
             <summary>
             应用新增dto

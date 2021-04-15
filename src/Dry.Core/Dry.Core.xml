@@ -243,23 +243,23 @@
             </summary>
             <param name="msg"></param>
         </member>
-        <member name="T:Dry.Core.Utilities.DateHelper">
+        <member name="T:Dry.Core.Utilities.DateTimeExtension">
             <summary>
-            日期帮助类
+            时间扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.DateHelper.SolarToChineseWeek(System.DateTime)">
+        <member name="M:Dry.Core.Utilities.DateTimeExtension.GetChineseWeekName(System.DateTime)">
             <summary>
             获取中文星期
             </summary>
-            <param name="solarDateTime"></param>
+            <param name="dateTime"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.DateHelper.SolarToChineseLunisolarDate(System.DateTime)">
+        <member name="M:Dry.Core.Utilities.DateTimeExtension.GetChineseLunisolarDate(System.DateTime)">
             <summary>
-            公历转为农历的函数
+            获取农历日期
             </summary>
-            <param name="solarDateTime"></param>
+            <param name="dateTime"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.Des3Encrypt">
@@ -283,18 +283,67 @@
             <param name="strKey"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Utilities.EnumHelper">
+        <member name="T:Dry.Core.Utilities.EnumerableExtensionForTree">
             <summary>
-            枚举帮助类
+            树状结构扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.EnumHelper.GetDescription(System.Enum,System.Boolean)">
+        <member name="M:Dry.Core.Utilities.EnumerableExtensionForTree.BuildTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建树结构
+            </summary>
+            <typeparam name="TSource">源类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="idField">id字段的名称</param>
+            <param name="parentField">父id字段的名称</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumerableExtensionForTree.BuildTree``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建值类型主键的树结构
+            </summary>
+            <typeparam name="TSource">ITree接口实现类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <typeparam name="TType">TSource的id类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumerableExtensionForTree.BuildStringTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
+            <summary>
+            构建string类型主键的树结构
+            </summary>
+            <typeparam name="TSource">IStringTree接口实现类型</typeparam>
+            <typeparam name="TResult">结果类型</typeparam>
+            <param name="currentList">当前列表</param>
+            <param name="allList">所有列表</param>
+            <param name="selector">结果构造器</param>
+            <param name="exclude">排除条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.EnumExtension">
+            <summary>
+            枚举扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumExtension.GetDescription(System.Enum,System.Boolean)">
             <summary>
             获取指定枚举项说明
             </summary>
             <param name="value"></param>
             <param name="nameInstead"></param>
             <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.EnumHelper">
+            <summary>
+            枚举帮助类
+            </summary>
         </member>
         <member name="M:Dry.Core.Utilities.EnumHelper.GetEnumDic``1">
             <summary>
@@ -504,6 +553,11 @@
             http请求
             </summary>
         </member>
+        <member name="F:Dry.Core.Utilities.HttpRequester._internalHttpClient">
+            <summary>
+            是否内部创建的HttpClient
+            </summary>
+        </member>
         <member name="P:Dry.Core.Utilities.HttpRequester.Method">
             <summary>
             http方法
@@ -580,12 +634,12 @@
             释放资源
             </summary>
         </member>
-        <member name="T:Dry.Core.Utilities.EnumerableExpression">
+        <member name="T:Dry.Core.Utilities.EnumerableExtension">
             <summary>
             Enumerable扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.EnumerableExpression.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object}}[])">
+        <member name="M:Dry.Core.Utilities.EnumerableExtension.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object}}[])">
             <summary>
             多字段排序
             </summary>
@@ -594,7 +648,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.EnumerableExpression.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object},System.Collections.Generic.IComparer{System.Object}}[])">
+        <member name="M:Dry.Core.Utilities.EnumerableExtension.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.ValueTuple{System.Boolean,System.Func{``0,System.Object},System.Collections.Generic.IComparer{System.Object}}[])">
             <summary>
             使用比较器多字段排序
             </summary>
@@ -603,7 +657,7 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.EnumerableExpression.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:Dry.Core.Utilities.EnumerableExtension.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             指定属性去重
             </summary>
@@ -613,12 +667,21 @@
             <param name="keySelector"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Utilities.QueryableExpression">
+        <member name="T:Dry.Core.Utilities.QueryableExtension">
             <summary>
             Queryable扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.QueryableExpression.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+        <member name="M:Dry.Core.Utilities.QueryableExtension.Where``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}}[])">
+            <summary>
+            设置多条件
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.QueryableExtension.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
             <summary>
             多字段排序
             </summary>
@@ -627,13 +690,36 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.QueryableExpression.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Collections.Generic.IComparer{System.Object}}[])">
+        <member name="M:Dry.Core.Utilities.QueryableExtension.OrderBy``1(System.Linq.IQueryable{``0},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Collections.Generic.IComparer{System.Object}}[])">
             <summary>
             使用比较器多字段排序
             </summary>
             <typeparam name="TSource"></typeparam>
             <param name="query"></param>
             <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.ExpressionExtension">
+            <summary>
+            Lambda表达式扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.ExpressionExtension.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件合并_并集
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression1"></param>
+            <param name="expression2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.ExpressionExtension.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件合并_交集
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression1"></param>
+            <param name="expression2"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.LinqHelper">
@@ -677,12 +763,20 @@
             </summary>
             <param name="paramList"></param>
         </member>
-        <member name="T:Dry.Core.Utilities.ObjClone">
+        <member name="T:Dry.Core.Utilities.ObjectExtension">
             <summary>
-            对象克隆类
+            对象扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.ObjClone.DeepCopy``1(``0)">
+        <member name="M:Dry.Core.Utilities.ObjectExtension.ToNullArray``1(``0)">
+            <summary>
+            对象转单元素数组，如空则返回空
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.ObjectExtension.DeepCopy``1(``0)">
             <summary>
             深拷贝
             </summary>
@@ -690,103 +784,110 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Utilities.StringHelper">
+        <member name="M:Dry.Core.Utilities.ObjectExtension.ObjectToUriParam(System.Object)">
             <summary>
-            字符串操作
+            对象转url参数
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.StringExtension">
+            <summary>
+            字符串扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToBool(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToBool(System.String)">
             <summary>
             转换为可为空的bool
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToSByte(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToSByte(System.String)">
             <summary>
             转换为可为空的sbyte
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToByte(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToByte(System.String)">
             <summary>
             转换为可为空的byte
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToShort(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToShort(System.String)">
             <summary>
             转换为可为空的short
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToUShort(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToUShort(System.String)">
             <summary>
             转换为可为空的ushort
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToInt(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToInt(System.String)">
             <summary>
             转换为可为空的int
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToUInt(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToUInt(System.String)">
             <summary>
             转换为可为空的uint
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToLong(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToLong(System.String)">
             <summary>
             转换为可为空的long
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToULong(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToULong(System.String)">
             <summary>
             转换为可为空的ulong
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToFloat(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToFloat(System.String)">
             <summary>
             转换为可为空的float
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToDouble(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToDouble(System.String)">
             <summary>
             转换为可为空的double
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToDecimal(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToDecimal(System.String)">
             <summary>
             转换为可为空的decimal
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToChar(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToChar(System.String)">
             <summary>
             转换为可为空的char
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToEnum``1(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToEnum``1(System.String)">
             <summary>
             转换为可为空的Enum
             </summary>
@@ -794,96 +895,52 @@
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToGuid(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToGuid(System.String)">
             <summary>
             转换为可为空的guid
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToDateTime(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToDateTime(System.String)">
             <summary>
             转换为可为空的DateTime
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.ToTimeSpan(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.ToTimeSpan(System.String)">
             <summary>
             转换为可为空的TimeSpan
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.EmptyToNull(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.EmptyToNull(System.String)">
             <summary>
             将空字符处理为null
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.StringHelper.NullToEmpty(System.String)">
+        <member name="M:Dry.Core.Utilities.StringExtension.NullToEmpty(System.String)">
             <summary>
             将null处理为Empty
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Utilities.StructHelper">
+        <member name="T:Dry.Core.Utilities.StructExtension">
             <summary>
-            结构操作
+            结构扩展
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.StructHelper.DefaultToNull``1(``0)">
+        <member name="M:Dry.Core.Utilities.StructExtension.DefaultToNull``1(``0)">
             <summary>
             将默认值转成null
             </summary>
             <typeparam name="TStruct"></typeparam>
             <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.Core.Utilities.TreeHelper">
-            <summary>
-            树状结构帮助类
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Utilities.TreeHelper.BuildTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
-            <summary>
-            构建树结构
-            </summary>
-            <typeparam name="TSource">源类型</typeparam>
-            <typeparam name="TResult">结果类型</typeparam>
-            <param name="currentList">当前列表</param>
-            <param name="allList">所有列表</param>
-            <param name="idField">id字段的名称</param>
-            <param name="parentField">父id字段的名称</param>
-            <param name="selector">结果构造器</param>
-            <param name="exclude">排除条件</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Core.Utilities.TreeHelper.BuildTree``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
-            <summary>
-            构建值类型主键的树结构
-            </summary>
-            <typeparam name="TSource">ITree接口实现类型</typeparam>
-            <typeparam name="TResult">结果类型</typeparam>
-            <typeparam name="TType">TSource的id类型</typeparam>
-            <param name="currentList">当前列表</param>
-            <param name="allList">所有列表</param>
-            <param name="selector">结果构造器</param>
-            <param name="exclude">排除条件</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Core.Utilities.TreeHelper.BuildStringTree``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``1},``1},System.Predicate{``0})">
-            <summary>
-            构建string类型主键的树结构
-            </summary>
-            <typeparam name="TSource">IStringTree接口实现类型</typeparam>
-            <typeparam name="TResult">结果类型</typeparam>
-            <param name="currentList">当前列表</param>
-            <param name="allList">所有列表</param>
-            <param name="selector">结果构造器</param>
-            <param name="exclude">排除条件</param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.TypeExtension">
@@ -905,18 +962,6 @@
             获取类型默认值
             </summary>
             <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.Core.Utilities.UrlHelper">
-            <summary>
-            url帮助类
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Utilities.UrlHelper.ObjectToUriParam(System.Object)">
-            <summary>
-            对象转url参数
-            </summary>
-            <param name="obj"></param>
             <returns></returns>
         </member>
     </members>

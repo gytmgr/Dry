@@ -1,4 +1,6 @@
-﻿namespace Dry.Application.Contracts.Dtos
+﻿#nullable enable
+
+namespace Dry.Application.Contracts.Dtos
 {
     /// <summary>
     /// 查询dto
@@ -16,21 +18,21 @@
         /// <summary>
         /// 系统id
         /// </summary>
-        public TKey Id { get; set; }
+        public TKey? Id { get; set; }
 
         /// <summary>
         /// 系统id不等于
         /// </summary>
-        public TKey IdNotEqual { get; set; }
+        public TKey? IdNotEqual { get; set; }
 
         /// <summary>
         /// 系统id
         /// </summary>
-        public TKey[] Ids { get; set; }
+        public TKey[]? Ids { get; set; }
 
         /// <summary>
         /// 系统id不等于
         /// </summary>
-        public TKey[] IdsNotEqual { get; set; }
+        public TKey[]? IdsNotEqual { get; set; }
     }
 }

@@ -19,13 +19,26 @@ namespace Dry.Application.Mapping
             CreateMap<ValueDto<byte?>, byte?>().ConvertUsing(Convert);
             CreateMap<ValueDto<int>, int>().ConvertUsing(Convert);
             CreateMap<ValueDto<int?>, int?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<long>, long>().ConvertUsing(Convert);
+            CreateMap<ValueDto<long?>, long?>().ConvertUsing(Convert);
             CreateMap<ValueDto<Guid>, Guid>().ConvertUsing(Convert);
             CreateMap<ValueDto<Guid?>, Guid?>().ConvertUsing(Convert);
             CreateMap<ValueDto<bool>, bool>().ConvertUsing(Convert);
             CreateMap<ValueDto<bool?>, bool?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<DateTime>, DateTime>().ConvertUsing(Convert);
+            CreateMap<ValueDto<DateTime?>, DateTime?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<TimeSpan>, TimeSpan>().ConvertUsing(Convert);
+            CreateMap<ValueDto<TimeSpan?>, TimeSpan?>().ConvertUsing(Convert);
         }
 
-        private TValue Convert<TValue>(ValueDto<TValue> source, TValue destination)
-            => source == null ? destination : source.Value;
+        /// <summary>
+        /// ValueDto转Value
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public TValue Convert<TValue>(ValueDto<TValue> source, TValue destination)
+            => source is null ? destination : source.Value;
     }
 }

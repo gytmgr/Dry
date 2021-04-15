@@ -1,6 +1,5 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
-using Dry.Http.Client;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;

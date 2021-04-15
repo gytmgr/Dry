@@ -1,12 +1,13 @@
 ﻿using Dry.Core.Model;
 using Dry.Core.Utilities;
-using Newtonsoft.Json;
+using Dry.Http.Json;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Dry.Http.Client
+namespace Dry.Http
 {
     /// <summary>
     /// http请求扩展
@@ -26,7 +27,7 @@ namespace Dry.Http.Client
             {
                 if (param != null)
                 {
-                    var urlParam = UrlHelper.ObjectToUriParam(param);
+                    var urlParam = param.ObjectToUriParam();
                     if (requester.Url.Contains("?"))
                     {
                         requester.Url = $"{requester.Url}&{urlParam}";
@@ -41,14 +42,14 @@ namespace Dry.Http.Client
             {
                 if (param != null)
                 {
-                    var strContent = param is string strParam ? strParam : JsonConvert.SerializeObject(param);
+                    var strContent = param is string strParam ? strParam : JsonSerializer.Serialize(param, new JsonSerializerOptions().DefaultConfig());
                     requester.Content = new StringContent(strContent, Encoding.UTF8, "application/json");
                 }
             }
             var result = await requester.GetStringResultAsync();
             if (result.Code == HttpStatusCode.OK)
             {
-                var data = JsonConvert.DeserializeObject<TData>(result.Data);
+                var data = JsonSerializer.Deserialize<TData>(result.Data, new JsonSerializerOptions().DefaultConfig());
                 return Result<HttpStatusCode, TData>.Create(result.Code, data);
             }
             return Result<HttpStatusCode, TData>.Create(result.Code, result.Data, default);

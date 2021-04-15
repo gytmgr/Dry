@@ -6,9 +6,9 @@ using System.Linq;
 namespace Dry.Core.Utilities
 {
     /// <summary>
-    /// 树状结构帮助类
+    /// 树状结构扩展
     /// </summary>
-    public static class TreeHelper
+    public static class EnumerableExtensionForTree
     {
         /// <summary>
         /// 构建树结构

@@ -4,6 +4,7 @@ using Dry.Admin.Application.Mapping;
 using Dry.Admin.EF.Extensions;
 using Dry.Admin.EF.Sqlite;
 using Dry.Application.Mapping;
+using Dry.Http.Json;
 using Dry.Mvc.Infrastructure;
 using Dry.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -34,9 +35,7 @@ namespace Dry.Admin.Application.RESTFul.Api
                 options.Filters.Add(typeof(ExceptionFilter));
             }).AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
-                options.JsonSerializerOptions.Converters.Add(new DateTimeNullableConvert());
+                options.JsonSerializerOptions.DefaultConfig();
             }).ConfigureApiBehaviorOptions(options =>
             {
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;

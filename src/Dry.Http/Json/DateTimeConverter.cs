@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Dry.Mvc.Infrastructure
+namespace Dry.Http.Json
 {
     /// <summary>
     /// 时间格式转换

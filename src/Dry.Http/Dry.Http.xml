@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Http</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Http.HttpRequesterExtension">
+            <summary>
+            http请求扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Http.HttpRequesterExtension.GetResultAsync``1(Dry.Core.Utilities.HttpRequester,System.Object)">
+            <summary>
+            返回泛型结果
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="requester"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Http.Json.DateTimeConverter">
+            <summary>
+            时间格式转换
+            </summary>
+        </member>
+        <member name="M:Dry.Http.Json.DateTimeConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Http.Json.DateTimeConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Dry.Http.Json.DateTimeNullableConvert">
+            <summary>
+            可为空时间格式转换
+            </summary>
+        </member>
+        <member name="M:Dry.Http.Json.DateTimeNullableConvert.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Http.Json.DateTimeNullableConvert.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.DateTime},System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Dry.Http.Json.JsonSerializerOptionsExtension">
+            <summary>
+            json序列化参数扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Http.Json.JsonSerializerOptionsExtension.DefaultConfig(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            配置默认参数
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

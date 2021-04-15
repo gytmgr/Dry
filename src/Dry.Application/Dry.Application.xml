@@ -4,6 +4,29 @@
         <name>Dry.Application</name>
     </assembly>
     <members>
+        <member name="T:Dry.Application.Extensions.SortDtoExtension">
+            <summary>
+            排序dto扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Extensions.SortDtoExtension.GetOrderByParam``2(Dry.Application.Contracts.Dtos.SortDto{``1})">
+            <summary>
+            获取排序参数
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TEnum"></typeparam>
+            <param name="sortDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Extensions.SortDtoExtension.GetOrderByParams``2(System.Collections.Generic.IEnumerable{Dry.Application.Contracts.Dtos.SortDto{``1}})">
+            <summary>
+            获取排序参数
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TEnum"></typeparam>
+            <param name="sortDtos"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Application.Mapping.ValueProfile">
             <summary>
             值对象映射
@@ -13,6 +36,15 @@
             <summary>
             构造体
             </summary>
+        </member>
+        <member name="M:Dry.Application.Mapping.ValueProfile.Convert``1(Dry.Application.Contracts.Dtos.ValueDto{``0},``0)">
+            <summary>
+            ValueDto转Value
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="source"></param>
+            <param name="destination"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Application.Services.ApplicationQueryService`3">
             <summary>
@@ -28,11 +60,24 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`3.GetQueryable(System.Linq.IQueryable{`0},`2)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.GetPropertyLoads(`2)">
             <summary>
-            根据查询对象获取linq表达式
+            获取属性加载表达式
             </summary>
-            <param name="queryable"></param>
+            <param name="queryDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.GetPredicates(`2)">
+            <summary>
+            获取查询条件表达式
+            </summary>
+            <param name="queryDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.GetOrderBys(`2)">
+            <summary>
+            获取排序表达式
+            </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
@@ -116,11 +161,17 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetQueryable(System.Linq.IQueryable{`1},`3)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetPredicates(`3)">
             <summary>
-            根据查询对象获取linq表达式
+            获取查询条件表达式
             </summary>
-            <param name="queryable"></param>
+            <param name="queryDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetOrderBys(`3)">
+            <summary>
+            获取排序表达式
+            </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>

@@ -6,8 +6,8 @@ using Dry.Application.Services;
 using Dry.Core.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using App = Dry.Admin.Domain.Entities.Application;
 
@@ -19,25 +19,41 @@ namespace Dry.Admin.Application.Services
         {
         }
 
-        protected override IQueryable<App> GetQueryable([NotNull] IQueryable<App> queryable, ApplicationQueryDto queryDto)
+        protected override Expression<Func<App, bool>>[] GetPredicates(ApplicationQueryDto queryDto)
         {
-            queryable = base.GetQueryable(queryable, queryDto);
-            if (queryDto != null)
+            var predicates = base.GetPredicates(queryDto).ToList();
+            if (queryDto is not null)
             {
                 if (queryDto.TypeId.HasValue)
                 {
-                    queryable = queryable.Where(x => x.Type == (ApplicationType)queryDto.TypeId.Value);
+                    predicates.Add(x => x.Type == (ApplicationType)queryDto.TypeId.Value);
                 }
                 if (!string.IsNullOrEmpty(queryDto.NameLike))
                 {
-                    queryable = queryable.Where(x => x.Name.Contains(queryDto.NameLike));
+                    predicates.Add(x => x.Name.Contains(queryDto.NameLike));
                 }
                 if (queryDto.Enable.HasValue)
                 {
-                    queryable = queryable.Where(x => x.Enable == queryDto.Enable.Value);
+                    predicates.Add(x => x.Enable == queryDto.Enable.Value);
                 }
             }
-            return queryable;
+            return predicates.ToArray();
+        }
+
+        protected override (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] GetOrderBys(ApplicationQueryDto queryDto)
+        {
+            if (queryDto.Sort is not null)
+            {
+                Expression<Func<App, dynamic>> keySelector = queryDto.Sort.Field switch
+                {
+                    ApplicationQuerySortField.Type => x => x.Type,
+                    ApplicationQuerySortField.Name => x => x.Name,
+                    ApplicationQuerySortField.AddTime => x => x.AddTime,
+                    _ => x => x.AddTime
+                };
+                return new (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] { (queryDto.Sort.Order, keySelector) };
+            }
+            return base.GetOrderBys(queryDto);
         }
 
         public Task<KeyValuePair<int, string>[]> TypeArrayAsync()

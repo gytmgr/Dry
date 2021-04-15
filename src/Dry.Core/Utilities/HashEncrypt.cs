@@ -20,7 +20,7 @@ namespace Dry.Core.Utilities
         /// <returns></returns>
         public static string Encrypt<T>(T hash, string data, Encoding encoding = null) where T : HashAlgorithm
         {
-            if (encoding == null)
+            if (encoding is null)
             {
                 encoding = Encoding.UTF8;
             }

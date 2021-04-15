@@ -17,6 +17,11 @@ namespace Dry.Core.Utilities
     public class HttpRequester : IDisposable
     {
         /// <summary>
+        /// 是否内部创建的HttpClient
+        /// </summary>
+        private bool _internalHttpClient;
+
+        /// <summary>
         /// http方法
         /// </summary>
         public HttpMethod Method { get; set; }
@@ -39,7 +44,7 @@ namespace Dry.Core.Utilities
         /// <summary>
         /// http客户端
         /// </summary>
-        public HttpClient Client { get; set; }
+        public HttpClient Client { private get; set; }
 
         /// <summary>
         /// http版本（默认1.1）
@@ -102,6 +107,7 @@ namespace Dry.Core.Utilities
             if (Client == null)
             {
                 Client = new HttpClient();
+                _internalHttpClient = true;
             }
             return await Client.SendAsync(request);
         }
@@ -144,7 +150,10 @@ namespace Dry.Core.Utilities
         /// </summary>
         public void Dispose()
         {
-            Client?.Dispose();
+            if (_internalHttpClient)
+            {
+                Client?.Dispose();
+            }
             Content?.Dispose();
         }
     }

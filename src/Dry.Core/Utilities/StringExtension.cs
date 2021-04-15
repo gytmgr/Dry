@@ -3,9 +3,9 @@
 namespace Dry.Core.Utilities
 {
     /// <summary>
-    /// 字符串操作
+    /// 字符串扩展
     /// </summary>
-    public static class StringHelper
+    public static class StringExtension
     {
         /// <summary>
         /// 转换为可为空的bool

@@ -5,6 +5,7 @@ using Dry.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -39,27 +40,7 @@ namespace Dry.EF.Repositories
             _context = (DbContext)_provider.GetService(boundedContextType);
         }
 
-        /// <summary>
-        /// 获取linq查询表达式
-        /// </summary>
-        /// <returns></returns>
-        public IQueryable<TEntity> GetQueryable()
-            => _context.Set<TEntity>();
-
-        /// <summary>
-        /// 提前加载
-        /// </summary>
-        /// <param name="queryable"></param>
-        /// <param name="paths"></param>
-        /// <returns></returns>
-        public IQueryable<TEntity> Include(IQueryable<TEntity> queryable, params Expression<Func<TEntity, dynamic>>[] paths)
-        {
-            foreach (var path in paths)
-            {
-                queryable = queryable.Include(path);
-            }
-            return queryable;
-        }
+        #region Tracking
 
         /// <summary>
         /// 属性是否更改
@@ -68,33 +49,19 @@ namespace Dry.EF.Repositories
         /// <param name="entitiy"></param>
         /// <param name="propertyExpression"></param>
         /// <returns></returns>
-        public bool PropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty>> propertyExpression)
+        public bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression)
             => _context.Entry(entitiy).Property(propertyExpression).IsModified;
 
-        /// <summary>
-        /// 主键查询
-        /// </summary>
-        /// <param name="keyValues"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity> FindAsync(params object[] keyValues)
-            => await _context.FindAsync<TEntity>(keyValues);
+        #endregion
 
         #region Add
 
         /// <summary>
         /// 新增
         /// </summary>
-        /// <param name="entitiy"></param>
-        /// <returns></returns>
-        public virtual async Task AddAsync(TEntity entitiy)
-            => await _context.AddAsync(entitiy);
-
-        /// <summary>
-        /// 新增
-        /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public virtual async Task AddAsync(TEntity[] entities)
+        public virtual async Task AddAsync([NotNull] params TEntity[] entities)
             => await _context.AddRangeAsync(entities);
 
         #endregion
@@ -104,20 +71,9 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 更新
         /// </summary>
-        /// <param name="entitiy"></param>
-        /// <returns></returns>
-        public virtual Task UpdateAsync(TEntity entitiy)
-        {
-            _context.Update(entitiy);
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 更新
-        /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public virtual Task UpdateAsync(TEntity[] entities)
+        public virtual Task UpdateAsync([NotNull] params TEntity[] entities)
         {
             _context.UpdateRange(entities);
             return Task.CompletedTask;
@@ -127,11 +83,11 @@ namespace Dry.EF.Repositories
         /// 条件更新
         /// </summary>
         /// <param name="set"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task UpdateAsync(Action<TEntity> set, Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task UpdateAsync([NotNull] Action<TEntity> set, params Expression<Func<TEntity, bool>>[] predicates)
         {
-            var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
+            var entities = await _context.Set<TEntity>().Where(predicates).ToArrayAsync();
             foreach (var entity in entities)
             {
                 set(entity);
@@ -145,40 +101,15 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 主键删除
         /// </summary>
-        /// <param name="keyValue"></param>
-        /// <returns></returns>
-        public virtual async Task RemoveAsync(object keyValue)
-        {
-            var entity = await _context.FindAsync<TEntity>(keyValue);
-            if (entity != null)
-            {
-                _context.Remove(entity);
-            }
-        }
-
-        /// <summary>
-        /// 主键删除
-        /// </summary>
         /// <param name="keyValues"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(object[] keyValues)
+        public virtual async Task RemoveAsync([NotNull] params object[] keyValues)
         {
             var entity = await _context.FindAsync<TEntity>(keyValues);
-            if (entity != null)
+            if (entity is not null)
             {
                 _context.Remove(entity);
             }
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="entitiy"></param>
-        /// <returns></returns>
-        public virtual Task RemoveAsync(TEntity entitiy)
-        {
-            _context.Remove(entitiy);
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -186,7 +117,7 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public virtual Task RemoveAsync(TEntity[] entities)
+        public virtual Task RemoveAsync([NotNull] params TEntity[] entities)
         {
             _context.RemoveRange(entities);
             return Task.CompletedTask;
@@ -195,11 +126,11 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 条件删除
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task RemoveAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task RemoveAsync(params Expression<Func<TEntity, bool>>[] predicates)
         {
-            var entities = await _context.Set<TEntity>().Where(predicate).ToArrayAsync();
+            var entities = await _context.Set<TEntity>().Where(predicates).ToArrayAsync();
             _context.RemoveRange(entities);
         }
 
@@ -211,17 +142,10 @@ namespace Dry.EF.Repositories
         /// 是否所有记录都满足条件
         /// </summary>
         /// <param name="allPredicate"></param>
-        /// <param name="wherePredicate"></param>
+        /// <param name="wherePredicates"></param>
         /// <returns></returns>
-        public virtual async Task<bool> AllAsync(Expression<Func<TEntity, bool>> allPredicate, Expression<Func<TEntity, bool>> wherePredicate)
-        {
-            var queryable = GetQueryable();
-            if (wherePredicate != null)
-            {
-                queryable = queryable.Where(wherePredicate);
-            }
-            return await queryable.AllAsync(allPredicate);
-        }
+        public virtual async Task<bool> AllAsync([NotNull] Expression<Func<TEntity, bool>> allPredicate, params Expression<Func<TEntity, bool>>[] wherePredicates)
+            => await _context.Set<TEntity>().Where(wherePredicates).AllAsync(allPredicate);
 
         #endregion
 
@@ -230,27 +154,10 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 是否存在
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                return await GetQueryable().AnyAsync();
-            }
-            else
-            {
-                return await GetQueryable().AnyAsync(predicate);
-            }
-        }
-
-        /// <summary>
-        /// Any
-        /// </summary>
-        /// <param name="querable"></param>
-        /// <returns></returns>
-        public virtual async Task<bool> AnyAsync(IQueryable<TEntity> querable)
-            => await querable.AnyAsync();
+        public virtual async Task<bool> AnyAsync(params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AnyAsync();
 
         #endregion
 
@@ -259,90 +166,42 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 数量查询
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                return await _context.Set<TEntity>().CountAsync();
-            }
-            else
-            {
-                return await _context.Set<TEntity>().CountAsync(predicate);
-            }
-        }
+        public virtual async Task<int> CountAsync(params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).CountAsync();
 
         /// <summary>
         /// 数量查询
         /// </summary>
-        /// <param name="querable"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<int> CountAsync(IQueryable<TEntity> querable)
-            => await querable.CountAsync();
+        public virtual async Task<long> LongCountAsync(params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).LongCountAsync();
+
+        #endregion
+
+        #region Find
 
         /// <summary>
-        /// 数量查询
+        /// 主键查询
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="keyValues"></param>
         /// <returns></returns>
-        public virtual async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                return await _context.Set<TEntity>().LongCountAsync();
-            }
-            else
-            {
-                return await _context.Set<TEntity>().LongCountAsync(predicate);
-            }
-        }
-
-        /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="querable"></param>
-        /// <returns></returns>
-        public virtual async Task<int> LongCountAsync(IQueryable<TEntity> querable)
-            => await querable.CountAsync();
+        public virtual async Task<TEntity> FindAsync([NotNull] params object[] keyValues)
+            => await _context.FindAsync<TEntity>(keyValues);
 
         #endregion
 
         #region First
 
         /// <summary>
-        /// 排序查询第一条
-        /// </summary>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity> FirstAsync(params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-            => await GetQueryable().OrderBy(orderBys).FirstOrDefaultAsync();
-
-        /// <summary>
         /// 条件查询第一条
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                return await GetQueryable().FirstOrDefaultAsync();
-            }
-            else
-            {
-                return await GetQueryable().FirstOrDefaultAsync(predicate);
-            }
-        }
-
-        /// <summary>
-        /// 条件查询第一条并排序
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-            => await GetQueryable().Where(predicate).OrderBy(orderBys).FirstOrDefaultAsync();
+        public virtual async Task<TEntity> FirstAsync(params Expression<Func<TEntity, bool>>[] predicates)
+            => await FirstAsync(predicates, null);
 
         /// <summary>
         /// 条件查询第一条并提前加载导航属性
@@ -351,14 +210,7 @@ namespace Dry.EF.Repositories
         /// <param name="paths"></param>
         /// <returns></returns>
         public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths)
-        {
-            var queryable = GetQueryable();
-            foreach (var path in paths)
-            {
-                queryable = queryable.Include(path);
-            }
-            return await queryable.FirstOrDefaultAsync(predicate);
-        }
+            => await FirstAsync(predicate, paths, null);
 
         /// <summary>
         /// 条件查询第一条并排序提前加载导航属性
@@ -368,30 +220,26 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable();
-            foreach (var path in paths)
-            {
-                queryable = queryable.Include(path);
-            }
-            return await queryable.OrderBy(orderBys).FirstOrDefaultAsync(predicate);
-        }
+            => await FirstAsync(predicate.ToNullArray(), paths, orderBys);
 
         /// <summary>
-        /// 排序查询第一条指定字段
+        /// 条件查询第一条并排序提前加载导航属性
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
+        /// <param name="predicates"></param>
+        /// <param name="paths"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> FirstAsync<TResult>(Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+        public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>[] predicates, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
         {
-            var queryable = GetQueryable();
-            if (orderBys != null)
+            var queryable = _context.Set<TEntity>().AsQueryable();
+            if (paths is not null)
             {
-                queryable = queryable.OrderBy(orderBys);
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
             }
-            return await queryable.Select(selector).FirstOrDefaultAsync();
+            return await queryable.Where(predicates).OrderBy(orderBys).FirstOrDefaultAsync();
         }
 
         /// <summary>
@@ -402,24 +250,39 @@ namespace Dry.EF.Repositories
         /// <param name="predicate"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> FirstAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable().Where(predicate);
-            if (orderBys != null)
-            {
-                queryable = queryable.OrderBy(orderBys);
-            }
-            return await queryable.Select(selector).FirstOrDefaultAsync();
-        }
+        public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await FirstAsync(selector, predicate.ToNullArray(), orderBys);
 
         /// <summary>
-        /// 条件查询第一条
+        /// 排序条件查询第一条指定字段
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
-        /// <param name="querable"></param>
+        /// <param name="selector"></param>
+        /// <param name="predicates"></param>
+        /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> FirstAsync<TResult>(IQueryable<TResult> querable)
-            => await querable.FirstOrDefaultAsync();
+        public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await _context.Set<TEntity>().Where(predicates).OrderBy(orderBys).Select(selector).FirstOrDefaultAsync();
+
+        /// <summary>
+        /// 自定义查询第一条并提前加载导航属性
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="func"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Func<IQueryable<TEntity>, IQueryable<TResult>> func, params Expression<Func<TEntity, dynamic>>[] paths)
+        {
+            var queryable = _context.Set<TEntity>().AsQueryable();
+            if (paths is not null)
+            {
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
+            }
+            return await func(queryable).FirstOrDefaultAsync();
+        }
 
         #endregion
 
@@ -428,34 +291,10 @@ namespace Dry.EF.Repositories
         /// <summary>
         /// 条件查询
         /// </summary>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.ToArrayAsync();
-        }
-
-        /// <summary>
-        /// 排序查询
-        /// </summary>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity[]> ToArrayAsync(params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-            => await GetQueryable().OrderBy(orderBys).ToArrayAsync();
-
-        /// <summary>
-        /// 条件查询并排序
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-            => await GetQueryable().Where(predicate).OrderBy(orderBys).ToArrayAsync();
+        public virtual async Task<TEntity[]> ToArrayAsync(params Expression<Func<TEntity, bool>>[] predicates)
+            => await ToArrayAsync(predicates, null);
 
         /// <summary>
         /// 条件查询并提前加载导航属性
@@ -464,14 +303,7 @@ namespace Dry.EF.Repositories
         /// <param name="paths"></param>
         /// <returns></returns>
         public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths)
-        {
-            var queryable = GetQueryable();
-            foreach (var path in paths)
-            {
-                queryable = queryable.Include(path);
-            }
-            return await queryable.Where(predicate).ToArrayAsync();
-        }
+            => await ToArrayAsync(predicate, paths, null);
 
         /// <summary>
         /// 条件查询并排序提前加载导航属性
@@ -481,47 +313,26 @@ namespace Dry.EF.Repositories
         /// <param name="orderBys"></param>
         /// <returns></returns>
         public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable();
-            foreach (var path in paths)
-            {
-                queryable = queryable.Include(path);
-            }
-            return await queryable.Where(predicate).OrderBy(orderBys).ToArrayAsync();
-        }
+            => await ToArrayAsync(predicate.ToNullArray(), paths, orderBys);
 
         /// <summary>
-        /// 排序查询指定字段
+        /// 条件查询并排序提前加载导航属性
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
+        /// <param name="predicates"></param>
+        /// <param name="paths"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+        public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>>[] predicates, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
         {
-            var queryable = GetQueryable();
-            if (orderBys != null)
+            var queryable = _context.Set<TEntity>().AsQueryable();
+            if (paths is not null)
             {
-                queryable = queryable.OrderBy(orderBys);
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
             }
-            return await queryable.Select(selector).ToArrayAsync();
-        }
-
-        /// <summary>
-        /// 排序查询指定字段
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, IEnumerable<TResult>>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable();
-            if (orderBys != null)
-            {
-                queryable = queryable.OrderBy(orderBys);
-            }
-            return await queryable.SelectMany(selector).ToArrayAsync();
+            return await queryable.Where(predicates).OrderBy(orderBys).ToArrayAsync();
         }
 
         /// <summary>
@@ -532,15 +343,19 @@ namespace Dry.EF.Repositories
         /// <param name="predicate"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable().Where(predicate);
-            if (orderBys != null)
-            {
-                queryable = queryable.OrderBy(orderBys);
-            }
-            return await queryable.Select(selector).ToArrayAsync();
-        }
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await ToArrayAsync(selector, predicate.ToNullArray(), orderBys);
+
+        /// <summary>
+        /// 排序条件查询指定字段
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="selector"></param>
+        /// <param name="predicates"></param>
+        /// <param name="orderBys"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await _context.Set<TEntity>().Where(predicates).OrderBy(orderBys).Select(selector).ToArrayAsync();
 
         /// <summary>
         /// 排序条件查询指定字段
@@ -550,24 +365,39 @@ namespace Dry.EF.Repositories
         /// <param name="predicate"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
-        {
-            var queryable = GetQueryable().Where(predicate);
-            if (orderBys != null)
-            {
-                queryable = queryable.OrderBy(orderBys);
-            }
-            return await queryable.SelectMany(selector).ToArrayAsync();
-        }
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await ToArrayAsync(selector, predicate.ToNullArray(), orderBys);
 
         /// <summary>
-        /// 条件查询
+        /// 排序条件查询指定字段
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
-        /// <param name="querable"></param>
+        /// <param name="selector"></param>
+        /// <param name="predicates"></param>
+        /// <param name="orderBys"></param>
         /// <returns></returns>
-        public virtual async Task<TResult[]> ToArrayAsync<TResult>(IQueryable<TResult> querable)
-            => await querable.ToArrayAsync();
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+            => await _context.Set<TEntity>().Where(predicates).OrderBy(orderBys).SelectMany(selector).ToArrayAsync();
+
+        /// <summary>
+        /// 自定义查询并提前加载导航属性
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="func"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Func<IQueryable<TEntity>, IQueryable<TResult>> func, params Expression<Func<TEntity, dynamic>>[] paths)
+        {
+            var queryable = _context.Set<TEntity>().AsQueryable();
+            if (paths is not null)
+            {
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
+            }
+            return await func(queryable).ToArrayAsync();
+        }
 
         #endregion
 
@@ -577,81 +407,46 @@ namespace Dry.EF.Repositories
         /// 汇总
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<int?> SumAsync(Expression<Func<TEntity, int?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.SumAsync(selector);
-        }
+        public virtual async Task<int?> SumAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).SumAsync(selector);
 
         /// <summary>
         /// 汇总
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<long?> SumAsync(Expression<Func<TEntity, long?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.SumAsync(selector);
-        }
+        public virtual async Task<long?> SumAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).SumAsync(selector);
 
         /// <summary>
         /// 汇总
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<float?> SumAsync(Expression<Func<TEntity, float?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.SumAsync(selector);
-        }
+        public virtual async Task<float?> SumAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).SumAsync(selector);
 
         /// <summary>
         /// 汇总
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<double?> SumAsync(Expression<Func<TEntity, double?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.SumAsync(selector);
-        }
+        public virtual async Task<double?> SumAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).SumAsync(selector);
 
         /// <summary>
         /// 汇总
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<decimal?> SumAsync(Expression<Func<TEntity, decimal?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.SumAsync(selector);
-        }
+        public virtual async Task<decimal?> SumAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).SumAsync(selector);
 
         #endregion
 
@@ -662,17 +457,10 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.MaxAsync(selector);
-        }
+        public virtual async Task<TResult> MaxAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).MaxAsync(selector);
 
         #endregion
 
@@ -683,17 +471,10 @@ namespace Dry.EF.Repositories
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> MinAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.MinAsync(selector);
-        }
+        public virtual async Task<TResult> MinAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).MinAsync(selector);
 
         #endregion
 
@@ -703,81 +484,46 @@ namespace Dry.EF.Repositories
         /// 平均值
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, int?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.AverageAsync(selector);
-        }
+        public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AverageAsync(selector);
 
         /// <summary>
         /// 平均值
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, long?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.AverageAsync(selector);
-        }
+        public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AverageAsync(selector);
 
         /// <summary>
         /// 平均值
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<float?> AverageAsync(Expression<Func<TEntity, float?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.AverageAsync(selector);
-        }
+        public virtual async Task<float?> AverageAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AverageAsync(selector);
 
         /// <summary>
         /// 平均值
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, double?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.AverageAsync(selector);
-        }
+        public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AverageAsync(selector);
 
         /// <summary>
         /// 平均值
         /// </summary>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
+        /// <param name="predicates"></param>
         /// <returns></returns>
-        public virtual async Task<decimal?> AverageAsync(Expression<Func<TEntity, decimal?>> selector, Expression<Func<TEntity, bool>> predicate)
-        {
-            var queryable = GetQueryable();
-            if (predicate != null)
-            {
-                queryable = queryable.Where(predicate);
-            }
-            return await queryable.AverageAsync(selector);
-        }
+        public virtual async Task<decimal?> AverageAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+            => await _context.Set<TEntity>().Where(predicates).AverageAsync(selector);
 
         #endregion
     }

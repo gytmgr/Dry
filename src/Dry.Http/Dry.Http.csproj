@@ -4,20 +4,19 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.0</Version>
-		<PackageReleaseNotes>升级.net5</PackageReleaseNotes>
+		<Version>1.1.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Dry.Http.Client.xml</DocumentationFile>
+		<DocumentationFile>Dry.Http.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>Dry.Http.Client.xml</DocumentationFile>
+	  <DocumentationFile>Dry.Http.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	  <PackageReference Include="System.Text.Json" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Dry.Http.Client.xml">
+		<None Update="Dry.Http.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

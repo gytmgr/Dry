@@ -100,9 +100,8 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            var total = await _repository.CountAsync(queryable);
-            var entities = await _repository.ToArrayAsync(queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
+            var total = await _repository.CountAsync();
+            var entities = await _repository.ToArrayAsync(queryable => queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
             return new PagedResultDto<TResult>
             {
                 Total = total,

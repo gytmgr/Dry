@@ -4,6 +4,26 @@
         <name>Dry.Application.RESTFul.Client</name>
     </assembly>
     <members>
+        <member name="T:Dry.Application.RESTFul.Client.ApiClient">
+            <summary>
+            api客户端
+            </summary>
+        </member>
+        <member name="P:Dry.Application.RESTFul.Client.ApiClient.ApiUrl">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object)">
+            <summary>
+            http请求
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="method"></param>
+            <param name="apiPath"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Application.RESTFul.Client.ApplicationClient`1">
             <summary>
             应用访问客户端

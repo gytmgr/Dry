@@ -58,7 +58,7 @@ namespace Dry.Core.Utilities
         /// <param name="path"></param>
         public static void SaveFile(Stream fileData, string path)
         {
-            if (fileData == null || string.IsNullOrEmpty(path))
+            if (fileData is null || string.IsNullOrEmpty(path))
             {
                 return;
             }

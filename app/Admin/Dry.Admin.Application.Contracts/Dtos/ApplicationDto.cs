@@ -69,6 +69,32 @@ namespace Dry.Admin.Application.Contracts.Dtos
         /// 是否可用
         /// </summary>
         public bool? Enable { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public SortDto<ApplicationQuerySortField> Sort { get; set; }
+    }
+
+    /// <summary>
+    /// 应用查询排序字段
+    /// </summary>
+    public enum ApplicationQuerySortField
+    {
+        /// <summary>
+        /// 类型
+        /// </summary>
+        Type,
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        Name,
+
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        AddTime
     }
 
     /// <summary>

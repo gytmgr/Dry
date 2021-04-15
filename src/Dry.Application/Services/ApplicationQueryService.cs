@@ -1,12 +1,15 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
 using Dry.Core.Model;
+using Dry.Core.Utilities;
 using Dry.Domain;
 using Dry.Domain.Entities;
 using Dry.Domain.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Dry.Application.Services
@@ -33,12 +36,25 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 根据查询对象获取linq表达式
+        /// 获取属性加载表达式
         /// </summary>
-        /// <param name="queryable"></param>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        protected abstract IQueryable<TEntity> GetQueryable([NotNull] IQueryable<TEntity> queryable, TQuery queryDto);
+        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads(TQuery queryDto) => null;
+
+        /// <summary>
+        /// 获取查询条件表达式
+        /// </summary>
+        /// <param name="queryDto"></param>
+        /// <returns></returns>
+        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto) => null;
+
+        /// <summary>
+        /// 获取排序表达式
+        /// </summary>
+        /// <param name="queryDto"></param>
+        /// <returns></returns>
+        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto) => null;
 
         /// <summary>
         /// 是否存在
@@ -47,9 +63,8 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<bool> AnyAsync(TQuery queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            queryable = GetQueryable(queryable, queryDto);
-            return await _repository.AnyAsync(queryable);
+            var predicates = GetPredicates(queryDto);
+            return await _repository.AnyAsync(predicates);
         }
 
         /// <summary>
@@ -59,9 +74,8 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<int> CountAsync(TQuery queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            queryable = GetQueryable(queryable, queryDto);
-            return await _repository.CountAsync(queryable);
+            var predicates = GetPredicates(queryDto);
+            return await _repository.CountAsync(predicates);
         }
 
         /// <summary>
@@ -71,9 +85,10 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<TResult> FirstAsync(TQuery queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            queryable = GetQueryable(queryable, queryDto);
-            var entity = await _repository.FirstAsync(queryable);
+            var propertyLoads = GetPropertyLoads(queryDto);
+            var predicates = GetPredicates(queryDto);
+            var orderBys = GetOrderBys(queryDto);
+            var entity = await _repository.FirstAsync(predicates, propertyLoads, orderBys);
             if (entity != null)
             {
                 return _mapper.Map<TResult>(entity);
@@ -88,9 +103,10 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            queryable = GetQueryable(queryable, queryDto);
-            var entities = await _repository.ToArrayAsync(queryable);
+            var propertyLoads = GetPropertyLoads(queryDto);
+            var predicates = GetPredicates(queryDto);
+            var orderBys = GetOrderBys(queryDto);
+            var entities = await _repository.ToArrayAsync(predicates, propertyLoads, orderBys);
             return _mapper.Map<TResult[]>(entities);
         }
 
@@ -101,10 +117,13 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
         {
-            var queryable = _repository.GetQueryable();
-            queryable = GetQueryable(queryable, queryDto.Param);
-            var total = await _repository.CountAsync(queryable);
-            var entities = await _repository.ToArrayAsync(queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
+            var propertyLoads = GetPropertyLoads(queryDto.Param);
+            var predicates = GetPredicates(queryDto.Param);
+            var orderBys = GetOrderBys(queryDto.Param);
+            var total = await _repository.CountAsync(predicates);
+            var entities = await _repository.ToArrayAsync(
+                queryable => queryable.Where(predicates).OrderBy(orderBys).Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize),
+                propertyLoads);
             return new PagedResultDto<TResult>
             {
                 Total = total,
@@ -195,33 +214,43 @@ namespace Dry.Application.Services
         { }
 
         /// <summary>
-        /// 根据查询对象获取linq表达式
+        /// 获取查询条件表达式
         /// </summary>
-        /// <param name="queryable"></param>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        protected override IQueryable<TEntity> GetQueryable([NotNull] IQueryable<TEntity> queryable, TQuery queryDto)
+        protected override Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto)
         {
-            if (queryDto != null)
+            var predicates = base.GetPredicates(queryDto)?.ToList() ?? new List<Expression<Func<TEntity, bool>>>();
+            if (queryDto is not null)
             {
-                if (queryDto.Id != null && !queryDto.Id.Equals(default(TKey)))
+                if (queryDto.Id is not null && !queryDto.Id.Equals(default(TKey)))
                 {
-                    queryable = queryable.Where(x => x.Id.Equals(queryDto.Id));
+                    predicates.Add(x => x.Id.Equals(queryDto.Id));
                 }
-                if (queryDto.IdNotEqual != null && !queryDto.IdNotEqual.Equals(default(TKey)))
+                if (queryDto.IdNotEqual is not null && !queryDto.IdNotEqual.Equals(default(TKey)))
                 {
-                    queryable = queryable.Where(x => !x.Id.Equals(queryDto.IdNotEqual));
+                    predicates.Add(x => !x.Id.Equals(queryDto.IdNotEqual));
                 }
-                if (queryDto.Ids != null)
+                if (queryDto.Ids is not null)
                 {
-                    queryable = queryable.Where(x => queryDto.Ids.Contains(x.Id));
+                    predicates.Add(x => queryDto.Ids.Contains(x.Id));
                 }
-                if (queryDto.IdsNotEqual != null)
+                if (queryDto.IdsNotEqual is not null)
                 {
-                    queryable = queryable.Where(x => !queryDto.IdsNotEqual.Contains(x.Id));
+                    predicates.Add(x => !queryDto.IdsNotEqual.Contains(x.Id));
                 }
             }
-            return queryable;
+            return predicates.ToArray();
+        }
+
+        /// <summary>
+        /// 获取排序表达式
+        /// </summary>
+        /// <param name="queryDto"></param>
+        /// <returns></returns>
+        protected override (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto)
+        {
+            return new (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] { (true, x => x.Id) };
         }
 
         /// <summary>
