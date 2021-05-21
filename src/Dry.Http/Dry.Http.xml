@@ -9,6 +9,13 @@
             http请求扩展
             </summary>
         </member>
+        <member name="M:Dry.Http.HttpRequesterExtension.SetRequestParam(Dry.Core.Utilities.HttpRequester,System.Object)">
+            <summary>
+            设置请求参数
+            </summary>
+            <param name="requester"></param>
+            <param name="param"></param>
+        </member>
         <member name="M:Dry.Http.HttpRequesterExtension.GetResultAsync``1(Dry.Core.Utilities.HttpRequester,System.Object)">
             <summary>
             返回泛型结果
