@@ -34,6 +34,8 @@ namespace Dry.Swagger
                 Version = "v1",
             });
 
+            options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
             Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
             {
                 options.IncludeXmlComments(file, true);
