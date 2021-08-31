@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Dry.Domain.ValueObjects
+namespace Dry.Domain.Shared.Enums
 {
     /// <summary>
     /// 性别
@@ -8,10 +8,16 @@ namespace Dry.Domain.ValueObjects
     public enum Sex : byte
     {
         /// <summary>
+        /// 其它
+        /// </summary>
+        [Description("其它")]
+        Other,
+
+        /// <summary>
         /// 男
         /// </summary>
         [Description("男")]
-        Man = 1,
+        Man,
 
         /// <summary>
         /// 女

@@ -14,9 +14,9 @@ namespace Dry.Core.Utilities
         /// 字符加密
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="hash"></param>
-        /// <param name="data"></param>
-        /// <param name="encoding"></param>
+        /// <param name="hash">加密方式</param>
+        /// <param name="data">加密数据</param>
+        /// <param name="encoding">字符编码</param>
         /// <returns></returns>
         public static string Encrypt<T>(T hash, string data, Encoding encoding = null) where T : HashAlgorithm
         {
@@ -31,8 +31,8 @@ namespace Dry.Core.Utilities
         /// 字节加密
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="hash"></param>
-        /// <param name="data"></param>
+        /// <param name="hash">加密方式</param>
+        /// <param name="data">加密数据</param>
         /// <returns></returns>
         public static string Encrypt<T>(T hash, byte[] data) where T : HashAlgorithm
         {
@@ -44,8 +44,8 @@ namespace Dry.Core.Utilities
         /// 流加密
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="hash"></param>
-        /// <param name="data"></param>
+        /// <param name="hash">加密方式</param>
+        /// <param name="data">加密数据</param>
         /// <returns></returns>
         public static string Encrypt<T>(T hash, Stream data) where T : HashAlgorithm
         {

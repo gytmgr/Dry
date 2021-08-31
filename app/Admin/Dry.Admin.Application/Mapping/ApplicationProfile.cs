@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Dry.Admin.Application.Contracts.Dtos;
-using Dry.Admin.Domain.ValueObjects;
+using Dry.Admin.Domain.Shared.Enums;
 using Dry.Application.Contracts.Dtos;
 using Dry.Core.Utilities;
 using App = Dry.Admin.Domain.Entities.Application;

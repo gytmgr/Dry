@@ -262,6 +262,14 @@
             <param name="dateTime"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.DateTimeExtension.GetAge(System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            获取年龄
+            </summary>
+            <param name="fromDate">出生日期</param>
+            <param name="toDate">目标日期（为空则取当前日期）</param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.Des3Encrypt">
             <summary>
             ES3 ECB加密类
@@ -337,7 +345,7 @@
             获取指定枚举项说明
             </summary>
             <param name="value"></param>
-            <param name="nameInstead"></param>
+            <param name="nameInstead">是否用名称代替（没有说明时）</param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.EnumHelper">
@@ -391,6 +399,13 @@
             <param name="fileData"></param>
             <param name="path"></param>
             <returns>读取的文件扩展名</returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.FileHelper.IsChanged(System.String)">
+            <summary>
+            检查文件是否有修改（根据同目录下“{initFilePath}.txt”文件里面的md5值对比）
+            </summary>
+            <param name="initFilePath"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.FtpHelper">
             <summary>
@@ -525,9 +540,9 @@
             字符加密
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="hash"></param>
-            <param name="data"></param>
-            <param name="encoding"></param>
+            <param name="hash">加密方式</param>
+            <param name="data">加密数据</param>
+            <param name="encoding">字符编码</param>
             <returns></returns>
         </member>
         <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.Byte[])">
@@ -535,8 +550,8 @@
             字节加密
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="hash"></param>
-            <param name="data"></param>
+            <param name="hash">加密方式</param>
+            <param name="data">加密数据</param>
             <returns></returns>
         </member>
         <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.IO.Stream)">
@@ -544,8 +559,8 @@
             流加密
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="hash"></param>
-            <param name="data"></param>
+            <param name="hash">加密方式</param>
+            <param name="data">加密数据</param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.HttpRequester">
@@ -752,16 +767,38 @@
             <summary>
             记录异常
             </summary>
-            <param name="className"></param>
-            <param name="methodName"></param>
-            <param name="e"></param>
-            <param name="otherInfo"></param>
+            <param name="className">类名</param>
+            <param name="methodName">方法名</param>
+            <param name="e">异常</param>
+            <param name="otherInfo">其他信息</param>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.Exception(System.Exception,System.String[])">
+            <summary>
+            记录异常
+            </summary>
+            <param name="e">异常</param>
+            <param name="otherInfo">其他信息</param>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.ExceptionToPath(System.String,System.Exception,System.String[])">
+            <summary>
+            记录异常到指定路径
+            </summary>
+            <param name="relativePath">应用目录下的相对路径</param>
+            <param name="e">异常</param>
+            <param name="otherInfo">其他信息</param>
         </member>
         <member name="M:Dry.Core.Utilities.LogHelper.Action(System.String[])">
             <summary>
             记录日常日志
             </summary>
-            <param name="paramList"></param>
+            <param name="data">日志内容</param>
+        </member>
+        <member name="M:Dry.Core.Utilities.LogHelper.ActionToPath(System.String,System.String[])">
+            <summary>
+            记录日常日志到指定路径
+            </summary>
+            <param name="relativePath">应用目录下的相对路径</param>
+            <param name="data">日志内容</param>
         </member>
         <member name="T:Dry.Core.Utilities.ObjectExtension">
             <summary>
@@ -930,6 +967,15 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.StringExtension.TryParse``1(System.String,``0@)">
+            <summary>
+            字符串转结构
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="str"></param>
+            <param name="outResult"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.StructExtension">
             <summary>
             结构扩展
@@ -962,6 +1008,14 @@
             获取类型默认值
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.TypeExtension.GetFields``1(System.Type)">
+            <summary>
+            获取指定类型指定字段类型的数据
+            </summary>
+            <typeparam name="TField"></typeparam>
+            <param name="classType"></param>
             <returns></returns>
         </member>
     </members>

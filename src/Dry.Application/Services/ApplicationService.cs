@@ -2,6 +2,7 @@
 using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
 using Dry.Core.Model;
+using Dry.Core.Utilities;
 using Dry.Domain;
 using Dry.Domain.Entities;
 using Dry.Domain.Extensions;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Dry.Application.Services
@@ -75,12 +77,31 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
+        /// 获取属性加载表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads() => null;
+
+        /// <summary>
+        /// 获取查询条件表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates() => null;
+
+        /// <summary>
+        /// 获取排序表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys() => null;
+
+        /// <summary>
         /// 数量查询
         /// </summary>
         /// <returns></returns>
         public virtual async Task<int> CountAsync()
         {
-            return await _repository.CountAsync();
+            var predicates = GetPredicates();
+            return await _repository.CountAsync(predicates);
         }
 
         /// <summary>
@@ -89,7 +110,10 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<TResult[]> ArrayAsync()
         {
-            var entities = await _repository.ToArrayAsync();
+            var propertyLoads = GetPropertyLoads();
+            var predicates = GetPredicates();
+            var orderBys = GetOrderBys();
+            var entities = await _repository.ToArrayAsync(predicates, propertyLoads, orderBys);
             return _mapper.Map<TResult[]>(entities);
         }
 
@@ -100,8 +124,13 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto queryDto)
         {
-            var total = await _repository.CountAsync();
-            var entities = await _repository.ToArrayAsync(queryable => queryable.Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize));
+            var propertyLoads = GetPropertyLoads();
+            var predicates = GetPredicates();
+            var orderBys = GetOrderBys();
+            var total = await _repository.CountAsync(predicates);
+            var entities = await _repository.ToArrayAsync(
+                queryable => queryable.Where(predicates).OrderBy(orderBys).Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize),
+                propertyLoads);
             return new PagedResultDto<TResult>
             {
                 Total = total,

@@ -40,5 +40,22 @@ namespace Dry.Core.Utilities
             var leapMonth = cal.GetLeapMonth(year);
             return $"农历{"甲乙丙丁戊己庚辛壬癸"[(year - 4) % 10]}{"子丑寅卯辰巳午未申酉戌亥"[(year - 4) % 12]}（{"鼠牛虎兔龙蛇马羊猴鸡狗猪"[(year - 4) % 12]}）年{(month == leapMonth ? "闰" : "")}{"无正二三四五六七八九十冬腊"[leapMonth > 0 && leapMonth <= month ? month - 1 : month]}月{"初十廿三"[day / 10]}{"日一二三四五六七八九"[day % 10]}";
         }
+
+        /// <summary>
+        /// 获取年龄
+        /// </summary>
+        /// <param name="fromDate">出生日期</param>
+        /// <param name="toDate">目标日期（为空则取当前日期）</param>
+        /// <returns></returns>
+        public static int GetAge(this DateTime fromDate, DateTime? toDate = default)
+        {
+            toDate ??= DateTime.Today;
+            var age = toDate.Value.Year - fromDate.Year;
+            if (toDate.Value.DayOfYear < fromDate.DayOfYear)
+            {
+                age--;
+            }
+            return age;
+        }
     }
 }

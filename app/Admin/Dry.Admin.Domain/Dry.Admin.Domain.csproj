@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\Dry.Domain\Dry.Domain.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Dry.Domain.Shared\Dry.Domain.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\Dry.Domain\Dry.Domain.csproj" />
+    <ProjectReference Include="..\Dry.Admin.Domain.Shared\Dry.Admin.Domain.Shared.csproj" />
+  </ItemGroup>
 
 </Project>

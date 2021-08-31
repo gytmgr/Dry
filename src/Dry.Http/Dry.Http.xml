@@ -25,12 +25,27 @@
             <param name="param"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Http.Json.DateTimeConverter">
+        <member name="T:Dry.Http.Json.Converter.DryJsonConverter`1">
             <summary>
-            时间格式转换
+            json转换基类
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Dry.Http.Json.DateTimeConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:Dry.Http.Json.Converter.DryJsonConverter`1.Write(System.Text.Json.Utf8JsonWriter,`0,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Dry.Http.Json.Converter.StructJsonConverter`1">
+            <summary>
+            结构转换
+            </summary>
+            <typeparam name="TStruct"></typeparam>
+        </member>
+        <member name="M:Dry.Http.Json.Converter.StructJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
             <summary>
             读
             </summary>
@@ -39,35 +54,20 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Http.Json.DateTimeConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+        <member name="T:Dry.Http.Json.Converter.StructNullableJsonConverter`1">
             <summary>
-            写
+            可为空结构转换
             </summary>
-            <param name="writer"></param>
-            <param name="value"></param>
-            <param name="options"></param>
+            <typeparam name="TStruct"></typeparam>
         </member>
-        <member name="T:Dry.Http.Json.DateTimeNullableConvert">
-            <summary>
-            可为空时间格式转换
-            </summary>
-        </member>
-        <member name="M:Dry.Http.Json.DateTimeNullableConvert.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+        <member name="M:Dry.Http.Json.Converter.StructNullableJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
             <summary>
             读
             </summary>
             <param name="reader"></param>
             <param name="typeToConvert"></param>
             <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Http.Json.DateTimeNullableConvert.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.DateTime},System.Text.Json.JsonSerializerOptions)">
-            <summary>
-            写
-            </summary>
-            <param name="writer"></param>
-            <param name="value"></param>
-            <param name="options"></param>
+            <returns></returns> 
         </member>
         <member name="T:Dry.Http.Json.JsonSerializerOptionsExtension">
             <summary>

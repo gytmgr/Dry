@@ -453,20 +453,5 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Dry.Domain.ValueObjects.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="F:Dry.Domain.ValueObjects.Sex.Man">
-            <summary>
-            男
-            </summary>
-        </member>
-        <member name="F:Dry.Domain.ValueObjects.Sex.Woman">
-            <summary>
-            女
-            </summary>
-        </member>
     </members>
 </doc>

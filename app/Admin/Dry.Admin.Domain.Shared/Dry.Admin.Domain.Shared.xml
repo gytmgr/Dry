@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Admin.Domain.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Admin.Domain.Shared.Enums.ApplicationType">
+            <summary>
+            应用类型
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.MvcSystem">
+            <summary>
+            Mvc系统
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.FrontSystem">
+            <summary>
+            前端系统
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.WebApi">
+            <summary>
+            Web接口
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.GrpcService">
+            <summary>
+            Grpc服务
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.WindowsService">
+            <summary>
+            Windows服务
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.AndroidApp">
+            <summary>
+            Android应用
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ApplicationType.IOSApp">
+            <summary>
+            Apple应用
+            </summary>
+        </member>
+    </members>
+</doc>

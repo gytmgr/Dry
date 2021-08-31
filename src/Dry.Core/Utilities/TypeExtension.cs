@@ -52,8 +52,15 @@ namespace Dry.Core.Utilities
         /// <param name="type"></param>
         /// <returns></returns>
         public static object DefaultValue(this Type type)
-        {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
-        }
+            => type.IsValueType ? Activator.CreateInstance(type) : null;
+
+        /// <summary>
+        /// 获取指定类型指定字段类型的数据
+        /// </summary>
+        /// <typeparam name="TField"></typeparam>
+        /// <param name="classType"></param>
+        /// <returns></returns>
+        public static TField[] GetFields<TField>(this Type classType)
+            => classType.GetFields().Where(q => q.GetValue(null).GetType() == typeof(TField)).Select(x => (TField)x.GetValue(null)).ToArray();
     }
 }

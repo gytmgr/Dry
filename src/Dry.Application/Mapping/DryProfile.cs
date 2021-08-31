@@ -7,20 +7,33 @@ namespace Dry.Application.Mapping
     /// <summary>
     /// 值对象映射
     /// </summary>
-    public class ValueProfile : Profile
+    public class DryProfile : Profile
     {
         /// <summary>
         /// 构造体
         /// </summary>
-        public ValueProfile()
+        public DryProfile()
         {
+            CreateMap<ValueDto<char>, char>().ConvertUsing(Convert);
             CreateMap<ValueDto<string>, string>().ConvertUsing(Convert);
+            CreateMap<ValueDto<sbyte>, sbyte>().ConvertUsing(Convert);
+            CreateMap<ValueDto<sbyte?>, sbyte?>().ConvertUsing(Convert);
             CreateMap<ValueDto<byte>, byte>().ConvertUsing(Convert);
             CreateMap<ValueDto<byte?>, byte?>().ConvertUsing(Convert);
             CreateMap<ValueDto<int>, int>().ConvertUsing(Convert);
             CreateMap<ValueDto<int?>, int?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<uint>, uint>().ConvertUsing(Convert);
+            CreateMap<ValueDto<uint?>, uint?>().ConvertUsing(Convert);
             CreateMap<ValueDto<long>, long>().ConvertUsing(Convert);
             CreateMap<ValueDto<long?>, long?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<ulong>, ulong>().ConvertUsing(Convert);
+            CreateMap<ValueDto<ulong?>, ulong?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<float>, float>().ConvertUsing(Convert);
+            CreateMap<ValueDto<float?>, float?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<double>, double>().ConvertUsing(Convert);
+            CreateMap<ValueDto<double?>, double?>().ConvertUsing(Convert);
+            CreateMap<ValueDto<decimal>, decimal>().ConvertUsing(Convert);
+            CreateMap<ValueDto<decimal?>, decimal?>().ConvertUsing(Convert);
             CreateMap<ValueDto<Guid>, Guid>().ConvertUsing(Convert);
             CreateMap<ValueDto<Guid?>, Guid?>().ConvertUsing(Convert);
             CreateMap<ValueDto<bool>, bool>().ConvertUsing(Convert);
@@ -38,7 +51,7 @@ namespace Dry.Application.Mapping
         /// <param name="source"></param>
         /// <param name="destination"></param>
         /// <returns></returns>
-        public TValue Convert<TValue>(ValueDto<TValue> source, TValue destination)
+        public static TValue Convert<TValue>(ValueDto<TValue> source, TValue destination)
             => source is null ? destination : source.Value;
     }
 }

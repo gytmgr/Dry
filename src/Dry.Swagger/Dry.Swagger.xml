@@ -4,6 +4,18 @@
         <name>Dry.Swagger</name>
     </assembly>
     <members>
+        <member name="T:Dry.Swagger.SchemaFilter.EnumSchemaFilter">
+            <summary>
+            枚举过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.SchemaFilter.EnumSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="model"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Dry.Swagger.SwaggerExtensions">
             <summary>
             Swagger中间件扩展

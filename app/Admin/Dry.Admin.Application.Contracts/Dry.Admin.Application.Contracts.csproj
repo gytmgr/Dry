@@ -8,12 +8,17 @@
 		<DocumentationFile>Dry.Admin.Application.Contracts.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>Dry.Admin.Application.Contracts.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
+		<ProjectReference Include="..\Dry.Admin.Domain.Shared\Dry.Admin.Domain.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

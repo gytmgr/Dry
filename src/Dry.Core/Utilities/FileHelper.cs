@@ -100,5 +100,22 @@ namespace Dry.Core.Utilities
             File.WriteAllBytes(path, bytes);
             return result;
         }
+
+        /// <summary>
+        /// 检查文件是否有修改（根据同目录下“{initFilePath}.txt”文件里面的md5值对比）
+        /// </summary>
+        /// <param name="initFilePath"></param>
+        /// <returns></returns>
+        public static bool IsChanged(string initFilePath)
+        {
+            var fileMd5 = GetMd5(initFilePath);
+            var md5FilePath = initFilePath + ".txt";
+            if (File.Exists(md5FilePath) && File.ReadAllText(md5FilePath) == fileMd5)
+            {
+                return false;
+            }
+            File.WriteAllText(md5FilePath, fileMd5);
+            return true;
+        }
     }
 }

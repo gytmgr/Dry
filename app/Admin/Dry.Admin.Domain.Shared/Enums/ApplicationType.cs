@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Dry.Admin.Domain.ValueObjects
+namespace Dry.Admin.Domain.Shared.Enums
 {
     /// <summary>
     /// 应用类型

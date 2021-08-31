@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Dry.Core.Utilities
 {
@@ -323,6 +324,43 @@ namespace Dry.Core.Utilities
                 return string.Empty;
             }
             return str.Trim();
+        }
+
+        /// <summary>
+        /// 字符串转结构
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="str"></param>
+        /// <param name="outResult"></param>
+        /// <returns></returns>
+        public static bool TryParse<T>(this string str, out T outResult) where T : struct
+        {
+            outResult = default;
+            if (string.IsNullOrEmpty(str))
+            {
+                return false;
+            }
+            var type = typeof(T);
+            if (type.IsEnum)
+            {
+                return Enum.TryParse(str, out outResult);
+            }
+            var tryParseMethod = type.GetMethod("TryParse"
+                , BindingFlags.Public | BindingFlags.Static
+                , Type.DefaultBinder
+                , new Type[] { typeof(string), type.MakeByRefType() }
+                , new ParameterModifier[] { new ParameterModifier(2) });
+            if (tryParseMethod is not null)
+            {
+                var parameters = new object[] { str, Activator.CreateInstance(type) };
+                var success = (bool)tryParseMethod.Invoke(null, parameters);
+                if (success)
+                {
+                    outResult = (T)parameters[1];
+                    return success;
+                }
+            }
+            return false;
         }
     }
 }

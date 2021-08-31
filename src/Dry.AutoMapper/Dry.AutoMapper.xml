@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.AutoMapper</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.AutoMapper.AutoMapperExtension">
+            <summary>
+            AutoMapper扩展
+            </summary>
+        </member>
+        <member name="M:Dry.AutoMapper.AutoMapperExtension.AddCustomAutoMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加AutoMapper扩展服务注册
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

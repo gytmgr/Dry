@@ -20,9 +20,11 @@ namespace Dry.Core.Utilities
             var sb = new StringBuilder();
             for (int i = 0; i < level; i++)
             {
-                sb.Append("=");
+                sb.Append('=');
             }
             stream.WriteLine("{0}Message:{1}", sb.ToString(), e.Message);
+            stream.WriteLine("");
+            stream.WriteLine("{0}Source:{1}", sb.ToString(), e.Source);
             stream.WriteLine("");
             stream.WriteLine("{0}StackTrace:{1}", sb.ToString(), e.StackTrace);
             stream.WriteLine("");
@@ -37,19 +39,46 @@ namespace Dry.Core.Utilities
         /// <summary>
         /// 记录异常
         /// </summary>
-        /// <param name="className"></param>
-        /// <param name="methodName"></param>
-        /// <param name="e"></param>
-        /// <param name="otherInfo"></param>
+        /// <param name="className">类名</param>
+        /// <param name="methodName">方法名</param>
+        /// <param name="e">异常</param>
+        /// <param name="otherInfo">其他信息</param>
         public static void Exception(string className, string methodName, Exception e, params string[] otherInfo)
+        {
+            if (string.IsNullOrEmpty(className) || string.IsNullOrEmpty(methodName))
+            {
+                return;
+            }
+            var relativePath = $@"Log\Exception\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}\{className}_{methodName}";
+            ExceptionToPath(relativePath, e, otherInfo);
+        }
+
+        /// <summary>
+        /// 记录异常
+        /// </summary>
+        /// <param name="e">异常</param>
+        /// <param name="otherInfo">其他信息</param>
+        public static void Exception(Exception e, params string[] otherInfo)
+        {
+            var relativePath = $@"Log\Exception\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}";
+            ExceptionToPath(relativePath, e, otherInfo);
+        }
+
+        /// <summary>
+        /// 记录异常到指定路径
+        /// </summary>
+        /// <param name="relativePath">应用目录下的相对路径</param>
+        /// <param name="e">异常</param>
+        /// <param name="otherInfo">其他信息</param>
+        public static void ExceptionToPath(string relativePath, Exception e, params string[] otherInfo)
         {
             try
             {
-                if (string.IsNullOrEmpty(className) || string.IsNullOrEmpty(methodName))
+                if (string.IsNullOrEmpty(relativePath) || e is null)
                 {
                     return;
                 }
-                var filePath = string.Format(@"{0}\Log\Exception\{1}\{2}\{3}.txt", AppDomain.CurrentDomain.BaseDirectory, DateTime.Today.ToString("yyyyMM"), DateTime.Today.ToString("yyyyMMdd"), className);
+                var filePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\{relativePath}.txt";
                 if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -64,11 +93,9 @@ namespace Dry.Core.Utilities
                 {
                     stream = file.AppendText();
                 }
-                stream.WriteLine("MethodName:{0}", methodName);
-                stream.WriteLine("");
                 stream.WriteLine("LogTime:{0}", DateTime.Now.ToString());
                 stream.WriteLine("");
-                if (otherInfo != null)
+                if (otherInfo is not null)
                 {
                     foreach (var item in otherInfo)
                     {
@@ -86,16 +113,27 @@ namespace Dry.Core.Utilities
         /// <summary>
         /// 记录日常日志
         /// </summary>
-        /// <param name="paramList"></param>
-        public static void Action(params string[] paramList)
+        /// <param name="data">日志内容</param>
+        public static void Action(params string[] data)
+        {
+            var relativePath = $@"Log\Action\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}";
+            ActionToPath(relativePath, data);
+        }
+
+        /// <summary>
+        /// 记录日常日志到指定路径
+        /// </summary>
+        /// <param name="relativePath">应用目录下的相对路径</param>
+        /// <param name="data">日志内容</param>
+        public static void ActionToPath(string relativePath, params string[] data)
         {
             try
             {
-                if (paramList == null || paramList.Length == 0)
+                if (string.IsNullOrEmpty(relativePath) || (data?.Length).GetValueOrDefault() == 0)
                 {
                     return;
                 }
-                var filePath = string.Format(@"{0}\Log\Action\{1}\{2}.txt", AppDomain.CurrentDomain.BaseDirectory, DateTime.Today.ToString("yyyyMM"), DateTime.Today.ToString("yyyyMMdd"));
+                var filePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\{relativePath}.txt";
                 if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -112,7 +150,7 @@ namespace Dry.Core.Utilities
                 }
                 stream.WriteLine("LogTime:{0}", DateTime.Now.ToString());
                 stream.WriteLine("");
-                foreach (var item in paramList)
+                foreach (var item in data)
                 {
                     stream.WriteLine(item);
                     stream.WriteLine("");

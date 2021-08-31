@@ -1,4 +1,6 @@
-﻿using System.Text.Encodings.Web;
+﻿using Dry.Http.Json.Converter;
+using System;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 
@@ -17,9 +19,9 @@ namespace Dry.Http.Json
         public static JsonSerializerOptions DefaultConfig(this JsonSerializerOptions options)
         {
             //日期格式化
-            options.Converters.Add(new DateTimeConverter());
-            options.Converters.Add(new DateTimeNullableConvert());
-            //设置支持中文的unicode编码
+            options.Converters.Add(new StructJsonConverter<DateTime>());
+            options.Converters.Add(new StructNullableJsonConverter<DateTime>());
+            //设置支持中文的unicode编码kds
             options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             //采用原始属性名称
             options.PropertyNamingPolicy = null;

@@ -13,7 +13,7 @@ namespace Dry.Core.Utilities
         /// 获取指定枚举项说明
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="nameInstead"></param>
+        /// <param name="nameInstead">是否用名称代替（没有说明时）</param>
         /// <returns></returns>
         public static string GetDescription(this Enum value, bool nameInstead = true)
         {

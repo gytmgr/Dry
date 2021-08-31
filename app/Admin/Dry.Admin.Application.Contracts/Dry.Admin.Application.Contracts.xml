@@ -14,6 +14,11 @@
             系统id
             </summary>
         </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
         <member name="P:Dry.Admin.Application.Contracts.Dtos.ApplicationDto.TypeId">
             <summary>
             类型id

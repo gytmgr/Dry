@@ -2,6 +2,8 @@
 @using Dry.Admin.Application.Contracts.Services;
 @using Dry.Admin.Application.Contracts.Dtos;
 @using Dry.Application.Contracts.Dtos;
+@using Dry.Core.Utilities;
+@using Dry.Admin.Domain.Shared.Enums;
 
 @page "/application"
 @inherits AuthPage
@@ -121,7 +123,8 @@ else
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        _types = await ApplicationAppService.TypeArrayAsync();
+        _types = EnumHelper.GetEnumDic<ApplicationType>().ToArray();
+        //await ApplicationAppService.TypeArrayAsync();
         await Search();
     }
 

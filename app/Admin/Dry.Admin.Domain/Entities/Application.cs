@@ -1,4 +1,4 @@
-﻿using Dry.Admin.Domain.ValueObjects;
+﻿using Dry.Admin.Domain.Shared.Enums;
 using Dry.Core.Model;
 using Dry.Domain.Entities;
 using Dry.Domain.Extensions;

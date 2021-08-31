@@ -1,9 +1,7 @@
-using AutoMapper;
 using Dry.Admin.Application.Extensions;
-using Dry.Admin.Application.Mapping;
 using Dry.Admin.EF.Extensions;
 using Dry.Admin.EF.Sqlite;
-using Dry.Application.Mapping;
+using Dry.AutoMapper;
 using Dry.Http.Json;
 using Dry.Mvc.Infrastructure;
 using Dry.Swagger;
@@ -52,8 +50,7 @@ namespace Dry.Admin.Application.RESTFul.Api
             services.AddAdminEF();
             services.AddAdminApplication();
 
-            services.AddAutoMapper(typeof(ApplicationProfile));
-            services.AddAutoMapper(typeof(ValueProfile));
+            services.AddCustomAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

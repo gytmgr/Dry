@@ -1,7 +1,7 @@
 ﻿using Dry.Admin.Application.Contracts.Dtos;
 using Dry.Admin.Application.Contracts.Services;
 using Dry.Admin.Domain;
-using Dry.Admin.Domain.ValueObjects;
+using Dry.Admin.Domain.Shared.Enums;
 using Dry.Application.Services;
 using Dry.Core.Utilities;
 using System;
@@ -42,7 +42,7 @@ namespace Dry.Admin.Application.Services
 
         protected override (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] GetOrderBys(ApplicationQueryDto queryDto)
         {
-            if (queryDto.Sort is not null)
+            if (queryDto?.Sort is not null)
             {
                 Expression<Func<App, dynamic>> keySelector = queryDto.Sort.Field switch
                 {

@@ -1,5 +1,7 @@
-﻿using Dry.Application.Contracts.Dtos;
+﻿using Dry.Admin.Domain.Shared.Enums;
+using Dry.Application.Contracts.Dtos;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dry.Admin.Application.Contracts.Dtos
@@ -13,6 +15,11 @@ namespace Dry.Admin.Application.Contracts.Dtos
         /// 系统id
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public ApplicationType Type { get; set; }
 
         /// <summary>
         /// 类型id
@@ -84,16 +91,19 @@ namespace Dry.Admin.Application.Contracts.Dtos
         /// <summary>
         /// 类型
         /// </summary>
+        [Description("类型")]
         Type,
 
         /// <summary>
         /// 名称
         /// </summary>
+        [Description("名称")]
         Name,
 
         /// <summary>
         /// 添加时间
         /// </summary>
+        [Description("添加时间")]
         AddTime
     }
 

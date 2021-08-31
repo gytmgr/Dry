@@ -9,16 +9,18 @@
 		<DocumentationFile>Dry.Admin.Application.RESTFul.Api.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>Dry.Admin.Application.RESTFul.Api.xml</DocumentationFile>
+	  <NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Remove="Default.db" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj" />
+		<ProjectReference Include="..\..\..\src\Dry.AutoMapper\Dry.AutoMapper.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Http\Dry.Http.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Serilog\Dry.Serilog.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Swagger\Dry.Swagger.csproj" />
