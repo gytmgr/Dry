@@ -9,11 +9,12 @@
             AutoMapper扩展
             </summary>
         </member>
-        <member name="M:Dry.AutoMapper.AutoMapperExtension.AddCustomAutoMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Dry.AutoMapper.AutoMapperExtension.AddCustomAutoMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String[])">
             <summary>
             添加AutoMapper扩展服务注册
             </summary>
             <param name="services"></param>
+            <param name="prefixs">程序集名称前缀</param>
             <returns></returns>
         </member>
     </members>
