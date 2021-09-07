@@ -35,6 +35,6 @@ namespace Dry.Http.Json.Converter
         /// <param name="options"></param>
         /// <returns></returns> 
         public override TStruct? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            => Enum.TryParse<TStruct>(reader.GetString(), out var value) ? value : null;
+            => reader.GetString().TryParse<TStruct>(out var value) ? value : null;
     }
 }

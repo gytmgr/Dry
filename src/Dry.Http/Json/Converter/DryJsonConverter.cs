@@ -35,8 +35,8 @@ namespace Dry.Http.Json.Converter
                     case float or double or decimal:
                         writer.WriteNumberValue(Convert.ToDecimal(value));
                         break;
-                    case bool bVaule:
-                        writer.WriteBooleanValue(bVaule);
+                    case bool boolVaule:
+                        writer.WriteBooleanValue(boolVaule);
                         break;
                     case Enum:
                         var underlyingType = Enum.GetUnderlyingType(typeof(T));
@@ -48,6 +48,9 @@ namespace Dry.Http.Json.Converter
                         {
                             writer.WriteNumberValue(Convert.ToInt64(value));
                         }
+                        break;
+                    case DateTime dtVaule:
+                        writer.WriteStringValue(dtVaule.ToString("yyyy-MM-dd HH:mm:ss"));
                         break;
                     default:
                         writer.WriteStringValue(value.ToString());
