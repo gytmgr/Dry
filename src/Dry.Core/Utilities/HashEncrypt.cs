@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dry.Core.Utilities
 {
@@ -47,9 +48,9 @@ namespace Dry.Core.Utilities
         /// <param name="hash">加密方式</param>
         /// <param name="data">加密数据</param>
         /// <returns></returns>
-        public static string Encrypt<T>(T hash, Stream data) where T : HashAlgorithm
+        public static async Task<string> EncryptAsync<T>(T hash, Stream data) where T : HashAlgorithm
         {
-            var bytes = hash.ComputeHash(data);
+            var bytes = await hash.ComputeHashAsync(data);
             return BitConverter.ToString(bytes).Replace("-", "");
         }
     }

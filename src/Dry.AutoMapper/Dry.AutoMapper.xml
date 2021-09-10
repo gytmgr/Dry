@@ -17,5 +17,33 @@
             <param name="prefixs">程序集名称前缀</param>
             <returns></returns>
         </member>
+        <member name="T:Dry.AutoMapper.Mapping.DryProfile">
+            <summary>
+            值对象映射
+            </summary>
+        </member>
+        <member name="M:Dry.AutoMapper.Mapping.DryProfile.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
+        <member name="M:Dry.AutoMapper.Mapping.DryProfile.MappingFunction``1(Dry.Core.Model.DryData{``0},``0)">
+            <summary>
+            DryData转Data
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="source"></param>
+            <param name="destination"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AutoMapper.Mapping.DryProfile.MappingFunction``1(``0,Dry.Core.Model.DryData{``0})">
+            <summary>
+            Data转DryData
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="source"></param>
+            <param name="destination"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

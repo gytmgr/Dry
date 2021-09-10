@@ -80,6 +80,7 @@ namespace Dry.Core.Utilities
         /// <returns></returns>
         public static string ObjectToUriParam(this object obj)
         {
+            return string.Join("&", GetObjectParam(obj));
             static List<string> GetObjectParam(object obj, string propertyName = null)
             {
                 var propertis = obj.GetType().GetProperties();
@@ -127,7 +128,6 @@ namespace Dry.Core.Utilities
                 }
                 return result;
             }
-            return string.Join("&", GetObjectParam(obj));
         }
     }
 }

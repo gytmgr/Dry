@@ -1,7 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations;
 @using Dry.Admin.Application.Contracts.Services;
 @using Dry.Admin.Application.Contracts.Dtos;
-@using Dry.Application.Contracts.Dtos;
+@using Dry.Core.Model;
 @using Dry.Core.Utilities;
 @using Dry.Admin.Domain.Shared.Enums;
 
@@ -104,13 +104,13 @@ else
 </Modal>
 
 @code {
-    private PagedQueryDto<ApplicationQueryDto> _pagedQuery = new PagedQueryDto<ApplicationQueryDto>
+    private PagedQuery<ApplicationQueryDto> _pagedQuery = new PagedQuery<ApplicationQueryDto>
     {
         PageSize = 10,
         Param = new ApplicationQueryDto()
     };
     private bool _appLoading = false;
-    private PagedResultDto<ApplicationDto> _pagedApp;
+    private PagedResult<ApplicationDto> _pagedApp;
     private KeyValuePair<int, string>[] _types;
 
     private bool _modalVisible = false;
@@ -192,11 +192,11 @@ else
         {
             var editDto = new ApplicationEditDto
             {
-                Type = new ValueDto<int> { Value = _formModel.Type.Value },
-                Name = new ValueDto<string> { Value = _formModel.Name },
-                Url = new ValueDto<string> { Value = _formModel.Url },
-                Description = new ValueDto<string> { Value = _formModel.Description },
-                Enable = new ValueDto<bool> { Value = _formModel.Enable }
+                Type = new DryData<ApplicationType> { Data = (ApplicationType)_formModel.Type.Value },
+                Name = new DryData<string> { Data = _formModel.Name },
+                Url = new DryData<string> { Data = _formModel.Url },
+                Description = new DryData<string> { Data = _formModel.Description },
+                Enable = new DryData<bool> { Data = _formModel.Enable }
             };
             await ApplicationAppService.EditAsync(_formModel.Code, editDto);
         }

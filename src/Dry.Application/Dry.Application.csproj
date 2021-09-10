@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.7</Version>
+		<Version>1.1.8</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,12 +16,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="10.1.1" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
-		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+		<ProjectReference Include="..\Dry.AutoMapper\Dry.AutoMapper.csproj" />
 		<ProjectReference Include="..\Dry.Domain\Dry.Domain.csproj" />
 	</ItemGroup>
 

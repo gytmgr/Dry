@@ -1,9 +1,9 @@
-﻿namespace Dry.Application.Contracts.Dtos
+﻿namespace Dry.Core.Model
 {
     /// <summary>
-    /// 分页查询dto
+    /// 分页查询
     /// </summary>
-    public class PagedQueryDto
+    public class PagedQuery
     {
         /// <summary>
         /// 当前页
@@ -17,15 +17,14 @@
     }
 
     /// <summary>
-    /// 分页查询dto
+    /// 分页查询
     /// </summary>
-    /// <typeparam name="TQueryDto"></typeparam>
-    public class PagedQueryDto<TQueryDto> : PagedQueryDto where TQueryDto : IQueryDto
+    /// <typeparam name="TQuery"></typeparam>
+    public class PagedQuery<TQuery> : PagedQuery
     {
-
         /// <summary>
         /// 查询参数
         /// </summary>
-        public TQueryDto Param { get; set; }
+        public TQuery Param { get; set; }
     }
 }

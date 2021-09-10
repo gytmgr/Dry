@@ -115,7 +115,7 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
+        public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto)
         {
             var propertyLoads = GetPropertyLoads(queryDto.Param);
             var predicates = GetPredicates(queryDto.Param);
@@ -124,7 +124,7 @@ namespace Dry.Application.Services
             var entities = await _repository.ToArrayAsync(
                 queryable => queryable.Where(predicates).OrderBy(orderBys).Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize),
                 propertyLoads);
-            return new PagedResultDto<TResult>
+            return new PagedResult<TResult>
             {
                 Total = total,
                 Items = _mapper.Map<TResult[]>(entities)

@@ -1,5 +1,6 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
+using Dry.Core.Model;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -62,9 +63,9 @@ namespace Dry.Application.RESTFul.Client
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto<TQuery> queryDto)
+        public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto)
         {
-            return await RequestAsync<PagedResultDto<TResult>>(HttpMethod.Get, "/Paged", queryDto);
+            return await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto);
         }
     }
 

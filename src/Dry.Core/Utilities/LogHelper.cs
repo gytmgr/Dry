@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dry.Core.Utilities
 {
@@ -15,24 +16,25 @@ namespace Dry.Core.Utilities
         /// <param name="stream"></param>
         /// <param name="e"></param>
         /// <param name="level"></param>
-        private static void WriteException(StreamWriter stream, Exception e, int level)
+        /// <returns></returns>
+        private static async Task WriteExceptionAsync(StreamWriter stream, Exception e, int level)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < level; i++)
             {
                 sb.Append('=');
             }
-            stream.WriteLine("{0}Message:{1}", sb.ToString(), e.Message);
-            stream.WriteLine("");
-            stream.WriteLine("{0}Source:{1}", sb.ToString(), e.Source);
-            stream.WriteLine("");
-            stream.WriteLine("{0}StackTrace:{1}", sb.ToString(), e.StackTrace);
-            stream.WriteLine("");
-            stream.WriteLine("{0}TargetSite:{1}", sb.ToString(), e.TargetSite);
-            stream.WriteLine("");
-            if (e.InnerException != null)
+            await stream.WriteLineAsync($"{sb}Message:{e.Message}");
+            await stream.WriteLineAsync(string.Empty);
+            await stream.WriteLineAsync($"{sb}Source:{ e.Source}");
+            await stream.WriteLineAsync(string.Empty);
+            await stream.WriteLineAsync($"{sb}StackTrace:{e.StackTrace}");
+            await stream.WriteLineAsync(string.Empty);
+            await stream.WriteLineAsync($"{sb}TargetSite:{e.TargetSite}");
+            await stream.WriteLineAsync(string.Empty);
+            if (e.InnerException is not null)
             {
-                WriteException(stream, e.InnerException, level + 1);
+                await WriteExceptionAsync(stream, e.InnerException, level + 1);
             }
         }
 
@@ -43,14 +45,15 @@ namespace Dry.Core.Utilities
         /// <param name="methodName">方法名</param>
         /// <param name="e">异常</param>
         /// <param name="otherInfo">其他信息</param>
-        public static void Exception(string className, string methodName, Exception e, params string[] otherInfo)
+        /// <returns></returns>
+        public static async Task ExceptionAsync(string className, string methodName, Exception e, params string[] otherInfo)
         {
             if (string.IsNullOrEmpty(className) || string.IsNullOrEmpty(methodName))
             {
                 return;
             }
             var relativePath = $@"Log\Exception\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}\{className}_{methodName}";
-            ExceptionToPath(relativePath, e, otherInfo);
+            await ExceptionToPathAsync(relativePath, e, otherInfo);
         }
 
         /// <summary>
@@ -58,10 +61,11 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="e">异常</param>
         /// <param name="otherInfo">其他信息</param>
-        public static void Exception(Exception e, params string[] otherInfo)
+        /// <returns></returns>
+        public static async Task ExceptionAsync(Exception e, params string[] otherInfo)
         {
             var relativePath = $@"Log\Exception\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}";
-            ExceptionToPath(relativePath, e, otherInfo);
+            await ExceptionToPathAsync(relativePath, e, otherInfo);
         }
 
         /// <summary>
@@ -70,7 +74,8 @@ namespace Dry.Core.Utilities
         /// <param name="relativePath">应用目录下的相对路径</param>
         /// <param name="e">异常</param>
         /// <param name="otherInfo">其他信息</param>
-        public static void ExceptionToPath(string relativePath, Exception e, params string[] otherInfo)
+        /// <returns></returns>
+        public static async Task ExceptionToPathAsync(string relativePath, Exception e, params string[] otherInfo)
         {
             try
             {
@@ -93,18 +98,18 @@ namespace Dry.Core.Utilities
                 {
                     stream = file.AppendText();
                 }
-                stream.WriteLine("LogTime:{0}", DateTime.Now.ToString());
-                stream.WriteLine("");
+                await stream.WriteLineAsync($"LogTime:{DateTime.Now}");
+                await stream.WriteLineAsync(string.Empty);
                 if (otherInfo is not null)
                 {
                     foreach (var item in otherInfo)
                     {
-                        stream.WriteLine(item);
-                        stream.WriteLine("");
+                        await stream.WriteLineAsync(item);
+                        await stream.WriteLineAsync("");
                     }
                 }
-                WriteException(stream, e, 0);
-                stream.WriteLine("------------------------------------------------------------------------------------");
+                await WriteExceptionAsync(stream, e, 0);
+                await stream.WriteLineAsync("------------------------------------------------------------------------------------");
                 stream.Close();
             }
             catch { }
@@ -114,10 +119,11 @@ namespace Dry.Core.Utilities
         /// 记录日常日志
         /// </summary>
         /// <param name="data">日志内容</param>
-        public static void Action(params string[] data)
+        /// <returns></returns>
+        public static async Task ActionAsync(params string[] data)
         {
             var relativePath = $@"Log\Action\{DateTime.Today:yyyyMM}\{DateTime.Now:yyyyMMddHH}";
-            ActionToPath(relativePath, data);
+            await ActionToPathAsync(relativePath, data);
         }
 
         /// <summary>
@@ -125,7 +131,8 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="relativePath">应用目录下的相对路径</param>
         /// <param name="data">日志内容</param>
-        public static void ActionToPath(string relativePath, params string[] data)
+        /// <returns></returns>
+        public static async Task ActionToPathAsync(string relativePath, params string[] data)
         {
             try
             {
@@ -148,14 +155,14 @@ namespace Dry.Core.Utilities
                 {
                     stream = file.AppendText();
                 }
-                stream.WriteLine("LogTime:{0}", DateTime.Now.ToString());
-                stream.WriteLine("");
+                await stream.WriteLineAsync($"LogTime:{DateTime.Now}");
+                await stream.WriteLineAsync(string.Empty);
                 foreach (var item in data)
                 {
-                    stream.WriteLine(item);
-                    stream.WriteLine("");
+                    await stream.WriteLineAsync(item);
+                    await stream.WriteLineAsync(string.Empty);
                 }
-                stream.WriteLine("------------------------------------------------------------------------------------");
+                await stream.WriteLineAsync("------------------------------------------------------------------------------------");
                 stream.Close();
             }
             catch { }

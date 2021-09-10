@@ -5,16 +5,11 @@
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TData"></typeparam>
-    public class KeyData<TKey, TData>
+    public class KeyData<TKey, TData> : DryData<TData>
     {
         /// <summary>
         /// 键
         /// </summary>
         public TKey Key { get; set; }
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public TData Data { get; set; }
     }
 }

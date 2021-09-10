@@ -34,7 +34,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync(Dry.Core.Model.PagedQuery)">
             <summary>
             分页条件查询
             </summary>
@@ -133,7 +133,7 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
+        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(Dry.Core.Model.PagedQuery{`2})">
             <summary>
             分页条件查询
             </summary>

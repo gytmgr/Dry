@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dry.Core.Utilities
 {
@@ -76,19 +77,19 @@ namespace Dry.Core.Utilities
         /// <param name="path"></param>
         /// <param name="WRMethods"></param>
         /// <returns></returns>
-        private string[] GetFileList(string path, string WRMethods)
+        private async Task<string[]> GetFileListAsync(string path, string WRMethods)
         {
             var result = new StringBuilder();
             Connect(path);
             _reqFTP.Method = WRMethods;
             var response = _reqFTP.GetResponse();
             var reader = new StreamReader(response.GetResponseStream(), Encoding.Default);//中文文件名
-            var line = reader.ReadLine();
+            var line = await reader.ReadLineAsync();
             while (line != null)
             {
                 result.Append(line);
-                result.Append("\n");
-                line = reader.ReadLine();
+                result.Append('\n');
+                line = await reader.ReadLineAsync();
             }
             // to remove the trailing '\n'
             result.Remove(result.ToString().LastIndexOf('\n'), 1);
@@ -102,18 +103,18 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string[] GetFileList(string path)
+        public async Task<string[]> GetFileListAsync(string path)
         {
-            return GetFileList(FtpHost + "/" + path, WebRequestMethods.Ftp.ListDirectory);
+            return await GetFileListAsync(FtpHost + "/" + path, WebRequestMethods.Ftp.ListDirectory);
         }
 
         /// <summary>
         /// 从ftp服务器上获得文件列表
         /// </summary>
         /// <returns></returns>
-        public string[] GetFileList()
+        public async Task<string[]> GetFileList()
         {
-            return GetFileList(FtpHost + "/", WebRequestMethods.Ftp.ListDirectory);
+            return await GetFileListAsync(FtpHost + "/", WebRequestMethods.Ftp.ListDirectory);
         }
 
         /// <summary>
@@ -121,7 +122,8 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="ftpFilePath"></param>
         /// <param name="localFilePath"></param>
-        public void Upload(string ftpFilePath, string localFilePath)
+        /// <returns></returns>
+        public async Task UploadAsync(string ftpFilePath, string localFilePath)
         {
             var fileInf = new FileInfo(localFilePath);
             var uri = FtpHost + "/" + ftpFilePath;
@@ -144,13 +146,13 @@ namespace Dry.Core.Utilities
                 // 把上传的文件写入流
                 var strm = _reqFTP.GetRequestStream();
                 // 每次读文件流的kb
-                contentLen = fs.Read(buff, 0, buffLength);
+                contentLen = await fs.ReadAsync(buff, 0, buffLength);
                 // 流内容没有结束
                 while (contentLen != 0)
                 {
                     // 把内容从file stream 写入upload stream
                     strm.Write(buff, 0, contentLen);
-                    contentLen = fs.Read(buff, 0, buffLength);
+                    contentLen = await fs.ReadAsync(buff, 0, buffLength);
                 }
                 // 关闭两个流
                 strm.Close();
@@ -166,24 +168,24 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="localFilePath"></param>
         /// <param name="ftpFilePath"></param>
-        public void Download(string localFilePath, string ftpFilePath)
+        /// <returns></returns>
+        public async Task DownloadAsync(string localFilePath, string ftpFilePath)
         {
             var url = FtpHost + "/" + ftpFilePath;
             Connect(url);//连接 
             _reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
             var response = (FtpWebResponse)_reqFTP.GetResponse();
             var ftpStream = response.GetResponseStream();
-            var cl = response.ContentLength;
             var bufferSize = 2048;
             int readCount;
             var buffer = new byte[bufferSize];
-            readCount = ftpStream.Read(buffer, 0, bufferSize);
+            readCount = await ftpStream.ReadAsync(buffer, 0, bufferSize);
 
             var outputStream = new FileStream(localFilePath, FileMode.Create);
             while (readCount > 0)
             {
-                outputStream.Write(buffer, 0, readCount);
-                readCount = ftpStream.Read(buffer, 0, bufferSize);
+                await outputStream.WriteAsync(buffer, 0, readCount);
+                readCount = await ftpStream.ReadAsync(buffer, 0, bufferSize);
             }
             ftpStream.Close();
             outputStream.Close();
@@ -274,9 +276,9 @@ namespace Dry.Core.Utilities
         /// 获得文件明细
         /// </summary>
         /// <returns></returns>
-        public string[] GetFilesDetailList()
+        public async Task<string[]> GetFilesDetailListAsync()
         {
-            return GetFileList(FtpHost + "/", WebRequestMethods.Ftp.ListDirectoryDetails);
+            return await GetFileListAsync(FtpHost + "/", WebRequestMethods.Ftp.ListDirectoryDetails);
         }
 
         /// <summary>
@@ -284,9 +286,9 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string[] GetFilesDetailList(string path)
+        public async Task<string[]> GetFilesDetailListAsync(string path)
         {
-            return GetFileList(FtpHost + "/" + path, WebRequestMethods.Ftp.ListDirectoryDetails);
+            return await GetFileListAsync(FtpHost + "/" + path, WebRequestMethods.Ftp.ListDirectoryDetails);
         }
     }
 }

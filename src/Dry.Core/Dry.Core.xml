@@ -4,6 +4,58 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Model.CodeData`2">
+            <summary>
+            编码数据
+            </summary>
+            <typeparam name="TCode"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`2.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.CodeData`1">
+            <summary>
+            编码数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="T:Dry.Core.Model.DryData`1">
+            <summary>
+            泛型数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.DryData`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.KeyData`2">
+            <summary>
+            键数据
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.KeyData`2.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.NameData`1">
+            <summary>
+            名称数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.NameData`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
         <member name="T:Dry.Core.Model.BizException">
             <summary>
             业务异常类
@@ -33,28 +85,47 @@
             <param name="code"></param>
             <param name="msg"></param>
         </member>
-        <member name="T:Dry.Core.Model.CodeData`2">
+        <member name="T:Dry.Core.Model.NullDataBizException">
             <summary>
-            编码数据
-            </summary>
-            <typeparam name="TCode"></typeparam>
-            <typeparam name="TData"></typeparam>
-        </member>
-        <member name="P:Dry.Core.Model.CodeData`2.Code">
-            <summary>
-            编码
+            主数据不存在异常类
             </summary>
         </member>
-        <member name="P:Dry.Core.Model.CodeData`2.Data">
+        <member name="F:Dry.Core.Model.NullDataBizException.BizMessage">
             <summary>
-            数据
+            异常消息
             </summary>
         </member>
-        <member name="T:Dry.Core.Model.CodeData`1">
+        <member name="M:Dry.Core.Model.NullDataBizException.#ctor">
             <summary>
-            编码数据
+            构造体
             </summary>
-            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Model.NullDataBizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.TypeBizException">
+            <summary>
+            类型异常类
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Model.TypeBizException.BizMessage">
+            <summary>
+            异常消息
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
         </member>
         <member name="T:Dry.Core.Model.ITree`1">
             <summary>
@@ -86,59 +157,47 @@
             上级id
             </summary>
         </member>
-        <member name="T:Dry.Core.Model.KeyData`2">
+        <member name="T:Dry.Core.Model.PagedQuery">
             <summary>
-            键数据
-            </summary>
-            <typeparam name="TKey"></typeparam>
-            <typeparam name="TData"></typeparam>
-        </member>
-        <member name="P:Dry.Core.Model.KeyData`2.Key">
-            <summary>
-            键
+            分页查询
             </summary>
         </member>
-        <member name="P:Dry.Core.Model.KeyData`2.Data">
+        <member name="P:Dry.Core.Model.PagedQuery.PageIndex">
             <summary>
-            数据
+            当前页
             </summary>
         </member>
-        <member name="T:Dry.Core.Model.NameData`1">
+        <member name="P:Dry.Core.Model.PagedQuery.PageSize">
             <summary>
-            名称数据
-            </summary>
-            <typeparam name="TData"></typeparam>
-        </member>
-        <member name="P:Dry.Core.Model.NameData`1.Name">
-            <summary>
-            名称
+            每页条目数
             </summary>
         </member>
-        <member name="P:Dry.Core.Model.NameData`1.Data">
+        <member name="T:Dry.Core.Model.PagedQuery`1">
             <summary>
-            数据
+            分页查询
+            </summary>
+            <typeparam name="TQuery"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.PagedQuery`1.Param">
+            <summary>
+            查询参数
             </summary>
         </member>
-        <member name="T:Dry.Core.Model.NullDataBizException">
+        <member name="T:Dry.Core.Model.PagedResult`1">
             <summary>
-            主数据不存在异常类
+            分页返回结果
+            </summary>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.PagedResult`1.Total">
+            <summary>
+            总条目数
             </summary>
         </member>
-        <member name="F:Dry.Core.Model.NullDataBizException.BizMessage">
+        <member name="P:Dry.Core.Model.PagedResult`1.Items">
             <summary>
-            异常消息
+            返回条目
             </summary>
-        </member>
-        <member name="M:Dry.Core.Model.NullDataBizException.#ctor">
-            <summary>
-            构造体
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Model.NullDataBizException.#ctor(System.String)">
-            <summary>
-            构造体
-            </summary>
-            <param name="msg"></param>
         </member>
         <member name="T:Dry.Core.Model.Result`1">
             <summary>
@@ -222,27 +281,6 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Model.TypeBizException">
-            <summary>
-            类型异常类
-            </summary>
-        </member>
-        <member name="F:Dry.Core.Model.TypeBizException.BizMessage">
-            <summary>
-            异常消息
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Model.TypeBizException.#ctor">
-            <summary>
-            构造体
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Model.TypeBizException.#ctor(System.String)">
-            <summary>
-            构造体
-            </summary>
-            <param name="msg"></param>
-        </member>
         <member name="T:Dry.Core.Utilities.DateTimeExtension">
             <summary>
             时间扩展
@@ -275,7 +313,7 @@
             ES3 ECB加密类
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.Des3Encrypt.Encrypt(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.Des3Encrypt.EncryptAsync(System.String,System.String)">
             <summary>
             ES3 ECB模式加密
             </summary>
@@ -283,7 +321,7 @@
             <param name="strKey"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.Des3Encrypt.Decrypt(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.Des3Encrypt.DecryptAsync(System.String,System.String)">
             <summary>
             DES3 ECB模式解密
             </summary>
@@ -365,7 +403,7 @@
             文件操作帮助类
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.FileHelper.GetMd5(System.String)">
+        <member name="M:Dry.Core.Utilities.FileHelper.GetMd5Async(System.String)">
             <summary>
             计算文件的md5值
             </summary>
@@ -385,14 +423,15 @@
             </summary>
             <param name="path"></param>
         </member>
-        <member name="M:Dry.Core.Utilities.FileHelper.SaveFile(System.IO.Stream,System.String)">
+        <member name="M:Dry.Core.Utilities.FileHelper.SaveFileAsync(System.IO.Stream,System.String)">
             <summary>
             从流中读取文件，并保存
             </summary>
             <param name="fileData"></param>
             <param name="path"></param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FileHelper.SaveBase64File(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.FileHelper.SaveBase64FileAsync(System.String,System.String)">
             <summary>
             保存Base64编码的文件
             </summary>
@@ -400,7 +439,7 @@
             <param name="path"></param>
             <returns>读取的文件扩展名</returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FileHelper.IsChanged(System.String)">
+        <member name="M:Dry.Core.Utilities.FileHelper.IsChangedAsync(System.String)">
             <summary>
             检查文件是否有修改（根据同目录下“{initFilePath}.txt”文件里面的md5值对比）
             </summary>
@@ -450,7 +489,7 @@
             </summary>
             <param name="path"></param>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileList(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileListAsync(System.String,System.String)">
             <summary>
             从ftp服务器上获得文件列表
             </summary>
@@ -458,7 +497,7 @@
             <param name="WRMethods"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileList(System.String)">
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFileListAsync(System.String)">
             <summary>
             从ftp服务器上获得文件列表
             </summary>
@@ -471,19 +510,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.Upload(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.FtpHelper.UploadAsync(System.String,System.String)">
             <summary>
             从ftp服务器上载文件的功能
             </summary>
             <param name="ftpFilePath"></param>
             <param name="localFilePath"></param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.Download(System.String,System.String)">
+        <member name="M:Dry.Core.Utilities.FtpHelper.DownloadAsync(System.String,System.String)">
             <summary>
             从ftp服务器下载文件
             </summary>
             <param name="localFilePath"></param>
             <param name="ftpFilePath"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Core.Utilities.FtpHelper.DeleteFileName(System.String)">
             <summary>
@@ -517,13 +558,13 @@
             <param name="currentFilename"></param>
             <param name="newFilename"></param>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailList">
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailListAsync">
             <summary>
             获得文件明细
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailList(System.String)">
+        <member name="M:Dry.Core.Utilities.FtpHelper.GetFilesDetailListAsync(System.String)">
             <summary>
             获得文件明细
             </summary>
@@ -554,7 +595,7 @@
             <param name="data">加密数据</param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.HashEncrypt.Encrypt``1(``0,System.IO.Stream)">
+        <member name="M:Dry.Core.Utilities.HashEncrypt.EncryptAsync``1(``0,System.IO.Stream)">
             <summary>
             流加密
             </summary>
@@ -755,15 +796,16 @@
             日志帮助类
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.WriteException(System.IO.StreamWriter,System.Exception,System.Int32)">
+        <member name="M:Dry.Core.Utilities.LogHelper.WriteExceptionAsync(System.IO.StreamWriter,System.Exception,System.Int32)">
             <summary>
             记录异常日志
             </summary>
             <param name="stream"></param>
             <param name="e"></param>
             <param name="level"></param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.Exception(System.String,System.String,System.Exception,System.String[])">
+        <member name="M:Dry.Core.Utilities.LogHelper.ExceptionAsync(System.String,System.String,System.Exception,System.String[])">
             <summary>
             记录异常
             </summary>
@@ -771,34 +813,39 @@
             <param name="methodName">方法名</param>
             <param name="e">异常</param>
             <param name="otherInfo">其他信息</param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.Exception(System.Exception,System.String[])">
+        <member name="M:Dry.Core.Utilities.LogHelper.ExceptionAsync(System.Exception,System.String[])">
             <summary>
             记录异常
             </summary>
             <param name="e">异常</param>
             <param name="otherInfo">其他信息</param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.ExceptionToPath(System.String,System.Exception,System.String[])">
+        <member name="M:Dry.Core.Utilities.LogHelper.ExceptionToPathAsync(System.String,System.Exception,System.String[])">
             <summary>
             记录异常到指定路径
             </summary>
             <param name="relativePath">应用目录下的相对路径</param>
             <param name="e">异常</param>
             <param name="otherInfo">其他信息</param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.Action(System.String[])">
+        <member name="M:Dry.Core.Utilities.LogHelper.ActionAsync(System.String[])">
             <summary>
             记录日常日志
             </summary>
             <param name="data">日志内容</param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.LogHelper.ActionToPath(System.String,System.String[])">
+        <member name="M:Dry.Core.Utilities.LogHelper.ActionToPathAsync(System.String,System.String[])">
             <summary>
             记录日常日志到指定路径
             </summary>
             <param name="relativePath">应用目录下的相对路径</param>
             <param name="data">日志内容</param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.ObjectExtension">
             <summary>

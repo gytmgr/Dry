@@ -27,25 +27,6 @@
             <param name="sortDtos"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Mapping.DryProfile">
-            <summary>
-            值对象映射
-            </summary>
-        </member>
-        <member name="M:Dry.Application.Mapping.DryProfile.#ctor">
-            <summary>
-            构造体
-            </summary>
-        </member>
-        <member name="M:Dry.Application.Mapping.DryProfile.Convert``1(Dry.Application.Contracts.Dtos.ValueDto{``0},``0)">
-            <summary>
-            ValueDto转Value
-            </summary>
-            <typeparam name="TValue"></typeparam>
-            <param name="source"></param>
-            <param name="destination"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.Application.Services.ApplicationQueryService`3">
             <summary>
             查询应用服务接口
@@ -109,7 +90,7 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`3.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`2})">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.ArrayAsync(Dry.Core.Model.PagedQuery{`2})">
             <summary>
             分页条件查询
             </summary>
@@ -292,7 +273,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.Services.ApplicationService`2.ArrayAsync(Dry.Core.Model.PagedQuery)">
             <summary>
             分页条件查询
             </summary>

@@ -4,17 +4,6 @@
         <name>Dry.Application.Contracts</name>
     </assembly>
     <members>
-        <member name="T:Dry.Application.Contracts.Dtos.CodeVauleDto`1">
-            <summary>
-            编码值
-            </summary>
-            <typeparam name="TValue"></typeparam>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.CodeVauleDto`1.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
         <member name="T:Dry.Application.Contracts.Dtos.ICreateDto">
             <summary>
             新建dto
@@ -61,48 +50,6 @@
             结果Dto
             </summary>
         </member>
-        <member name="T:Dry.Application.Contracts.Dtos.PagedQueryDto">
-            <summary>
-            分页查询dto
-            </summary>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto.PageIndex">
-            <summary>
-            当前页
-            </summary>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto.PageSize">
-            <summary>
-            每页条目数
-            </summary>
-        </member>
-        <member name="T:Dry.Application.Contracts.Dtos.PagedQueryDto`1">
-            <summary>
-            分页查询dto
-            </summary>
-            <typeparam name="TQueryDto"></typeparam>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.PagedQueryDto`1.Param">
-            <summary>
-            查询参数
-            </summary>
-        </member>
-        <member name="T:Dry.Application.Contracts.Dtos.PagedResultDto`1">
-            <summary>
-            分页返回dto
-            </summary>
-            <typeparam name="TResultDto"></typeparam>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.PagedResultDto`1.Total">
-            <summary>
-            总条目数
-            </summary>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.PagedResultDto`1.Items">
-            <summary>
-            返回条目
-            </summary>
-        </member>
         <member name="T:Dry.Application.Contracts.Dtos.SortDto`1">
             <summary>
             排序
@@ -117,17 +64,6 @@
         <member name="P:Dry.Application.Contracts.Dtos.SortDto`1.Field">
             <summary>
             排序字段
-            </summary>
-        </member>
-        <member name="T:Dry.Application.Contracts.Dtos.ValueDto`1">
-            <summary>
-            值
-            </summary>
-            <typeparam name="TValue"></typeparam>
-        </member>
-        <member name="P:Dry.Application.Contracts.Dtos.ValueDto`1.Value">
-            <summary>
-            值
             </summary>
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`2">
@@ -216,7 +152,7 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto{`1})">
+        <member name="M:Dry.Application.Contracts.Services.IApplicationQueryService`2.ArrayAsync(Dry.Core.Model.PagedQuery{`1})">
             <summary>
             分页条件查询
             </summary>
@@ -268,7 +204,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.ArrayAsync(Dry.Application.Contracts.Dtos.PagedQueryDto)">
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.ArrayAsync(Dry.Core.Model.PagedQuery)">
             <summary>
             分页条件查询
             </summary>

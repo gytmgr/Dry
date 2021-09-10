@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dry.Core.Utilities
 {
@@ -20,31 +21,33 @@ namespace Dry.Core.Utilities
         /// <param name="str"></param>
         /// <param name="strKey"></param>
         /// <returns></returns>
-        public static string Encrypt(string str, string strKey = null)
+        public static async Task<string> EncryptAsync(string str, string strKey = null)
         {
+            var encryptKey = string.IsNullOrEmpty(strKey) ? _key : Convert.FromBase64String(strKey);
+            var stream = new MemoryStream();
+            var transform = new TripleDESCryptoServiceProvider
+            {
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            }.CreateEncryptor(encryptKey, _iv);
+            var cryptoStream = new CryptoStream(stream, transform, CryptoStreamMode.Write);
             try
             {
-                var encryptKey = string.IsNullOrEmpty(strKey) ? _key : Convert.FromBase64String(strKey);
-                var mStream = new MemoryStream();
-                var tdsp = new TripleDESCryptoServiceProvider();
-                tdsp.Mode = CipherMode.ECB;
-                tdsp.Padding = PaddingMode.PKCS7;
-                var cStream = new CryptoStream(mStream, tdsp.CreateEncryptor(encryptKey, _iv), CryptoStreamMode.Write);
-                var utf8 = Encoding.UTF8;
-                var data = utf8.GetBytes(str);
-                cStream.Write(data, 0, data.Length);
-                cStream.FlushFinalBlock();
-                var ret = mStream.ToArray();
-
-                cStream.Close();
-                mStream.Close();
-                return Convert.ToBase64String(ret);
+                var data = Encoding.UTF8.GetBytes(str);
+                await cryptoStream.WriteAsync(data, 0, data.Length);
+                await cryptoStream.FlushFinalBlockAsync();
+                var bytes = stream.ToArray();
+                return Convert.ToBase64String(bytes);
             }
             catch
             {
                 return null;
             }
-
+            finally
+            {
+                cryptoStream.Close();
+                stream.Close();
+            }
         }
 
         /// <summary>
@@ -53,28 +56,32 @@ namespace Dry.Core.Utilities
         /// <param name="str"></param>
         /// <param name="strKey"></param>
         /// <returns></returns>
-        public static string Decrypt(string str, string strKey = null)
+        public static async Task<string> DecryptAsync(string str, string strKey = null)
         {
+            var decryptKey = string.IsNullOrEmpty(strKey) ? _key : Convert.FromBase64String(strKey);
+            var stream = new MemoryStream();
+            var transform = new TripleDESCryptoServiceProvider
+            {
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            }.CreateDecryptor(decryptKey, _iv);
+            var cryptoStream = new CryptoStream(stream, transform, CryptoStreamMode.Write);
             try
             {
-                var decryptKey = string.IsNullOrEmpty(strKey) ? _key : Convert.FromBase64String(strKey);
                 var data = Convert.FromBase64String(str);
-
-                var tdsp = new TripleDESCryptoServiceProvider();
-                tdsp.Mode = CipherMode.ECB;
-                tdsp.Padding = PaddingMode.PKCS7;
-                var msDecrypt = new MemoryStream();
-                var csDecrypt = new CryptoStream(msDecrypt, tdsp.CreateDecryptor(decryptKey, _iv), CryptoStreamMode.Write);
-                csDecrypt.Write(data, 0, data.Length);
-                csDecrypt.FlushFinalBlock();
-                var ret = msDecrypt.ToArray();
-                csDecrypt.Close();
-                msDecrypt.Close();
-                return Encoding.UTF8.GetString(ret);
+                await cryptoStream.WriteAsync(data, 0, data.Length);
+                await cryptoStream.FlushFinalBlockAsync();
+                var bytes = stream.ToArray();
+                return Encoding.UTF8.GetString(bytes);
             }
             catch
             {
                 return null;
+            }
+            finally
+            {
+                cryptoStream.Close();
+                stream.Close();
             }
         }
     }

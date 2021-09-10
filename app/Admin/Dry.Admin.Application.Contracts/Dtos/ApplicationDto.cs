@@ -1,5 +1,6 @@
 ﻿using Dry.Admin.Domain.Shared.Enums;
 using Dry.Application.Contracts.Dtos;
+using Dry.Core.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -158,26 +159,26 @@ namespace Dry.Admin.Application.Contracts.Dtos
         /// <summary>
         /// 应用类型id
         /// </summary>
-        public ValueDto<int> Type { get; set; }
+        public DryData<ApplicationType> Type { get; set; }
 
         /// <summary>
         /// 名称
         /// </summary>
-        public ValueDto<string> Name { get; set; }
+        public DryData<string> Name { get; set; }
 
         /// <summary>
         /// 地址
         /// </summary>
-        public ValueDto<string> Url { get; set; }
+        public DryData<string> Url { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
-        public ValueDto<string> Description { get; set; }
+        public DryData<string> Description { get; set; }
 
         /// <summary>
         /// 是否可用
         /// </summary>
-        public ValueDto<bool> Enable { get; set; }
+        public DryData<bool> Enable { get; set; }
     }
 }

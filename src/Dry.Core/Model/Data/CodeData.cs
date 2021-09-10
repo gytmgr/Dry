@@ -5,17 +5,12 @@
     /// </summary>
     /// <typeparam name="TCode"></typeparam>
     /// <typeparam name="TData"></typeparam>
-    public class CodeData<TCode, TData>
+    public class CodeData<TCode, TData> : DryData<TData>
     {
         /// <summary>
         /// 编码
         /// </summary>
         public TCode Code { get; set; }
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public TData Data { get; set; }
     }
 
     /// <summary>

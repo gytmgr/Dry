@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj" />
-		<ProjectReference Include="..\..\..\src\Dry.AutoMapper\Dry.AutoMapper.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Http\Dry.Http.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Serilog\Dry.Serilog.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Swagger\Dry.Swagger.csproj" />

@@ -1,5 +1,6 @@
 ﻿using Dry.Application.Contracts.Dtos;
 using Dry.Application.Contracts.Services;
+using Dry.Core.Model;
 using Dry.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace Dry.Application.RESTFul.Api
         /// <param name="queryDto"></param>
         /// <returns></returns>
         [HttpGet("Paged")]
-        public virtual async Task<PagedResultDto<TResult>> ArrayAsync([FromQuery] PagedQueryDto queryDto)
+        public virtual async Task<PagedResult<TResult>> ArrayAsync([FromQuery] PagedQuery queryDto)
         {
             return await AppService.ArrayAsync(queryDto);
         }

@@ -1,4 +1,5 @@
 ﻿using Dry.Application.Contracts.Dtos;
+using Dry.Core.Model;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Dry.Application.Contracts.Services
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        Task<PagedResultDto<TResult>> ArrayAsync([NotNull] PagedQueryDto queryDto);
+        Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery queryDto);
     }
 
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace Dry.Core.Utilities
 {
@@ -14,14 +15,14 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string GetMd5(string path)
+        public static async Task<string> GetMd5Async(string path)
         {
             if (!File.Exists(path))
             {
                 return null;
             }
             using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return HashEncrypt.Encrypt(MD5.Create(), fs);
+            return await HashEncrypt.EncryptAsync(MD5.Create(), fs);
         }
 
         /// <summary>
@@ -56,7 +57,8 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="fileData"></param>
         /// <param name="path"></param>
-        public static void SaveFile(Stream fileData, string path)
+        /// <returns></returns>
+        public static async Task SaveFileAsync(Stream fileData, string path)
         {
             if (fileData is null || string.IsNullOrEmpty(path))
             {
@@ -64,7 +66,7 @@ namespace Dry.Core.Utilities
             }
             CheckDirectory(path);
             using var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-            fileData.CopyTo(fs);
+            await fileData.CopyToAsync(fs);
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace Dry.Core.Utilities
         /// <param name="fileData"></param>
         /// <param name="path"></param>
         /// <returns>读取的文件扩展名</returns>
-        public static string SaveBase64File(string fileData, string path)
+        public static async Task<string> SaveBase64FileAsync(string fileData, string path)
         {
             var result = default(string);
             if (string.IsNullOrEmpty(fileData) || string.IsNullOrEmpty(path))
@@ -97,7 +99,7 @@ namespace Dry.Core.Utilities
                 }
             }
             CheckDirectory(path);
-            File.WriteAllBytes(path, bytes);
+            await File.WriteAllBytesAsync(path, bytes);
             return result;
         }
 
@@ -106,15 +108,15 @@ namespace Dry.Core.Utilities
         /// </summary>
         /// <param name="initFilePath"></param>
         /// <returns></returns>
-        public static bool IsChanged(string initFilePath)
+        public static async Task<bool> IsChangedAsync(string initFilePath)
         {
-            var fileMd5 = GetMd5(initFilePath);
+            var fileMd5 = await GetMd5Async(initFilePath);
             var md5FilePath = initFilePath + ".txt";
-            if (File.Exists(md5FilePath) && File.ReadAllText(md5FilePath) == fileMd5)
+            if (File.Exists(md5FilePath) && await File.ReadAllTextAsync(md5FilePath) == fileMd5)
             {
                 return false;
             }
-            File.WriteAllText(md5FilePath, fileMd5);
+            await File.WriteAllTextAsync(md5FilePath, fileMd5);
             return true;
         }
     }
