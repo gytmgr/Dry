@@ -22,7 +22,7 @@ namespace Dry.EF.EntityConfigs
         /// <summary>
         /// 表注释
         /// </summary>
-        protected abstract string TableComment { get; }
+        protected virtual string TableComment => null;
 
         /// <summary>
         /// 注册实体
@@ -40,7 +40,10 @@ namespace Dry.EF.EntityConfigs
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.ToTable(TableName);
-            builder.HasComment(TableComment);
+            if (!string.IsNullOrEmpty(TableComment))
+            {
+                builder.HasComment(TableComment);
+            }
         }
     }
 
