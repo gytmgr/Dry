@@ -8,11 +8,11 @@ namespace Dry.Admin.EF.EntityConfigs
 {
     internal sealed class ApplicationConfig : EntityConfig<IAdminContext, Application, string>
     {
-        protected override string TableComment => "应用";
-
         public override void Configure(EntityTypeBuilder<Application> builder)
         {
             base.Configure(builder);
+
+            builder.HasComment("应用");
 
             builder.Property(x => x.Id).HasMaxLength(50);
             builder.Property(x => x.Type).HasComment("类型");

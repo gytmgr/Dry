@@ -20,10 +20,10 @@ namespace Dry.Admin.EF.EntityConfigs
 
         protected override Expression<Func<Resource, IEnumerable<TreeAncestorRelation<Resource, Guid>>>> DescendantRelationsExpression => x => x.DescendantRelations;
 
-        protected override string TableComment => "系统资源";
-
         public override void Configure(EntityTypeBuilder<Resource> builder)
         {
+            builder.HasComment("系统资源");
+
             base.Configure(builder);
 
             builder.Property(x => x.ParentId).HasComment("上级资源id");

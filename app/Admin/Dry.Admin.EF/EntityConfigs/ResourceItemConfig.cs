@@ -8,11 +8,11 @@ namespace Dry.Admin.EF.EntityConfigs
 {
     internal sealed class ResourceItemConfig : EntityConfig<IAdminContext, ResourceItem>
     {
-        protected override string TableComment => "资源项";
-
         public override void Configure(EntityTypeBuilder<ResourceItem> builder)
         {
             base.Configure(builder);
+
+            builder.HasComment("资源项");
 
             builder.HasKey(x => new { x.ResourceId, x.Type });
 

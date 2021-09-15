@@ -20,11 +20,6 @@ namespace Dry.EF.EntityConfigs
         protected virtual string TableName => typeof(TEntity).Name;
 
         /// <summary>
-        /// 表注释
-        /// </summary>
-        protected virtual string TableComment => null;
-
-        /// <summary>
         /// 注册实体
         /// </summary>
         /// <param name="modelBuilder"></param>
@@ -40,10 +35,6 @@ namespace Dry.EF.EntityConfigs
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.ToTable(TableName);
-            if (!string.IsNullOrEmpty(TableComment))
-            {
-                builder.HasComment(TableComment);
-            }
         }
     }
 

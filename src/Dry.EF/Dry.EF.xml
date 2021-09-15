@@ -40,11 +40,6 @@
             表名称
             </summary>
         </member>
-        <member name="P:Dry.EF.EntityConfigs.EntityConfig`2.TableComment">
-            <summary>
-            表注释
-            </summary>
-        </member>
         <member name="M:Dry.EF.EntityConfigs.EntityConfig`2.RegistTo(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
             注册实体
@@ -127,7 +122,7 @@
         </member>
         <member name="M:Dry.EF.EntityConfigs.TreeEntityConfig`3.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`1})">
             <summary>
-            配置实体
+            配置实体（表注释要在base调用之前配置，关系表才会有注释）
             </summary>
             <param name="builder"></param>
         </member>
