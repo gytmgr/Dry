@@ -13,6 +13,8 @@ namespace Dry.Admin.EF.Extensions
             services.AddEF();
 
             services.AddScoped(typeof(IEntityRegister<IAdminContext>), typeof(ApplicationConfig));
+            services.AddScoped(typeof(IEntityRegister<IAdminContext>), typeof(ResourceConfig));
+            services.AddScoped(typeof(IEntityRegister<IAdminContext>), typeof(ResourceItemConfig));
 
             return services;
         }

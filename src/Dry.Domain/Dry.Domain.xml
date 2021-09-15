@@ -87,6 +87,33 @@
             更新时间
             </summary>
         </member>
+        <member name="T:Dry.Domain.Entities.ValueObjects.TreeAncestorRelation`2">
+            <summary>
+            树状实体与祖先关系
+            </summary>
+            <typeparam name="TTreeEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.Domain.Entities.ValueObjects.TreeAncestorRelation`2.RelationId">
+            <summary>
+            树状实体id
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.ValueObjects.TreeAncestorRelation`2.AncestorId">
+            <summary>
+            祖先id
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.ValueObjects.TreeAncestorRelation`2.Relation">
+            <summary>
+            树状实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.ValueObjects.TreeAncestorRelation`2.Ancestor">
+            <summary>
+            祖先
+            </summary>
+        </member>
         <member name="T:Dry.Domain.Extensions.ServiceProviderExtension">
             <summary>
             服务创建扩展

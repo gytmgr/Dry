@@ -35,16 +35,15 @@
             <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="F:Dry.EF.EntityConfigs.EntityConfig`2._tableName">
+        <member name="P:Dry.EF.EntityConfigs.EntityConfig`2.TableName">
             <summary>
             表名称
             </summary>
         </member>
-        <member name="M:Dry.EF.EntityConfigs.EntityConfig`2.#ctor(System.String)">
+        <member name="P:Dry.EF.EntityConfigs.EntityConfig`2.TableComment">
             <summary>
-            构造体
+            表注释
             </summary>
-            <param name="tableName"></param>
         </member>
         <member name="M:Dry.EF.EntityConfigs.EntityConfig`2.RegistTo(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
@@ -54,7 +53,21 @@
         </member>
         <member name="M:Dry.EF.EntityConfigs.EntityConfig`2.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`1})">
             <summary>
-            配置字段
+            配置表信息
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Dry.EF.EntityConfigs.EntityConfig`3">
+            <summary>
+            主键实体配置
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.EF.EntityConfigs.EntityConfig`3.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`1})">
+            <summary>
+            配置主键信息
             </summary>
             <param name="builder"></param>
         </member>
@@ -69,6 +82,54 @@
             将当前实体映射对象注册到当前数据访问上下文实体映射配置注册器中
             </summary>
             <param name="modelBuilder">实体映射配置注册器</param>
+        </member>
+        <member name="T:Dry.EF.EntityConfigs.TreeEntityConfig`3">
+            <summary>
+            树状实体配置
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TTreeEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.AncestorsExpression">
+            <summary>
+            实体祖先属性表达式
+            </summary>
+        </member>
+        <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.DescendantsExpression">
+            <summary>
+            实体子孙属性表达式
+            </summary>
+        </member>
+        <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.AncestorRelationsExpression">
+            <summary>
+            实体祖先关系属性表达式
+            </summary>
+        </member>
+        <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.DescendantRelationsExpression">
+            <summary>
+            实体子孙关系属性表达式
+            </summary>
+        </member>
+        <member name="M:Dry.EF.EntityConfigs.TreeEntityConfig`3.AncestorWithMany(Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceNavigationBuilder{Dry.Domain.Entities.ValueObjects.TreeAncestorRelation{`1,`2},`1})">
+            <summary>
+            实体祖先和关系实体的对多配置
+            </summary>
+            <param name="hasOne"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.EntityConfigs.TreeEntityConfig`3.DescendantWithMany(Microsoft.EntityFrameworkCore.Metadata.Builders.ReferenceNavigationBuilder{Dry.Domain.Entities.ValueObjects.TreeAncestorRelation{`1,`2},`1})">
+            <summary>
+            实体子孙和关系实体的对多配置
+            </summary>
+            <param name="hasOne"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.EntityConfigs.TreeEntityConfig`3.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`1})">
+            <summary>
+            配置实体
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="T:Dry.EF.Extensions.DbDescriptionExtension">
             <summary>

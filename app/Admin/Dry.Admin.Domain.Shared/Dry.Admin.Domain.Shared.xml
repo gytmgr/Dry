@@ -44,5 +44,35 @@
             Apple应用
             </summary>
         </member>
+        <member name="T:Dry.Admin.Domain.Shared.Enums.ResourceItemType">
+            <summary>
+            资源项类型
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ResourceItemType.PageAction">
+            <summary>
+            页面操作
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ResourceItemType.HttpMethod">
+            <summary>
+            http方法
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Domain.Shared.Enums.ResourceType">
+            <summary>
+            资源类型
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ResourceType.Menu">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="F:Dry.Admin.Domain.Shared.Enums.ResourceType.Api">
+            <summary>
+            接口
+            </summary>
+        </member>
     </members>
 </doc>
