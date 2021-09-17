@@ -147,6 +147,44 @@
             <param name="propertyExpression"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.SinglePropertyLazyLoadAsync``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            单数属性延迟加载
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.SinglePropertyLazyLoadAsync``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            单数属性延迟加载
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.ArrayPropertyLazyLoadAsync``1(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>
+            复数属性延迟加载
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.ArrayPropertyLazyLoadAsync``1(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            复数属性延迟加载
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.AddAsync(`0[])">
             <summary>
             新增

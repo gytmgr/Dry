@@ -25,6 +25,44 @@ namespace Dry.Domain.Repositories
         /// <returns></returns>
         bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression);
 
+        /// <summary>
+        /// 单数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        Task SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class;
+
+        /// <summary>
+        /// 单数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        Task<TProperty> SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class;
+
+        /// <summary>
+        /// 复数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        Task ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
+
+        /// <summary>
+        /// 复数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class;
+
         #endregion
 
         #region Add

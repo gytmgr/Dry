@@ -84,7 +84,7 @@ namespace Dry.EF.EntityConfigs
             var tableComment = builder.Metadata.GetComment();
 
             builder.HasMany(AncestorsExpression).WithMany(DescendantsExpression).UsingEntity<TreeAncestorRelation<TTreeEntity, TKey>>(
-                x => AncestorWithMany(x.HasOne(y => y.Ancestor)).HasForeignKey(y => y.AncestorId).OnDelete(DeleteBehavior.Cascade),
+                x => AncestorWithMany(x.HasOne(y => y.Ancestor)).HasForeignKey(y => y.AncestorId).OnDelete(DeleteBehavior.Restrict),
                 x => DescendantWithMany(x.HasOne(y => y.Relation)).HasForeignKey(y => y.RelationId).OnDelete(DeleteBehavior.Cascade),
                 x =>
                 {

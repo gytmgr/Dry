@@ -49,8 +49,70 @@ namespace Dry.EF.Repositories
         /// <param name="entitiy"></param>
         /// <param name="propertyExpression"></param>
         /// <returns></returns>
-        public bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression)
+        public virtual bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression)
             => _context.Entry(entitiy).Property(propertyExpression).IsModified;
+
+        /// <summary>
+        /// 单数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public virtual async Task SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class
+            => await _context.Entry(entitiy).Reference(propertyExpression).LoadAsync();
+
+        /// <summary>
+        /// 单数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public virtual async Task<TProperty> SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class
+        {
+            var queryable = _context.Entry(entitiy).Reference(propertyExpression).Query();
+            if (paths is not null)
+            {
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
+            }
+            return await queryable.FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// 复数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public virtual async Task ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
+            => await _context.Entry(entitiy).Collection(propertyExpression).LoadAsync();
+
+        /// <summary>
+        /// 复数属性延迟加载
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public virtual async Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class
+        {
+            var queryable = _context.Entry(entitiy).Collection(propertyExpression).Query();
+            if (paths is not null)
+            {
+                foreach (var path in paths)
+                {
+                    queryable = queryable.Include(path);
+                }
+            }
+            return await queryable.ToArrayAsync();
+        }
 
         #endregion
 
