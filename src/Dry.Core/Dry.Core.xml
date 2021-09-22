@@ -398,6 +398,22 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.EnumHelper.GetDescription``1(System.Boolean)">
+            <summary>
+            获取枚举所有项说明
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="nameInstead">是否用名称代替（没有说明时）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.EnumHelper.GetDescription(System.Type,System.Boolean)">
+            <summary>
+            获取枚举所有项说明
+            </summary>
+            <param name="enumType">枚举类型</param>
+            <param name="nameInstead">是否用名称代替（没有说明时）</param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.FileHelper">
             <summary>
             文件操作帮助类
@@ -783,11 +799,29 @@
             linq帮助类
             </summary>
         </member>
-        <member name="M:Dry.Core.Utilities.LinqHelper.GetKeySelector``1(System.String)">
+        <member name="M:Dry.Core.Utilities.LinqHelper.GetExpressionInfo``1(System.String)">
+            <summary>
+            获取表达式
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="keyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.LinqHelper.GetKeySelector``2(System.String)">
             <summary>
             获取根据字段名获取Lambda表达式
             </summary>
             <typeparam name="TSource"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="keyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.LinqHelper.GetNullableKeySelector``2(System.String)">
+            <summary>
+            获取根据可为空字段名获取Lambda表达式
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TProperty"></typeparam>
             <param name="keyName"></param>
             <returns></returns>
         </member>

@@ -20,7 +20,7 @@ namespace Dry.Application.Extensions
         /// <param name="sortDto"></param>
         /// <returns></returns>
         public static (bool isAsc, Expression<Func<TSource, dynamic>> keySelector) GetOrderByParam<TSource, TEnum>(this SortDto<TEnum> sortDto) where TEnum : struct, Enum
-            => (sortDto.Order, LinqHelper.GetKeySelector<TSource>(Enum.GetName(sortDto.Field)));
+            => (sortDto.Order, LinqHelper.GetKeySelector<TSource, dynamic>(Enum.GetName(sortDto.Field)));
 
         /// <summary>
         /// 获取排序参数

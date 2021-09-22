@@ -2,6 +2,7 @@
 using Dry.Admin.Application.Contracts.Services;
 using Dry.Admin.Domain;
 using Dry.Admin.Domain.Shared.Enums;
+using Dry.Application.Extensions;
 using Dry.Application.Services;
 using Dry.Core.Utilities;
 using System;
@@ -51,7 +52,7 @@ namespace Dry.Admin.Application.Services
                     ApplicationQuerySortField.AddTime => x => x.AddTime,
                     _ => x => x.AddTime
                 };
-                return new (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] { (queryDto.Sort.Order, keySelector) };
+                return new (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] { queryDto.Sort.GetOrderByParam<App, ApplicationQuerySortField>() };
             }
             return base.GetOrderBys(queryDto);
         }

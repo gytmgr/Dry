@@ -52,5 +52,34 @@ namespace Dry.Core.Utilities
                 yield return new KeyValuePair<int, string>(Convert.ToInt32(enumValue), enumValue.GetDescription());
             }
         }
+
+        /// <summary>
+        /// 获取枚举所有项说明
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nameInstead">是否用名称代替（没有说明时）</param>
+        /// <returns></returns>
+        public static string GetDescription<T>(bool nameInstead = true) where T : Enum
+            => GetDescription(typeof(T), nameInstead);
+
+        /// <summary>
+        /// 获取枚举所有项说明
+        /// </summary>
+        /// <param name="enumType">枚举类型</param>
+        /// <param name="nameInstead">是否用名称代替（没有说明时）</param>
+        /// <returns></returns>
+        public static string GetDescription(Type enumType, bool nameInstead = true)
+        {
+            if (!enumType.IsEnum)
+            {
+                return null;
+            }
+            var descriptions = new List<string>();
+            foreach (Enum value in Enum.GetValues(enumType))
+            {
+                descriptions.Add($"{Convert.ToInt32(value)}：{value.GetDescription(nameInstead)}");
+            }
+            return string.Join("，", descriptions);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dry.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -278,12 +279,12 @@ namespace Dry.Core.Utilities
     public static class LinqHelper
     {
         /// <summary>
-        /// 获取根据字段名获取Lambda表达式
+        /// 获取表达式
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="keyName"></param>
         /// <returns></returns>
-        public static Expression<Func<TSource, dynamic>> GetKeySelector<TSource>(string keyName)
+        private static DryData<(Expression Body, ParameterExpression Param)> GetExpressionInfo<TSource>(string keyName)
         {
             var type = typeof(TSource);
             var param = Expression.Parameter(type);
@@ -299,7 +300,41 @@ namespace Dry.Core.Utilities
                 type = property.PropertyType;
                 propertyAccess = Expression.MakeMemberAccess(propertyAccess, property);
             }
-            return Expression.Lambda<Func<TSource, dynamic>>(propertyAccess, param);
+            return new DryData<(Expression, ParameterExpression)> { Data = (propertyAccess, param) };
+        }
+
+        /// <summary>
+        /// 获取根据字段名获取Lambda表达式
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        public static Expression<Func<TSource, TProperty>> GetKeySelector<TSource, TProperty>(string keyName)
+        {
+            var expressionInfo = GetExpressionInfo<TSource>(keyName);
+            if (expressionInfo is null)
+            {
+                return null;
+            }
+            return Expression.Lambda<Func<TSource, TProperty>>(expressionInfo.Data.Body, expressionInfo.Data.Param);
+        }
+
+        /// <summary>
+        /// 获取根据可为空字段名获取Lambda表达式
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        public static Expression<Func<TSource, TProperty?>> GetNullableKeySelector<TSource, TProperty>(string keyName) where TProperty : struct
+        {
+            var expressionInfo = GetExpressionInfo<TSource>(keyName);
+            if (expressionInfo is null)
+            {
+                return null;
+            }
+            return Expression.Lambda<Func<TSource, TProperty?>>(expressionInfo.Data.Body, expressionInfo.Data.Param);
         }
     }
 }

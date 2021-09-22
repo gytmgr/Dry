@@ -1,8 +1,6 @@
 ﻿using Dry.Core.Utilities;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
 
 namespace Dry.Swagger.SchemaFilter
 {
@@ -22,12 +20,7 @@ namespace Dry.Swagger.SchemaFilter
             {
                 return;
             }
-            var descriptions = new List<string>();
-            foreach (Enum value in Enum.GetValues(context.Type))
-            {
-                descriptions.Add($"{Convert.ToInt32(value)}：{value.GetDescription()}");
-            }
-            model.Description = $"{model.Description}（{string.Join("，", descriptions)}）";
+            model.Description = $"{model.Description}（{EnumHelper.GetDescription(context.Type)}）";
         }
     }
 }

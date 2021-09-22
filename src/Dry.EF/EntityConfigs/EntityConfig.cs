@@ -1,7 +1,9 @@
-﻿using Dry.Domain;
+﻿using Dry.Core.Utilities;
+using Dry.Domain;
 using Dry.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Dry.EF.EntityConfigs
 {
@@ -35,6 +37,15 @@ namespace Dry.EF.EntityConfigs
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.ToTable(TableName);
+            var entityType = typeof(TEntity);
+            if (entityType.IsDerivedFrom(typeof(IHasAddTime)))
+            {
+                builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime>(nameof(IHasAddTime.AddTime))).HasComment("添加时间");
+            }
+            if (entityType.IsDerivedFrom(typeof(IHasUpdateTime)))
+            {
+                builder.Property(LinqHelper.GetNullableKeySelector<TEntity, DateTime>(nameof(IHasUpdateTime.UpdateTime))).HasComment("更新时间");
+            }
         }
     }
 

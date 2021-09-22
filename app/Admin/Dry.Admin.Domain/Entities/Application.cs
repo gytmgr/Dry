@@ -11,7 +11,7 @@ namespace Dry.Admin.Domain.Entities
     /// <summary>
     /// 应用
     /// </summary>
-    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, ICreate
+    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, IHasUpdateTime, ICreate
     {
         /// <summary>
         /// 系统id
@@ -52,6 +52,11 @@ namespace Dry.Admin.Domain.Entities
         /// 添加时间
         /// </summary>
         public DateTime AddTime { get; set; }
+
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime? UpdateTime { get; set; }
 
         /// <summary>
         /// 创建
