@@ -62,11 +62,6 @@
             </summary>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="P:Dry.Domain.Entities.IEntity`1.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
         <member name="T:Dry.Domain.Entities.IHasAddTime">
             <summary>
             有新增时间实体

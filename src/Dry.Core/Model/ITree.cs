@@ -3,13 +3,9 @@
     /// <summary>
     /// 值类型id的树状接口
     /// </summary>
-    public interface ITree<T> where T : struct
+    /// <typeparam name="T"></typeparam>
+    public interface ITree<T> : IHasId<T> where T : struct
     {
-        /// <summary>
-        /// 系统id
-        /// </summary>
-        T Id { get; set; }
-
         /// <summary>
         /// 上级id
         /// </summary>
@@ -19,13 +15,8 @@
     /// <summary>
     /// string类型id的树状接口
     /// </summary>
-    public interface IStringTree
+    public interface IStringTree : IHasId<string>
     {
-        /// <summary>
-        /// 系统id
-        /// </summary>
-        string Id { get; set; }
-
         /// <summary>
         /// 上级id
         /// </summary>

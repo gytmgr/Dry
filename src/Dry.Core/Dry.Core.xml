@@ -127,15 +127,22 @@
             </summary>
             <param name="msg"></param>
         </member>
+        <member name="T:Dry.Core.Model.IHasId`1">
+            <summary>
+            有唯一标识属性
+            </summary>
+            <typeparam name="TId"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IHasId`1.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
         <member name="T:Dry.Core.Model.ITree`1">
             <summary>
             值类型id的树状接口
             </summary>
-        </member>
-        <member name="P:Dry.Core.Model.ITree`1.Id">
-            <summary>
-            系统id
-            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="P:Dry.Core.Model.ITree`1.ParentId">
             <summary>
@@ -145,11 +152,6 @@
         <member name="T:Dry.Core.Model.IStringTree">
             <summary>
             string类型id的树状接口
-            </summary>
-        </member>
-        <member name="P:Dry.Core.Model.IStringTree.Id">
-            <summary>
-            系统id
             </summary>
         </member>
         <member name="P:Dry.Core.Model.IStringTree.ParentId">
@@ -412,6 +414,74 @@
             </summary>
             <param name="enumType">枚举类型</param>
             <param name="nameInstead">是否用名称代替（没有说明时）</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.IgnoreHashCodeEqualityComparer`1">
+            <summary>
+            忽略HashCode比较
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Utilities.IgnoreHashCodeEqualityComparer`1.GetHashCode(`0)">
+            <summary>
+            返回默认值以忽略HashCode比较
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.HasIdEqualityComparer`2">
+            <summary>
+            有唯一标识属性类型比较
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TId"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Utilities.HasIdEqualityComparer`2.Default">
+            <summary>
+            获取默认值
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.HasIdEqualityComparer`2.Equals(`0,`0)">
+            <summary>
+            通过id是否相等比较
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.CustomEqualityComparer`1">
+            <summary>
+            自定义比较
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Utilities.CustomEqualityComparer`1.EqualFunc">
+            <summary>
+            比较方法
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Utilities.CustomEqualityComparer`1.Default">
+            <summary>
+            获取默认值
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.CustomEqualityComparer`1.#ctor">
+            <summary>
+            构造器
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.CustomEqualityComparer`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            构造器
+            </summary>
+            <param name="equalFunc">比较方法</param>
+        </member>
+        <member name="M:Dry.Core.Utilities.CustomEqualityComparer`1.Equals(`0,`0)">
+            <summary>
+            调用初始化比较方法比较
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.FileHelper">

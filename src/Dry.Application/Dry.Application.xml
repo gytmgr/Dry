@@ -118,6 +118,14 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`5.SetCreateEntityAsync(`1,`4)">
+            <summary>
+            配置实体新建数据
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`5.CreateAsync(`4)">
             <summary>
             新建
@@ -187,6 +195,14 @@
             构造体
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.SetEditEntityAsync(`1,`5)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`7.EditAsync(`6,`5)">
             <summary>
@@ -300,6 +316,14 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationService`4.SetCreateEntityAsync(`1,`3)">
+            <summary>
+            配置实体新建数据
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationService`4.CreateAsync(`3)">
             <summary>
             新建
@@ -353,6 +377,14 @@
             构造体
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`6.SetEditEntityAsync(`1,`4)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`6.EditAsync(`5,`4)">
             <summary>

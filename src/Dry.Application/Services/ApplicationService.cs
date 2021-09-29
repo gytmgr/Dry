@@ -169,13 +169,13 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 新建
+        /// 配置实体新建数据
         /// </summary>
+        /// <param name="entity"></param>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+        protected virtual async Task SetCreateEntityAsync(TEntity entity, TCreate createDto)
         {
-            var entity = _mapper.Map<TEntity>(createDto);
             if (entity is ICreate create)
             {
                 await create.CreateAsync(_serviceProvider);
@@ -187,6 +187,17 @@ namespace Dry.Application.Services
                     addTimeEntity.AddTime = DateTime.Now;
                 }
             }
+        }
+
+        /// <summary>
+        /// 新建
+        /// </summary>
+        /// <param name="createDto"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+        {
+            var entity = _mapper.Map<TEntity>(createDto);
+            await SetCreateEntityAsync(entity, createDto);
             await _repository.AddAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
@@ -275,6 +286,27 @@ namespace Dry.Application.Services
         { }
 
         /// <summary>
+        /// 配置实体编辑数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="editDto"></param>
+        /// <returns></returns>
+        protected virtual async Task SetEditEntityAsync(TEntity entity, TEdit editDto)
+        {
+            if (entity is IEdit edit)
+            {
+                await edit.EditAsync(_serviceProvider);
+            }
+            else
+            {
+                if (entity is IHasUpdateTime updateTimeEntity)
+                {
+                    updateTimeEntity.UpdateTime = DateTime.Now;
+                }
+            }
+        }
+
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id"></param>
@@ -288,17 +320,7 @@ namespace Dry.Application.Services
                 throw new NullDataBizException();
             }
             _mapper.Map(editDto, entity);
-            if (entity is IEdit edit)
-            {
-                await edit.EditAsync(_serviceProvider);
-            }
-            else
-            {
-                if (entity is IHasUpdateTime updateTimeEntity)
-                {
-                    updateTimeEntity.UpdateTime = DateTime.Now;
-                }
-            }
+            await SetEditEntityAsync(entity, editDto);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
         }
