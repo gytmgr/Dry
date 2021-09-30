@@ -2,7 +2,7 @@ using Dry.Admin.Application.Extensions;
 using Dry.Admin.EF.Extensions;
 using Dry.Admin.EF.Sqlite;
 using Dry.AutoMapper;
-using Dry.Http.Json;
+using Dry.Json;
 using Dry.Mvc.Infrastructure;
 using Dry.Swagger;
 using Microsoft.AspNetCore.Builder;

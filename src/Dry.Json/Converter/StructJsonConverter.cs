@@ -2,7 +2,7 @@
 using System;
 using System.Text.Json;
 
-namespace Dry.Http.Json.Converter
+namespace Dry.Json.Converter
 {
     /// <summary>
     /// 结构转换

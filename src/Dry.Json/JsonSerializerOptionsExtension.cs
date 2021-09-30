@@ -1,10 +1,10 @@
-﻿using Dry.Http.Json.Converter;
+﻿using Dry.Json.Converter;
 using System;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 
-namespace Dry.Http.Json
+namespace Dry.Json
 {
     /// <summary>
     /// json序列化参数扩展
@@ -21,6 +21,9 @@ namespace Dry.Http.Json
             //日期格式化
             options.Converters.Add(new StructJsonConverter<DateTime>());
             options.Converters.Add(new StructNullableJsonConverter<DateTime>());
+            //时间格式化
+            options.Converters.Add(new StructJsonConverter<TimeSpan>());
+            options.Converters.Add(new StructNullableJsonConverter<TimeSpan>());
             //设置支持中文的unicode编码kds
             options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             //采用原始属性名称

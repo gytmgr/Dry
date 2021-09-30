@@ -1,13 +1,12 @@
 ﻿using Dry.Core.Model;
 using Dry.Core.Utilities;
-using Dry.Http.Json;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Dry.Http
+namespace Dry.Json
 {
     /// <summary>
     /// http请求扩展

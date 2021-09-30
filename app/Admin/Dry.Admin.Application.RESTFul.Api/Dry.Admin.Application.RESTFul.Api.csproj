@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj" />
-		<ProjectReference Include="..\..\..\src\Dry.Http\Dry.Http.csproj" />
+		<ProjectReference Include="..\..\..\src\Dry.Json\Dry.Json.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Serilog\Dry.Serilog.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Swagger\Dry.Swagger.csproj" />
 		<ProjectReference Include="..\Dry.Admin.Application\Dry.Admin.Application.csproj" />
