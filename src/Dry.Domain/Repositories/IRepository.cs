@@ -26,6 +26,24 @@ namespace Dry.Domain.Repositories
         bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression);
 
         /// <summary>
+        /// 单数导航属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        bool SingleNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class;
+
+        /// <summary>
+        /// 复数导航属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        bool ArrayNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
+
+        /// <summary>
         /// 单数属性延迟加载
         /// </summary>
         /// <typeparam name="TProperty"></typeparam>

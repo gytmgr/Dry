@@ -142,6 +142,24 @@
             <param name="propertyExpression"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.SingleNavigationPropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            单数导航属性是否更改
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.ArrayNavigationPropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>
+            复数导航属性是否更改
+            </summary>
+            <typeparam name="TProperty"></typeparam>
+            <param name="entitiy"></param>
+            <param name="propertyExpression"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.SinglePropertyLazyLoadAsync``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             单数属性延迟加载

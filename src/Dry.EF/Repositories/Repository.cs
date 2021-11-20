@@ -53,6 +53,26 @@ namespace Dry.EF.Repositories
             => _context.Entry(entitiy).Property(propertyExpression).IsModified;
 
         /// <summary>
+        /// 单数导航属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public virtual bool SingleNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class
+            => _context.Entry(entitiy).Reference(propertyExpression).IsModified;
+
+        /// <summary>
+        /// 复数导航属性是否更改
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="entitiy"></param>
+        /// <param name="propertyExpression"></param>
+        /// <returns></returns>
+        public virtual bool ArrayNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
+            => _context.Entry(entitiy).Collection(propertyExpression).IsModified;
+
+        /// <summary>
         /// 单数属性延迟加载
         /// </summary>
         /// <typeparam name="TProperty"></typeparam>
