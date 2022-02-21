@@ -65,7 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.AutoMapper", "src\Dry.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Admin.Domain.Shared", "app\Admin\Dry.Admin.Domain.Shared\Dry.Admin.Domain.Shared.csproj", "{51C9B4C8-4603-4EC8-B0A5-69402DF471EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dry.Json", "src\Dry.Json\Dry.Json.csproj", "{03A7FA02-B414-487F-BE9D-858B64DD5480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dry.Json", "src\Dry.Json\Dry.Json.csproj", "{03A7FA02-B414-487F-BE9D-858B64DD5480}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dry.NPOI", "src\Dry.NPOI\Dry.NPOI.csproj", "{58A2F179-1450-4828-B5A7-DD4CFD9BA45D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -185,6 +187,10 @@ Global
 		{03A7FA02-B414-487F-BE9D-858B64DD5480}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03A7FA02-B414-487F-BE9D-858B64DD5480}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03A7FA02-B414-487F-BE9D-858B64DD5480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A2F179-1450-4828-B5A7-DD4CFD9BA45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A2F179-1450-4828-B5A7-DD4CFD9BA45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A2F179-1450-4828-B5A7-DD4CFD9BA45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A2F179-1450-4828-B5A7-DD4CFD9BA45D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,6 +225,7 @@ Global
 		{81FCFFA6-EF6B-40B7-864E-BAFB63F5EDCE} = {A4FF2133-84BD-4249-9992-1EE97EBD520E}
 		{51C9B4C8-4603-4EC8-B0A5-69402DF471EC} = {E1EA20BB-B8C7-468F-8B9B-E83578E27D4C}
 		{03A7FA02-B414-487F-BE9D-858B64DD5480} = {A4FF2133-84BD-4249-9992-1EE97EBD520E}
+		{58A2F179-1450-4828-B5A7-DD4CFD9BA45D} = {A4FF2133-84BD-4249-9992-1EE97EBD520E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3ABDEA62-D172-4A7E-9682-42FB8EADFDFB}

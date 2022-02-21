@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.NPOI</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.NPOI.ExportExcellUtility">
+            <summary>
+            excel导出类
+            </summary>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.DataTableToExcel(System.Data.DataTable,System.String,System.String,System.Boolean)">
+            <summary>
+            将DataTable数据导入到excel中
+            </summary>
+            <param name="data">要导入的数据</param>
+            <param name="fileName">文件名</param>
+            <param name="sheetName">要导入的excel的sheet的名称</param>
+            <param name="isColumnWritten">DataTable的列名是否要导入</param>
+            <returns>导入数据行数(包含列名那一行)</returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.String,System.String,System.Boolean)">
+            <summary>
+            将excel中的数据导入到DataTable中
+            </summary>
+            <param name="fileName">文件名</param>
+            <param name="sheetName">excel工作薄sheet的名称</param>
+            <param name="isFirstRowColumn">第一行是否是DataTable的列名</param>
+            <returns>返回的DataTable</returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExportHasTemplatePath``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int32,System.Boolean,System.String,System.Boolean,System.Single,System.String,System.Int16,System.Collections.Generic.List{Dry.NPOI.MyCell})">
+            <summary>
+            导出带模板excel(显示时columns第一个元素new一个空对象)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">导出数据集合</param>
+            <param name="columns">columns每列对应数据item</param>
+            <param name="templatePath">模板名称</param>
+            <param name="addStartIndex">开始加入数据行</param>
+            <param name="showSerialNumber">是否显示序号，显示时columns第一个元素new一个空对象</param>
+            <param name="title">Excel头</param>
+            <param name="showBorder">是否显示边框</param>
+            <param name="heightInPoints">行高默认为40</param>
+            <param name="fontName">内容字体默认为宋体</param>
+            <param name="fontSize">内容大小默认为12</param>
+            <param name="cells">指定单元格值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetIWorkBook(System.String,System.IO.Stream)">
+            <summary>
+            区分.xls，.xlsx文件生成IworkBook实例
+            </summary>
+            <param name="filePath">文件路径</param>
+            <param name="sourceStream">文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.Boolean,System.String,System.Int16)">
+            <summary>
+            导出EXCEL
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="title"></param>
+            <param name="items"></param>
+            <param name="columns"></param>
+            <param name="showSerialNumber">是否显示序号</param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.Tuple{System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column}}[],System.Boolean,System.String,System.Int16,System.Boolean)">
+            <summary>
+            导出EXCEL
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <param name="showSerialNumber"></param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <param name="haveHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Build``1(System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int16,System.Boolean,System.Boolean)">
+            <summary>
+            创建工作簿
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="title"></param>
+            <param name="items"></param>
+            <param name="columns"></param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <param name="showSerialNumber"></param>
+            <param name="haveHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Build``1(NPOI.HSSF.UserModel.HSSFWorkbook,System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int16,System.Boolean,System.Boolean)">
+            <summary>
+            在指定工作簿配置数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="workbook"></param>
+            <param name="title"></param>
+            <param name="items"></param>
+            <param name="columns"></param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <param name="showSerialNumber"></param>
+            <param name="haveHeader"></param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.CopyFile(System.String,System.String@)">
+            <summary>
+            复制文件
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExportforClient``1(System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.String,System.String,System.String,System.Boolean,System.String,System.Int16)">
+            <summary>
+            客户端使用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="datas"></param>
+            <param name="title"></param>
+            <param name="fileName"></param>
+            <param name="savePath"></param>
+            <param name="showSerialNumber"></param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.BuildforClient``1(System.String,System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.String,System.Int16,System.Boolean,System.Boolean)">
+            <summary>
+            客户端创建工作簿
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="title"></param>
+            <param name="items"></param>
+            <param name="fontName"></param>
+            <param name="fontSize"></param>
+            <param name="showSerialNumber"></param>
+            <param name="haveHeader"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.NPOI.Column">
+            <summary>
+            excel列
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.Width">
+            <summary>
+            宽度
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.Field">
+            <summary>
+            字段
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.HValue">
+            <summary>
+            水平对齐
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.VValue">
+            <summary>
+            垂直对齐
+            </summary>
+        </member>
+        <member name="T:Dry.NPOI.MyCell">
+            <summary>
+            excel单元格
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.MyCell.RowIndex">
+            <summary>
+            行索引
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.MyCell.ColIndex">
+            <summary>
+            列索引
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.MyCell.Val">
+            <summary>
+            单元格值
+            </summary>
+        </member>
+    </members>
+</doc>
