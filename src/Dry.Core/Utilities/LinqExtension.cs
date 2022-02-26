@@ -114,6 +114,17 @@ namespace Dry.Core.Utilities
                 }
             }
         }
+
+        /// <summary>
+        /// 差集
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="equalFunc"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<TSource, TSource, bool> equalFunc)
+            => first.Except(second, new CustomEqualityComparer<TSource>(equalFunc));
     }
 
     /// <summary>
@@ -318,23 +329,6 @@ namespace Dry.Core.Utilities
                 return null;
             }
             return Expression.Lambda<Func<TSource, TProperty>>(expressionInfo.Data.Body, expressionInfo.Data.Param);
-        }
-
-        /// <summary>
-        /// 获取根据可为空字段名获取Lambda表达式
-        /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        public static Expression<Func<TSource, TProperty?>> GetNullableKeySelector<TSource, TProperty>(string keyName) where TProperty : struct
-        {
-            var expressionInfo = GetExpressionInfo<TSource>(keyName);
-            if (expressionInfo is null)
-            {
-                return null;
-            }
-            return Expression.Lambda<Func<TSource, TProperty?>>(expressionInfo.Data.Body, expressionInfo.Data.Param);
         }
     }
 }

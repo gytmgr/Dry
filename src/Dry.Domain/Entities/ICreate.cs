@@ -14,7 +14,7 @@ namespace Dry.Domain.Entities
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public virtual Task CreateAsync([NotNull] IServiceProvider serviceProvider)
+        public Task CreateAsync([NotNull] IServiceProvider serviceProvider)
         {
             if (this is IHasAddTime addTimeEntity)
             {
@@ -22,5 +22,13 @@ namespace Dry.Domain.Entities
             }
             return Task.CompletedTask;
         }
+
+        /// <summary>
+        /// 创建完成处理
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        public Task<bool> CreatedAsync([NotNull] IServiceProvider serviceProvider)
+            => Task.FromResult(false);
     }
 }

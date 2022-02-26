@@ -20,9 +20,14 @@ namespace Dry.Json
         /// <param name="param"></param>
         public static void SetRequestParam(this HttpRequester requester, object param = null)
         {
-            if (param is not null)
+            if (requester.Method == HttpMethod.Post || requester.Method == HttpMethod.Put)
             {
-                if (requester.Method == HttpMethod.Head || requester.Method == HttpMethod.Get || requester.Method == HttpMethod.Delete)
+                var strContent = JsonSerializer.Serialize(param, new JsonSerializerOptions().DefaultConfig());
+                requester.Content = new StringContent(strContent, Encoding.UTF8, "application/json");
+            }
+            else if (requester.Method == HttpMethod.Head || requester.Method == HttpMethod.Get || requester.Method == HttpMethod.Delete)
+            {
+                if (param is not null)
                 {
                     var urlParam = param.ObjectToUriParam();
                     if (requester.Url.Contains("?"))
@@ -33,11 +38,6 @@ namespace Dry.Json
                     {
                         requester.Url = $"{requester.Url}?{urlParam}";
                     }
-                }
-                else if (requester.Method == HttpMethod.Post || requester.Method == HttpMethod.Put)
-                {
-                    var strContent = param is string strParam ? strParam : JsonSerializer.Serialize(param, new JsonSerializerOptions().DefaultConfig());
-                    requester.Content = new StringContent(strContent, Encoding.UTF8, "application/json");
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace Dry.Json
         {
             requester.SetRequestParam(param);
             var result = await requester.GetStringResultAsync();
-            if (result.Code == HttpStatusCode.OK)
+            if (result.Code == HttpStatusCode.OK || result.Code == HttpStatusCode.NoContent)
             {
                 if (string.IsNullOrEmpty(result.Data))
                 {

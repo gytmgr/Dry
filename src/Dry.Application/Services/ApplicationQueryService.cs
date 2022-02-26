@@ -4,7 +4,6 @@ using Dry.Core.Model;
 using Dry.Core.Utilities;
 using Dry.Domain;
 using Dry.Domain.Entities;
-using Dry.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -32,29 +31,31 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="serviceProvider"></param>
         public ApplicationQueryService(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
+        { }
 
         /// <summary>
         /// 获取属性加载表达式
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads(TQuery queryDto) => null;
+        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads(TQuery queryDto)
+            => GetPropertyLoads();
 
         /// <summary>
         /// 获取查询条件表达式
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto) => null;
+        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto)
+            => GetPredicates();
 
         /// <summary>
         /// 获取排序表达式
         /// </summary>
         /// <param name="queryDto"></param>
         /// <returns></returns>
-        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto) => null;
+        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto)
+            => GetOrderBys();
 
         /// <summary>
         /// 是否存在
@@ -133,89 +134,18 @@ namespace Dry.Application.Services
     }
 
     /// <summary>
-    /// 查增应用服务接口
+    /// 条件查询应用服务接口
     /// </summary>
-    /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult, TQuery, TCreate> :
-        ApplicationQueryService<TEntity, TResult, TQuery>,
-        IApplicationQueryService<TResult, TQuery, TCreate>
-        where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot, TBoundedContext
-        where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
-    {
-        /// <summary>
-        /// 工作单元
-        /// </summary>
-        protected readonly IUnitOfWork<TBoundedContext> _unitOfWork;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        public ApplicationQueryService(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            _unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork<TBoundedContext>)) as IUnitOfWork<TBoundedContext>;
-        }
-
-        /// <summary>
-        /// 配置实体新建数据
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        protected virtual async Task SetCreateEntityAsync(TEntity entity, TCreate createDto)
-        {
-            if (entity is ICreate create)
-            {
-                await create.CreateAsync(_serviceProvider);
-            }
-            else
-            {
-                if (entity is IHasAddTime addTimeEntity)
-                {
-                    addTimeEntity.AddTime = DateTime.Now;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 新建
-        /// </summary>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        {
-            var entity = _mapper.Map<TEntity>(createDto);
-            await SetCreateEntityAsync(entity, createDto);
-            await _repository.AddAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            return _mapper.Map<TResult>(entity);
-        }
-    }
-
-    /// <summary>
-    /// 查增删应用服务接口
-    /// </summary>
-    /// <typeparam name="TBoundedContext"></typeparam>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult, TQuery, TCreate, TKey> :
-        ApplicationQueryService<TBoundedContext, TEntity, TResult, TQuery, TCreate>,
-        IApplicationQueryService<TResult, TQuery, TCreate, TKey>
-        where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+    public abstract class ApplicationQueryService<TEntity, TResult, TQuery, TKey> :
+        ApplicationQueryService<TEntity, TResult, TQuery>,
+        IApplicationQueryService<TResult, TQuery, TKey>
+        where TEntity : IAggregateRoot<TKey>, IBoundedContext
         where TResult : IResultDto
         where TQuery : QueryDto<TKey>
-        where TCreate : ICreateDto
     {
         /// <summary>
         /// 构造体
@@ -261,7 +191,12 @@ namespace Dry.Application.Services
         /// <returns></returns>
         protected override (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto)
         {
-            return new (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] { (true, x => x.Id) };
+            var orderBys = base.GetOrderBys(queryDto);
+            if (orderBys is null or { Length: 0 })
+            {
+                return new (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] { (true, x => x.Id) };
+            }
+            return orderBys;
         }
 
         /// <summary>
@@ -274,31 +209,10 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             return _mapper.Map<TResult>(entity);
         }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            if (entity is IDelete delete)
-            {
-                await delete.DeleteAsync(_serviceProvider);
-            }
-            await _repository.RemoveAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            return _mapper.Map<TResult>(entity);
-        }
     }
 
     /// <summary>
-    /// 查增删改应用服务接口
+    /// 条件查、增、改、删应用服务接口
     /// </summary>
     /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
@@ -308,7 +222,7 @@ namespace Dry.Application.Services
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult, TQuery, TCreate, TEdit, TKey> :
-        ApplicationQueryService<TBoundedContext, TEntity, TResult, TQuery, TCreate, TKey>,
+        ApplicationQueryCreateEditService<TBoundedContext, TEntity, TResult, TQuery, TCreate, TEdit, TKey>,
         IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
         where TBoundedContext : IBoundedContext
         where TEntity : IAggregateRoot<TKey>, TBoundedContext
@@ -325,43 +239,47 @@ namespace Dry.Application.Services
         { }
 
         /// <summary>
-        /// 配置实体编辑数据
+        /// 配置实体删除数据
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="editDto"></param>
         /// <returns></returns>
-        protected virtual async Task SetEditEntityAsync(TEntity entity, TEdit editDto)
+        protected virtual async Task SetDeleteEntityAsync(TEntity entity)
         {
-            if (entity is IEdit edit)
+            if (entity is IDelete deleteEntity)
             {
-                await edit.EditAsync(_serviceProvider);
-            }
-            else
-            {
-                if (entity is IHasUpdateTime updateTimeEntity)
-                {
-                    updateTimeEntity.UpdateTime = DateTime.Now;
-                }
+                await deleteEntity.DeleteAsync(_serviceProvider);
             }
         }
 
         /// <summary>
-        /// 编辑
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
                 throw new NullDataBizException();
             }
-            _mapper.Map(editDto, entity);
-            await SetEditEntityAsync(entity, editDto);
+            await SetDeleteEntityAsync(entity);
+            await _repository.RemoveAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
+        }
+
+        /// <summary>
+        /// 删除完成处理
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected virtual async Task DeletedAsync(TEntity entity)
+        {
+            if (entity is IDelete deleteEntity && await deleteEntity.DeletedAsync(_serviceProvider))
+            {
+                await _unitOfWork.CompleteAsync();
+            }
         }
     }
 }

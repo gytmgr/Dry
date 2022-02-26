@@ -18,7 +18,6 @@ namespace Dry.Admin.EF.EntityConfigs
 
             builder.Property(x => x.Id).HasMaxLength(50);
             builder.Property(x => x.Type).HasComment($"类型（{EnumHelper.GetDescription<ApplicationType>()}）");
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(50).HasComment("名称");
             builder.Property(x => x.Secret).IsRequired().HasMaxLength(200).HasComment("Secret");
             builder.Property(x => x.Url).HasComment("地址");
             builder.Property(x => x.Description).HasComment("说明");

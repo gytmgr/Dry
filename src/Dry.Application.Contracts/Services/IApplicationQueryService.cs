@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Dry.Application.Contracts.Services
 {
     /// <summary>
-    /// 查询应用服务接口
+    /// 条件查询应用服务接口
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
@@ -51,41 +51,32 @@ namespace Dry.Application.Contracts.Services
     }
 
     /// <summary>
-    /// 查增应用服务接口
+    /// 条件查询应用服务接口
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate> : IApplicationQueryService<TResult, TQuery>, IApplicationCreateService<TResult, TCreate>
-        where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
-    { }
-
-    /// <summary>
-    /// 查增删应用服务接口
-    /// </summary>
-    /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate, TKey> : IApplicationQueryService<TResult, TQuery, TCreate>, IApplicationDeleteService<TResult, TKey>
+    public interface IApplicationQueryService<TResult, TQuery, TKey> :
+        IApplicationQueryService<TResult, TQuery>,
+        IFindService<TResult, TKey>
         where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
+        where TQuery : QueryDto<TKey>
     { }
 
     /// <summary>
-    /// 查增删改应用服务接口
+    /// 条件查、增、改、删应用服务接口
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
     /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> : IApplicationQueryService<TResult, TQuery, TCreate, TKey>, IApplicationEditService<TResult, TEdit, TKey>
+    public interface IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey> :
+        IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TEdit, TKey>,
+        IApplicationQueryCreateDeleteService<TResult, TQuery, TCreate, TKey>,
+        IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
         where TResult : IResultDto
-        where TQuery : IQueryDto
+        where TQuery : QueryDto<TKey>
         where TCreate : ICreateDto
         where TEdit : IEditDto
     { }

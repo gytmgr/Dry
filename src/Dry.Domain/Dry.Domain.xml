@@ -27,6 +27,13 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Entities.ICreate.CreatedAsync(System.IServiceProvider)">
+            <summary>
+            创建完成处理
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Entities.IDelete">
             <summary>
             实体删除接口
@@ -39,6 +46,13 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Entities.IDelete.DeletedAsync(System.IServiceProvider)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Entities.IEdit">
             <summary>
             实体编辑接口
@@ -47,6 +61,13 @@
         <member name="M:Dry.Domain.Entities.IEdit.EditAsync(System.IServiceProvider)">
             <summary>
             编辑
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEdit.EditedAsync(System.IServiceProvider)">
+            <summary>
+            编辑完成处理
             </summary>
             <param name="serviceProvider"></param>
             <returns></returns>
@@ -70,6 +91,26 @@
         <member name="P:Dry.Domain.Entities.IHasAddTime.AddTime">
             <summary>
             新增时间
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IHasCode">
+            <summary>
+            有编码实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.IHasCode.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.IHasName">
+            <summary>
+            有名称实体
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.IHasName.Name">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="T:Dry.Domain.Entities.IHasUpdateTime">

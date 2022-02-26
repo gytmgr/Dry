@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.7</Version>
+		<Version>1.1.8</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

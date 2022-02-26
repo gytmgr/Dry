@@ -1,28 +1,28 @@
 ﻿using Dry.Application.Contracts.Dtos;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace Dry.Application.Contracts.Services
 {
     /// <summary>
-    /// 删除应用服务接口
+    /// 基础查、删应用服务接口
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationDeleteService<TResult, TKey> where TResult : IResultDto
-    {
-        /// <summary>
-        /// 主键查询
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<TResult> FindAsync([NotNull] TKey id);
+    public interface IApplicationDeleteService<TResult, TKey> :
+        IApplicationService<TResult, TKey>,
+        IDeleteService<TResult, TKey>
+        where TResult : IResultDto
+    { }
 
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<TResult> DeleteAsync([NotNull] TKey id);
-    }
+    /// <summary>
+    /// 条件查、删应用服务接口
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
+    /// <typeparam name="TQuery"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    public interface IApplicationQueryDeleteService<TResult, TQuery, TKey> :
+        IApplicationQueryService<TResult, TQuery, TKey>,
+        IDeleteService<TResult, TKey>
+        where TResult : IResultDto
+        where TQuery : QueryDto<TKey>
+    { }
 }

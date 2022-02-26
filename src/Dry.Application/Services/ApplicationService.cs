@@ -55,6 +55,27 @@ namespace Dry.Application.Services
         /// <returns></returns>
         protected IRepository<TOtherEntity> Repository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
             => _serviceProvider.GetRepository<TOtherEntity>();
+
+        /// <summary>
+        /// 获取属性加载表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads()
+            => null;
+
+        /// <summary>
+        /// 获取查询条件表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates()
+            => null;
+
+        /// <summary>
+        /// 获取排序表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys()
+            => null;
     }
 
     /// <summary>
@@ -73,26 +94,17 @@ namespace Dry.Application.Services
         /// </summary>
         /// <param name="serviceProvider"></param>
         public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
+        { }
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<bool> AnyAsync()
         {
+            var predicates = GetPredicates();
+            return await _repository.AnyAsync(predicates);
         }
-
-        /// <summary>
-        /// 获取属性加载表达式
-        /// </summary>
-        /// <returns></returns>
-        protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads() => null;
-
-        /// <summary>
-        /// 获取查询条件表达式
-        /// </summary>
-        /// <returns></returns>
-        protected virtual Expression<Func<TEntity, bool>>[] GetPredicates() => null;
-
-        /// <summary>
-        /// 获取排序表达式
-        /// </summary>
-        /// <returns></returns>
-        protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys() => null;
 
         /// <summary>
         /// 数量查询
@@ -102,6 +114,19 @@ namespace Dry.Application.Services
         {
             var predicates = GetPredicates();
             return await _repository.CountAsync(predicates);
+        }
+
+        /// <summary>
+        /// 查询第一条
+        /// </summary>
+        /// <returns></returns>
+        public virtual async Task<TResult> FirstAsync()
+        {
+            var propertyLoads = GetPropertyLoads();
+            var predicates = GetPredicates();
+            var orderBys = GetOrderBys();
+            var entitiy = await _repository.FirstAsync(predicates, propertyLoads, orderBys);
+            return _mapper.Map<TResult>(entitiy);
         }
 
         /// <summary>
@@ -140,85 +165,16 @@ namespace Dry.Application.Services
     }
 
     /// <summary>
-    /// 新增应用服务接口
+    /// 应用服务
     /// </summary>
-    /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate> :
-        ApplicationService<TEntity, TResult>,
-        IApplicationService<TResult, TCreate>
-        where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot, TBoundedContext
-        where TResult : IResultDto
-        where TCreate : ICreateDto
-    {
-        /// <summary>
-        /// 工作单元
-        /// </summary>
-        protected readonly IUnitOfWork<TBoundedContext> _unitOfWork;
-
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
-        }
-
-        /// <summary>
-        /// 配置实体新建数据
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        protected virtual async Task SetCreateEntityAsync(TEntity entity, TCreate createDto)
-        {
-            if (entity is ICreate create)
-            {
-                await create.CreateAsync(_serviceProvider);
-            }
-            else
-            {
-                if (entity is IHasAddTime addTimeEntity)
-                {
-                    addTimeEntity.AddTime = DateTime.Now;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 新建
-        /// </summary>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        {
-            var entity = _mapper.Map<TEntity>(createDto);
-            await SetCreateEntityAsync(entity, createDto);
-            await _repository.AddAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            return _mapper.Map<TResult>(entity);
-        }
-    }
-
-    /// <summary>
-    /// 增删应用服务接口
-    /// </summary>
-    /// <typeparam name="TBoundedContext"></typeparam>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TKey> :
-        ApplicationService<TBoundedContext, TEntity, TResult, TCreate>,
-        IApplicationService<TResult, TCreate, TKey>
-        where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+    public abstract class ApplicationService<TEntity, TResult, TKey> :
+        ApplicationService<TEntity, TResult>,
+        IApplicationService<TResult, TKey>
+        where TEntity : IAggregateRoot<TKey>, IBoundedContext
         where TResult : IResultDto
-        where TCreate : ICreateDto
     {
         /// <summary>
         /// 构造体
@@ -237,31 +193,10 @@ namespace Dry.Application.Services
             var entity = await _repository.FindAsync(id);
             return _mapper.Map<TResult>(entity);
         }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            if (entity is IDelete delete)
-            {
-                await delete.DeleteAsync(_serviceProvider);
-            }
-            await _repository.RemoveAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            return _mapper.Map<TResult>(entity);
-        }
     }
 
     /// <summary>
-    /// 增删改应用服务接口
+    /// 基础查、增、改、删应用服务接口
     /// </summary>
     /// <typeparam name="TBoundedContext"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
@@ -270,7 +205,7 @@ namespace Dry.Application.Services
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TEdit, TKey> :
-        ApplicationService<TBoundedContext, TEntity, TResult, TCreate, TKey>,
+        ApplicationCreateEditService<TBoundedContext, TEntity, TResult, TCreate, TEdit, TKey>,
         IApplicationService<TResult, TCreate, TEdit, TKey>
         where TBoundedContext : IBoundedContext
         where TEntity : IAggregateRoot<TKey>, TBoundedContext
@@ -286,43 +221,47 @@ namespace Dry.Application.Services
         { }
 
         /// <summary>
-        /// 配置实体编辑数据
+        /// 配置实体删除数据
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="editDto"></param>
         /// <returns></returns>
-        protected virtual async Task SetEditEntityAsync(TEntity entity, TEdit editDto)
+        protected virtual async Task SetDeleteEntityAsync(TEntity entity)
         {
-            if (entity is IEdit edit)
+            if (entity is IDelete deleteEntity)
             {
-                await edit.EditAsync(_serviceProvider);
-            }
-            else
-            {
-                if (entity is IHasUpdateTime updateTimeEntity)
-                {
-                    updateTimeEntity.UpdateTime = DateTime.Now;
-                }
+                await deleteEntity.DeleteAsync(_serviceProvider);
             }
         }
 
         /// <summary>
-        /// 编辑
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
             if (entity == null)
             {
                 throw new NullDataBizException();
             }
-            _mapper.Map(editDto, entity);
-            await SetEditEntityAsync(entity, editDto);
+            await SetDeleteEntityAsync(entity);
+            await _repository.RemoveAsync(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<TResult>(entity);
+        }
+
+        /// <summary>
+        /// 删除完成处理
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected virtual async Task DeletedAsync(TEntity entity)
+        {
+            if (entity is IDelete deleteEntity && await deleteEntity.DeletedAsync(_serviceProvider))
+            {
+                await _unitOfWork.CompleteAsync();
+            }
         }
     }
 }

@@ -38,13 +38,21 @@ namespace Dry.EF.EntityConfigs
         {
             builder.ToTable(TableName);
             var entityType = typeof(TEntity);
+            if (entityType.IsDerivedFrom(typeof(IHasCode)))
+            {
+                builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasCode.Code))).IsRequired().HasMaxLength(50).HasComment("编码");
+            }
+            if (entityType.IsDerivedFrom(typeof(IHasName)))
+            {
+                builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasName.Name))).IsRequired().HasMaxLength(50).HasComment("名称");
+            }
             if (entityType.IsDerivedFrom(typeof(IHasAddTime)))
             {
                 builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime>(nameof(IHasAddTime.AddTime))).HasComment("添加时间");
             }
             if (entityType.IsDerivedFrom(typeof(IHasUpdateTime)))
             {
-                builder.Property(LinqHelper.GetNullableKeySelector<TEntity, DateTime>(nameof(IHasUpdateTime.UpdateTime))).HasComment("更新时间");
+                builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime?>(nameof(IHasUpdateTime.UpdateTime))).HasComment("更新时间");
             }
         }
     }

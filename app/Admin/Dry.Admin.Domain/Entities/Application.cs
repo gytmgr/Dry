@@ -11,7 +11,7 @@ namespace Dry.Admin.Domain.Entities
     /// <summary>
     /// 应用
     /// </summary>
-    public class Application : IAggregateRoot<string>, IAdminContext, IHasAddTime, IHasUpdateTime, ICreate
+    public class Application : IAggregateRoot<string>, IAdminContext, IHasName, IHasAddTime, IHasUpdateTime, ICreate
     {
         /// <summary>
         /// 系统id

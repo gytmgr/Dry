@@ -66,42 +66,35 @@
             排序字段
             </summary>
         </member>
-        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`2">
+        <member name="T:Dry.Application.Contracts.Services.IFindService`2">
             <summary>
-            新建应用服务接口
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <typeparam name="TCreate"></typeparam>
-        </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationCreateService`2.CreateAsync(`1)">
-            <summary>
-            新建
-            </summary>
-            <param name="createDto"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.Application.Contracts.Services.IApplicationDeleteService`2">
-            <summary>
-            删除应用服务接口
+            主键查询应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationDeleteService`2.FindAsync(`1)">
+        <member name="M:Dry.Application.Contracts.Services.IFindService`2.FindAsync(`1)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationDeleteService`2.DeleteAsync(`1)">
+        <member name="T:Dry.Application.Contracts.Services.ICreateService`2">
             <summary>
-            删除
+            新建应用服务接口
             </summary>
-            <param name="id"></param>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.ICreateService`2.CreateAsync(`1)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Contracts.Services.IApplicationEditService`3">
+        <member name="T:Dry.Application.Contracts.Services.IEditService`3">
             <summary>
             编辑应用服务接口
             </summary>
@@ -109,7 +102,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Contracts.Services.IApplicationEditService`3.EditAsync(`2,`1)">
+        <member name="M:Dry.Application.Contracts.Services.IEditService`3.EditAsync(`2,`1)">
             <summary>
             编辑
             </summary>
@@ -117,9 +110,140 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Application.Contracts.Services.IDeleteService`2">
+            <summary>
+            删除应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IDeleteService`2.DeleteAsync(`1)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateDeleteService`3">
+            <summary>
+            基础查、增、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryCreateDeleteService`4">
+            <summary>
+            条件查、增、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateEditService`4">
+            <summary>
+            基础查、增、改应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryCreateEditService`5">
+            <summary>
+            条件查、增、改应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`2">
+            <summary>
+            基础查、增应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationCreateService`3">
+            <summary>
+            基础查、增应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryCreateService`3">
+            <summary>
+            条件查、增应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryCreateService`4">
+            <summary>
+            条件查、增应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationDeleteService`2">
+            <summary>
+            基础查、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryDeleteService`3">
+            <summary>
+            条件查、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationEditDeleteService`3">
+            <summary>
+            基础查、改、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryEditDeleteService`4">
+            <summary>
+            条件查、改、删应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationEditService`3">
+            <summary>
+            基础查、改应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryEditService`4">
+            <summary>
+            条件查、改应用服务接口
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationQueryService`2">
             <summary>
-            查询应用服务接口
+            条件查询应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
@@ -161,24 +285,15 @@
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationQueryService`3">
             <summary>
-            查增应用服务接口
+            条件查询应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
-            <typeparam name="TCreate"></typeparam>
-        </member>
-        <member name="T:Dry.Application.Contracts.Services.IApplicationQueryService`4">
-            <summary>
-            查增删应用服务接口
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <typeparam name="TQuery"></typeparam>
-            <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationQueryService`5">
             <summary>
-            查增删改应用服务接口
+            条件查、增、改、删应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
@@ -188,13 +303,25 @@
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationService`1">
             <summary>
-            应用服务接口
+            基础查询应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.AnyAsync">
+            <summary>
+            是否存在
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.CountAsync">
             <summary>
             数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Contracts.Services.IApplicationService`1.FirstAsync">
+            <summary>
+            查询第一条
             </summary>
             <returns></returns>
         </member>
@@ -213,22 +340,14 @@
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationService`2">
             <summary>
-            新增应用服务接口
+            基础查询应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
-            <typeparam name="TCreate"></typeparam>
-        </member>
-        <member name="T:Dry.Application.Contracts.Services.IApplicationService`3">
-            <summary>
-            增删应用服务接口
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
         <member name="T:Dry.Application.Contracts.Services.IApplicationService`4">
             <summary>
-            增删改应用服务接口
+            基础查、增、改、删应用服务接口
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>

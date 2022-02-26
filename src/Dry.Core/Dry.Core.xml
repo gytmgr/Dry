@@ -809,6 +809,16 @@
             <param name="keySelector"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.EnumerableExtension.Except``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            差集
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <param name="equalFunc"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.QueryableExtension">
             <summary>
             Queryable扩展
@@ -880,15 +890,6 @@
         <member name="M:Dry.Core.Utilities.LinqHelper.GetKeySelector``2(System.String)">
             <summary>
             获取根据字段名获取Lambda表达式
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <typeparam name="TProperty"></typeparam>
-            <param name="keyName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Core.Utilities.LinqHelper.GetNullableKeySelector``2(System.String)">
-            <summary>
-            获取根据可为空字段名获取Lambda表达式
             </summary>
             <typeparam name="TSource"></typeparam>
             <typeparam name="TProperty"></typeparam>

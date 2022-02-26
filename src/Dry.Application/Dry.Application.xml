@@ -27,6 +27,568 @@
             <param name="sortDtos"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Application.Services.ApplicationCreateDeleteService`5">
+            <summary>
+            基础查、增、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateDeleteService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateDeleteService`5.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateDeleteService`5.DeleteAsync(`4)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateDeleteService`5.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryCreateDeleteService`6">
+            <summary>
+            条件查、增、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateDeleteService`6.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateDeleteService`6.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateDeleteService`6.DeleteAsync(`5)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateDeleteService`6.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationCreateEditService`6">
+            <summary>
+            基础查、增、改应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.SetEditEntityAsync(`1,`4)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.EditAsync(`5,`4)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.CreatedAsync(`1,`4)">
+            <summary>
+            编辑完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryCreateEditService`7">
+            <summary>
+            条件查、增、改应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.SetEditEntityAsync(`1,`5)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.EditAsync(`6,`5)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.CreatedAsync(`1,`5)">
+            <summary>
+            编辑完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationCreateService`4">
+            <summary>
+            基础查、增应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationCreateService`4._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`4.SetCreateEntityAsync(`1,`3)">
+            <summary>
+            配置实体新建数据
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`4.CreateAsync(`3)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`4.CreatedAsync(`1,`3)">
+            <summary>
+            新建完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationCreateService`5">
+            <summary>
+            基础查、增应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`5.FindAsync(`4)">
+            <summary>
+            主键查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryCreateService`5">
+            <summary>
+            条件查、增应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryCreateService`5._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.SetCreateEntityAsync(`1,`4)">
+            <summary>
+            配置实体新建数据
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.CreateAsync(`4)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.CreatedAsync(`1,`4)">
+            <summary>
+            新建完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryCreateService`6">
+            <summary>
+            条件查、增应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TCreate"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryCreateService`6._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.SetCreateEntityAsync(`1,`4)">
+            <summary>
+            配置实体新建数据
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.CreateAsync(`4)">
+            <summary>
+            新建
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.CreatedAsync(`1,`4)">
+            <summary>
+            新建完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationDeleteService`4">
+            <summary>
+            基础查、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationDeleteService`4._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationDeleteService`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationDeleteService`4.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationDeleteService`4.DeleteAsync(`3)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationDeleteService`4.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryDeleteService`5">
+            <summary>
+            条件查、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryDeleteService`5._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryDeleteService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryDeleteService`5.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryDeleteService`5.DeleteAsync(`4)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryDeleteService`5.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationEditDeleteService`5">
+            <summary>
+            基础查、改、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditDeleteService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditDeleteService`5.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditDeleteService`5.DeleteAsync(`4)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditDeleteService`5.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryEditDeleteService`6">
+            <summary>
+            条件查、改、删应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditDeleteService`6.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditDeleteService`6.SetDeleteEntityAsync(`1)">
+            <summary>
+            配置实体删除数据
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditDeleteService`6.DeleteAsync(`5)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditDeleteService`6.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationEditService`5">
+            <summary>
+            基础查、改应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationEditService`5._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditService`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditService`5.SetEditEntityAsync(`1,`3)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditService`5.EditAsync(`4,`3)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationEditService`5.CreatedAsync(`1,`3)">
+            <summary>
+            编辑完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.ApplicationQueryEditService`6">
+            <summary>
+            条件查、改应用服务接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TQuery"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.ApplicationQueryEditService`6._unitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.SetEditEntityAsync(`1,`4)">
+            <summary>
+            配置实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.EditAsync(`5,`4)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.CreatedAsync(`1,`4)">
+            <summary>
+            编辑完成处理
+            </summary>
+            <param name="entity"></param>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Application.Services.ApplicationQueryService`3">
             <summary>
             查询应用服务接口
@@ -97,90 +659,45 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationQueryService`5">
+        <member name="T:Dry.Application.Services.ApplicationQueryService`4">
             <summary>
-            查增应用服务接口
+            条件查询应用服务接口
             </summary>
-            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
-            <typeparam name="TCreate"></typeparam>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationQueryService`5._unitOfWork">
-            <summary>
-            工作单元
-            </summary>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.#ctor(System.IServiceProvider)">
-            <summary>
-            构造体
-            </summary>
-            <param name="serviceProvider"></param>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.SetCreateEntityAsync(`1,`4)">
-            <summary>
-            配置实体新建数据
-            </summary>
-            <param name="entity"></param>
-            <param name="createDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`5.CreateAsync(`4)">
-            <summary>
-            新建
-            </summary>
-            <param name="createDto"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.Application.Services.ApplicationQueryService`6">
-            <summary>
-            查增删应用服务接口
-            </summary>
-            <typeparam name="TBoundedContext"></typeparam>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TResult"></typeparam>
-            <typeparam name="TQuery"></typeparam>
-            <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetPredicates(`3)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`4.GetPredicates(`2)">
             <summary>
             获取查询条件表达式
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.GetOrderBys(`3)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`4.GetOrderBys(`2)">
             <summary>
             获取排序表达式
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.FindAsync(`5)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`4.FindAsync(`3)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`6.DeleteAsync(`5)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.Application.Services.ApplicationQueryService`7">
             <summary>
-            查增删改应用服务接口
+            条件查、增、改、删应用服务接口
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
@@ -196,20 +713,25 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`7.SetEditEntityAsync(`1,`5)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.SetDeleteEntityAsync(`1)">
             <summary>
-            配置实体编辑数据
+            配置实体删除数据
             </summary>
             <param name="entity"></param>
-            <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationQueryService`7.EditAsync(`6,`5)">
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.DeleteAsync(`6)">
             <summary>
-            编辑
+            删除
             </summary>
             <param name="id"></param>
-            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`7.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Application.Services.ApplicationService`1">
@@ -246,6 +768,24 @@
             <typeparam name="TOtherEntity"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationService`1.GetPropertyLoads">
+            <summary>
+            获取属性加载表达式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`1.GetPredicates">
+            <summary>
+            获取查询条件表达式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`1.GetOrderBys">
+            <summary>
+            获取排序表达式
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Application.Services.ApplicationService`2">
             <summary>
             应用服务
@@ -259,27 +799,21 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.GetPropertyLoads">
+        <member name="M:Dry.Application.Services.ApplicationService`2.AnyAsync">
             <summary>
-            获取属性加载表达式
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.GetPredicates">
-            <summary>
-            获取查询条件表达式
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`2.GetOrderBys">
-            <summary>
-            获取排序表达式
+            是否存在
             </summary>
             <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`2.CountAsync">
             <summary>
             数量查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`2.FirstAsync">
+            <summary>
+            查询第一条
             </summary>
             <returns></returns>
         </member>
@@ -296,74 +830,30 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.Services.ApplicationService`4">
+        <member name="T:Dry.Application.Services.ApplicationService`3">
             <summary>
-            新增应用服务接口
+            应用服务
             </summary>
-            <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TResult"></typeparam>
-            <typeparam name="TCreate"></typeparam>
-        </member>
-        <member name="F:Dry.Application.Services.ApplicationService`4._unitOfWork">
-            <summary>
-            工作单元
-            </summary>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.#ctor(System.IServiceProvider)">
-            <summary>
-            构造体
-            </summary>
-            <param name="serviceProvider"></param>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.SetCreateEntityAsync(`1,`3)">
-            <summary>
-            配置实体新建数据
-            </summary>
-            <param name="entity"></param>
-            <param name="createDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Application.Services.ApplicationService`4.CreateAsync(`3)">
-            <summary>
-            新建
-            </summary>
-            <param name="createDto"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dry.Application.Services.ApplicationService`5">
-            <summary>
-            增删应用服务接口
-            </summary>
-            <typeparam name="TBoundedContext"></typeparam>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TResult"></typeparam>
-            <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.Services.ApplicationService`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.FindAsync(`4)">
+        <member name="M:Dry.Application.Services.ApplicationService`3.FindAsync(`2)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`5.DeleteAsync(`4)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.Application.Services.ApplicationService`6">
             <summary>
-            增删改应用服务接口
+            基础查、增、改、删应用服务接口
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
             <typeparam name="TEntity"></typeparam>
@@ -378,20 +868,25 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`6.SetEditEntityAsync(`1,`4)">
+        <member name="M:Dry.Application.Services.ApplicationService`6.SetDeleteEntityAsync(`1)">
             <summary>
-            配置实体编辑数据
+            配置实体删除数据
             </summary>
             <param name="entity"></param>
-            <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.Services.ApplicationService`6.EditAsync(`5,`4)">
+        <member name="M:Dry.Application.Services.ApplicationService`6.DeleteAsync(`5)">
             <summary>
-            编辑
+            删除
             </summary>
             <param name="id"></param>
-            <param name="editDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`6.DeletedAsync(`1)">
+            <summary>
+            删除完成处理
+            </summary>
+            <param name="entity"></param>
             <returns></returns>
         </member>
     </members>

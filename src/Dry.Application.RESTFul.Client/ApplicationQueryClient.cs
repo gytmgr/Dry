@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Dry.Application.RESTFul.Client
 {
     /// <summary>
-    /// 查询应用访问客户端
+    /// 条件查询客户端
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
@@ -24,9 +24,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="queryDto"></param>
         /// <returns></returns>
         public virtual async Task<bool> AnyAsync(TQuery queryDto)
-        {
-            return await RequestAsync<bool>(HttpMethod.Get, "/Any", queryDto);
-        }
+            => await RequestAsync<bool>(HttpMethod.Get, "/Any", queryDto);
 
         /// <summary>
         /// 数量查询
@@ -34,9 +32,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="queryDto"></param>
         /// <returns></returns>
         public virtual async Task<int> CountAsync(TQuery queryDto)
-        {
-            return await RequestAsync<int>(HttpMethod.Get, "/Count", queryDto);
-        }
+            => await RequestAsync<int>(HttpMethod.Get, "/Count", queryDto);
 
         /// <summary>
         /// 条件查询第一条
@@ -44,9 +40,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="queryDto"></param>
         /// <returns></returns>
         public virtual async Task<TResult> FirstAsync(TQuery queryDto)
-        {
-            return await RequestAsync<TResult>(HttpMethod.Get, "/First", queryDto);
-        }
+            => await RequestAsync<TResult>(HttpMethod.Get, "/First", queryDto);
 
         /// <summary>
         /// 条件查询
@@ -54,9 +48,7 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="queryDto"></param>
         /// <returns></returns>
         public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
-        {
-            return await RequestAsync<TResult[]>(HttpMethod.Get, null, queryDto);
-        }
+            => await RequestAsync<TResult[]>(HttpMethod.Get, null, queryDto);
 
         /// <summary>
         /// 分页条件查询
@@ -64,48 +56,20 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="queryDto"></param>
         /// <returns></returns>
         public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto)
-        {
-            return await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto);
-        }
+            => await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto);
     }
 
     /// <summary>
-    /// 查增应用访问客户端
+    /// 条件查询客户端
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
-    public abstract class ApplicationQueryClient<TResult, TQuery, TCreate> :
-        ApplicationQueryClient<TResult, TQuery>,
-        IApplicationQueryService<TResult, TQuery, TCreate>
-        where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
-    {
-        /// <summary>
-        /// 新建
-        /// </summary>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        {
-            return await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
-        }
-    }
-
-    /// <summary>
-    /// 查增删应用访问客户端
-    /// </summary>
-    /// <typeparam name="TResult"></typeparam>
-    /// <typeparam name="TQuery"></typeparam>
-    /// <typeparam name="TCreate"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ApplicationQueryClient<TResult, TQuery, TCreate, TKey> :
-        ApplicationQueryClient<TResult, TQuery, TCreate>,
-        IApplicationQueryService<TResult, TQuery, TCreate, TKey>
+    public abstract class ApplicationQueryClient<TResult, TQuery, TKey> :
+        ApplicationQueryClient<TResult, TQuery>,
+        IApplicationQueryService<TResult, TQuery, TKey>
         where TResult : IResultDto
-        where TQuery : IQueryDto
-        where TCreate : ICreateDto
+        where TQuery : QueryDto<TKey>
     {
         /// <summary>
         /// 主键查询
@@ -113,23 +77,11 @@ namespace Dry.Application.RESTFul.Client
         /// <param name="id"></param>
         /// <returns></returns>
         public virtual async Task<TResult> FindAsync([NotNull] TKey id)
-        {
-            return await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            return await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
-        }
+            => await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
     }
 
     /// <summary>
-    /// 查增删改应用访问客户端
+    /// 条件查、增、改、删客户端
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <typeparam name="TQuery"></typeparam>
@@ -137,22 +89,19 @@ namespace Dry.Application.RESTFul.Client
     /// <typeparam name="TEdit"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public abstract class ApplicationQueryClient<TResult, TQuery, TCreate, TEdit, TKey> :
-        ApplicationQueryClient<TResult, TQuery, TCreate, TKey>,
+        ApplicationQueryCreateEditClient<TResult, TQuery, TCreate, TEdit, TKey>,
         IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
         where TResult : IResultDto
-        where TQuery : IQueryDto
+        where TQuery : QueryDto<TKey>
         where TCreate : ICreateDto
         where TEdit : IEditDto
     {
         /// <summary>
-        /// 编辑
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="editDto"></param>
         /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
-        {
-            return await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto);
-        }
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+            => await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
     }
 }
