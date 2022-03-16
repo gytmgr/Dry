@@ -4,23 +4,42 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
-        <member name="T:Dry.Core.Model.CodeData`2">
-            <summary>
-            编码数据
-            </summary>
-            <typeparam name="TCode"></typeparam>
-            <typeparam name="TData"></typeparam>
-        </member>
-        <member name="P:Dry.Core.Model.CodeData`2.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
         <member name="T:Dry.Core.Model.CodeData`1">
             <summary>
             编码数据
             </summary>
             <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`1.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.CodeName">
+            <summary>
+            编码名称
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeName.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeName.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.CodeNameData`1">
+            <summary>
+            编码名称数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeNameData`1.Name">
+            <summary>
+            名称
+            </summary>
         </member>
         <member name="T:Dry.Core.Model.DryData`1">
             <summary>
@@ -29,6 +48,46 @@
             <typeparam name="TData"></typeparam>
         </member>
         <member name="P:Dry.Core.Model.DryData`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdData`2">
+            <summary>
+            标识数据
+            </summary>
+            <typeparam name="TId"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdData`2.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdName`1">
+            <summary>
+            标识名称
+            </summary>
+            <typeparam name="TId"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdName`1.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IdName`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdNameData`2">
+            <summary>
+            标识名称数据
+            </summary>
+            <typeparam name="TId"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdNameData`2.Data">
             <summary>
             数据
             </summary>
@@ -1125,6 +1184,15 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="str"></param>
+            <param name="outResult"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.StringExtension.TryParse(System.String,System.Type,System.Object@)">
+            <summary>
+            字符串转值类型
+            </summary>
+            <param name="str"></param>
+            <param name="outType"></param>
             <param name="outResult"></param>
             <returns></returns>
         </member>

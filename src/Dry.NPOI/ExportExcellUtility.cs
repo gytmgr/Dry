@@ -1,4 +1,6 @@
-﻿using NPOI.HPSF;
+﻿using Dry.Core.Model;
+using Dry.Core.Utilities;
+using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
@@ -14,13 +16,121 @@ namespace Dry.NPOI
     /// <summary>
     /// excel导出类
     /// </summary>
-    public class ExportExcellUtility
+    public static class ExportExcellUtility
     {
         private const string TEMPLATE_FOLDER = "Template";
         private const string OUTPUT_FOLDER = "Output";
         private const string COMPANY_NAME = "公司";
         private static readonly object _lockObject = new();
         private static readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+        /// <summary>
+        /// excel转对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fileStream"></param>
+        /// <param name="columns"></param>
+        /// <param name="columnRowIndex"></param>
+        /// <param name="contentRowStartIndex"></param>
+        /// <param name="isXlsx"></param>
+        /// <returns></returns>
+        public static Result<byte, T[]> ExcelToObj<T>(Stream fileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false) where T : class, new()
+        {
+            IWorkbook workbook = isXlsx ? new XSSFWorkbook(fileStream) : new HSSFWorkbook(fileStream);
+            var sheet = workbook.GetSheetAt(0);
+            var columnRow = sheet.GetRow(columnRowIndex);
+            if (columnRow is null)
+            {
+                return Result<byte, T[]>.Create(0, $"列所在行【{columnRowIndex}】不存在", default);
+            }
+            foreach (var column in columns)
+            {
+                var cell = columnRow.GetCell(column.Index);
+                if (cell?.GetStringValueFromCell() != column.Field)
+                {
+                    return Result<byte, T[]>.Create(0, $"列检查错误：单元格【{column.No}{columnRowIndex}】不是“{column.Field}”", default);
+                }
+            }
+            var result = new List<T>();
+            for (int i = contentRowStartIndex; i <= sheet.LastRowNum; i++)
+            {
+                var row = sheet.GetRow(i);
+                var obj = new T();
+
+                foreach (var column in columns)
+                {
+                    var cell = row.GetCell(column.Index);
+                    if (cell is not null)
+                    {
+                        if (cell is { CellType: CellType.Error } or { CellType: CellType.Formula, CachedFormulaResultType: CellType.Error })
+                        {
+                            return Result<byte, T[]>.Create(0, $"数据错误：单元格【{column.No}{i + 1}】有错", default);
+                        }
+                        var cellValue = cell.GetStringValueFromCell();
+                        if (cellValue is null)
+                        {
+                            if (column.Required)
+                            {
+                                return Result<byte, T[]>.Create(0, $"数据错误：单元格【{column.No}{i + 1}】为空", default);
+                            }
+                        }
+                        else
+                        {
+                            var property = obj.GetType().GetProperty(column.Field);
+                            if (property.PropertyType == typeof(string))
+                            {
+                                property.SetValue(obj, cellValue);
+                            }
+                            else
+                            {
+                                if (cellValue.TryParse(property.PropertyType, out object propertyValue))
+                                {
+                                    property.SetValue(obj, propertyValue);
+                                }
+                                else
+                                {
+                                    return Result<byte, T[]>.Create(0, $"数据错误：单元格【{column.No}{i + 1}】数据类型错误", default);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (column.Required)
+                        {
+                            return Result<byte, T[]>.Create(0, $"数据错误：单元格【{column.No}{i + 1}】为空", default);
+                        }
+                    }
+                }
+
+                result.Add(obj);
+            }
+            workbook.Close();
+            return Result<byte, T[]>.Create(1, result.ToArray());
+        }
+
+        /// <summary>
+        /// 从单元格获取字符串值
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        public static string GetStringValueFromCell(this ICell cell)
+            => cell.CellType switch
+            {
+                CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
+                CellType.Numeric => cell.NumericCellValue.ToString(),
+                CellType.String => cell.StringCellValue,
+                CellType.Boolean => cell.BooleanCellValue.ToString(),
+                CellType.Formula => cell.CachedFormulaResultType switch
+                {
+                    CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
+                    CellType.Numeric => cell.NumericCellValue.ToString(),
+                    CellType.String => cell.StringCellValue,
+                    CellType.Boolean => cell.BooleanCellValue.ToString(),
+                    _ => null
+                },
+                _ => null
+            };
 
         /// <summary>
         /// 将DataTable数据导入到excel中
@@ -895,6 +1005,16 @@ namespace Dry.NPOI
     public class Column
     {
         /// <summary>
+        /// 索引
+        /// </summary>
+        public int Index { get; set; }
+
+        /// <summary>
+        /// 列序号
+        /// </summary>
+        public string No { get; set; }
+
+        /// <summary>
         /// 宽度
         /// </summary>
         public int Width { get; set; }
@@ -918,6 +1038,11 @@ namespace Dry.NPOI
         /// 垂直对齐
         /// </summary>
         public VerticalAlignment VValue { get; set; }
+
+        /// <summary>
+        /// 必须
+        /// </summary>
+        public bool Required { get; set; }
     }
 
     /// <summary>

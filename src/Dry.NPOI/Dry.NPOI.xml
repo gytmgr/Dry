@@ -9,6 +9,25 @@
             excel导出类
             </summary>
         </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToObj``1(System.IO.Stream,Dry.NPOI.Column[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            excel转对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fileStream"></param>
+            <param name="columns"></param>
+            <param name="columnRowIndex"></param>
+            <param name="contentRowStartIndex"></param>
+            <param name="isXlsx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetStringValueFromCell(NPOI.SS.UserModel.ICell)">
+            <summary>
+            从单元格获取字符串值
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.DataTableToExcel(System.Data.DataTable,System.String,System.String,System.Boolean)">
             <summary>
             将DataTable数据导入到excel中
@@ -147,6 +166,16 @@
             excel列
             </summary>
         </member>
+        <member name="P:Dry.NPOI.Column.Index">
+            <summary>
+            索引
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.No">
+            <summary>
+            列序号
+            </summary>
+        </member>
         <member name="P:Dry.NPOI.Column.Width">
             <summary>
             宽度
@@ -170,6 +199,11 @@
         <member name="P:Dry.NPOI.Column.VValue">
             <summary>
             垂直对齐
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.Column.Required">
+            <summary>
+            必须
             </summary>
         </member>
         <member name="T:Dry.NPOI.MyCell">

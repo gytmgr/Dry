@@ -1,14 +1,18 @@
 ﻿namespace Dry.Core.Model
 {
     /// <summary>
-    /// 编码数据
+    /// 编码名称
     /// </summary>
-    /// <typeparam name="TData"></typeparam>
-    public class CodeData<TData> : DryData<TData>
+    public class CodeName
     {
         /// <summary>
         /// 编码
         /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
     }
 }

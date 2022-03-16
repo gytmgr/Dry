@@ -362,5 +362,45 @@ namespace Dry.Core.Utilities
             }
             return false;
         }
+
+        /// <summary>
+        /// 字符串转值类型
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="outType"></param>
+        /// <param name="outResult"></param>
+        /// <returns></returns>
+        public static bool TryParse(this string str, Type outType, out object outResult)
+        {
+            outResult = default;
+            if (!outType.IsValueType)
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(str))
+            {
+                return false;
+            }
+            if (outType.IsEnum)
+            {
+                return Enum.TryParse(outType, str, out outResult);
+            }
+            var tryParseMethod = outType.GetMethod("TryParse"
+                , BindingFlags.Public | BindingFlags.Static
+                , Type.DefaultBinder
+                , new Type[] { typeof(string), outType.MakeByRefType() }
+                , new ParameterModifier[] { new ParameterModifier(2) });
+            if (tryParseMethod is not null)
+            {
+                var parameters = new object[] { str, Activator.CreateInstance(outType) };
+                var success = (bool)tryParseMethod.Invoke(null, parameters);
+                if (success)
+                {
+                    outResult = parameters[1];
+                    return success;
+                }
+            }
+            return false;
+        }
     }
 }
