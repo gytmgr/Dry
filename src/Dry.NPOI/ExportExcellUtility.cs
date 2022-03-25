@@ -25,6 +25,29 @@ namespace Dry.NPOI
         private static readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
 
         /// <summary>
+        /// 从单元格获取字符串值
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        public static string GetStringValue(this ICell cell)
+            => cell.CellType switch
+            {
+                CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
+                CellType.Numeric => cell.NumericCellValue.ToString(),
+                CellType.String => cell.StringCellValue?.Trim(),
+                CellType.Boolean => cell.BooleanCellValue.ToString(),
+                CellType.Formula => cell.CachedFormulaResultType switch
+                {
+                    CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
+                    CellType.Numeric => cell.NumericCellValue.ToString(),
+                    CellType.String => cell.StringCellValue?.Trim(),
+                    CellType.Boolean => cell.BooleanCellValue.ToString(),
+                    _ => null
+                },
+                _ => null
+            };
+
+        /// <summary>
         /// excel转对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -41,14 +64,14 @@ namespace Dry.NPOI
             var columnRow = sheet.GetRow(columnRowIndex);
             if (columnRow is null)
             {
-                return Result<byte, T[]>.Create(0, $"列所在行【{columnRowIndex}】不存在", default);
+                return Result<byte, T[]>.Create(0, $"列所在行【{columnRowIndex + 1}】不存在", default);
             }
             foreach (var column in columns)
             {
                 var cell = columnRow.GetCell(column.Index);
-                if (cell?.GetStringValueFromCell() != column.Field)
+                if (cell?.GetStringValue() != column.Field)
                 {
-                    return Result<byte, T[]>.Create(0, $"列检查错误：单元格【{column.No}{columnRowIndex}】不是“{column.Field}”", default);
+                    return Result<byte, T[]>.Create(0, $"列检查错误：单元格【{column.No}{columnRowIndex + 1}】不是“{column.Field}”", default);
                 }
             }
             var result = new List<T>();
@@ -66,7 +89,7 @@ namespace Dry.NPOI
                         {
                             return Result<byte, T[]>.Create(0, $"数据错误：单元格【{column.No}{i + 1}】有错", default);
                         }
-                        var cellValue = cell.GetStringValueFromCell();
+                        var cellValue = cell.GetStringValue();
                         if (cellValue is null)
                         {
                             if (column.Required)
@@ -110,27 +133,122 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 从单元格获取字符串值
+        /// 将excel中的数据导入到DataTable中
         /// </summary>
-        /// <param name="cell"></param>
+        /// <param name="fileStream">文件流</param>
+        /// <param name="isXlsx">是否xlsx版本</param>
+        /// <param name="sheetName">工作薄名称</param>
+        /// <param name="columnRowIndex">列名所在的行索引</param>
+        /// <param name="contentRowStartIndex">数据行的开始索引</param>
         /// <returns></returns>
-        public static string GetStringValueFromCell(this ICell cell)
-            => cell.CellType switch
+        public static Result<byte, DataTable> ExcelToDataTable(Stream fileStream, bool isXlsx = default, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+        {
+            IWorkbook workbook = default;
+            try
             {
-                CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
-                CellType.Numeric => cell.NumericCellValue.ToString(),
-                CellType.String => cell.StringCellValue,
-                CellType.Boolean => cell.BooleanCellValue.ToString(),
-                CellType.Formula => cell.CachedFormulaResultType switch
+                workbook = isXlsx ? new XSSFWorkbook(fileStream) : new HSSFWorkbook(fileStream);
+                var sheet = string.IsNullOrEmpty(sheetName) ? workbook.GetSheetAt(0) : workbook.GetSheet(sheetName);
+                if (sheet is null)
                 {
-                    CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
-                    CellType.Numeric => cell.NumericCellValue.ToString(),
-                    CellType.String => cell.StringCellValue,
-                    CellType.Boolean => cell.BooleanCellValue.ToString(),
-                    _ => null
-                },
-                _ => null
-            };
+                    return Result<byte, DataTable>.Create(0, $"工作薄【{sheetName}】不存在", default);
+                }
+                var dt = new DataTable();
+                var columns = new List<(string columnName, int excelColumnIndex)>();
+                if (columnRowIndex.HasValue)
+                {
+                    var columnRow = sheet.GetRow(columnRowIndex.Value);
+                    if (columnRow is null)
+                    {
+                        return Result<byte, DataTable>.Create(0, $"列所在行【{columnRowIndex.Value + 1}】不存在", default);
+                    }
+                    if (columnRow.FirstCellNum == -1)
+                    {
+                        return Result<byte, DataTable>.Create(0, $"列所在行【{columnRowIndex.Value + 1}】没有数据", default);
+                    }
+                    for (int i = columnRow.FirstCellNum; i < columnRow.LastCellNum; i++)
+                    {
+                        var cell = columnRow.GetCell(i);
+                        if (cell != null)
+                        {
+                            var columnName = cell.GetStringValue();
+                            if (columnName is null or { Length: 0 })
+                            {
+                                continue;
+                            }
+                            dt.Columns.Add(columnName);
+                            columns.Add((columnName, i));
+                        }
+                    }
+                }
+                for (int i = contentRowStartIndex ?? sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
+                {
+                    var row = sheet.GetRow(i);
+                    if (row is null or { FirstCellNum: -1 })
+                    {
+                        continue;
+                    }
+                    var dr = dt.NewRow();
+                    var isEmptyRow = true;
+                    for (int j = row.FirstCellNum; j < row.LastCellNum; j++)
+                    {
+                        var cell = row.GetCell(j);
+                        if (cell is null)
+                        {
+                            continue;
+                        }
+                        if (columnRowIndex.HasValue)
+                        {
+                            var column = columns.Find(x => x.excelColumnIndex == j);
+                            if (column == default)
+                            {
+                                continue;
+                            }
+                            dr[column.columnName] = cell.GetStringValue();
+                        }
+                        else
+                        {
+                            while (dt.Columns.Count <= j)
+                            {
+                                dt.Columns.Add();
+                            }
+                            dr[j] = cell.GetStringValue();
+                        }
+                        isEmptyRow = false;
+                    }
+                    if (!isEmptyRow)
+                    {
+                        dt.Rows.Add(dr);
+                    }
+                }
+                return Result<byte, DataTable>.Create(1, dt);
+            }
+            finally
+            {
+                workbook?.Close();
+            }
+        }
+
+        /// <summary>
+        /// 将excel中的数据导入到DataTable中
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="sheetName">工作薄名称</param>
+        /// <param name="columnRowIndex">列名所在的行索引</param>
+        /// <param name="contentRowStartIndex">数据行的开始索引</param>
+        /// <returns></returns>
+        public static Result<byte, DataTable> ExcelToDataTable(string filePath, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+        {
+            var fs = default(FileStream);
+            try
+            {
+                fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                return ExcelToDataTable(fs, filePath.EndsWith(".xlsx"), sheetName, columnRowIndex, contentRowStartIndex);
+            }
+            finally
+            {
+                fs?.Close();
+            }
+        }
 
         /// <summary>
         /// 将DataTable数据导入到excel中
@@ -190,96 +308,6 @@ namespace Dry.NPOI
             {
                 Console.WriteLine("Exception: " + ex.Message);
                 return -1;
-            }
-            finally
-            {
-                fs.Close();
-            }
-        }
-
-        /// <summary>
-        /// 将excel中的数据导入到DataTable中
-        /// </summary>
-        /// <param name="fileName">文件名</param>
-        /// <param name="sheetName">excel工作薄sheet的名称</param>
-        /// <param name="isFirstRowColumn">第一行是否是DataTable的列名</param>
-        /// <returns>返回的DataTable</returns>
-        public static DataTable ExcelToDataTable(string fileName, string sheetName, bool isFirstRowColumn)
-        {
-            DataTable data = new();
-            var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            try
-            {
-                IWorkbook workbook = fileName.EndsWith(".xlsx") ? new XSSFWorkbook() : new HSSFWorkbook();
-
-                ISheet sheet;
-                if (sheetName != null)
-                {
-                    sheet = workbook.GetSheet(sheetName);
-                    if (sheet == null) //如果没有找到指定的sheetName对应的sheet，则尝试获取第一个sheet
-                    {
-                        sheet = workbook.GetSheetAt(0);
-                    }
-                }
-                else
-                {
-                    sheet = workbook.GetSheetAt(0);
-                }
-                if (sheet != null)
-                {
-                    IRow firstRow = sheet.GetRow(0);
-                    int cellCount = firstRow.LastCellNum; //一行最后一个cell的编号 即总的列数
-
-                    int startRow;
-                    if (isFirstRowColumn)
-                    {
-                        for (int i = firstRow.FirstCellNum; i < cellCount; ++i)
-                        {
-                            ICell cell = firstRow.GetCell(i);
-                            if (cell != null)
-                            {
-                                string cellValue = cell.StringCellValue;
-                                if (cellValue != null)
-                                {
-                                    DataColumn column = new DataColumn(cellValue);
-                                    data.Columns.Add(column);
-                                }
-                            }
-                        }
-                        startRow = sheet.FirstRowNum + 1;
-                    }
-                    else
-                    {
-                        for (int i = firstRow.FirstCellNum; i < cellCount; ++i)
-                        {
-                            data.Columns.Add();
-                        }
-                        startRow = sheet.FirstRowNum;
-                    }
-
-                    //最后一列的标号
-                    int rowCount = sheet.LastRowNum;
-                    for (int i = startRow; i <= rowCount; ++i)
-                    {
-                        IRow row = sheet.GetRow(i);
-                        if (row == null) continue; //没有数据的行默认是null　　　　　　　
-
-                        DataRow dataRow = data.NewRow();
-                        for (int j = row.FirstCellNum; j < cellCount; ++j)
-                        {
-                            if (row.GetCell(j) != null) //同理，没有数据的单元格都默认是null
-                                dataRow[j] = row.GetCell(j).ToString();
-                        }
-                        data.Rows.Add(dataRow);
-                    }
-                }
-
-                return data;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception: " + ex.Message);
-                return null;
             }
             finally
             {

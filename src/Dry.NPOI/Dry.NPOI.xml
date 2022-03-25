@@ -9,6 +9,13 @@
             excel导出类
             </summary>
         </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetStringValue(NPOI.SS.UserModel.ICell)">
+            <summary>
+            从单元格获取字符串值
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToObj``1(System.IO.Stream,Dry.NPOI.Column[],System.Int32,System.Int32,System.Boolean)">
             <summary>
             excel转对象
@@ -21,11 +28,25 @@
             <param name="isXlsx"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.GetStringValueFromCell(NPOI.SS.UserModel.ICell)">
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.IO.Stream,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            从单元格获取字符串值
+            将excel中的数据导入到DataTable中
             </summary>
-            <param name="cell"></param>
+            <param name="fileStream">文件流</param>
+            <param name="isXlsx">是否excel2007之后的版本</param>
+            <param name="sheetName">工作薄名称</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            将excel中的数据导入到DataTable中
+            </summary>
+            <param name="filePath">文件路径</param>
+            <param name="sheetName">工作薄名称</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
             <returns></returns>
         </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.DataTableToExcel(System.Data.DataTable,System.String,System.String,System.Boolean)">
@@ -37,15 +58,6 @@
             <param name="sheetName">要导入的excel的sheet的名称</param>
             <param name="isColumnWritten">DataTable的列名是否要导入</param>
             <returns>导入数据行数(包含列名那一行)</returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.String,System.String,System.Boolean)">
-            <summary>
-            将excel中的数据导入到DataTable中
-            </summary>
-            <param name="fileName">文件名</param>
-            <param name="sheetName">excel工作薄sheet的名称</param>
-            <param name="isFirstRowColumn">第一行是否是DataTable的列名</param>
-            <returns>返回的DataTable</returns>
         </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.ExportHasTemplatePath``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int32,System.Boolean,System.String,System.Boolean,System.Single,System.String,System.Int16,System.Collections.Generic.List{Dry.NPOI.MyCell})">
             <summary>
