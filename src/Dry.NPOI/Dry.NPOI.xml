@@ -4,6 +4,67 @@
         <name>Dry.NPOI</name>
     </assembly>
     <members>
+        <member name="T:Dry.NPOI.ExcelBizException">
+            <summary>
+            Excel操作异常
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.ExcelBizException.ColumnIndex">
+            <summary>
+            列索引
+            </summary>
+        </member>
+        <member name="P:Dry.NPOI.ExcelBizException.RowIndex">
+            <summary>
+            行索引
+            </summary>
+        </member>
+        <member name="M:Dry.NPOI.ExcelBizException.#ctor(Dry.NPOI.ExcelExceptionCode,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.NPOI.ExcelBizException.#ctor(Dry.NPOI.ExcelExceptionCode,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+            <param name="columnIndex"></param>
+            <param name="rowIndex"></param>
+        </member>
+        <member name="T:Dry.NPOI.ExcelExceptionCode">
+            <summary>
+            Excel操作异常编码
+            </summary>
+        </member>
+        <member name="F:Dry.NPOI.ExcelExceptionCode.ParamError">
+            <summary>
+            参数错误
+            </summary>
+        </member>
+        <member name="F:Dry.NPOI.ExcelExceptionCode.FileError">
+            <summary>
+            文件错误
+            </summary>
+        </member>
+        <member name="F:Dry.NPOI.ExcelExceptionCode.ColumnError">
+            <summary>
+            列标题错误
+            </summary>
+        </member>
+        <member name="F:Dry.NPOI.ExcelExceptionCode.RowError">
+            <summary>
+            行错误
+            </summary>
+        </member>
+        <member name="F:Dry.NPOI.ExcelExceptionCode.CellError">
+            <summary>
+            单元格错误
+            </summary>
+        </member>
         <member name="T:Dry.NPOI.ExportExcellUtility">
             <summary>
             excel导出类
@@ -11,9 +72,280 @@
         </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.GetStringValue(NPOI.SS.UserModel.ICell)">
             <summary>
-            从单元格获取字符串值
+            单元格获取字符串值
             </summary>
-            <param name="cell"></param>
+            <param name="cell">单元格</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetValue(NPOI.SS.UserModel.ICell,System.Object)">
+            <summary>
+            单元格设值
+            </summary>
+            <param name="cell">单元格</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetOrCreateCell(NPOI.SS.UserModel.ISheet,System.Int32,System.Int32)">
+            <summary>
+            获取或创建单元格
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="columnIndex">列索引</param>
+            <param name="rowIndex">行索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetCellValue(NPOI.SS.UserModel.ISheet,System.Int32,System.Int32,System.Object)">
+            <summary>
+            单元格设值
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="columnIndex">列索引</param>
+            <param name="rowIndex">行索引</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetCellValue(NPOI.SS.UserModel.ISheet,System.Drawing.Point,System.Object)">
+            <summary>
+            单元格设值
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="cellPoint">单元格位置</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetCellValue``1(NPOI.SS.UserModel.ISheet,System.Drawing.Point,``0,System.String)">
+            <summary>
+            单元格设值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sheet">工作表</param>
+            <param name="cellPoint">单元格位置</param>
+            <param name="obj">设值对象</param>
+            <param name="fieldName">设值字段名称</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetData``1(NPOI.SS.UserModel.ISheet,``0[],Dry.NPOI.Column[],System.Drawing.Point,System.Nullable{System.Drawing.Point})">
+            <summary>
+            工作表设置数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sheet">工作表</param>
+            <param name="data">数据</param>
+            <param name="columns">列信息</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="columnCellStartPoint">列单元格开始位置</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetData(NPOI.SS.UserModel.ISheet,System.Data.DataTable,System.Drawing.Point,System.Nullable{System.Int32})">
+            <summary>
+            工作表设置数据
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="data">数据</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="columnRowStartIndex">列所在行的开始索引</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetData(NPOI.SS.UserModel.ISheet,System.Collections.Generic.Dictionary{System.Drawing.Point,System.Object})">
+            <summary>
+            工作表设置数据
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetData``1(NPOI.SS.UserModel.ISheet,Dry.NPOI.Column[],System.Int32,System.Int32)">
+            <summary>
+            工作表获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sheet">工作表</param>
+            <param name="columns">列信息</param>
+            <param name="columnRowIndex">列所在的行索引</param>
+            <param name="contentRowStartIndex">数据行开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetData(NPOI.SS.UserModel.ISheet,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            工作表获取数据
+            </summary>
+            <param name="sheet">工作表</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetOrCreateSheet(NPOI.SS.UserModel.IWorkbook,System.String)">
+            <summary>
+            获取或创建工作表
+            </summary>
+            <param name="workbook">工作薄</param>
+            <param name="sheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetNamedOrFirstSheet(NPOI.SS.UserModel.IWorkbook,System.String)">
+            <summary>
+            获取命名或者第一个工作表
+            </summary>
+            <param name="workbook">工作薄</param>
+            <param name="sheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetData``1(NPOI.SS.UserModel.IWorkbook,``0[],Dry.NPOI.Column[],System.Drawing.Point,System.String,System.Nullable{System.Drawing.Point})">
+            <summary>
+            工作薄设置数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="workbook">工作薄</param>
+            <param name="data">数据</param>
+            <param name="columns">列信息</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnCellStartPoint">列单元格开始位置</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.SetData(NPOI.SS.UserModel.IWorkbook,System.Data.DataTable,System.Drawing.Point,System.String,System.Nullable{System.Int32})">
+            <summary>
+            工作薄设置数据
+            </summary>
+            <param name="workbook">工作薄</param>
+            <param name="data">数据</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowStartIndex">列所在行的开始索引</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetData``1(NPOI.SS.UserModel.IWorkbook,Dry.NPOI.Column[],System.Int32,System.Int32,System.String)">
+            <summary>
+            工作薄获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="workbook">工作薄</param>
+            <param name="columns">列信息</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行开始索引</param>
+            <param name="sheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetData(NPOI.SS.UserModel.IWorkbook,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            工作薄获取数据
+            </summary>
+            <param name="workbook">工作薄</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.ToMemoryStream(NPOI.SS.UserModel.IWorkbook)">
+            <summary>
+            工作薄转内存
+            </summary>
+            <param name="workbook">工作薄</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.CheckColumn``1(Dry.NPOI.Column[])">
+            <summary>
+            检查列信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="columns">列信息</param>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.GetWorkbook(System.Boolean,System.IO.Stream)">
+            <summary>
+            获取工作薄
+            </summary>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="stream">文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Import``1(``0[],Dry.NPOI.Column[],System.Drawing.Point,System.Boolean,System.String,System.Nullable{System.Drawing.Point},System.IO.Stream)">
+            <summary>
+            对象导入
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="objs">对象列表</param>
+            <param name="columns">列信息</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnCellStartPoint">列名单元格开始位置</param>
+            <param name="templateFileStream">模板文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Import``1(``0[],Dry.NPOI.Column[],System.Drawing.Point,System.String,System.Boolean,System.String,System.Nullable{System.Drawing.Point})">
+            <summary>
+            对象导入
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="objs">对象列表</param>
+            <param name="columns">列信息</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="templateFilePath">模板文件路径</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnCellStartPoint">列名单元格开始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Import(System.Data.DataTable,System.Drawing.Point,System.Boolean,System.String,System.Nullable{System.Int32},System.IO.Stream)">
+            <summary>
+            DataTable导入
+            </summary>
+            <param name="dt">DataTable</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowStartIndex">列所在行的开始索引</param>
+            <param name="templateFileStream">模板文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Import(System.Data.DataTable,System.Drawing.Point,System.String,System.Boolean,System.String,System.Nullable{System.Int32})">
+            <summary>
+            DataTable导入
+            </summary>
+            <param name="dt">DataTable</param>
+            <param name="contentCellStartPoint">数据单元格开始位置</param>
+            <param name="templateFilePath">模板文件路径</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowStartIndex">列所在行的开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.IO.Stream,Dry.NPOI.Column[],System.Int32,System.Int32,System.Boolean,System.String)">
+            <summary>
+            导出对象数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="excelFileStream">excel文件流</param>
+            <param name="columns">列信息</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行开始索引</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.String,Dry.NPOI.Column[],System.Int32,System.Int32,System.Boolean,System.String)">
+            <summary>
+            导出对象数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="excelFilePath">excel文件路径</param>
+            <param name="columns">列信息</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行开始索引</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export(System.IO.Stream,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            导出DataTable数据
+            </summary>
+            <param name="excelFileStream">excel文件流</param>
+            <param name="isXlsx">是否xlsx版本</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.NPOI.ExportExcellUtility.Export(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            导出DataTable数据
+            </summary>
+            <param name="excelFilePath">excel文件路径</param>
+            <param name="sheetName">工作表名称</param>
+            <param name="columnRowIndex">列名所在的行索引</param>
+            <param name="contentRowStartIndex">数据行的开始索引</param>
             <returns></returns>
         </member>
         <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToObj``1(System.IO.Stream,Dry.NPOI.Column[],System.Int32,System.Int32,System.Boolean)">
@@ -21,156 +353,11 @@
             excel转对象
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="fileStream"></param>
-            <param name="columns"></param>
-            <param name="columnRowIndex"></param>
-            <param name="contentRowStartIndex"></param>
-            <param name="isXlsx"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.IO.Stream,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            将excel中的数据导入到DataTable中
-            </summary>
-            <param name="fileStream">文件流</param>
-            <param name="isXlsx">是否excel2007之后的版本</param>
-            <param name="sheetName">工作薄名称</param>
+            <param name="fs">文件流</param>
+            <param name="columns">列信息</param>
             <param name="columnRowIndex">列名所在的行索引</param>
-            <param name="contentRowStartIndex">数据行的开始索引</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.ExcelToDataTable(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            将excel中的数据导入到DataTable中
-            </summary>
-            <param name="filePath">文件路径</param>
-            <param name="sheetName">工作薄名称</param>
-            <param name="columnRowIndex">列名所在的行索引</param>
-            <param name="contentRowStartIndex">数据行的开始索引</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.DataTableToExcel(System.Data.DataTable,System.String,System.String,System.Boolean)">
-            <summary>
-            将DataTable数据导入到excel中
-            </summary>
-            <param name="data">要导入的数据</param>
-            <param name="fileName">文件名</param>
-            <param name="sheetName">要导入的excel的sheet的名称</param>
-            <param name="isColumnWritten">DataTable的列名是否要导入</param>
-            <returns>导入数据行数(包含列名那一行)</returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.ExportHasTemplatePath``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int32,System.Boolean,System.String,System.Boolean,System.Single,System.String,System.Int16,System.Collections.Generic.List{Dry.NPOI.MyCell})">
-            <summary>
-            导出带模板excel(显示时columns第一个元素new一个空对象)
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="items">导出数据集合</param>
-            <param name="columns">columns每列对应数据item</param>
-            <param name="templatePath">模板名称</param>
-            <param name="addStartIndex">开始加入数据行</param>
-            <param name="showSerialNumber">是否显示序号，显示时columns第一个元素new一个空对象</param>
-            <param name="title">Excel头</param>
-            <param name="showBorder">是否显示边框</param>
-            <param name="heightInPoints">行高默认为40</param>
-            <param name="fontName">内容字体默认为宋体</param>
-            <param name="fontSize">内容大小默认为12</param>
-            <param name="cells">指定单元格值</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.GetIWorkBook(System.String,System.IO.Stream)">
-            <summary>
-            区分.xls，.xlsx文件生成IworkBook实例
-            </summary>
-            <param name="filePath">文件路径</param>
-            <param name="sourceStream">文件流</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.Boolean,System.String,System.Int16)">
-            <summary>
-            导出EXCEL
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="title"></param>
-            <param name="items"></param>
-            <param name="columns"></param>
-            <param name="showSerialNumber">是否显示序号</param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.Export``1(System.Tuple{System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column}}[],System.Boolean,System.String,System.Int16,System.Boolean)">
-            <summary>
-            导出EXCEL
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="data"></param>
-            <param name="showSerialNumber"></param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <param name="haveHeader"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.Build``1(System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int16,System.Boolean,System.Boolean)">
-            <summary>
-            创建工作簿
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="title"></param>
-            <param name="items"></param>
-            <param name="columns"></param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <param name="showSerialNumber"></param>
-            <param name="haveHeader"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.Build``1(NPOI.HSSF.UserModel.HSSFWorkbook,System.String,System.Collections.Generic.List{``0},System.Collections.Generic.List{Dry.NPOI.Column},System.String,System.Int16,System.Boolean,System.Boolean)">
-            <summary>
-            在指定工作簿配置数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="workbook"></param>
-            <param name="title"></param>
-            <param name="items"></param>
-            <param name="columns"></param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <param name="showSerialNumber"></param>
-            <param name="haveHeader"></param>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.CopyFile(System.String,System.String@)">
-            <summary>
-            复制文件
-            </summary>
-            <param name="sourceFileName"></param>
-            <param name="destFileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.ExportforClient``1(System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.String,System.String,System.String,System.Boolean,System.String,System.Int16)">
-            <summary>
-            客户端使用
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="datas"></param>
-            <param name="title"></param>
-            <param name="fileName"></param>
-            <param name="savePath"></param>
-            <param name="showSerialNumber"></param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.NPOI.ExportExcellUtility.BuildforClient``1(System.String,System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.String,System.Int16,System.Boolean,System.Boolean)">
-            <summary>
-            客户端创建工作簿
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="title"></param>
-            <param name="items"></param>
-            <param name="fontName"></param>
-            <param name="fontSize"></param>
-            <param name="showSerialNumber"></param>
-            <param name="haveHeader"></param>
+            <param name="contentRowStartIndex">数据行开始索引</param>
+            <param name="isXlsx">是否xlsx版本</param>
             <returns></returns>
         </member>
         <member name="T:Dry.NPOI.Column">
@@ -180,7 +367,7 @@
         </member>
         <member name="P:Dry.NPOI.Column.Index">
             <summary>
-            索引
+            索引（若有值表示列标题固定）
             </summary>
         </member>
         <member name="P:Dry.NPOI.Column.No">
