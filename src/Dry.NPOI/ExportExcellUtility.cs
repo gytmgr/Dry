@@ -150,20 +150,20 @@ namespace Dry.NPOI
         /// <param name="data">数据</param>
         /// <param name="columns">列信息</param>
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
-        /// <param name="columnCellStartPoint">列单元格开始位置</param>
-        public static void SetData<T>(this ISheet sheet, T[] data, Column[] columns, Point contentCellStartPoint, Point? columnCellStartPoint = default)
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
+        public static void SetData<T>(this ISheet sheet, T[] data, Column[] columns, Point contentCellStartPoint, int? columnRowStartIndex = default)
         {
+            var columnStartIndex = contentCellStartPoint.Y;
             CheckColumn<T>(columns);
-            if (columnCellStartPoint.HasValue)
+            if (columnRowStartIndex.HasValue)
             {
-                var cellPoint = columnCellStartPoint.Value;
                 foreach (var column in columns)
                 {
-                    sheet.SetCellValue(cellPoint, column.Title);
-                    cellPoint.Y++;
+                    sheet.SetCellValue(contentCellStartPoint.Y, columnRowStartIndex.Value, column.Title);
+                    contentCellStartPoint.Y++;
                 }
             }
-            var columnStartIndex = contentCellStartPoint.Y;
+            contentCellStartPoint.Y = columnStartIndex;
             foreach (var item in data)
             {
                 foreach (var column in columns)
@@ -421,8 +421,14 @@ namespace Dry.NPOI
             ISheet sheet;
             if (string.IsNullOrEmpty(sheetName))
             {
-                sheet = workbook.GetSheetAt(0);
-                sheet ??= workbook.CreateSheet();
+                if (workbook.NumberOfSheets > 0)
+                {
+                    sheet = workbook.GetSheetAt(0);
+                }
+                else
+                {
+                    sheet = workbook.CreateSheet();
+                }
             }
             else
             {
@@ -457,11 +463,11 @@ namespace Dry.NPOI
         /// <param name="columns">列信息</param>
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
         /// <param name="sheetName">工作表名称</param>
-        /// <param name="columnCellStartPoint">列单元格开始位置</param>
-        public static void SetData<T>(this IWorkbook workbook, T[] data, Column[] columns, Point contentCellStartPoint, string sheetName = default, Point? columnCellStartPoint = default)
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
+        public static void SetData<T>(this IWorkbook workbook, T[] data, Column[] columns, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
         {
             var sheet = workbook.GetOrCreateSheet(sheetName);
-            sheet.SetData(data, columns, contentCellStartPoint, columnCellStartPoint);
+            sheet.SetData(data, columns, contentCellStartPoint, columnRowStartIndex);
         }
 
         /// <summary>
@@ -517,7 +523,6 @@ namespace Dry.NPOI
         {
             var ms = new MemoryStream();
             workbook.Write(ms);
-            ms.Position = 0;
             return ms;
         }
 
@@ -574,7 +579,7 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 对象导入
+        /// 对象转Excel
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">对象列表</param>
@@ -582,15 +587,15 @@ namespace Dry.NPOI
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
         /// <param name="isXlsx">是否xlsx版本</param>
         /// <param name="sheetName">工作表名称</param>
-        /// <param name="columnCellStartPoint">列名单元格开始位置</param>
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
         /// <param name="templateFileStream">模板文件流</param>
         /// <returns></returns>
-        public static MemoryStream Import<T>(T[] objs, Column[] columns, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, Point? columnCellStartPoint = default, Stream templateFileStream = default) where T : class
+        public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default, Stream templateFileStream = default) where T : class
         {
             var workbook = GetWorkbook(isXlsx, templateFileStream);
             try
             {
-                workbook.SetData(objs, columns, contentCellStartPoint, sheetName, columnCellStartPoint);
+                workbook.SetData(objs, columns, contentCellStartPoint, sheetName, columnRowStartIndex);
                 return workbook.ToMemoryStream();
             }
             finally
@@ -600,18 +605,17 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 对象导入
+        /// 对象转Excel
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objs">对象列表</param>
         /// <param name="columns">列信息</param>
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
         /// <param name="templateFilePath">模板文件路径</param>
-        /// <param name="isXlsx">是否xlsx版本</param>
         /// <param name="sheetName">工作表名称</param>
-        /// <param name="columnCellStartPoint">列名单元格开始位置</param>
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
         /// <returns></returns>
-        public static MemoryStream Import<T>(T[] objs, Column[] columns, Point contentCellStartPoint, string templateFilePath, bool isXlsx = false, string sheetName = default, Point? columnCellStartPoint = default) where T : class
+        public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, string templateFilePath, string sheetName = default, int? columnRowStartIndex = default) where T : class
         {
             var fs = default(FileStream);
             if (!string.IsNullOrEmpty(templateFilePath))
@@ -620,11 +624,11 @@ namespace Dry.NPOI
                 {
                     throw new ExcelBizException(ExcelExceptionCode.ParamError, "【参数：模板文件路径】找不到文件");
                 }
-                fs = new FileStream(templateFilePath, FileMode.Open, FileAccess.Read);
+                fs = new FileStream(templateFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             }
             try
             {
-                return Import(objs, columns, contentCellStartPoint, isXlsx, sheetName, columnCellStartPoint, fs);
+                return ObjectToExcel(objs, columns, contentCellStartPoint, templateFilePath.EndsWith(".xlsx"), sheetName, columnRowStartIndex, fs);
             }
             finally
             {
@@ -633,7 +637,7 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// DataTable导入
+        /// DataTable转Excel
         /// </summary>
         /// <param name="dt">DataTable</param>
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
@@ -642,7 +646,7 @@ namespace Dry.NPOI
         /// <param name="columnRowStartIndex">列所在行的开始索引</param>
         /// <param name="templateFileStream">模板文件流</param>
         /// <returns></returns>
-        public static MemoryStream Import(DataTable dt, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default, Stream templateFileStream = default)
+        public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default, Stream templateFileStream = default)
         {
             var workbook = GetWorkbook(isXlsx, templateFileStream);
             try
@@ -657,16 +661,15 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// DataTable导入
+        /// DataTable转Excel
         /// </summary>
         /// <param name="dt">DataTable</param>
         /// <param name="contentCellStartPoint">数据单元格开始位置</param>
         /// <param name="templateFilePath">模板文件路径</param>
-        /// <param name="isXlsx">是否xlsx版本</param>
         /// <param name="sheetName">工作表名称</param>
         /// <param name="columnRowStartIndex">列所在行的开始索引</param>
         /// <returns></returns>
-        public static MemoryStream Import(DataTable dt, Point contentCellStartPoint, string templateFilePath, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default)
+        public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, string templateFilePath, string sheetName = default, int? columnRowStartIndex = default)
         {
             var fs = default(FileStream);
             if (!string.IsNullOrEmpty(templateFilePath))
@@ -675,11 +678,11 @@ namespace Dry.NPOI
                 {
                     throw new ExcelBizException(ExcelExceptionCode.ParamError, "【参数：模板文件路径】找不到文件");
                 }
-                fs = new FileStream(templateFilePath, FileMode.Open, FileAccess.Read);
+                fs = new FileStream(templateFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             }
             try
             {
-                return Import(dt, contentCellStartPoint, isXlsx, sheetName, columnRowStartIndex, fs);
+                return DataTableToExcel(dt, contentCellStartPoint, templateFilePath.EndsWith(".xlsx"), sheetName, columnRowStartIndex, fs);
             }
             finally
             {
@@ -688,7 +691,7 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 导出对象数据
+        /// Excel转对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="excelFileStream">excel文件流</param>
@@ -698,7 +701,7 @@ namespace Dry.NPOI
         /// <param name="isXlsx">是否xlsx版本</param>
         /// <param name="sheetName">工作表名称</param>
         /// <returns></returns>
-        public static T[] Export<T>(Stream excelFileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string sheetName = default) where T : class, new()
+        public static T[] ExcelToObject<T>(Stream excelFileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string sheetName = default) where T : class, new()
         {
             CheckColumn<T>(columns);
             var workbook = GetWorkbook(isXlsx, excelFileStream);
@@ -713,22 +716,21 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 导出对象数据
+        /// Excel转对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="excelFilePath">excel文件路径</param>
         /// <param name="columns">列信息</param>
         /// <param name="columnRowIndex">列名所在的行索引</param>
         /// <param name="contentRowStartIndex">数据行开始索引</param>
-        /// <param name="isXlsx">是否xlsx版本</param>
         /// <param name="sheetName">工作表名称</param>
         /// <returns></returns>
-        public static T[] Export<T>(string excelFilePath, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string sheetName = default) where T : class, new()
+        public static T[] ExcelToObject<T>(string excelFilePath, Column[] columns, int columnRowIndex, int contentRowStartIndex, string sheetName = default) where T : class, new()
         {
-            var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read);
+            var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
-                return Export<T>(fs, columns, columnRowIndex, contentRowStartIndex, excelFilePath.EndsWith(".xlsx"), sheetName);
+                return ExcelToObject<T>(fs, columns, columnRowIndex, contentRowStartIndex, excelFilePath.EndsWith(".xlsx"), sheetName);
             }
             finally
             {
@@ -737,7 +739,7 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 导出DataTable数据
+        /// Excel转DataTable
         /// </summary>
         /// <param name="excelFileStream">excel文件流</param>
         /// <param name="isXlsx">是否xlsx版本</param>
@@ -745,7 +747,7 @@ namespace Dry.NPOI
         /// <param name="columnRowIndex">列名所在的行索引</param>
         /// <param name="contentRowStartIndex">数据行的开始索引</param>
         /// <returns></returns>
-        public static DataTable Export(Stream excelFileStream, bool isXlsx = default, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+        public static DataTable ExcelToDataTable(Stream excelFileStream, bool isXlsx = default, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
         {
             var workbook = GetWorkbook(isXlsx, excelFileStream);
             try
@@ -759,23 +761,77 @@ namespace Dry.NPOI
         }
 
         /// <summary>
-        /// 导出DataTable数据
+        /// Excel转DataTable
         /// </summary>
         /// <param name="excelFilePath">excel文件路径</param>
         /// <param name="sheetName">工作表名称</param>
         /// <param name="columnRowIndex">列名所在的行索引</param>
         /// <param name="contentRowStartIndex">数据行的开始索引</param>
         /// <returns></returns>
-        public static DataTable Export(string excelFilePath, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+        public static DataTable ExcelToDataTable(string excelFilePath, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
         {
-            var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read);
+            var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
-                return Export(fs, excelFilePath.EndsWith(".xlsx"), sheetName, columnRowIndex, contentRowStartIndex);
+                return ExcelToDataTable(fs, excelFilePath.EndsWith(".xlsx"), sheetName, columnRowIndex, contentRowStartIndex);
             }
             finally
             {
                 fs?.Close();
+            }
+        }
+
+        /// <summary>
+        /// 写Excel文件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="excelFilePath">excel文件路径</param>
+        /// <param name="objs">对象列表</param>
+        /// <param name="columns">列信息</param>
+        /// <param name="contentCellStartPoint">数据单元格开始位置</param>
+        /// <param name="sheetName">工作表名称</param>
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
+        public static void Write<T>(string excelFilePath, T[] objs, Column[] columns, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+        {
+            using var readFileStream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var workbook = GetWorkbook(excelFilePath.EndsWith(".xlsx"), readFileStream);
+            try
+            {
+                workbook.SetData(objs, columns, contentCellStartPoint, sheetName, columnRowStartIndex);
+                using var writeFileStream = File.Create(excelFilePath);
+                workbook.Write(writeFileStream);
+                writeFileStream.Close();
+            }
+            finally
+            {
+                workbook?.Close();
+                readFileStream.Close();
+            }
+        }
+
+        /// <summary>
+        /// 写Excel文件
+        /// </summary>
+        /// <param name="excelFilePath">excel文件路径</param>
+        /// <param name="dt">DataTable</param>
+        /// <param name="contentCellStartPoint">数据单元格开始位置</param>
+        /// <param name="sheetName">工作表名称</param>
+        /// <param name="columnRowStartIndex">列所在行的开始索引</param>
+        public static void Write(string excelFilePath, DataTable dt, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+        {
+            using var readFileStream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var workbook = GetWorkbook(excelFilePath.EndsWith(".xlsx"), readFileStream);
+            try
+            {
+                workbook.SetData(dt, contentCellStartPoint, sheetName, columnRowStartIndex);
+                using var writeFileStream = File.Create(excelFilePath);
+                workbook.Write(writeFileStream);
+                writeFileStream.Close();
+            }
+            finally
+            {
+                workbook?.Close();
+                readFileStream.Close();
             }
         }
 
@@ -793,7 +849,7 @@ namespace Dry.NPOI
         {
             try
             {
-                var objs = Export<T>(fs, columns, columnRowIndex, contentRowStartIndex, isXlsx, default);
+                var objs = ExcelToObject<T>(fs, columns, columnRowIndex, contentRowStartIndex, isXlsx, default);
                 return Result<byte, T[]>.Create(1, objs);
             }
             catch (ExcelBizException ex)
