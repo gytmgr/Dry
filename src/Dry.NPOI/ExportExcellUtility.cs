@@ -153,8 +153,8 @@ namespace Dry.NPOI
         /// <param name="columnRowStartIndex">列所在行的开始索引</param>
         public static void SetData<T>(this ISheet sheet, T[] data, Column[] columns, Point contentCellStartPoint, int? columnRowStartIndex = default)
         {
-            var columnStartIndex = contentCellStartPoint.Y;
             CheckColumn<T>(columns);
+            var columnStartIndex = contentCellStartPoint.Y;
             if (columnRowStartIndex.HasValue)
             {
                 foreach (var column in columns)
@@ -231,6 +231,7 @@ namespace Dry.NPOI
         /// <returns></returns>
         public static T[] GetData<T>(this ISheet sheet, Column[] columns, int columnRowIndex, int contentRowStartIndex) where T : class, new()
         {
+            CheckColumn<T>(columns);
             var columnRow = sheet.GetRow(columnRowIndex);
             if (columnRow is null)
             {
@@ -703,7 +704,6 @@ namespace Dry.NPOI
         /// <returns></returns>
         public static T[] ExcelToObject<T>(Stream excelFileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string sheetName = default) where T : class, new()
         {
-            CheckColumn<T>(columns);
             var workbook = GetWorkbook(isXlsx, excelFileStream);
             try
             {

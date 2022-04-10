@@ -116,7 +116,7 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> FindAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
-            return _mapper.Map<TResult>(entity);
+            return await SingleResultMapAsync(entity);
         }
     }
 

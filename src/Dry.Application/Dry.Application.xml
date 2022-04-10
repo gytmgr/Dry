@@ -624,6 +624,22 @@
             <param name="queryDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.SingleResultMapAsync(`0,`2)">
+            <summary>
+            单一结果映射
+            </summary>
+            <param name="entity"></param>
+            <param name="queryDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryService`3.ArrayResultMapAsync(`0[],`2)">
+            <summary>
+            多结果映射
+            </summary>
+            <param name="entities"></param>
+            <param name="queryDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationQueryService`3.AnyAsync(`2)">
             <summary>
             是否存在
@@ -798,6 +814,20 @@
             构造体
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`2.SingleResultMapAsync(`0)">
+            <summary>
+            单一结果映射
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationService`2.ArrayResultMapAsync(`0[])">
+            <summary>
+            多结果映射
+            </summary>
+            <param name="entities"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationService`2.AnyAsync">
             <summary>

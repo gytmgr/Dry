@@ -58,6 +58,30 @@ namespace Dry.Application.Services
             => GetOrderBys();
 
         /// <summary>
+        /// 单一结果映射
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="queryDto"></param>
+        /// <returns></returns>
+        protected virtual Task<TResult> SingleResultMapAsync(TEntity entity, TQuery queryDto)
+        {
+            var result = _mapper.Map<TResult>(entity);
+            return Task.FromResult(result);
+        }
+
+        /// <summary>
+        /// 多结果映射
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="queryDto"></param>
+        /// <returns></returns>
+        protected virtual Task<TResult[]> ArrayResultMapAsync(TEntity[] entities, TQuery queryDto)
+        {
+            var result = _mapper.Map<TResult[]>(entities);
+            return Task.FromResult(result);
+        }
+
+        /// <summary>
         /// 是否存在
         /// </summary>
         /// <param name="queryDto"></param>
@@ -92,7 +116,7 @@ namespace Dry.Application.Services
             var entity = await _repository.FirstAsync(predicates, propertyLoads, orderBys);
             if (entity != null)
             {
-                return _mapper.Map<TResult>(entity);
+                return await SingleResultMapAsync(entity, queryDto);
             }
             return default;
         }
@@ -108,7 +132,7 @@ namespace Dry.Application.Services
             var predicates = GetPredicates(queryDto);
             var orderBys = GetOrderBys(queryDto);
             var entities = await _repository.ToArrayAsync(predicates, propertyLoads, orderBys);
-            return _mapper.Map<TResult[]>(entities);
+            return await ArrayResultMapAsync(entities, queryDto);
         }
 
         /// <summary>
@@ -128,7 +152,7 @@ namespace Dry.Application.Services
             return new PagedResult<TResult>
             {
                 Total = total,
-                Items = _mapper.Map<TResult[]>(entities)
+                Items = await ArrayResultMapAsync(entities, queryDto.Param)
             };
         }
     }
@@ -207,7 +231,7 @@ namespace Dry.Application.Services
         public virtual async Task<TResult> FindAsync([NotNull] TKey id)
         {
             var entity = await _repository.FindAsync(id);
-            return _mapper.Map<TResult>(entity);
+            return await SingleResultMapAsync(entity, default);
         }
     }
 
