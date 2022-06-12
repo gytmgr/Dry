@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.15</Version>
+		<Version>1.1.18</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,8 +15,12 @@
 		<DocumentationFile>Dry.EF.xml</DocumentationFile>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>

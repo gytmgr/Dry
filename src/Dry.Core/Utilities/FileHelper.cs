@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -10,6 +11,25 @@ namespace Dry.Core.Utilities
     /// </summary>
     public static class FileHelper
     {
+        /// <summary>
+        /// base64编码文件扩展名映射
+        /// </summary>
+        public static Dictionary<string, string> Base64ExtMapping { get; } = new(new[]
+        {
+            new KeyValuePair<string, string>("application/msword", "doc"),
+            new KeyValuePair<string, string>("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"),
+            new KeyValuePair<string, string>("application/vnd.ms-excel", "xls"),
+            new KeyValuePair<string, string>("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
+            new KeyValuePair<string, string>("application/vnd.ms-powerpoint", "ppt"),
+            new KeyValuePair<string, string>("application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx"),
+            new KeyValuePair<string, string>("text/plain", "txt"),
+            new KeyValuePair<string, string>("image/jpeg", "jpg"),
+            new KeyValuePair<string, string>("image/svg+xml", "svg"),
+            new KeyValuePair<string, string>("image/x-icon", "ico"),
+            new KeyValuePair<string, string>("audio/mpeg", "mp3"),
+            new KeyValuePair<string, string>("audio/x-m4a", "m4a")
+        });
+
         /// <summary>
         /// 计算文件的md5值
         /// </summary>
@@ -87,13 +107,22 @@ namespace Dry.Core.Utilities
             if (index >= 0)
             {
                 var header = fileData.Substring(0, index);
-                var fromIndex = header.IndexOf("/");
+                var fromIndex = header.IndexOf(":");
                 var toIndex = header.IndexOf(";");
                 if (fromIndex >= 0 && toIndex > fromIndex)
                 {
                     result = header.Substring(fromIndex + 1, toIndex - fromIndex - 1);
                     if (!string.IsNullOrEmpty(result))
                     {
+                        if (Base64ExtMapping.ContainsKey(result))
+                        {
+                            result = Base64ExtMapping[result];
+                        }
+                        else
+                        {
+                            var extIndex = header.IndexOf("/");
+                            result = header.Substring(extIndex + 1, toIndex - extIndex - 1);
+                        }
                         path = $"{path}.{result}";
                     }
                 }

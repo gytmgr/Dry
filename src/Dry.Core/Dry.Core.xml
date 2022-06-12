@@ -548,6 +548,11 @@
             文件操作帮助类
             </summary>
         </member>
+        <member name="P:Dry.Core.Utilities.FileHelper.Base64ExtMapping">
+            <summary>
+            base64编码文件扩展名映射
+            </summary>
+        </member>
         <member name="M:Dry.Core.Utilities.FileHelper.GetMd5Async(System.String)">
             <summary>
             计算文件的md5值

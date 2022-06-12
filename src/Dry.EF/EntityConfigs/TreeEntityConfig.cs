@@ -20,6 +20,11 @@ namespace Dry.EF.EntityConfigs
         where TTreeEntity : class, IEntity<TKey>, TBoundedContext
     {
         /// <summary>
+        /// 表注释
+        /// </summary>
+        protected virtual string TableComment { get; }
+
+        /// <summary>
         /// 实体祖先属性表达式
         /// </summary>
         protected abstract Expression<Func<TTreeEntity, IEnumerable<TTreeEntity>>> AncestorsExpression { get; }
@@ -81,7 +86,10 @@ namespace Dry.EF.EntityConfigs
         {
             base.Configure(builder);
 
-            var tableComment = builder.Metadata.GetComment();
+            if (!string.IsNullOrEmpty(TableComment))
+            {
+                builder.HasComment(TableComment);
+            }
 
             builder.HasMany(AncestorsExpression).WithMany(DescendantsExpression).UsingEntity<TreeAncestorRelation<TTreeEntity, TKey>>(
                 x => AncestorWithMany(x.HasOne(y => y.Ancestor)).HasForeignKey(y => y.AncestorId).OnDelete(DeleteBehavior.Restrict),
@@ -89,12 +97,12 @@ namespace Dry.EF.EntityConfigs
                 x =>
                 {
                     x.ToTable(TableName + "Ancestor");
-                    if (!string.IsNullOrEmpty(tableComment))
+                    if (!string.IsNullOrEmpty(TableComment))
                     {
-                        x.HasComment(tableComment + "祖先关系");
+                        x.HasComment(TableComment + "祖先关系");
                     }
                     x.HasKey(x => new { x.RelationId, x.AncestorId });
-                    x.Property(x => x.RelationId).HasComment(string.IsNullOrEmpty(tableComment) ? "关系" : tableComment + "id");
+                    x.Property(x => x.RelationId).HasComment(string.IsNullOrEmpty(TableComment) ? "关系" : TableComment + "id");
                     x.Property(x => x.AncestorId).HasComment("祖先id");
                 });
         }
