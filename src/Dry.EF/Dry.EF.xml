@@ -86,11 +86,6 @@
             <typeparam name="TTreeEntity"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.TableComment">
-            <summary>
-            表注释
-            </summary>
-        </member>
         <member name="P:Dry.EF.EntityConfigs.TreeEntityConfig`3.AncestorsExpression">
             <summary>
             实体祖先属性表达式
