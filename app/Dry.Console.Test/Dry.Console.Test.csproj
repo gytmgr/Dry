@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Dry.Json\Dry.Json.csproj" />
     <ProjectReference Include="..\..\src\Dry.NPOI\Dry.NPOI.csproj" />
+    <ProjectReference Include="..\..\src\Dry.PinYin\Dry.PinYin.csproj" />
+    <ProjectReference Include="..\..\src\Dry.Quartz\Dry.Quartz.csproj" />
   </ItemGroup>
 
 </Project>
