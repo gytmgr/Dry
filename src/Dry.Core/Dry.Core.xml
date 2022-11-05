@@ -4,6 +4,83 @@
         <name>Dry.Core</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Json.Converter.DryJsonConverter`1">
+            <summary>
+            json转换基类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Json.Converter.DryJsonConverter`1.Write(System.Text.Json.Utf8JsonWriter,`0,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            写
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Dry.Core.Json.Converter.StructJsonConverter`1">
+            <summary>
+            结构转换
+            </summary>
+            <typeparam name="TStruct"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Json.Converter.StructJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Json.Converter.StructNullableJsonConverter`1">
+            <summary>
+            可为空结构转换
+            </summary>
+            <typeparam name="TStruct"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Json.Converter.StructNullableJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns> 
+        </member>
+        <member name="T:Dry.Core.Json.HttpRequesterExtension">
+            <summary>
+            http请求扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Json.HttpRequesterExtension.SetRequestParam(Dry.Core.Utilities.HttpRequester,System.Object)">
+            <summary>
+            设置请求参数
+            </summary>
+            <param name="requester"></param>
+            <param name="param"></param>
+        </member>
+        <member name="M:Dry.Core.Json.HttpRequesterExtension.GetResultAsync``1(Dry.Core.Utilities.HttpRequester,System.Object)">
+            <summary>
+            返回泛型结果
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="requester"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Json.JsonSerializerOptionsExtension">
+            <summary>
+            json序列化参数扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Json.JsonSerializerOptionsExtension.DefaultConfig(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            配置默认参数
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Model.CodeData`1">
             <summary>
             编码数据
