@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.PinYin</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.PinYin.PinYinHelper">
+            <summary>
+            拼音转换工具
+            </summary>
+        </member>
+        <member name="M:Dry.PinYin.PinYinHelper.GetTotalPingYin(System.String)">
+            <summary>
+            获取全拼
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.PinYin.PinYinHelper.FirstCharToUpper(System.String)">
+            <summary>
+            首字母大写
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.PinYin.PinYinConverter">
+            <summary>
+            汉字拼音转换类
+            </summary>
+        </member>
+        <member name="F:Dry.PinYin.PinYinConverter.otherChinese">
+            <summary>
+            二级汉字数组
+            </summary>
+        </member>
+        <member name="F:Dry.PinYin.PinYinConverter.otherPinYin">
+            <summary>
+            二级汉字对应拼音数组
+            </summary>
+        </member>
+        <member name="M:Dry.PinYin.PinYinConverter.GetFirst(System.Char)">
+            <summary>
+            取拼音第一个字段
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.PinYin.PinYinConverter.GetFirst(System.String)">
+            <summary>
+            取拼音第一个字段
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.PinYin.PinYinConverter.Get(System.Char)">
+            <summary>
+            获取单字拼音
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.PinYin.PinYinConverter.Get(System.String)">
+            <summary>
+            把汉字转换成拼音(全拼)
+            </summary>
+            <param name="str">汉字字符串</param>
+            <returns>转换后的拼音(全拼)字符串</returns>
+        </member>
+        <member name="T:Dry.PinYin.PingYinModel">
+            <summary>
+            返回模型
+            </summary>
+        </member>
+        <member name="M:Dry.PinYin.PingYinModel.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
+        <member name="P:Dry.PinYin.PingYinModel.TotalPingYin">
+            <summary>
+            全拼
+            </summary>
+        </member>
+        <member name="P:Dry.PinYin.PingYinModel.FirstPingYin">
+            <summary>
+            首拼
+            </summary>
+        </member>
+        <member name="P:Dry.PinYin.PingYinModel.ListPinYin">
+            <summary>
+            列表拼音
+            </summary>
+        </member>
+    </members>
+</doc>
