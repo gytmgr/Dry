@@ -1,24 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.12</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Core.xml</DocumentationFile>
+		<Description>对微软DI的封装</Description>
+		<Version>1.1.13</Version>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>Dry.Core.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Core.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
 
 </Project>

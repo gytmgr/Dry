@@ -74,6 +74,24 @@ namespace Dry.Core.Utilities
         }
 
         /// <summary>
+        /// 转大写
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ToStringUpper<T>(this T obj)
+        => obj?.ToString().ToUpper();
+
+        /// <summary>
+        /// 转小写
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ToStringLower<T>(this T obj)
+        => obj?.ToString().ToLower();
+
+        /// <summary>
         /// 对象转url参数
         /// </summary>
         /// <param name="obj"></param>
