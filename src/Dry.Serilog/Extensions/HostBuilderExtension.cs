@@ -18,7 +18,7 @@ namespace Dry.Serilog.Extensions
         /// <param name="rollingInterval">写文件的滚动频率</param>
         /// <param name="filePathConfigName">日志路径在AppSettings的配置名称</param>
         /// <returns></returns>
-        public static IHostBuilder UseDrySerilog(this IHostBuilder hostBuilder, LogEventLevel writeFileMinimumLevel = LogEventLevel.Warning, RollingInterval rollingInterval = RollingInterval.Day, string filePathConfigName = "LogFilePath")
+        public static IHostBuilder UseDrySerilog(this IHostBuilder hostBuilder, LogEventLevel writeFileMinimumLevel = LogEventLevel.Error, RollingInterval rollingInterval = RollingInterval.Day, string filePathConfigName = "LogFilePath")
         {
             return hostBuilder.UseSerilog((hostBuilderConfig, loggerConfig) =>
             {
