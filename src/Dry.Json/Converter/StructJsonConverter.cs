@@ -18,7 +18,12 @@ namespace Dry.Json.Converter
         /// <param name="options"></param>
         /// <returns></returns>
         public override TStruct Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            => reader.GetString().TryParse<TStruct>(out var value) ? value : default;
+            => (reader.TokenType switch
+            {
+                JsonTokenType.Number => reader.GetInt64().ToString(),
+                JsonTokenType.True or JsonTokenType.False => reader.GetBoolean().ToString(),
+                _ => reader.GetString()
+            }).TryParse<TStruct>(out var value) ? value : default;
     }
 
     /// <summary>
@@ -35,6 +40,11 @@ namespace Dry.Json.Converter
         /// <param name="options"></param>
         /// <returns></returns> 
         public override TStruct? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            => reader.GetString().TryParse<TStruct>(out var value) ? value : null;
+            => (reader.TokenType switch
+            {
+                JsonTokenType.Number => reader.GetInt64().ToString(),
+                JsonTokenType.True or JsonTokenType.False => reader.GetBoolean().ToString(),
+                _ => reader.GetString()
+            }).TryParse<TStruct>(out var value) ? value : null;
     }
 }

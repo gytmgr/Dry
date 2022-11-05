@@ -1,32 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Authors>gan</Authors>
-    <Company>Dry</Company>
-    <Version>1.0.1</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<Company>Dry</Company>
+		<Authors>gan</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>Dry.Json.xml</DocumentationFile>
+		<Description>对微软Json的封装</Description>
+		<Version>1.0.2</Version>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Dry.Json.xml</DocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+		<PackageReference Include="System.Text.Json" Version="5.0.0" />
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Dry.Json.xml</DocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="System.Text.Json" Version="6.0.5" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Dry.Json.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+	</ItemGroup>
 
 </Project>
