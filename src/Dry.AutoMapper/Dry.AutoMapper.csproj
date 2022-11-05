@@ -1,33 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Authors>gan</Authors>
-    <Company>Dry</Company>
-    <Version>1.0.3</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<Company>Dry</Company>
+		<Authors>gan</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>Dry.AutoMapper.xml</DocumentationFile>
+		<Description>对AutoMapper的一些封装</Description>
+		<Version>1.0.4</Version>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Dry.AutoMapper.xml</DocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Dry.AutoMapper.xml</DocumentationFile>
-  </PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Dry.AutoMapper.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+		<ProjectReference Include="..\Dry.Dependency\Dry.Dependency.csproj" />
+	</ItemGroup>
 
 </Project>

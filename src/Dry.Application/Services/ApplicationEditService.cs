@@ -78,6 +78,7 @@ namespace Dry.Application.Services
             _mapper.Map(editDto, entity);
             await SetEditEntityAsync(entity, editDto);
             await _unitOfWork.CompleteAsync();
+            await EditedAsync(entity, editDto);
             return _mapper.Map<TResult>(entity);
         }
 
@@ -87,7 +88,7 @@ namespace Dry.Application.Services
         /// <param name="entity"></param>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        protected virtual async Task CreatedAsync(TEntity entity, TEdit createDto)
+        protected virtual async Task EditedAsync(TEntity entity, TEdit createDto)
         {
             if (entity is IEdit editEntity && await editEntity.EditedAsync(_serviceProvider))
             {
@@ -164,6 +165,7 @@ namespace Dry.Application.Services
             _mapper.Map(editDto, entity);
             await SetEditEntityAsync(entity, editDto);
             await _unitOfWork.CompleteAsync();
+            await EditedAsync(entity, editDto);
             return _mapper.Map<TResult>(entity);
         }
 
@@ -173,7 +175,7 @@ namespace Dry.Application.Services
         /// <param name="entity"></param>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        protected virtual async Task CreatedAsync(TEntity entity, TEdit createDto)
+        protected virtual async Task EditedAsync(TEntity entity, TEdit createDto)
         {
             if (entity is IEdit editEntity && await editEntity.EditedAsync(_serviceProvider))
             {

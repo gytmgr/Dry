@@ -40,6 +40,12 @@ namespace Dry.AutoMapper.Mapping
             CreateMap<DryData<bool?>, bool?>().ConvertUsing(MappingFunction);
             CreateMap<DryData<DateTime>, DateTime>().ConvertUsing(MappingFunction);
             CreateMap<DryData<DateTime?>, DateTime?>().ConvertUsing(MappingFunction);
+#if NET6_0
+            CreateMap<DryData<DateOnly>, DateOnly>().ConvertUsing(MappingFunction);
+            CreateMap<DryData<DateOnly?>, DateOnly?>().ConvertUsing(MappingFunction);
+            CreateMap<DryData<TimeOnly>, TimeOnly>().ConvertUsing(MappingFunction);
+            CreateMap<DryData<TimeOnly?>, TimeOnly?>().ConvertUsing(MappingFunction);
+#endif
             CreateMap<DryData<TimeSpan>, TimeSpan>().ConvertUsing(MappingFunction);
             CreateMap<DryData<TimeSpan?>, TimeSpan?>().ConvertUsing(MappingFunction);
 
@@ -69,6 +75,12 @@ namespace Dry.AutoMapper.Mapping
             CreateMap<bool?, DryData<bool?>>().ConvertUsing(MappingFunction);
             CreateMap<DateTime, DryData<DateTime>>().ConvertUsing(MappingFunction);
             CreateMap<DateTime?, DryData<DateTime?>>().ConvertUsing(MappingFunction);
+#if NET6_0
+            CreateMap<DateOnly, DryData<DateOnly>>().ConvertUsing(MappingFunction);
+            CreateMap<DateOnly?, DryData<DateOnly?>>().ConvertUsing(MappingFunction);
+            CreateMap<TimeOnly, DryData<TimeOnly>>().ConvertUsing(MappingFunction);
+            CreateMap<TimeOnly?, DryData<TimeOnly?>>().ConvertUsing(MappingFunction);
+#endif
             CreateMap<TimeSpan, DryData<TimeSpan>>().ConvertUsing(MappingFunction);
             CreateMap<TimeSpan?, DryData<TimeSpan?>>().ConvertUsing(MappingFunction);
         }

@@ -290,6 +290,7 @@ namespace Dry.Application.Services
             await SetDeleteEntityAsync(entity);
             await _repository.RemoveAsync(entity);
             await _unitOfWork.CompleteAsync();
+            await DeletedAsync(entity);
             return _mapper.Map<TResult>(entity);
         }
 

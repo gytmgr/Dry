@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Dry.Core.Utilities;
+using Dry.Dependency;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Dry.AutoMapper
 {
@@ -21,26 +19,14 @@ namespace Dry.AutoMapper
         /// <returns></returns>
         public static IServiceCollection AddCustomAutoMapper(this IServiceCollection services, params string[] prefixs)
         {
-            var prefixList = new List<string> { "Dry." };
+            var prefixList = new string[] { "Dry." };
             if (prefixs is not null)
             {
-                prefixList = prefixList.Union(prefixs).ToList();
+                prefixList = prefixList.Union(prefixs).ToArray();
             }
-            var profileAssemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(x => prefixList.Any(y => x.Name.StartsWith(y)))
-                .Select(x =>
-                {
-                    try
-                    {
-                        return Assembly.Load(new AssemblyName(x.Name));
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                })
+            var profileAssemblies = AssemblyHelper.GetAll(prefixList)
                 .Where(x => x is not null)
-                .Where(x => x.GetTypes().Any(y => y.IsDerivedFrom(typeof(Profile))))
+                .Where(x => x.GetTypes().Any(y => y.IsAssignableFrom(typeof(Profile))))
                 .ToArray();
             services.AddAutoMapper(profileAssemblies);
             return services;
