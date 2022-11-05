@@ -1,0 +1,997 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Quartz</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Quartz.Infrastructure.JobBase`2">
+            <summary>
+            /作业基类
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobBase`2.Execute(Quartz.IJobExecutionContext,`0,`1)">
+            <summary>
+            执行
+            </summary>
+            <param name="context"></param>
+            <param name="job"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobBase`2.Execute(Quartz.IJobExecutionContext)">
+            <summary>
+            执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Infrastructure.JobListenerBase`2">
+            <summary>
+            作业监听器基类
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+        </member>
+        <member name="P:Dry.Quartz.Infrastructure.JobListenerBase`2.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobToBeExecuted(Quartz.IJobExecutionContext,System.Threading.CancellationToken)">
+            <summary>
+            执行前
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobToBeExecuted(Quartz.IJobExecutionContext,`0,`1)">
+            <summary>
+            执行前
+            </summary>
+            <param name="context"></param>
+            <param name="job"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobExecutionVetoed(Quartz.IJobExecutionContext,System.Threading.CancellationToken)">
+            <summary>
+            被否决
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobExecutionVetoed(Quartz.IJobExecutionContext,`0,`1)">
+            <summary>
+            被否决
+            </summary>
+            <param name="context"></param>
+            <param name="job"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobWasExecuted(Quartz.IJobExecutionContext,Quartz.JobExecutionException,System.Threading.CancellationToken)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context"></param>
+            <param name="jobException"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.JobListenerBase`2.JobWasExecuted(Quartz.IJobExecutionContext,`0,`1)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context"></param>
+            <param name="job"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Infrastructure.SchedulerListenerBase`2">
+            <summary>
+            调度监听器基类
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerStarting(System.Threading.CancellationToken)">
+            <summary>
+            调度开启前
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerStarted(System.Threading.CancellationToken)">
+            <summary>
+            调度开启后
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerInStandbyMode(System.Threading.CancellationToken)">
+            <summary>
+            调度进入待机模式
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulingDataCleared(System.Threading.CancellationToken)">
+            <summary>
+            调度清除后
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerShuttingdown(System.Threading.CancellationToken)">
+            <summary>
+            调度停止前
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerShutdown(System.Threading.CancellationToken)">
+            <summary>
+            调度停止后
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.SchedulerError(System.String,Quartz.SchedulerException,System.Threading.CancellationToken)">
+            <summary>
+            调度错误
+            </summary>
+            <param name="msg"></param>
+            <param name="cause"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobAdded(Quartz.IJobDetail,System.Threading.CancellationToken)">
+            <summary>
+            作业添加后
+            </summary>
+            <param name="jobDetail"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobAdded(Quartz.IJobDetail,`0)">
+            <summary>
+            作业添加后
+            </summary>
+            <param name="jobDetail"></param>
+            <param name="job"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobScheduled(Quartz.ITrigger,System.Threading.CancellationToken)">
+            <summary>
+            作业添加触发器调度后
+            </summary>
+            <param name="trigger"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobScheduled(Quartz.ITrigger,`1)">
+            <summary>
+            作业添加触发器调度后
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobUnscheduled(Quartz.TriggerKey,System.Threading.CancellationToken)">
+            <summary>
+            作业解除触发器调度后
+            </summary>
+            <param name="triggerKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobPaused(Quartz.JobKey,System.Threading.CancellationToken)">
+            <summary>
+            作业暂停后
+            </summary>
+            <param name="jobKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobsPaused(System.String,System.Threading.CancellationToken)">
+            <summary>
+            作业组暂停后
+            </summary>
+            <param name="jobGroup"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobResumed(Quartz.JobKey,System.Threading.CancellationToken)">
+            <summary>
+            作业恢复后
+            </summary>
+            <param name="jobKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobsResumed(System.String,System.Threading.CancellationToken)">
+            <summary>
+            作业组恢复后
+            </summary>
+            <param name="jobGroup"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobInterrupted(Quartz.JobKey,System.Threading.CancellationToken)">
+            <summary>
+            作业打断后
+            </summary>
+            <param name="jobKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.JobDeleted(Quartz.JobKey,System.Threading.CancellationToken)">
+            <summary>
+            作业删除后
+            </summary>
+            <param name="jobKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggerPaused(Quartz.TriggerKey,System.Threading.CancellationToken)">
+            <summary>
+            触发器暂停后
+            </summary>
+            <param name="triggerKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggersPaused(System.String,System.Threading.CancellationToken)">
+            <summary>
+            触发器组暂停后
+            </summary>
+            <param name="triggerGroup"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggerResumed(Quartz.TriggerKey,System.Threading.CancellationToken)">
+            <summary>
+            触发器恢复后
+            </summary>
+            <param name="triggerKey"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggersResumed(System.String,System.Threading.CancellationToken)">
+            <summary>
+            触发器组恢复后
+            </summary>
+            <param name="triggerGroup"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggerFinalized(Quartz.ITrigger,System.Threading.CancellationToken)">
+            <summary>
+            触发器结束后
+            </summary>
+            <param name="trigger"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.SchedulerListenerBase`2.TriggerFinalized(Quartz.ITrigger,`1)">
+            <summary>
+            触发器结束后
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Infrastructure.TriggerListenerBase`2">
+            <summary>
+            触发器监听器基类
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+        </member>
+        <member name="P:Dry.Quartz.Infrastructure.TriggerListenerBase`2.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerFired(Quartz.ITrigger,Quartz.IJobExecutionContext,System.Threading.CancellationToken)">
+            <summary>
+            触发后
+            </summary>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerFired(Quartz.ITrigger,`1,Quartz.IJobExecutionContext)">
+            <summary>
+            触发后
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.VetoJobExecution(Quartz.ITrigger,Quartz.IJobExecutionContext,System.Threading.CancellationToken)">
+            <summary>
+            否决触发
+            </summary>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.VetoJobExecution(Quartz.ITrigger,`1,Quartz.IJobExecutionContext)">
+            <summary>
+            否决触发
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerMisfired(Quartz.ITrigger,System.Threading.CancellationToken)">
+            <summary>
+            触发丢失后
+            </summary>
+            <param name="trigger"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerMisfired(Quartz.ITrigger,`1)">
+            <summary>
+            触发丢失后
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerComplete(Quartz.ITrigger,Quartz.IJobExecutionContext,Quartz.SchedulerInstruction,System.Threading.CancellationToken)">
+            <summary>
+            完成
+            </summary>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <param name="triggerInstructionCode"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Infrastructure.TriggerListenerBase`2.TriggerComplete(Quartz.ITrigger,`1,Quartz.IJobExecutionContext,Quartz.SchedulerInstruction)">
+            <summary>
+            完成
+            </summary>
+            <param name="quartzTrigger"></param>
+            <param name="trigger"></param>
+            <param name="context"></param>
+            <param name="triggerInstructionCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Model.JobModel">
+            <summary>
+            作业模型
+            </summary>
+        </member>
+        <member name="F:Dry.Quartz.Model.JobModel.MapKey">
+            <summary>
+            映射键
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.JobModel.Key">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.JobModel.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.JobModel.ExecutedCount">
+            <summary>
+            已执行次数
+            </summary>
+        </member>
+        <member name="T:Dry.Quartz.Model.QuartzKey">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="F:Dry.Quartz.Model.QuartzKey.DefaultName">
+            <summary>
+            默认名称
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.QuartzKey.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.QuartzKey.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="T:Dry.Quartz.Model.SchedulerModel">
+            <summary>
+            调度模型
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.Started">
+            <summary>
+            是否已启动
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.InStandbyMode">
+            <summary>
+            是否待启动
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.Shutdown">
+            <summary>
+            是否已停止
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.Version">
+            <summary>
+            Quartz包版本
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.RunningSince">
+            <summary>
+            启动时间
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SchedulerModel.NumberOfJobsExecuted">
+            <summary>
+            已执行数量
+            </summary>
+        </member>
+        <member name="T:Dry.Quartz.Model.TriggerModel">
+            <summary>
+            触发器模型
+            </summary>
+        </member>
+        <member name="F:Dry.Quartz.Model.TriggerModel.MapKey">
+            <summary>
+            映射键
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.Key">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.JobKey">
+            <summary>
+            作业主键
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.StartTime">
+            <summary>
+            开始执行时间
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.EndTime">
+            <summary>
+            结束执行时间
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.Interval">
+            <summary>
+            执行间隔
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.RepeatCount">
+            <summary>
+            重复执行次数（-1：一直重复）
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.ExecutedCount">
+            <summary>
+            已执行次数
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.TriggerModel.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="T:Dry.Quartz.QuartzExtension">
+            <summary>
+            Quartz
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.QuartzExtension.AddCustomQuartz(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String[])">
+            <summary>
+            添加Quartz扩展服务注册
+            </summary>
+            <param name="services"></param>
+            <param name="prefixs">程序集名称前缀</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.QuartzExtension.BuildTrigger(Dry.Quartz.Model.TriggerModel,Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            创建触发器
+            </summary>
+            <param name="trigger"></param>
+            <param name="jobKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.QuartzExtension.ToJobKey(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            转作业主键
+            </summary>
+            <param name="jobKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.QuartzExtension.ToTriggerKey(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            转触发器主键
+            </summary>
+            <param name="triggerKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.IJobListenService">
+            <summary>
+            作业监听服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.Add``3(``2,Dry.Quartz.Model.QuartzKey[])">
+            <summary>
+            添加
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TJobListener"></typeparam>
+            <param name="jobListener"></param>
+            <param name="jobKeys"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.Add``3(``2,System.String[])">
+            <summary>
+            添加
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TJobListener"></typeparam>
+            <param name="jobListener"></param>
+            <param name="jobGroups"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.Remove(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.AddMatch(System.String,Dry.Quartz.Model.QuartzKey[])">
+            <summary>
+            增加作业监听
+            </summary>
+            <param name="name"></param>
+            <param name="jobKeys"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.AddMatch(System.String,System.String[])">
+            <summary>
+            增加作业组监听
+            </summary>
+            <param name="name"></param>
+            <param name="jobGroups"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.RemoveMatch(System.String,Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            移除作业监听
+            </summary>
+            <param name="name"></param>
+            <param name="jobKey"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.RemoveMatch(System.String,System.String)">
+            <summary>
+            移除作业组监听
+            </summary>
+            <param name="name"></param>
+            <param name="jobGroup"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.Get``3">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TJobListener"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.Get``3(System.String)">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TJobListener"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobListenService.IsMatch(System.String,Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            作业是否监听
+            </summary>
+            <param name="name"></param>
+            <param name="jobKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.IJobService">
+            <summary>
+            作业服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.AnyAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.AddAsync``3(``0,``1[])">
+            <summary>
+            新增
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TJob"></typeparam>
+            <param name="job"></param>
+            <param name="triggers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.DeleteAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            删除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.PauseAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            暂停
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.PauseAsync(System.String)">
+            <summary>
+            暂停组
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.ResumeAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            恢复
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.ResumeAsync(System.String)">
+            <summary>
+            恢复组
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.ExecuteAsync``1(``0)">
+            <summary>
+            立即执行一次
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <param name="job"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.GetAsync``1">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.GetByGroupAsync``1(System.String)">
+            <summary>
+            查询组
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.GetAsync``1(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IJobService.GetTriggerAsync``1(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.IScheduleListenService">
+            <summary>
+            调度监听服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleListenService.Add``3(``2)">
+            <summary>
+            添加
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TSchedulerListener"></typeparam>
+            <param name="schedulerListener"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleListenService.Remove``3(``2)">
+            <summary>
+            删除
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TSchedulerListener"></typeparam>
+            <param name="schedulerListener"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleListenService.Get``3">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TSchedulerListener"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.IScheduleService">
+            <summary>
+            调度服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.StartAsync">
+            <summary>
+            开启
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.StandbyAsync">
+            <summary>
+            待机
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.ShutdownAsync(System.Boolean)">
+            <summary>
+            停止
+            </summary>
+            <param name="waitForJobsToComplete"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.PauseAsync">
+            <summary>
+            暂停
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.ResumeAsync">
+            <summary>
+            恢复
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.ClearAsync">
+            <summary>
+            清除
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.IScheduleService.GetAsync">
+            <summary>
+            查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.ITriggerListenService">
+            <summary>
+            触发器监听服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.Add``3(``2,Dry.Quartz.Model.QuartzKey[])">
+            <summary>
+            添加
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TTriggerListener"></typeparam>
+            <param name="triggerListener"></param>
+            <param name="triggerKeys"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.Add``3(``2,System.String[])">
+            <summary>
+            添加
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TTriggerListener"></typeparam>
+            <param name="triggerListener"></param>
+            <param name="triggerGroups"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.Remove(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.AddMatch(System.String,Dry.Quartz.Model.QuartzKey[])">
+            <summary>
+            增加触发器监听
+            </summary>
+            <param name="name"></param>
+            <param name="triggerKeys"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.AddMatch(System.String,System.String[])">
+            <summary>
+            增加触发器组监听
+            </summary>
+            <param name="name"></param>
+            <param name="triggerGroups"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.RemoveMatch(System.String,Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            移除触发器监听
+            </summary>
+            <param name="name"></param>
+            <param name="triggerKey"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.RemoveMatch(System.String,System.String)">
+            <summary>
+            移除触发器组监听
+            </summary>
+            <param name="name"></param>
+            <param name="triggerGroup"></param>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.Get``3">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TTriggerListener"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.Get``3(System.String)">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TJobModel"></typeparam>
+            <typeparam name="TTriggerModel"></typeparam>
+            <typeparam name="TTriggerListener"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerListenService.IsMatch(System.String,Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            触发器是否监听
+            </summary>
+            <param name="name"></param>
+            <param name="triggerKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Service.ITriggerService">
+            <summary>
+            触发器服务接口
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.AnyAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            是否存在
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.AddAsync``1(Dry.Quartz.Model.QuartzKey,``0)">
+            <summary>
+            新增
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <param name="jobKey"></param>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.DeleteAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            删除
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.PauseAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            暂停
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.PauseAsync(System.String)">
+            <summary>
+            暂停组
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.ResumeAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            恢复
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.ResumeAsync(System.String)">
+            <summary>
+            恢复组
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.ReplaceAsync``1(Dry.Quartz.Model.QuartzKey,``0)">
+            <summary>
+            替换
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <param name="oldTriggerKey"></param>
+            <param name="newTrigger"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.GetAsync``1">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.GetByGroupAsync``1(System.String)">
+            <summary>
+            查询组
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.GetAsync``1(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            查询
+            </summary>
+            <typeparam name="TTriggerModel"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Quartz.Service.ITriggerService.GetStateAsync(Dry.Quartz.Model.QuartzKey)">
+            <summary>
+            查询状态
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
