@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Dependency</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Dependency.AssemblyHelper">
+            <summary>
+            程序集扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Dependency.AssemblyHelper.GetAll(System.String[])">
+            <summary>
+            获取所有程序集
+            </summary>
+            <param name="prefixs">要筛选的程序集前缀</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Dependency.IDependency`1">
+            <summary>
+            依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Dry.Dependency.ServiceCollectionExtension">
+            <summary>
+            依赖注入扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Dependency.ServiceCollectionExtension.AddDependency(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注入实现IDependency接口的类型
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
