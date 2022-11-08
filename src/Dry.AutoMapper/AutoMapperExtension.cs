@@ -26,7 +26,7 @@ namespace Dry.AutoMapper
             }
             var profileAssemblies = AssemblyHelper.GetAll(prefixList)
                 .Where(x => x is not null)
-                .Where(x => x.GetTypes().Any(y => y.IsAssignableFrom(typeof(Profile))))
+                .Where(x => x.GetTypes().Any(y => typeof(Profile).IsAssignableFrom(y)))
                 .ToArray();
             services.AddAutoMapper(profileAssemblies);
             return services;
