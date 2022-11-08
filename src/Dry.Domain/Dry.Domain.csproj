@@ -1,32 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-		<Authors>gan</Authors>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
-		<Version>1.1.14</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Authors>gan</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Domain.xml</DocumentationFile>
+		<Description>领域层</Description>
+		<Version>1.1.15</Version>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>Dry.Domain.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Domain.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<ProjectReference Include="..\Dry.Dependency\Dry.Dependency.csproj" />
 	</ItemGroup>
 
 </Project>
