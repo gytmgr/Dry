@@ -25,9 +25,10 @@ namespace Dry.Quartz.Service.Impl
             where TTriggerModel : TriggerModel
             where TJob : JobBase<TJobModel, TTriggerModel>
         {
-            if (triggers.Any(x => x.Interval == default && x.RepeatCount != 0))
+            var msgs = triggers.Select(x => new { x.Key, Msg = x.Check() }).Where(x => x.Msg is not null).Select(x => $"【Name:{x.Key.Name},Group:{x.Key.Group}】参数错误【{x.Msg}】").ToArray();
+            if (msgs.Length > 0)
             {
-                throw new AggregateException("执行多次时，必须有间隔时间");
+                throw new AggregateException(string.Join(",", msgs));
             }
             var quartzJobKey = job.Key.ToJobKey();
             if (!await _scheduler.CheckExists(quartzJobKey))

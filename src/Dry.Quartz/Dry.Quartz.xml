@@ -371,6 +371,85 @@
             <param name="triggerInstructionCode"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Quartz.Model.CalendarTriggerModel">
+            <summary>
+            日间间隔触发器
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.CalendarTriggerModel.Unit">
+            <summary>
+            间隔单位
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.CalendarTriggerModel.Interval">
+            <summary>
+            间隔值
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Model.CalendarTriggerModel.Check">
+            <summary>
+            检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Model.CronTriggerModel">
+            <summary>
+            Cron表达式触发器
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.CronTriggerModel.CronExpression">
+            <summary>
+            Cron表达式
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Model.CronTriggerModel.Check">
+            <summary>
+            检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Quartz.Model.DailyTriggerModel">
+            <summary>
+            日内间隔触发器
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.DayOfWeeks">
+            <summary>
+            每周执行日
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.StartTimeOfDay">
+            <summary>
+            每日开始执行时间
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.EndTimeOfDay">
+            <summary>
+            每日结束执行时间
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.IntervalSecond">
+            <summary>
+            日内执行间隔（秒）（1至86400]）
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.CountOfDay">
+            <summary>
+            每日执行次数
+            EndTimeOfDay有值时无效
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.DailyTriggerModel.RepeatCount">
+            <summary>
+            重复执行次数（-1：一直重复）
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Model.DailyTriggerModel.Check">
+            <summary>
+            检查
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Quartz.Model.JobModel">
             <summary>
             作业模型
@@ -456,6 +535,27 @@
             已执行数量
             </summary>
         </member>
+        <member name="T:Dry.Quartz.Model.SimpleTriggerModel">
+            <summary>
+            简单触发器
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SimpleTriggerModel.Interval">
+            <summary>
+            执行间隔
+            </summary>
+        </member>
+        <member name="P:Dry.Quartz.Model.SimpleTriggerModel.RepeatCount">
+            <summary>
+            重复执行次数（-1：一直重复）
+            </summary>
+        </member>
+        <member name="M:Dry.Quartz.Model.SimpleTriggerModel.Check">
+            <summary>
+            检查
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Quartz.Model.TriggerModel">
             <summary>
             触发器模型
@@ -491,16 +591,6 @@
             结束执行时间
             </summary>
         </member>
-        <member name="P:Dry.Quartz.Model.TriggerModel.Interval">
-            <summary>
-            执行间隔
-            </summary>
-        </member>
-        <member name="P:Dry.Quartz.Model.TriggerModel.RepeatCount">
-            <summary>
-            重复执行次数（-1：一直重复）
-            </summary>
-        </member>
         <member name="P:Dry.Quartz.Model.TriggerModel.ExecutedCount">
             <summary>
             已执行次数
@@ -510,6 +600,12 @@
             <summary>
             状态
             </summary>
+        </member>
+        <member name="M:Dry.Quartz.Model.TriggerModel.Check">
+            <summary>
+            检查
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Dry.Quartz.QuartzExtension">
             <summary>
@@ -524,10 +620,11 @@
             <param name="prefixs">程序集名称前缀</param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Quartz.QuartzExtension.BuildTrigger(Dry.Quartz.Model.TriggerModel,Dry.Quartz.Model.QuartzKey)">
+        <member name="M:Dry.Quartz.QuartzExtension.BuildTrigger``1(``0,Dry.Quartz.Model.QuartzKey)">
             <summary>
             创建触发器
             </summary>
+            <typeparam name="TTriggerModel"></typeparam>
             <param name="trigger"></param>
             <param name="jobKey"></param>
             <returns></returns>

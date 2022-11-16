@@ -39,16 +39,6 @@ namespace Dry.Quartz.Model
         public DateTime? EndTime { get; set; }
 
         /// <summary>
-        /// 执行间隔
-        /// </summary>
-        public TimeSpan Interval { get; set; }
-
-        /// <summary>
-        /// 重复执行次数（-1：一直重复）
-        /// </summary>
-        public int RepeatCount { get; set; }
-
-        /// <summary>
         /// 已执行次数
         /// </summary>
         public int ExecutedCount { get; internal set; }
@@ -57,5 +47,11 @@ namespace Dry.Quartz.Model
         /// 状态
         /// </summary>
         public TriggerState State { get; internal set; }
+
+        /// <summary>
+        /// 检查
+        /// </summary>
+        /// <returns></returns>
+        public virtual string Check() => null;
     }
 }

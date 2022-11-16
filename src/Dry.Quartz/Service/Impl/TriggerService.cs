@@ -22,9 +22,10 @@ namespace Dry.Quartz.Service.Impl
         public async Task<bool> AddAsync<TTriggerModel>(QuartzKey jobKey, TTriggerModel trigger)
             where TTriggerModel : TriggerModel
         {
-            if (trigger.Interval == default && trigger.RepeatCount != 0)
+            var msg = trigger.Check();
+            if (msg is not null)
             {
-                throw new AggregateException("执行多次时，必须有间隔时间");
+                throw new AggregateException(msg);
             }
             var quartzTrigger = trigger.BuildTrigger(jobKey);
             if (await _scheduler.CheckExists(quartzTrigger.JobKey) && !await _scheduler.CheckExists(quartzTrigger.Key))
@@ -54,9 +55,10 @@ namespace Dry.Quartz.Service.Impl
         public async Task<bool> ReplaceAsync<TTriggerModel>(QuartzKey oldTriggerKey, TTriggerModel newTrigger)
             where TTriggerModel : TriggerModel
         {
-            if (newTrigger.Interval == default && newTrigger.RepeatCount != 0)
+            var msg = newTrigger.Check();
+            if (msg is not null)
             {
-                throw new AggregateException("执行多次时，必须有间隔时间");
+                throw new AggregateException(msg);
             }
             var quartzTriggerKey = oldTriggerKey.ToTriggerKey();
             var quartzTrigger = await _scheduler.GetTrigger(quartzTriggerKey);

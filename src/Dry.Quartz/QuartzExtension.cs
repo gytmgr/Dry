@@ -56,15 +56,54 @@ namespace Dry.Quartz
         /// <summary>
         /// 创建触发器
         /// </summary>
+        /// <typeparam name="TTriggerModel"></typeparam>
         /// <param name="trigger"></param>
         /// <param name="jobKey"></param>
         /// <returns></returns>
-        internal static ITrigger BuildTrigger(this TriggerModel trigger, QuartzKey jobKey)
+        internal static ITrigger BuildTrigger<TTriggerModel>(this TTriggerModel trigger, QuartzKey jobKey) where TTriggerModel : TriggerModel
         {
             trigger.JobKey = jobKey;
             var triggerKey = trigger.Key.ToTriggerKey();
             var triggerBuilder = TriggerBuilder.Create().WithIdentity(triggerKey).WithDescription(trigger.Description)
-                .ForJob(jobKey.ToJobKey()).WithSimpleSchedule(x => x.WithInterval(trigger.Interval).WithRepeatCount(trigger.RepeatCount));
+                .ForJob(jobKey.ToJobKey());
+            switch (trigger)
+            {
+                case SimpleTriggerModel simpleTrigger:
+                    triggerBuilder = triggerBuilder.WithSimpleSchedule(x => x.WithInterval(simpleTrigger.Interval).WithRepeatCount(simpleTrigger.RepeatCount));
+                    break;
+                case DailyTriggerModel dailyTimeIntervalTrigger:
+                    triggerBuilder = triggerBuilder.WithDailyTimeIntervalSchedule(x =>
+                    {
+                        x.WithIntervalInSeconds(dailyTimeIntervalTrigger.IntervalSecond).WithRepeatCount(dailyTimeIntervalTrigger.RepeatCount);
+                        if (dailyTimeIntervalTrigger.DayOfWeeks?.Length > 0)
+                        {
+                            x.OnDaysOfTheWeek(dailyTimeIntervalTrigger.DayOfWeeks);
+                        }
+                        else
+                        {
+                            x.OnEveryDay();
+                        }
+                        if (dailyTimeIntervalTrigger.StartTimeOfDay is not null)
+                        {
+                            x.StartingDailyAt(dailyTimeIntervalTrigger.StartTimeOfDay);
+                            if (dailyTimeIntervalTrigger.CountOfDay.HasValue)
+                            {
+                                x.EndingDailyAfterCount(dailyTimeIntervalTrigger.CountOfDay.Value);
+                            }
+                        }
+                        if (dailyTimeIntervalTrigger.EndTimeOfDay is not null)
+                        {
+                            x.EndingDailyAt(dailyTimeIntervalTrigger.EndTimeOfDay);
+                        }
+                    });
+                    break;
+                case CalendarTriggerModel calendarTrigger:
+                    triggerBuilder = triggerBuilder.WithCalendarIntervalSchedule(x => x.WithInterval(calendarTrigger.Interval, calendarTrigger.Unit));
+                    break;
+                case CronTriggerModel cronTrigger:
+                    triggerBuilder = triggerBuilder.WithCronSchedule(cronTrigger.CronExpression);
+                    break;
+            }
             if (trigger.StartTime.HasValue)
             {
                 triggerBuilder = triggerBuilder.StartAt(trigger.StartTime.Value);
