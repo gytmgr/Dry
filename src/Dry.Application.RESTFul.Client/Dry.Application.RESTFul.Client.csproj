@@ -1,29 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.5</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
+		<Description>RESTFul客户端</Description>
+		<Version>1.1.6</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
-		<ProjectReference Include="..\Dry.Json\Dry.Json.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Application.RESTFul.Client.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 </Project>
