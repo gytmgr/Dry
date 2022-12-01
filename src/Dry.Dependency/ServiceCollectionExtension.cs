@@ -23,15 +23,32 @@ namespace Dry.Dependency
                 .ToArray();
             foreach (var implType in implTypes)
             {
-                var serviceTypes = implType.GetInterfaces()
-                    .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IDependency<>))
-                    .Select(x => x.GenericTypeArguments.ElementAt(0))
-                    .ToArray();
+                var genericTypes = implType.GetInterfaces().Where(x => x.IsGenericType).ToArray();
+
+                var serviceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(IDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
                 foreach (var serviceType in serviceTypes)
                 {
                     if (serviceType.IsAssignableFrom(implType))
                     {
                         services.AddScoped(serviceType, implType);
+                    }
+                }
+
+                var transientServiceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(ITransientDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
+                foreach (var transientServiceType in transientServiceTypes)
+                {
+                    if (transientServiceType.IsAssignableFrom(implType))
+                    {
+                        services.AddScoped(transientServiceType, implType);
+                    }
+                }
+
+                var singletonServiceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(ISingletonDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
+                foreach (var singletonServiceType in singletonServiceTypes)
+                {
+                    if (singletonServiceType.IsAssignableFrom(implType))
+                    {
+                        services.AddScoped(singletonServiceType, implType);
                     }
                 }
             }

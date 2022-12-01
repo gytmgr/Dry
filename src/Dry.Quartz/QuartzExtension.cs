@@ -36,19 +36,16 @@ namespace Dry.Quartz
             {
                 prefixList = prefixList.Union(prefixs).ToArray();
             }
-            var baseTypes = new[] { typeof(IJob), typeof(ISchedulerListener), typeof(IJobListener), typeof(ITriggerListener) };
+            var jobType = typeof(IJob);
             var types = AssemblyHelper.GetAll(prefixList)
                 .SelectMany(x => x.DefinedTypes)
                 .Select(x => x.AsType())
-                .Where(x => !baseTypes.Contains(x) && baseTypes.Any(y => y.IsAssignableFrom(x)))
+                .Where(x => x != jobType && jobType.IsAssignableFrom(x))
                 .Where(x => x.IsClass && !x.IsAbstract)
                 .ToArray();
-            foreach (var baseType in baseTypes)
+            foreach (var type in types)
             {
-                foreach (var type in types.Where(x => baseType.IsAssignableFrom(x)))
-                {
-                    services.AddTransient(type);
-                }
+                services.AddTransient(type);
             }
             return services;
         }

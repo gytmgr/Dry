@@ -22,6 +22,18 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:Dry.Dependency.ITransientDependency`1">
+            <summary>
+            瞬时依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Dry.Dependency.ISingletonDependency`1">
+            <summary>
+            单例依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="T:Dry.Dependency.ServiceCollectionExtension">
             <summary>
             依赖注入扩展
