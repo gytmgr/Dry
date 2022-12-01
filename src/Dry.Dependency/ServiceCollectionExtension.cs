@@ -15,11 +15,12 @@ namespace Dry.Dependency
         /// <returns></returns>
         public static IServiceCollection AddDependency(this IServiceCollection services)
         {
+            var dependencyTypes = new[] { typeof(IDependency<>), typeof(ITransientDependency<>), typeof(ISingletonDependency<>) };
             var implTypes = AssemblyHelper.GetAll()
                 .SelectMany(x => x.DefinedTypes)
                 .Select(x => x.AsType())
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof(IDependency<>)))
+                .Where(x => x.GetInterfaces().Any(y => y.IsGenericType && dependencyTypes.Contains(y.GetGenericTypeDefinition())))
                 .ToArray();
             foreach (var implType in implTypes)
             {
