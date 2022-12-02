@@ -15,12 +15,11 @@ namespace Dry.Dependency
         /// <returns></returns>
         public static IServiceCollection AddDependency(this IServiceCollection services)
         {
-            var dependencyTypes = new[] { typeof(IDependency<>), typeof(ITransientDependency<>), typeof(ISingletonDependency<>) };
             var implTypes = AssemblyHelper.GetAll()
                 .SelectMany(x => x.DefinedTypes)
                 .Select(x => x.AsType())
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(y => y.IsGenericType && dependencyTypes.Contains(y.GetGenericTypeDefinition())))
+                .Where(x => x.GetInterfaces().Any(y => y == typeof(IDependency)))
                 .ToArray();
             foreach (var implType in implTypes)
             {
@@ -40,7 +39,7 @@ namespace Dry.Dependency
                 {
                     if (transientServiceType.IsAssignableFrom(implType))
                     {
-                        services.AddScoped(transientServiceType, implType);
+                        services.AddTransient(transientServiceType, implType);
                     }
                 }
 
@@ -49,7 +48,7 @@ namespace Dry.Dependency
                 {
                     if (singletonServiceType.IsAssignableFrom(implType))
                     {
-                        services.AddScoped(singletonServiceType, implType);
+                        services.AddSingleton(singletonServiceType, implType);
                     }
                 }
             }

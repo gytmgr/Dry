@@ -16,9 +16,19 @@
             <param name="prefixs">要筛选的程序集前缀</param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Dependency.IDependency`1">
+        <member name="T:Dry.Dependency.IDependency">
             <summary>
             依赖注入接口
+            </summary>
+        </member>
+        <member name="P:Dry.Dependency.IDependency.RootServiceProvider">
+            <summary>
+            根服务引擎
+            </summary>
+        </member>
+        <member name="T:Dry.Dependency.IDependency`1">
+            <summary>
+            域范围依赖注入接口
             </summary>
             <typeparam name="T"></typeparam>
         </member>
