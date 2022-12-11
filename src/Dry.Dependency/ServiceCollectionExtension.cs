@@ -12,10 +12,16 @@ namespace Dry.Dependency
         /// 注入实现IDependency接口的类型
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="prefixs"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDependency(this IServiceCollection services)
+        public static IServiceCollection AddDependency(this IServiceCollection services, params string[] prefixs)
         {
-            var implTypes = AssemblyHelper.GetAll()
+            var prefixList = new string[] { "Dry." };
+            if (prefixs is not null)
+            {
+                prefixList = prefixList.Union(prefixs).ToArray();
+            }
+            var implTypes = AssemblyHelper.GetAll(prefixs)
                 .SelectMany(x => x.DefinedTypes)
                 .Select(x => x.AsType())
                 .Where(x => x.IsClass && !x.IsAbstract)

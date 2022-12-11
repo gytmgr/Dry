@@ -49,11 +49,12 @@
             依赖注入扩展
             </summary>
         </member>
-        <member name="M:Dry.Dependency.ServiceCollectionExtension.AddDependency(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Dry.Dependency.ServiceCollectionExtension.AddDependency(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String[])">
             <summary>
             注入实现IDependency接口的类型
             </summary>
             <param name="services"></param>
+            <param name="prefixs"></param>
             <returns></returns>
         </member>
     </members>
