@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Cache</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Cache.MemoryCacheExtension">
+            <summary>
+            缓存扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Cache.MemoryCacheExtension.LockExecuteAsync(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Func{System.Threading.Tasks.Task},System.Object,System.Double)">
+            <summary>
+            进程内加锁（阻塞）执行
+            </summary>
+            <param name="memoryCache"></param>
+            <param name="executeFunc">执行方法</param>
+            <param name="cacheKey">缓存主键</param>
+            <param name="cacheExpirationSeconds">缓存失效时间（秒）</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

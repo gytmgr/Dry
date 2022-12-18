@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application\Dry.Application.csproj" />
+		<ProjectReference Include="..\..\..\src\Dry.Cache\Dry.Cache.csproj" />
 		<ProjectReference Include="..\Dry.Admin.Application.Contracts\Dry.Admin.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Dry.Admin.Domain\Dry.Admin.Domain.csproj" />
 	</ItemGroup>

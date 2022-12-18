@@ -1,28 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.3</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
+		<Description>应用契约层</Description>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Application.Contracts.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
 	</ItemGroup>
 
 </Project>

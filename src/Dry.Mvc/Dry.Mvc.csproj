@@ -1,21 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.2</Version>
-		<PackageReleaseNotes></PackageReleaseNotes>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<WarningLevel>4</WarningLevel>
-		<PlatformTarget>AnyCPU</PlatformTarget>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Mvc.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>Dry.Mvc.xml</DocumentationFile>
+		<Description>对Mvc的一些封装</Description>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -24,12 +16,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Mvc.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 </Project>

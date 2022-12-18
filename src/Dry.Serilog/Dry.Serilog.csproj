@@ -7,7 +7,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Serilog.xml</DocumentationFile>
 		<Description>对Serilog的一些封装</Description>
-		<Version>1.1.3</Version>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

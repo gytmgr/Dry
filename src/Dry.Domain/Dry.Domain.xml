@@ -4,6 +4,44 @@
         <name>Dry.Domain</name>
     </assembly>
     <members>
+        <member name="T:Dry.Domain.Entities.EntityBase">
+            <summary>
+            实体基类
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Entities.EntityBase.GetEvent">
+            <summary>
+            获取事件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Entities.EntityBase.AddEvent(Dry.Domain.Entities.EventBase)">
+            <summary>
+            获取事件
+            </summary>
+            <param name="eventItem"></param>
+        </member>
+        <member name="M:Dry.Domain.Entities.EntityBase.AddEventIfAbsent(Dry.Domain.Entities.EventBase)">
+            <summary>
+            添加事件
+            </summary>
+            <param name="eventItem"></param>
+        </member>
+        <member name="M:Dry.Domain.Entities.EntityBase.ClearEvent">
+            <summary>
+            清除事件
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Entities.EventBase">
+            <summary>
+            领域事件基类
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Entities.EventBase.PreExecute">
+            <summary>
+            提交前执行
+            </summary>
+        </member>
         <member name="T:Dry.Domain.Entities.IAggregateRoot">
             <summary>
             聚合根
@@ -83,6 +121,34 @@
             </summary>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="T:Dry.Domain.Entities.IEvents">
+            <summary>
+            领域事件集合
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEvents.GetEvent">
+            <summary>
+            获取事件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEvents.AddEvent(Dry.Domain.Entities.EventBase)">
+            <summary>
+            添加事件
+            </summary>
+            <param name="eventItem"></param>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEvents.AddEventIfAbsent(Dry.Domain.Entities.EventBase)">
+            <summary>
+            添加事件（检查重复）
+            </summary>
+            <param name="eventItem"></param>
+        </member>
+        <member name="M:Dry.Domain.Entities.IEvents.ClearEvent">
+            <summary>
+            清除事件
+            </summary>
+        </member>
         <member name="T:Dry.Domain.Entities.IHasAddTime">
             <summary>
             有新增时间实体
@@ -150,10 +216,757 @@
             祖先
             </summary>
         </member>
+        <member name="T:Dry.Domain.Extensions.QueryableExtension">
+            <summary>
+            Queryable扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AnyAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            是否有
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AllAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            是否全是
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ContainsAsync``1(System.Linq.IQueryable{``0},``0,Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            包含
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="item"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.CountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            数量
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.LongCountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            长整型数量
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            第一条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.FirstOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            第一条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.LastAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最后一条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.LastOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最后一条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SingleAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            单条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SingleOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            单条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ToListAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            列表
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ToArrayAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            数组
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ToDictionaryAsync``2(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            字典
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="queryable"></param>
+            <param name="keySelector"></param>
+            <param name="comparer"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ToDictionaryAsync``3(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            字典
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TElement"></typeparam>
+            <param name="queryable"></param>
+            <param name="keySelector"></param>
+            <param name="elementSelector"></param>
+            <param name="comparer"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.MinAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最小
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.MinAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最小
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.MaxAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最大
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.MaxAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            最大
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Decimal},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Nullable{System.Decimal}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Int32},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Nullable{System.Int32}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Int64},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Nullable{System.Int64}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Double},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Nullable{System.Double}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Single},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync(System.Linq.IQueryable{System.Nullable{System.Single}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Decimal},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Decimal}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Int32},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Int32}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Int64},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Int64}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Double},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Double}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Single},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Single}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.Include``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            提前加载
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="queryable"></param>
+            <param name="navigationPropertyPath"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.Include``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}}[],Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            提前加载
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="queryable"></param>
+            <param name="navigationPropertyPaths"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ThenInclude``3(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``1,``2}},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            提前加载多属性实体的属性
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TPreviousProperty"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="queryable"></param>
+            <param name="navigationPropertyPath"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.IgnoreAutoIncludes``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            忽略自动加载
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.IgnoreQueryFilters``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            忽略查询筛选
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsNoTracking``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            不跟踪
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsNoTrackingWithIdentityResolution``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            不跟踪但标识解析
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsTracking``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            跟踪
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.TagWith``1(System.Linq.IQueryable{``0},System.String,Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            标记
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="tag"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.LoadAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            延迟加载
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ForEachAsync``1(System.Linq.IQueryable{``0},System.Action{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            遍历
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="action"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsAsyncEnumerable``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            异步迭代器
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Extensions.RepositoryExtension">
+            <summary>
+            仓储扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.FirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件查询第一条
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.IncludeFirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            条件查询第一条并提前加载导航属性
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.OrderByFirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            条件查询第一条并排序
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.IncludeToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            条件查询并提前加载导航属性
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.OrderByToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            条件查询并排序
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Extensions.ServiceProviderExtension">
             <summary>
             服务创建扩展
             </summary>
+        </member>
+        <member name="M:Dry.Domain.Extensions.ServiceProviderExtension.GetReadOnlyRepository``1(System.IServiceProvider)">
+            <summary>
+            获取只读仓储服务
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Domain.Extensions.ServiceProviderExtension.GetRepository``1(System.IServiceProvider)">
             <summary>
@@ -167,6 +980,795 @@
             <summary>
             限界上下文
             </summary>
+        </member>
+        <member name="T:Dry.Domain.Queryables.IDbQueryable">
+            <summary>
+            数据库查询接口
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ToQueryString(System.Linq.IQueryable)">
+            <summary>
+            查询字符串
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AnyAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            是否有
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AllAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            是否全是
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ContainsAsync``1(System.Linq.IQueryable{``0},``0)">
+            <summary>
+            包含
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.CountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            数量
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.LongCountAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            长整型数量
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            第一条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.FirstOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            第一条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.LastAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            最后一条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.LastOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            最后一条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SingleAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            单条
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SingleOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            单条或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ToListAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            列表
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ToArrayAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            数组
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ToDictionaryAsync``2(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            字典
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="queryable"></param>
+            <param name="keySelector"></param>
+            <param name="comparer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ToDictionaryAsync``3(System.Linq.IQueryable{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            字典
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TElement"></typeparam>
+            <param name="queryable"></param>
+            <param name="keySelector"></param>
+            <param name="elementSelector"></param>
+            <param name="comparer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.MinAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            最小
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.MinAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            最小
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.MaxAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            最大
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.MaxAsync``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            最大
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Decimal})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Nullable{System.Decimal}})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Int32})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Nullable{System.Int32}})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Int64})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Nullable{System.Int64}})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Double})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Nullable{System.Double}})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Single})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync(System.Linq.IQueryable{System.Nullable{System.Single}})">
+            <summary>
+            和
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.SumAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}})">
+            <summary>
+            和
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Decimal})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Decimal}})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Decimal}}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Int32})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Int32}})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int32}}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Int64})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Int64}})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Int64}}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Double})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Double}})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Double}}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Single})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync(System.Linq.IQueryable{System.Nullable{System.Single}})">
+            <summary>
+            平均
+            </summary>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AverageAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Nullable{System.Single}}})">
+            <summary>
+            平均
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.Include``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            提前加载
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="queryable"></param>
+            <param name="navigationPropertyPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ThenInclude``3(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``1,``2}})">
+            <summary>
+            提前加载多属性实体的属性
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TPreviousProperty"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="queryable"></param>
+            <param name="navigationPropertyPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.IgnoreAutoIncludes``1(System.Linq.IQueryable{``0})">
+            <summary>
+            忽略自动加载
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.IgnoreQueryFilters``1(System.Linq.IQueryable{``0})">
+            <summary>
+            忽略查询筛选
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsNoTracking``1(System.Linq.IQueryable{``0})">
+            <summary>
+            不跟踪
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsNoTrackingWithIdentityResolution``1(System.Linq.IQueryable{``0})">
+            <summary>
+            不跟踪但标识解析
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsTracking``1(System.Linq.IQueryable{``0})">
+            <summary>
+            跟踪
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.TagWith``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            标记
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.LoadAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            延迟加载
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ForEachAsync``1(System.Linq.IQueryable{``0},System.Action{``0})">
+            <summary>
+            遍历
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsAsyncEnumerable``1(System.Linq.IQueryable{``0})">
+            <summary>
+            异步迭代器
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Repositories.IReadOnlyRepository`1">
+            <summary>
+            只读仓储接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.GetQueryable">
+            <summary>
+            获取查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            是否所有记录都满足条件
+            </summary>
+            <param name="allPredicate"></param>
+            <param name="wherePredicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            是否存在
+            </summary>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.CountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            数量查询
+            </summary>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.LongCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            数量查询
+            </summary>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+            <summary>
+            条件查询第一条并排序提前加载导航属性
+            </summary>
+            <param name="predicate"></param>
+            <param name="paths"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+            <summary>
+            排序条件查询第一条指定字段
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="selector"></param>
+            <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+            <summary>
+            条件查询并排序提前加载导航属性
+            </summary>
+            <param name="predicate"></param>
+            <param name="paths"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+            <summary>
+            排序条件查询指定字段
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="selector"></param>
+            <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
+            <summary>
+            排序条件查询指定字段
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="selector"></param>
+            <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            汇总
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            汇总
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            汇总
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            汇总
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            汇总
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.MaxAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            最大值
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.MinAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            最小值
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            平均值
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            平均值
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            平均值
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            平均值
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
+            <summary>
+            平均值
+            </summary>
+            <param name="selector"></param>
+            <param name="predicates"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Domain.Repositories.IRepository`1">
             <summary>
@@ -282,35 +1884,6 @@
             <param name="predicates"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            是否所有记录都满足条件
-            </summary>
-            <param name="allPredicate"></param>
-            <param name="wherePredicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            是否存在
-            </summary>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.CountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            数量查询
-            </summary>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.LongCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            数量查询
-            </summary>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.FindAsync(System.Object[])">
             <summary>
             主键查询
@@ -333,31 +1906,12 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询第一条并排序提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             条件查询第一条并排序提前加载导航属性
             </summary>
             <param name="predicates"></param>
             <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询第一条指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
             <param name="orderBys"></param>
             <returns></returns>
         </member>
@@ -385,7 +1939,6 @@
             条件查询
             </summary>
             <param name="predicates"></param>
-            <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
             <summary>
@@ -393,15 +1946,6 @@
             </summary>
             <param name="predicate"></param>
             <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询并排序提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
@@ -433,16 +1977,6 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
             <summary>
             排序条件查询指定字段
@@ -460,104 +1994,6 @@
             <typeparam name="TResult"></typeparam>
             <param name="func"></param>
             <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.SumAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            汇总
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.MaxAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            最大值
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.MinAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            最小值
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.AverageAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            平均值
-            </summary>
-            <param name="selector"></param>
-            <param name="predicates"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Domain.Repositories.IUnitOfWork`1">

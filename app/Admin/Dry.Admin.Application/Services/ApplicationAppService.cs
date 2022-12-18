@@ -1,18 +1,4 @@
-﻿using Dry.Admin.Application.Contracts.Dtos;
-using Dry.Admin.Application.Contracts.Services;
-using Dry.Admin.Domain;
-using Dry.Admin.Domain.Shared.Enums;
-using Dry.Application.Extensions;
-using Dry.Application.Services;
-using Dry.Core.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using App = Dry.Admin.Domain.Entities.Application;
-
-namespace Dry.Admin.Application.Services
+﻿namespace Dry.Admin.Application.Services
 {
     public class ApplicationAppService : ApplicationQueryService<IAdminContext, App, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService
     {

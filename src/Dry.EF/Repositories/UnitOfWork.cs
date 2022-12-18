@@ -1,6 +1,9 @@
 ﻿using Dry.Domain;
+using Dry.Domain.Entities;
 using Dry.Domain.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dry.EF.Repositories
@@ -17,12 +20,19 @@ namespace Dry.EF.Repositories
         private readonly DbContext _context;
 
         /// <summary>
+        /// 中介者
+        /// </summary>
+        private readonly IMediator _mediator;
+
+        /// <summary>
         /// 构造体
         /// </summary>
         /// <param name="context"></param>
-        public UnitOfWork(TBoundedContext context)
+        /// <param name="mediator"></param>
+        public UnitOfWork(TBoundedContext context, IMediator mediator)
         {
             _context = context as DbContext;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -31,7 +41,25 @@ namespace Dry.EF.Repositories
         /// <returns></returns>
         public async Task<int> CompleteAsync()
         {
-            return await _context.SaveChangesAsync();
+            var changeEntries = _context.ChangeTracker.Entries<IEvents>().Where(x => x.Entity.GetEvent().Any());
+            var events = changeEntries.SelectMany(x => x.Entity.GetEvent()).ToArray();
+            changeEntries.ToList().ForEach(entity => entity.Entity.ClearEvent());
+
+            var saveExecuteEvents = events.Where(x => x.PreExecute).ToArray();
+            foreach (var saveExecuteEvent in saveExecuteEvents)
+            {
+                await _mediator.Publish(saveExecuteEvent);
+            }
+
+            var result = await _context.SaveChangesAsync();
+
+            var savedExecuteEvents = events.Where(x => !x.PreExecute).ToArray();
+            foreach (var savedExecuteEvent in savedExecuteEvents)
+            {
+                await _mediator.Publish(savedExecuteEvent);
+            }
+
+            return result;
         }
     }
 }

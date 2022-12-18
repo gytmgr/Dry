@@ -21,7 +21,7 @@ namespace Dry.Application.Services
         ApplicationService<TEntity, TResult>,
         IApplicationCreateService<TResult, TCreate>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot, TBoundedContext
+        where TEntity : class, IAggregateRoot, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
@@ -97,7 +97,7 @@ namespace Dry.Application.Services
         ApplicationCreateService<TBoundedContext, TEntity, TResult, TCreate>,
         IApplicationCreateService<TResult, TCreate, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
     {
@@ -132,7 +132,7 @@ namespace Dry.Application.Services
         ApplicationQueryService<TEntity, TResult, TQuery>,
         IApplicationQueryCreateService<TResult, TQuery, TCreate>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot, TBoundedContext
+        where TEntity : class, IAggregateRoot, TBoundedContext
         where TResult : IResultDto
         where TQuery : IQueryDto
         where TCreate : ICreateDto
@@ -168,6 +168,20 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
+        /// 新建后处理
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="createDto"></param>
+        /// <returns></returns>
+        protected virtual async Task CreatedAsync(TEntity entity, TCreate createDto)
+        {
+            if (entity is ICreate createEntity && await createEntity.CreatedAsync(_serviceProvider))
+            {
+                await _unitOfWork.CompleteAsync();
+            }
+        }
+
+        /// <summary>
         /// 新建
         /// </summary>
         /// <param name="createDto"></param>
@@ -180,20 +194,6 @@ namespace Dry.Application.Services
             await _unitOfWork.CompleteAsync();
             await CreatedAsync(entity, createDto);
             return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 新建完成处理
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        protected virtual async Task CreatedAsync(TEntity entity, TCreate createDto)
-        {
-            if (entity is ICreate createEntity && await createEntity.CreatedAsync(_serviceProvider))
-            {
-                await _unitOfWork.CompleteAsync();
-            }
         }
     }
 
@@ -210,7 +210,7 @@ namespace Dry.Application.Services
         ApplicationQueryService<TEntity, TResult, TQuery, TKey>,
         IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TQuery : QueryDto<TKey>
         where TCreate : ICreateDto
@@ -246,6 +246,20 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
+        /// 新建后处理
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="createDto"></param>
+        /// <returns></returns>
+        protected virtual async Task CreatedAsync(TEntity entity, TCreate createDto)
+        {
+            if (entity is ICreate createEntity && await createEntity.CreatedAsync(_serviceProvider))
+            {
+                await _unitOfWork.CompleteAsync();
+            }
+        }
+
+        /// <summary>
         /// 新建
         /// </summary>
         /// <param name="createDto"></param>
@@ -258,20 +272,6 @@ namespace Dry.Application.Services
             await _unitOfWork.CompleteAsync();
             await CreatedAsync(entity, createDto);
             return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 新建完成处理
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="createDto"></param>
-        /// <returns></returns>
-        protected virtual async Task CreatedAsync(TEntity entity, TCreate createDto)
-        {
-            if (entity is ICreate createEntity && await createEntity.CreatedAsync(_serviceProvider))
-            {
-                await _unitOfWork.CompleteAsync();
-            }
         }
     }
 }

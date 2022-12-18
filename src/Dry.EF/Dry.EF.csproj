@@ -7,7 +7,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.EF.xml</DocumentationFile>
 		<Description>对微软EF的封装</Description>
-		<Version>1.1.23</Version>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">

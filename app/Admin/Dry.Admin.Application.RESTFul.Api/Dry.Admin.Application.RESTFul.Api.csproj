@@ -1,36 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>Blue.IntelligentOM.RESTFul.Service.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<DocumentationFile>Dry.Admin.Application.RESTFul.Api.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <DocumentationFile>Dry.Admin.Application.RESTFul.Api.xml</DocumentationFile>
-	  <NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Remove="Default.db" />
+		<None Remove="Default.db-shm" />
+		<None Remove="Default.db-wal" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.RESTFul.Api\Dry.Application.RESTFul.Api.csproj" />
-		<ProjectReference Include="..\..\..\src\Dry.Json\Dry.Json.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Serilog\Dry.Serilog.csproj" />
 		<ProjectReference Include="..\..\..\src\Dry.Swagger\Dry.Swagger.csproj" />
 		<ProjectReference Include="..\Dry.Admin.Application\Dry.Admin.Application.csproj" />
 		<ProjectReference Include="..\Dry.Admin.EF.Sqlite\Dry.Admin.EF.Sqlite.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Admin.Application.RESTFul.Api.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 </Project>

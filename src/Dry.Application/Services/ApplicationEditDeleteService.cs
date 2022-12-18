@@ -21,7 +21,7 @@ namespace Dry.Application.Services
         ApplicationEditService<TBoundedContext, TEntity, TResult, TEdit, TKey>,
         IApplicationEditDeleteService<TResult, TEdit, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TEdit : IEditDto
     {
@@ -31,6 +31,22 @@ namespace Dry.Application.Services
         /// <param name="serviceProvider"></param>
         public ApplicationEditDeleteService(IServiceProvider serviceProvider) : base(serviceProvider)
         { }
+
+        /// <summary>
+        /// 获取删除实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullDataBizException"></exception>
+        protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NullDataBizException();
+            }
+            return entity;
+        }
 
         /// <summary>
         /// 配置实体删除数据
@@ -46,26 +62,7 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            await SetDeleteEntityAsync(entity);
-            await _repository.RemoveAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            await DeletedAsync(entity);
-            return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 删除完成处理
+        /// 删除后处理
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -75,6 +72,21 @@ namespace Dry.Application.Services
             {
                 await _unitOfWork.CompleteAsync();
             }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+        {
+            var entity = await GetDeleteEntityAsync(id);
+            await SetDeleteEntityAsync(entity);
+            await _repository.RemoveAsync(entity);
+            await _unitOfWork.CompleteAsync();
+            await DeletedAsync(entity);
+            return _mapper.Map<TResult>(entity);
         }
     }
 
@@ -91,7 +103,7 @@ namespace Dry.Application.Services
        ApplicationQueryEditService<TBoundedContext, TEntity, TResult, TQuery, TEdit, TKey>,
         IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TQuery : QueryDto<TKey>
         where TEdit : IEditDto
@@ -102,6 +114,22 @@ namespace Dry.Application.Services
         /// <param name="serviceProvider"></param>
         public ApplicationQueryEditDeleteService(IServiceProvider serviceProvider) : base(serviceProvider)
         { }
+
+        /// <summary>
+        /// 获取删除实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullDataBizException"></exception>
+        protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NullDataBizException();
+            }
+            return entity;
+        }
 
         /// <summary>
         /// 配置实体删除数据
@@ -117,26 +145,7 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            await SetDeleteEntityAsync(entity);
-            await _repository.RemoveAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            await DeletedAsync(entity);
-            return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 删除完成处理
+        /// 删除后处理
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -146,6 +155,21 @@ namespace Dry.Application.Services
             {
                 await _unitOfWork.CompleteAsync();
             }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+        {
+            var entity = await GetDeleteEntityAsync(id);
+            await SetDeleteEntityAsync(entity);
+            await _repository.RemoveAsync(entity);
+            await _unitOfWork.CompleteAsync();
+            await DeletedAsync(entity);
+            return _mapper.Map<TResult>(entity);
         }
     }
 }

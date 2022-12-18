@@ -4,11 +4,10 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
-		<Version>1.1.4</Version>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Swagger.xml</DocumentationFile>
+		<Description>对Swagger的一些封装</Description>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,13 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Dry.Swagger.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
 	</ItemGroup>
 
 </Project>

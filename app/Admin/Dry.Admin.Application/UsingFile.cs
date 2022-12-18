@@ -1,0 +1,15 @@
+﻿global using AutoMapper;
+global using Dry.Admin.Application.Contracts.Dtos;
+global using Dry.Admin.Application.Contracts.Services;
+global using Dry.Admin.Domain;
+global using Dry.Admin.Domain.Events;
+global using Dry.Admin.Domain.Shared.Enums;
+global using Dry.Application.Extensions;
+global using Dry.Application.Services;
+global using Dry.AutoMapper.Mapping;
+global using Dry.Core.Model;
+global using Dry.Core.Utilities;
+global using Dry.Dependency;
+global using MediatR;
+global using System.Linq.Expressions;
+global using App = Dry.Admin.Domain.Entities.Application;

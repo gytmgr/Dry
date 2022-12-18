@@ -7,7 +7,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Core.xml</DocumentationFile>
 		<Description>对微软DI的封装</Description>
-		<Version>1.1.14</Version>
+		<Version>1.2.0</Version>
 	</PropertyGroup>
 
 </Project>

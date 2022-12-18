@@ -11,6 +11,15 @@ namespace Dry.Domain.Extensions
     public static class ServiceProviderExtension
     {
         /// <summary>
+        /// 获取只读仓储服务
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        public static IReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>(this IServiceProvider serviceProvider) where TEntity : IEntity, IBoundedContext
+            => serviceProvider.GetService<IReadOnlyRepository<TEntity>>();
+
+        /// <summary>
         /// 获取仓储服务
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>

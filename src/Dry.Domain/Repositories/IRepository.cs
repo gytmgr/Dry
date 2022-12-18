@@ -12,7 +12,7 @@ namespace Dry.Domain.Repositories
     /// 仓储接口
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IRepository<TEntity> where TEntity : IEntity, IBoundedContext
+    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : IEntity, IBoundedContext
     {
         #region Tracking
 
@@ -138,47 +138,6 @@ namespace Dry.Domain.Repositories
 
         #endregion
 
-        #region All
-
-        /// <summary>
-        /// 是否所有记录都满足条件
-        /// </summary>
-        /// <param name="allPredicate"></param>
-        /// <param name="wherePredicates"></param>
-        /// <returns></returns>
-        Task<bool> AllAsync([NotNull] Expression<Func<TEntity, bool>> allPredicate, params Expression<Func<TEntity, bool>>[] wherePredicates);
-
-        #endregion
-
-        #region Any
-
-        /// <summary>
-        /// 是否存在
-        /// </summary>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<bool> AnyAsync(params Expression<Func<TEntity, bool>>[] predicates);
-
-        #endregion
-
-        #region Count
-
-        /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<int> CountAsync(params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 数量查询
-        /// </summary>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<long> LongCountAsync(params Expression<Func<TEntity, bool>>[] predicates);
-
-        #endregion
-
         #region Find
 
         /// <summary>
@@ -197,6 +156,7 @@ namespace Dry.Domain.Repositories
         /// </summary>
         /// <param name="predicates"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TEntity> FirstAsync(params Expression<Func<TEntity, bool>>[] predicates);
 
         /// <summary>
@@ -205,16 +165,8 @@ namespace Dry.Domain.Repositories
         /// <param name="predicate"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        [Obsolete("Use IncludeFirstAsync method.")]
         Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths);
-
-        /// <summary>
-        /// 条件查询第一条并排序提前加载导航属性
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="paths"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
         /// 条件查询第一条并排序提前加载导航属性
@@ -223,6 +175,7 @@ namespace Dry.Domain.Repositories
         /// <param name="paths"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>[] predicates, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
@@ -230,19 +183,10 @@ namespace Dry.Domain.Repositories
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
-
-        /// <summary>
-        /// 排序条件查询第一条指定字段
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
         /// <param name="predicates"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
@@ -252,6 +196,7 @@ namespace Dry.Domain.Repositories
         /// <param name="func"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TResult> FirstAsync<TResult>([NotNull] Func<IQueryable<TEntity>, IQueryable<TResult>> func, params Expression<Func<TEntity, dynamic>>[] paths);
 
         #endregion
@@ -262,6 +207,7 @@ namespace Dry.Domain.Repositories
         /// 条件查询
         /// </summary>
         /// <param name="predicates"></param>
+        [Obsolete("Use GetQueryable method to do.")]
         /// <returns></returns>
         Task<TEntity[]> ToArrayAsync(params Expression<Func<TEntity, bool>>[] predicates);
 
@@ -271,16 +217,8 @@ namespace Dry.Domain.Repositories
         /// <param name="predicate"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        [Obsolete("Use IncludeToArrayAsync method.")]
         Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths);
-
-        /// <summary>
-        /// 条件查询并排序提前加载导航属性
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="paths"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
         /// 条件查询并排序提前加载导航属性
@@ -289,6 +227,7 @@ namespace Dry.Domain.Repositories
         /// <param name="paths"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>>[] predicates, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
@@ -299,7 +238,7 @@ namespace Dry.Domain.Repositories
         /// <param name="predicate"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
-        Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
+        Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
         /// 排序条件查询指定字段
@@ -309,6 +248,7 @@ namespace Dry.Domain.Repositories
         /// <param name="predicates"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
@@ -316,19 +256,10 @@ namespace Dry.Domain.Repositories
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selector"></param>
-        /// <param name="predicate"></param>
-        /// <param name="orderBys"></param>
-        /// <returns></returns>
-        Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
-
-        /// <summary>
-        /// 排序条件查询指定字段
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
         /// <param name="predicates"></param>
         /// <param name="orderBys"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>>[] predicates, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
         /// <summary>
@@ -338,121 +269,8 @@ namespace Dry.Domain.Repositories
         /// <param name="func"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
+        [Obsolete("Use GetQueryable method to do.")]
         Task<TResult[]> ToArrayAsync<TResult>([NotNull] Func<IQueryable<TEntity>, IQueryable<TResult>> func, params Expression<Func<TEntity, dynamic>>[] paths);
-
-        #endregion
-
-        #region Sum
-
-        /// <summary>
-        /// 汇总
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<int?> SumAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 汇总
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<long?> SumAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 汇总
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<float?> SumAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 汇总
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<double?> SumAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 汇总
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<decimal?> SumAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        #endregion
-
-        #region Max
-
-        /// <summary>
-        /// 最大值
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<TResult> MaxAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        #endregion
-
-        #region Min
-
-        /// <summary>
-        /// 最小值
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<TResult> MinAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        #endregion
-
-        #region Average
-
-        /// <summary>
-        /// 平均值
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 平均值
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 平均值
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<float?> AverageAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 平均值
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
-
-        /// <summary>
-        /// 平均值
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="predicates"></param>
-        /// <returns></returns>
-        Task<decimal?> AverageAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates);
 
         #endregion
     }

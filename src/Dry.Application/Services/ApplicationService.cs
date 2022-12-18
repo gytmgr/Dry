@@ -20,7 +20,7 @@ namespace Dry.Application.Services
     /// 应用服务
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public abstract class ApplicationService<TEntity> where TEntity : IAggregateRoot, IBoundedContext
+    public abstract class ApplicationService<TEntity> where TEntity : class, IAggregateRoot, IBoundedContext
     {
         /// <summary>
         /// 服务生成器
@@ -31,6 +31,11 @@ namespace Dry.Application.Services
         /// 对象映射
         /// </summary>
         protected readonly IMapper _mapper;
+
+        /// <summary>
+        /// 只读仓储
+        /// </summary>
+        protected readonly IReadOnlyRepository<TEntity> _readOnlyRepository;
 
         /// <summary>
         /// 仓储
@@ -45,8 +50,17 @@ namespace Dry.Application.Services
         {
             _serviceProvider = serviceProvider;
             _mapper = serviceProvider.GetService<IMapper>();
+            _readOnlyRepository = serviceProvider.GetReadOnlyRepository<TEntity>();
             _repository = serviceProvider.GetRepository<TEntity>();
         }
+
+        /// <summary>
+        /// 获取只读仓储
+        /// </summary>
+        /// <typeparam name="TOtherEntity"></typeparam>
+        /// <returns></returns>
+        protected IReadOnlyRepository<TOtherEntity> ReadOnlyRepository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
+            => _serviceProvider.GetReadOnlyRepository<TOtherEntity>();
 
         /// <summary>
         /// 获取仓储
@@ -64,6 +78,13 @@ namespace Dry.Application.Services
             => null;
 
         /// <summary>
+        /// 获取属性加载表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Task<Expression<Func<TEntity, dynamic>>[]> GetPropertyLoadsAsync()
+            => Task.FromResult(GetPropertyLoads());
+
+        /// <summary>
         /// 获取查询条件表达式
         /// </summary>
         /// <returns></returns>
@@ -71,11 +92,25 @@ namespace Dry.Application.Services
             => null;
 
         /// <summary>
+        /// 获取查询条件表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Task<Expression<Func<TEntity, bool>>[]> GetPredicatesAsync()
+            => Task.FromResult(GetPredicates());
+
+        /// <summary>
         /// 获取排序表达式
         /// </summary>
         /// <returns></returns>
         protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys()
             => null;
+
+        /// <summary>
+        /// 获取排序表达式
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Task<(bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]> GetOrderBysAsync()
+            => Task.FromResult(GetOrderBys());
     }
 
     /// <summary>
@@ -86,7 +121,7 @@ namespace Dry.Application.Services
     public abstract class ApplicationService<TEntity, TResult> :
         ApplicationService<TEntity>,
         IApplicationService<TResult>
-        where TEntity : IAggregateRoot, IBoundedContext
+        where TEntity : class, IAggregateRoot, IBoundedContext
         where TResult : IResultDto
     {
         /// <summary>
@@ -124,8 +159,8 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<bool> AnyAsync()
         {
-            var predicates = GetPredicates();
-            return await _repository.AnyAsync(predicates);
+            var predicates = await GetPredicatesAsync();
+            return await _readOnlyRepository.AnyAsync(predicates);
         }
 
         /// <summary>
@@ -134,8 +169,8 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<int> CountAsync()
         {
-            var predicates = GetPredicates();
-            return await _repository.CountAsync(predicates);
+            var predicates = await GetPredicatesAsync();
+            return await _readOnlyRepository.CountAsync(predicates);
         }
 
         /// <summary>
@@ -144,10 +179,10 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<TResult> FirstAsync()
         {
-            var propertyLoads = GetPropertyLoads();
-            var predicates = GetPredicates();
-            var orderBys = GetOrderBys();
-            var entity = await _repository.FirstAsync(predicates, propertyLoads, orderBys);
+            var propertyLoads = await GetPropertyLoadsAsync();
+            var predicates = await GetPredicatesAsync();
+            var orderBys = await GetOrderBysAsync();
+            var entity = await _readOnlyRepository.GetQueryable().Include(propertyLoads).Where(predicates).OrderBy(orderBys).FirstOrDefaultAsync();
             return await SingleResultMapAsync(entity);
         }
 
@@ -157,10 +192,10 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<TResult[]> ArrayAsync()
         {
-            var propertyLoads = GetPropertyLoads();
-            var predicates = GetPredicates();
-            var orderBys = GetOrderBys();
-            var entities = await _repository.ToArrayAsync(predicates, propertyLoads, orderBys);
+            var propertyLoads = await GetPropertyLoadsAsync();
+            var predicates = await GetPredicatesAsync();
+            var orderBys = await GetOrderBysAsync();
+            var entities = await _readOnlyRepository.GetQueryable().Include(propertyLoads).Where(predicates).OrderBy(orderBys).ToArrayAsync();
             return await ArrayResultMapAsync(entities);
         }
 
@@ -171,13 +206,11 @@ namespace Dry.Application.Services
         /// <returns></returns>
         public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery queryDto)
         {
-            var propertyLoads = GetPropertyLoads();
-            var predicates = GetPredicates();
-            var orderBys = GetOrderBys();
-            var total = await _repository.CountAsync(predicates);
-            var entities = await _repository.ToArrayAsync(
-                queryable => queryable.Where(predicates).OrderBy(orderBys).Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize),
-                propertyLoads);
+            var propertyLoads = await GetPropertyLoadsAsync();
+            var predicates = await GetPredicatesAsync();
+            var orderBys = await GetOrderBysAsync();
+            var total = await _readOnlyRepository.CountAsync(predicates);
+            var entities = await _readOnlyRepository.GetQueryable().Include(propertyLoads).Where(predicates).OrderBy(orderBys).Skip((queryDto.PageIndex - 1) * queryDto.PageSize).Take(queryDto.PageSize).ToArrayAsync();
             return new PagedResult<TResult>
             {
                 Total = total,
@@ -195,7 +228,7 @@ namespace Dry.Application.Services
     public abstract class ApplicationService<TEntity, TResult, TKey> :
         ApplicationService<TEntity, TResult>,
         IApplicationService<TResult, TKey>
-        where TEntity : IAggregateRoot<TKey>, IBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, IBoundedContext
         where TResult : IResultDto
     {
         /// <summary>
@@ -230,7 +263,7 @@ namespace Dry.Application.Services
         ApplicationCreateEditService<TBoundedContext, TEntity, TResult, TCreate, TEdit, TKey>,
         IApplicationService<TResult, TCreate, TEdit, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TCreate : ICreateDto
         where TEdit : IEditDto
@@ -241,6 +274,22 @@ namespace Dry.Application.Services
         /// <param name="serviceProvider"></param>
         public ApplicationService(IServiceProvider serviceProvider) : base(serviceProvider)
         { }
+
+        /// <summary>
+        /// 获取删除实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullDataBizException"></exception>
+        protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NullDataBizException();
+            }
+            return entity;
+        }
 
         /// <summary>
         /// 配置实体删除数据
@@ -256,26 +305,7 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            await SetDeleteEntityAsync(entity);
-            await _repository.RemoveAsync(entity);
-            await _unitOfWork.CompleteAsync();
-            await DeletedAsync(entity);
-            return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 删除完成处理
+        /// 删除后处理
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -285,6 +315,21 @@ namespace Dry.Application.Services
             {
                 await _unitOfWork.CompleteAsync();
             }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+        {
+            var entity = await GetDeleteEntityAsync(id);
+            await SetDeleteEntityAsync(entity);
+            await _repository.RemoveAsync(entity);
+            await _unitOfWork.CompleteAsync();
+            await DeletedAsync(entity);
+            return _mapper.Map<TResult>(entity);
         }
     }
 }

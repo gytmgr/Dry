@@ -24,7 +24,7 @@ namespace Dry.Application.Services
         ApplicationService<TEntity, TResult, TKey>,
         IApplicationEditService<TResult, TEdit, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TEdit : IEditDto
     {
@@ -39,6 +39,22 @@ namespace Dry.Application.Services
         /// <param name="serviceProvider"></param>
         public ApplicationEditService(IServiceProvider serviceProvider) : base(serviceProvider)
             => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+
+        /// <summary>
+        /// 获取编辑实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullDataBizException"></exception>
+        protected virtual async Task<TEntity> GetEditEntityAsync(TKey id)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NullDataBizException();
+            }
+            return entity;
+        }
 
         /// <summary>
         /// 配置实体编辑数据
@@ -63,27 +79,7 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="editDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            _mapper.Map(editDto, entity);
-            await SetEditEntityAsync(entity, editDto);
-            await _unitOfWork.CompleteAsync();
-            await EditedAsync(entity, editDto);
-            return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 编辑完成处理
+        /// 编辑后处理
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="createDto"></param>
@@ -94,6 +90,22 @@ namespace Dry.Application.Services
             {
                 await _unitOfWork.CompleteAsync();
             }
+        }
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="editDto"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        {
+            var entity = await GetEditEntityAsync(id);
+            _mapper.Map(editDto, entity);
+            await SetEditEntityAsync(entity, editDto);
+            await _unitOfWork.CompleteAsync();
+            await EditedAsync(entity, editDto);
+            return _mapper.Map<TResult>(entity);
         }
     }
 
@@ -110,7 +122,7 @@ namespace Dry.Application.Services
         ApplicationQueryService<TEntity, TResult, TQuery, TKey>,
         IApplicationQueryEditService<TResult, TQuery, TEdit, TKey>
         where TBoundedContext : IBoundedContext
-        where TEntity : IAggregateRoot<TKey>, TBoundedContext
+        where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
         where TResult : IResultDto
         where TQuery : QueryDto<TKey>
         where TEdit : IEditDto
@@ -128,6 +140,22 @@ namespace Dry.Application.Services
             => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
 
         /// <summary>
+        /// 获取编辑实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullDataBizException"></exception>
+        protected virtual async Task<TEntity> GetEditEntityAsync(TKey id)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NullDataBizException();
+            }
+            return entity;
+        }
+
+        /// <summary>
         /// 配置实体编辑数据
         /// </summary>
         /// <param name="entity"></param>
@@ -150,27 +178,7 @@ namespace Dry.Application.Services
         }
 
         /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="editDto"></param>
-        /// <returns></returns>
-        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
-        {
-            var entity = await _repository.FindAsync(id);
-            if (entity == null)
-            {
-                throw new NullDataBizException();
-            }
-            _mapper.Map(editDto, entity);
-            await SetEditEntityAsync(entity, editDto);
-            await _unitOfWork.CompleteAsync();
-            await EditedAsync(entity, editDto);
-            return _mapper.Map<TResult>(entity);
-        }
-
-        /// <summary>
-        /// 编辑完成处理
+        /// 编辑后处理
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="createDto"></param>
@@ -181,6 +189,22 @@ namespace Dry.Application.Services
             {
                 await _unitOfWork.CompleteAsync();
             }
+        }
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="editDto"></param>
+        /// <returns></returns>
+        public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
+        {
+            var entity = await GetEditEntityAsync(id);
+            _mapper.Map(editDto, entity);
+            await SetEditEntityAsync(entity, editDto);
+            await _unitOfWork.CompleteAsync();
+            await EditedAsync(entity, editDto);
+            return _mapper.Map<TResult>(entity);
         }
     }
 }
