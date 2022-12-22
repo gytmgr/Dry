@@ -1,24 +1,23 @@
-﻿namespace Dry.Core.Model
+﻿namespace Dry.Core.Model;
+
+/// <summary>
+/// 类型异常类
+/// </summary>
+public class TypeBizException : BizException<string>
 {
     /// <summary>
-    /// 类型异常类
+    /// 异常消息
     /// </summary>
-    public class TypeBizException : BizException<string>
-    {
-        /// <summary>
-        /// 异常消息
-        /// </summary>
-        public static string BizMessage = "类型错误";
+    public static string BizMessage = "类型错误";
 
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        public TypeBizException() : this(BizMessage) { }
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    public TypeBizException() : this(BizMessage) { }
 
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="msg"></param>
-        public TypeBizException(string msg) : base(nameof(TypeBizException), msg) { }
-    }
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="msg"></param>
+    public TypeBizException(string msg) : base(nameof(TypeBizException), msg) { }
 }

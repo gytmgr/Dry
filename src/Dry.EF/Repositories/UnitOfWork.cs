@@ -1,65 +1,56 @@
-﻿using Dry.Domain;
-using Dry.Domain.Entities;
-using Dry.Domain.Repositories;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace Dry.EF.Repositories;
 
-namespace Dry.EF.Repositories
+/// <summary>
+/// 工作单元
+/// </summary>
+/// <typeparam name="TBoundedContext"></typeparam>
+public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TBoundedContext : IBoundedContext
 {
     /// <summary>
-    /// 工作单元
+    /// ef上下文
     /// </summary>
-    /// <typeparam name="TBoundedContext"></typeparam>
-    public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TBoundedContext : IBoundedContext
+    private readonly DbContext _context;
+
+    /// <summary>
+    /// 中介者
+    /// </summary>
+    private readonly IMediator _mediator;
+
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="mediator"></param>
+    public UnitOfWork(TBoundedContext context, IMediator mediator)
     {
-        /// <summary>
-        /// ef上下文
-        /// </summary>
-        private readonly DbContext _context;
+        _context = context as DbContext;
+        _mediator = mediator;
+    }
 
-        /// <summary>
-        /// 中介者
-        /// </summary>
-        private readonly IMediator _mediator;
+    /// <summary>
+    /// 异步提交
+    /// </summary>
+    /// <returns></returns>
+    public async Task<int> CompleteAsync()
+    {
+        var changeEntries = _context.ChangeTracker.Entries<IEvents>().Where(x => x.Entity.GetEvent().Any());
+        var events = changeEntries.SelectMany(x => x.Entity.GetEvent()).ToArray();
+        changeEntries.ToList().ForEach(entity => entity.Entity.ClearEvent());
 
-        /// <summary>
-        /// 构造体
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="mediator"></param>
-        public UnitOfWork(TBoundedContext context, IMediator mediator)
+        var saveExecuteEvents = events.Where(x => x.PreExecute).ToArray();
+        foreach (var saveExecuteEvent in saveExecuteEvents)
         {
-            _context = context as DbContext;
-            _mediator = mediator;
+            await _mediator.Publish(saveExecuteEvent);
         }
 
-        /// <summary>
-        /// 异步提交
-        /// </summary>
-        /// <returns></returns>
-        public async Task<int> CompleteAsync()
+        var result = await _context.SaveChangesAsync();
+
+        var savedExecuteEvents = events.Where(x => !x.PreExecute).ToArray();
+        foreach (var savedExecuteEvent in savedExecuteEvents)
         {
-            var changeEntries = _context.ChangeTracker.Entries<IEvents>().Where(x => x.Entity.GetEvent().Any());
-            var events = changeEntries.SelectMany(x => x.Entity.GetEvent()).ToArray();
-            changeEntries.ToList().ForEach(entity => entity.Entity.ClearEvent());
-
-            var saveExecuteEvents = events.Where(x => x.PreExecute).ToArray();
-            foreach (var saveExecuteEvent in saveExecuteEvents)
-            {
-                await _mediator.Publish(saveExecuteEvent);
-            }
-
-            var result = await _context.SaveChangesAsync();
-
-            var savedExecuteEvents = events.Where(x => !x.PreExecute).ToArray();
-            foreach (var savedExecuteEvent in savedExecuteEvents)
-            {
-                await _mediator.Publish(savedExecuteEvent);
-            }
-
-            return result;
+            await _mediator.Publish(savedExecuteEvent);
         }
+
+        return result;
     }
 }

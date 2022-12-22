@@ -1,21 +1,18 @@
-﻿using System;
+﻿namespace Dry.Application.Contracts.Dtos;
 
-namespace Dry.Application.Contracts.Dtos
+/// <summary>
+/// 排序
+/// </summary>
+/// <typeparam name="TEnum"></typeparam>
+public class SortDto<TEnum> where TEnum : Enum
 {
     /// <summary>
-    /// 排序
+    /// 顺序，true为正序，false为倒序
     /// </summary>
-    /// <typeparam name="TEnum"></typeparam>
-    public class SortDto<TEnum> where TEnum : Enum
-    {
-        /// <summary>
-        /// 顺序，true为正序，false为倒序
-        /// </summary>
-        public bool Order { get; set; }
+    public bool Order { get; set; }
 
-        /// <summary>
-        /// 排序字段
-        /// </summary>
-        public TEnum Field { get; set; }
-    }
+    /// <summary>
+    /// 排序字段
+    /// </summary>
+    public TEnum Field { get; set; }
 }

@@ -1,9 +1,8 @@
-﻿namespace Dry.Application.Contracts.Dtos
+﻿namespace Dry.Application.Contracts.Dtos;
+
+/// <summary>
+/// 编辑dto
+/// </summary>
+public interface IEditDto
 {
-    /// <summary>
-    /// 编辑dto
-    /// </summary>
-    public interface IEditDto
-    {
-    }
 }

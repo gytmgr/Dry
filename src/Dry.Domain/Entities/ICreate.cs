@@ -1,34 +1,29 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿namespace Dry.Domain.Entities;
 
-namespace Dry.Domain.Entities
+/// <summary>
+/// 实体创建接口
+/// </summary>
+public interface ICreate
 {
     /// <summary>
-    /// 实体创建接口
+    /// 创建
     /// </summary>
-    public interface ICreate
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public Task CreateAsync([NotNull] IServiceProvider serviceProvider)
     {
-        /// <summary>
-        /// 创建
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        public Task CreateAsync([NotNull] IServiceProvider serviceProvider)
+        if (this is IHasAddTime addTimeEntity)
         {
-            if (this is IHasAddTime addTimeEntity)
-            {
-                addTimeEntity.AddTime = DateTime.Now;
-            }
-            return Task.CompletedTask;
+            addTimeEntity.AddTime = DateTime.Now;
         }
-
-        /// <summary>
-        /// 创建完成处理
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        public Task<bool> CreatedAsync([NotNull] IServiceProvider serviceProvider)
-            => Task.FromResult(false);
+        return Task.CompletedTask;
     }
+
+    /// <summary>
+    /// 创建完成处理
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public Task<bool> CreatedAsync([NotNull] IServiceProvider serviceProvider)
+        => Task.FromResult(false);
 }

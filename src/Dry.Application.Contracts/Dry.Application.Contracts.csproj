@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
 		<Description>应用契约层</Description>
-		<Version>1.2.0</Version>
+		<Version>6.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

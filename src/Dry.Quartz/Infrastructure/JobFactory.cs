@@ -1,29 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Quartz;
-using Quartz.Spi;
-using System;
+﻿namespace Dry.Quartz.Infrastructure;
 
-namespace Dry.Quartz.Infrastructure
+internal class JobFactory : IJobFactory
 {
-    internal class JobFactory : IJobFactory
+    private readonly IServiceProvider _serviceProvider;
+
+    public JobFactory(IServiceProvider serviceProvider)
+        => _serviceProvider = serviceProvider;
+
+    public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
     {
-        private readonly IServiceProvider _serviceProvider;
+        var serviceScope = _serviceProvider.CreateScope();
+        return serviceScope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob;
+    }
 
-        public JobFactory(IServiceProvider serviceProvider)
-            => _serviceProvider = serviceProvider;
-
-        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
+    public void ReturnJob(IJob job)
+    {
+        if (job is IDisposable disposable && disposable is not null)
         {
-            var serviceScope = _serviceProvider.CreateScope();
-            return serviceScope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob;
-        }
-
-        public void ReturnJob(IJob job)
-        {
-            if (job is IDisposable disposable && disposable is not null)
-            {
-                disposable.Dispose();
-            }
+            disposable.Dispose();
         }
     }
 }

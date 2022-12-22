@@ -1,9 +1,8 @@
-﻿namespace Dry.Application.Contracts.Dtos
+﻿namespace Dry.Application.Contracts.Dtos;
+
+/// <summary>
+/// 结果Dto
+/// </summary>
+public interface IResultDto
 {
-    /// <summary>
-    /// 结果Dto
-    /// </summary>
-    public interface IResultDto
-    {
-    }
 }

@@ -1,35 +1,34 @@
-﻿namespace Dry.Quartz.Model
+﻿namespace Dry.Quartz.Model;
+
+/// <summary>
+/// 主键
+/// </summary>
+public struct QuartzKey
 {
+    private string _name;
+
     /// <summary>
-    /// 主键
+    /// 默认名称
     /// </summary>
-    public struct QuartzKey
+    public const string DefaultName = "DEFAULT";
+
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string Name
     {
-        private string _name;
-
-        /// <summary>
-        /// 默认名称
-        /// </summary>
-        public const string DefaultName = "DEFAULT";
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name
+        get
         {
-            get
-            {
-                return _name ?? DefaultName;
-            }
-            set
-            {
-                _name = value;
-            }
+            return _name ?? DefaultName;
         }
-
-        /// <summary>
-        /// 分组
-        /// </summary>
-        public string Group { get; set; }
+        set
+        {
+            _name = value;
+        }
     }
+
+    /// <summary>
+    /// 分组
+    /// </summary>
+    public string Group { get; set; }
 }

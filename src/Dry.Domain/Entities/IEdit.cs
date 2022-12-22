@@ -1,34 +1,29 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿namespace Dry.Domain.Entities;
 
-namespace Dry.Domain.Entities
+/// <summary>
+/// 实体编辑接口
+/// </summary>
+public interface IEdit
 {
     /// <summary>
-    /// 实体编辑接口
+    /// 编辑
     /// </summary>
-    public interface IEdit
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public Task EditAsync([NotNull] IServiceProvider serviceProvider)
     {
-        /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        public Task EditAsync([NotNull] IServiceProvider serviceProvider)
+        if (this is IHasUpdateTime updateTimeEntity)
         {
-            if (this is IHasUpdateTime updateTimeEntity)
-            {
-                updateTimeEntity.UpdateTime = DateTime.Now;
-            }
-            return Task.CompletedTask;
+            updateTimeEntity.UpdateTime = DateTime.Now;
         }
-
-        /// <summary>
-        /// 编辑完成处理
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        public Task<bool> EditedAsync([NotNull] IServiceProvider serviceProvider)
-            => Task.FromResult(false);
+        return Task.CompletedTask;
     }
+
+    /// <summary>
+    /// 编辑完成处理
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public Task<bool> EditedAsync([NotNull] IServiceProvider serviceProvider)
+        => Task.FromResult(false);
 }
