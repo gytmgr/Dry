@@ -4,6 +4,7 @@ global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.OpenApi.Models;
 global using Swashbuckle.AspNetCore.SwaggerGen;
+global using System.Reflection;
 
 namespace Dry.Swagger;
 
@@ -39,6 +40,7 @@ public static class SwaggerExtensions
             options.IncludeXmlComments(file, true);
         });
 
+        options.DocumentFilter<HiddenApiCocumentFilter>();
         options.SchemaFilter<EnumSchemaFilter>();
     }
 

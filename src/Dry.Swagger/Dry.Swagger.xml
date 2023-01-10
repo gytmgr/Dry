@@ -16,6 +16,23 @@
             <param name="model"></param>
             <param name="context"></param>
         </member>
+        <member name="T:Dry.Swagger.SchemaFilter.HiddenApiAttribute">
+            <summary>
+            接口隐藏特性
+            </summary>
+        </member>
+        <member name="T:Dry.Swagger.SchemaFilter.HiddenApiCocumentFilter">
+            <summary>
+            隐藏接口过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.SchemaFilter.HiddenApiCocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Dry.Swagger.SwaggerExtensions">
             <summary>
             Swagger中间件扩展
