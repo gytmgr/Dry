@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.EF.xml</DocumentationFile>
 		<Description>对微软EF的封装</Description>
-		<Version>6.0.0</Version>
+		<Version>6.1.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

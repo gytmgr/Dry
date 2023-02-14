@@ -1,0 +1,340 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.AspNetCore.Controllers.DryController">
+            <summary>
+            基础控制器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryController.Service``1">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.ConfigurationConfigurer">
+            <summary>
+            Configuration配置类
+            </summary>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.DataConfigurer">
+            <summary>
+            数据配置类
+            </summary>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IAppBuilderConfigurer">
+            <summary>
+            应用生成配置器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IAppBuilderConfigurer.ConfigureAsync(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            配置
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IConfigurationReader">
+            <summary>
+            Configuration读取器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IConfigurationReader.ReadAsync(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            读
+            </summary>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IDataIniter">
+            <summary>
+            数据初始化器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IDataIniter.InitAsync">
+            <summary>
+            初始化
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IServiceConfigurer">
+            <summary>
+            服务配置器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.IServiceConfigurer.ConfigureAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.ServiceCollectionConfigurer">
+            <summary>
+            服务配置类
+            </summary>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppConfigure.DependencyConfigurer">
+            <summary>
+            Dependency配置类
+            </summary>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppConfigure.IAppConfigurer">
+            <summary>
+            应用配置器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppConfigure.IAppConfigurer.ConfigureAsync(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            配置
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppExceptionHandle.ExceptionFilter">
+            <summary>
+            异常过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppExceptionHandle.ExceptionFilter.OnExceptionAsync(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            触发
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppExceptionHandle.ExceptionHandler">
+            <summary>
+            异常处理器
+            </summary>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppExceptionHandle.IAppExceptionHandler">
+            <summary>
+            应用异常处理器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppExceptionHandle.IAppExceptionHandler.HandleAsync(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            处理
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppStartup.IAppStartuper">
+            <summary>
+            应用启动器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppStartup.IAppStartuper.StartupAsync">
+            <summary>
+            启动
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.AppStartup.StartupFilter">
+            <summary>
+            启动过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.AppStartup.StartupFilter.Configure(System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            配置
+            </summary>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.InvalidModelStateResponseFactory">
+            <summary>
+            无效状态返回工厂
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.InvalidModelStateResponseFactory.ProduceErrorResponse(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            生成错误返回
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestActionExecute.ActionFilter">
+            <summary>
+            操作过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestActionExecute.ActionFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            触发
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestActionExecute.IRequestActionExecuter">
+            <summary>
+            请求操作执行器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestActionExecute.IRequestActionExecuter.ExecutingAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            进入执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestActionExecute.IRequestActionExecuter.ExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            结束执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestAuthorize.AuthorizationFilter">
+            <summary>
+            鉴权过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestAuthorize.AuthorizationFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            触发
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestAuthorize.IRequestAuthorizer">
+            <summary>
+            请求鉴权器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestAuthorize.IRequestAuthorizer.AuthorizeAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            鉴权
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestResourceExecute.IRequestResourceExecuter">
+            <summary>
+            请求资源执行器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResourceExecute.IRequestResourceExecuter.ExecutingAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            进入执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResourceExecute.IRequestResourceExecuter.ExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <summary>
+            结束执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestResourceExecute.ResourceFilter">
+            <summary>
+            资源过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResourceExecute.ResourceFilter.OnResourceExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResourceExecutionDelegate)">
+            <summary>
+            触发
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestResultExecute.IRequestResultExecuter">
+            <summary>
+            请求结果执行器接口
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResultExecute.IRequestResultExecuter.ExecutingAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            进入执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResultExecute.IRequestResultExecuter.ExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <summary>
+            结束执行
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Infrastructure.RequestResultExecute.ResultFilter">
+            <summary>
+            结果过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Infrastructure.RequestResultExecute.ResultFilter.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
+            <summary>
+            触发
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.AspNetCore.Resources.ErrorResource">
+            <summary>
+            错误资源
+            </summary>
+        </member>
+        <member name="P:Dry.AspNetCore.Resources.ErrorResource.ErrorCode">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="P:Dry.AspNetCore.Resources.ErrorResource.Messages">
+            <summary>
+            失败信息
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.Resources.ErrorResource.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="errorCode"></param>
+        </member>
+        <member name="M:Dry.AspNetCore.Resources.ErrorResource.#ctor(System.String[])">
+            <summary>
+            构造体
+            </summary>
+            <param name="messages"></param>
+        </member>
+        <member name="M:Dry.AspNetCore.Resources.ErrorResource.#ctor(System.String,System.String[])">
+            <summary>
+            构造体
+            </summary>
+            <param name="errorCode"></param>
+            <param name="messages"></param>
+        </member>
+        <member name="T:Dry.AspNetCore.WebAppHelper">
+            <summary>
+            web应用帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.AspNetCore.WebAppHelper.CreateAsync(System.String[],System.String[])">
+            <summary>
+            创建
+            </summary>
+            <param name="args"></param>
+            <param name="dependencyPrefixs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.WebAppHelper.ServicesActionAsync``1(System.IServiceProvider,System.Func{``0,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            多服务操作
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="serviceAction"></param>
+            <param name="ascOrder"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

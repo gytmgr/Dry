@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
 		<Description>应用契约层</Description>
-		<Version>6.0.0</Version>
+		<Version>6.1.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
 		<Description>RESTFul服务端</Description>
-		<Version>6.0.0</Version>
+		<Version>6.1.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,7 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
-		<ProjectReference Include="..\Dry.Mvc\Dry.Mvc.csproj" />
+		<ProjectReference Include="..\Dry.AspNetCore\Dry.AspNetCore.csproj" />
 	</ItemGroup>
 
 </Project>

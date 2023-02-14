@@ -13,9 +13,19 @@ public static class ServiceCollectionExtension
     /// 注入实现IDependency接口的类型
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="prefixs"></param>
+    /// <param name="prefixs">程序集命名前缀</param>
     /// <returns></returns>
     public static IServiceCollection AddDependency(this IServiceCollection services, params string[] prefixs)
+        => services.AddDependency(false, prefixs);
+
+    /// <summary>
+    /// 注入实现IDependency接口的类型
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="onlyLeaf">只注入叶子派生类</param>
+    /// <param name="prefixs">程序集命名前缀</param>
+    /// <returns></returns>
+    public static IServiceCollection AddDependency(this IServiceCollection services, bool onlyLeaf, params string[] prefixs)
     {
         var prefixList = new string[] { "Dry." };
         if (prefixs is not null)
@@ -28,16 +38,27 @@ public static class ServiceCollectionExtension
             .Where(x => x.IsClass && !x.IsAbstract)
             .Where(x => x.GetInterfaces().Any(y => y == typeof(IDependency)))
             .ToArray();
+
+        var serviceDescriptors = new List<ServiceDescriptor>();
         foreach (var implType in implTypes)
         {
             var genericTypes = implType.GetInterfaces().Where(x => x.IsGenericType).ToArray();
 
-            var serviceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(IDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
-            foreach (var serviceType in serviceTypes)
+            var singletonServiceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(ISingletonDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
+            foreach (var singletonServiceType in singletonServiceTypes)
             {
-                if (serviceType.IsAssignableFrom(implType))
+                if (singletonServiceType.IsAssignableFrom(implType))
                 {
-                    services.AddScoped(serviceType, implType);
+                    serviceDescriptors.Add(ServiceDescriptor.Singleton(singletonServiceType, implType));
+                }
+            }
+
+            var scopedServiceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(IDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
+            foreach (var scopedServiceType in scopedServiceTypes)
+            {
+                if (scopedServiceType.IsAssignableFrom(implType))
+                {
+                    serviceDescriptors.Add(ServiceDescriptor.Scoped(scopedServiceType, implType));
                 }
             }
 
@@ -46,19 +67,21 @@ public static class ServiceCollectionExtension
             {
                 if (transientServiceType.IsAssignableFrom(implType))
                 {
-                    services.AddTransient(transientServiceType, implType);
-                }
-            }
-
-            var singletonServiceTypes = genericTypes.Where(x => x.GetGenericTypeDefinition() == typeof(ISingletonDependency<>)).Select(x => x.GenericTypeArguments.ElementAt(0)).ToArray();
-            foreach (var singletonServiceType in singletonServiceTypes)
-            {
-                if (singletonServiceType.IsAssignableFrom(implType))
-                {
-                    services.AddSingleton(singletonServiceType, implType);
+                    serviceDescriptors.Add(ServiceDescriptor.Transient(transientServiceType, implType));
                 }
             }
         }
+
+        var serviceDescriptorGroups = serviceDescriptors.GroupBy(x => new { x.Lifetime, x.ServiceType }).ToArray();
+        foreach (var serviceDescriptorGroup in serviceDescriptorGroups)
+        {
+            var filteredServiceDescriptors = onlyLeaf ? serviceDescriptorGroup.Where(x => !serviceDescriptorGroup.Any(y => y.ImplementationType != x.ImplementationType && x.ImplementationType.IsAssignableFrom(y.ImplementationType))).ToArray() : serviceDescriptorGroup.ToArray();
+            foreach (var filteredServiceDescriptor in filteredServiceDescriptors)
+            {
+                services.Add(filteredServiceDescriptor);
+            }
+        }
+
         return services;
     }
 }

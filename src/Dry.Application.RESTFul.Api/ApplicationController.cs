@@ -1,10 +1,4 @@
-﻿global using Dry.Application.Contracts.Dtos;
-global using Dry.Application.Contracts.Services;
-global using Dry.Core.Model;
-global using Dry.Mvc.Controllers;
-global using Microsoft.AspNetCore.Mvc;
-
-namespace Dry.Application.RESTFul.Api;
+﻿namespace Dry.Application.RESTFul.Api;
 
 /// <summary>
 /// 基础应用控制器

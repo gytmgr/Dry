@@ -54,7 +54,16 @@
             注入实现IDependency接口的类型
             </summary>
             <param name="services"></param>
-            <param name="prefixs"></param>
+            <param name="prefixs">程序集命名前缀</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Dependency.ServiceCollectionExtension.AddDependency(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean,System.String[])">
+            <summary>
+            注入实现IDependency接口的类型
+            </summary>
+            <param name="services"></param>
+            <param name="onlyLeaf">只注入叶子派生类</param>
+            <param name="prefixs">程序集命名前缀</param>
             <returns></returns>
         </member>
     </members>

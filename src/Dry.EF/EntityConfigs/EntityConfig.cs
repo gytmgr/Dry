@@ -39,6 +39,10 @@ public abstract class EntityConfig<TBoundedContext, TEntity> : IEntityRegister<T
         {
             builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasName.Name))).IsRequired().HasMaxLength(50).HasComment("名称");
         }
+        if (entityType.IsDerivedFrom(typeof(IHasOrder)))
+        {
+            builder.Property(LinqHelper.GetKeySelector<TEntity, int>(nameof(IHasOrder.Order))).HasComment("排序");
+        }
         if (entityType.IsDerivedFrom(typeof(IHasAddTime)))
         {
             builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime>(nameof(IHasAddTime.AddTime))).HasComment("添加时间");

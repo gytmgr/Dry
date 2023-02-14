@@ -1,0 +1,12 @@
+﻿global using AutoMapper;
+global using Dry.Application.Contracts.Dtos;
+global using Dry.Application.Contracts.Services;
+global using Dry.Core.Model;
+global using Dry.Core.Utilities;
+global using Dry.Domain;
+global using Dry.Domain.Entities;
+global using Dry.Domain.Extensions;
+global using Dry.Domain.Repositories;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Linq.Expressions;

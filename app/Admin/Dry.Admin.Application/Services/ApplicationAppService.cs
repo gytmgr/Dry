@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.Application.Services
 {
-    public class ApplicationAppService : ApplicationQueryService<IAdminContext, App, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService
+    public class ApplicationAppService : ApplicationQueryService<IAdminContext, App, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService, IDependency<IApplicationAppService>
     {
         public ApplicationAppService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
