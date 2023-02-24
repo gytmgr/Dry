@@ -14,7 +14,10 @@ public class ActionFilter : IAsyncActionFilter
     public virtual async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         await WebAppHelper.ServicesActionAsync<IRequestActionExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutingAsync(context));
-        var executedContext = await next();
-        await WebAppHelper.ServicesActionAsync<IRequestActionExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+        if (context.Result is null)
+        {
+            var executedContext = await next();
+            await WebAppHelper.ServicesActionAsync<IRequestActionExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+        }
     }
 }

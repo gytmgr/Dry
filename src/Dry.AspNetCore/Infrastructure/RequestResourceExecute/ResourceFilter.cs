@@ -16,8 +16,11 @@ public class ResourceFilter : IAsyncResourceFilter
         try
         {
             await WebAppHelper.ServicesActionAsync<IRequestResourceExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutingAsync(context));
-            var executedContext = await next();
-            await WebAppHelper.ServicesActionAsync<IRequestResourceExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+            if (context.Result is null)
+            {
+                var executedContext = await next();
+                await WebAppHelper.ServicesActionAsync<IRequestResourceExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+            }
         }
         catch (Exception ex)
         {

@@ -9,7 +9,7 @@
 		<DocumentationFile>Dry.AspNetCore.xml</DocumentationFile>
 		<Description>对AspNetCore的一些封装</Description>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Version>6.1.5</Version>
+		<Version>6.1.8</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
