@@ -1,6 +1,6 @@
 ﻿namespace Dry.Quartz.Service.Impl;
 
-internal class TriggerService : ITriggerService, IDependency<ITriggerListenService>
+internal class TriggerService : ITriggerService, IDependency<ITriggerService>
 {
     private readonly IScheduler _scheduler;
 
