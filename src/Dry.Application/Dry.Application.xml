@@ -143,6 +143,14 @@
             <returns></returns>
             <exception cref="T:Dry.Core.Model.NullDataBizException"></exception>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.MapEditEntityAsync(`1,`4)">
+            <summary>
+            映射实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.SetEditEntityAsync(`1,`4)">
             <summary>
             配置实体编辑数据
@@ -193,6 +201,14 @@
             <returns></returns>
             <exception cref="T:Dry.Core.Model.NullDataBizException"></exception>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.MapEditEntityAsync(`1,`5)">
+            <summary>
+            映射实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.SetEditEntityAsync(`1,`5)">
             <summary>
             配置实体编辑数据
@@ -236,6 +252,13 @@
             构造体
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationCreateService`4.MapCreateEntityAsync(`3)">
+            <summary>
+            映射实体新建数据
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationCreateService`4.SetCreateEntityAsync(`1,`3)">
             <summary>
@@ -304,6 +327,13 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.MapCreateEntityAsync(`4)">
+            <summary>
+            映射实体新建数据
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationQueryCreateService`5.SetCreateEntityAsync(`1,`4)">
             <summary>
             配置实体新建数据
@@ -348,6 +378,13 @@
             构造体
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.MapCreateEntityAsync(`4)">
+            <summary>
+            映射实体新建数据
+            </summary>
+            <param name="createDto"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryCreateService`6.SetCreateEntityAsync(`1,`4)">
             <summary>
@@ -591,6 +628,14 @@
             <returns></returns>
             <exception cref="T:Dry.Core.Model.NullDataBizException"></exception>
         </member>
+        <member name="M:Dry.Application.Services.ApplicationEditService`5.MapEditEntityAsync(`1,`3)">
+            <summary>
+            映射实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Application.Services.ApplicationEditService`5.SetEditEntityAsync(`1,`3)">
             <summary>
             配置实体编辑数据
@@ -644,6 +689,14 @@
             <param name="id"></param>
             <returns></returns>
             <exception cref="T:Dry.Core.Model.NullDataBizException"></exception>
+        </member>
+        <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.MapEditEntityAsync(`1,`4)">
+            <summary>
+            映射实体编辑数据
+            </summary>
+            <param name="entity"></param>
+            <param name="editDto"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.SetEditEntityAsync(`1,`4)">
             <summary>

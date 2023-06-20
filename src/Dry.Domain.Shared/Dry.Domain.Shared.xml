@@ -4,6 +4,131 @@
         <name>Dry.Domain.Shared</name>
     </assembly>
     <members>
+        <member name="T:Dry.Domain.Shared.Enums.Hour">
+            <summary>
+            小时
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Zero">
+            <summary>
+            零点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.One">
+            <summary>
+            一点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Two">
+            <summary>
+            二点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Three">
+            <summary>
+            三点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Four">
+            <summary>
+            四点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Five">
+            <summary>
+            五点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Six">
+            <summary>
+            六点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Seven">
+            <summary>
+            七点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Eight">
+            <summary>
+            八点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Nine">
+            <summary>
+            九点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Ten">
+            <summary>
+            十点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Eleven">
+            <summary>
+            十一点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Twelve">
+            <summary>
+            十二点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Thirteen">
+            <summary>
+            十三点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Fourteen">
+            <summary>
+            十四点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Fifteen">
+            <summary>
+            十五点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Sixteen">
+            <summary>
+            十六点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Seventeen">
+            <summary>
+            十七点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Eighteen">
+            <summary>
+            十八点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Nineteen">
+            <summary>
+            十九点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.Twenty">
+            <summary>
+            二十点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.TwentyOne">
+            <summary>
+            二十一点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.TwentyTwo">
+            <summary>
+            二十二点
+            </summary>
+        </member>
+        <member name="F:Dry.Domain.Shared.Enums.Hour.TwentyThree">
+            <summary>
+            二十三点
+            </summary>
+        </member>
         <member name="T:Dry.Domain.Shared.Enums.Month">
             <summary>
             月份
@@ -113,6 +238,42 @@
             <summary>
             女
             </summary>
+        </member>
+        <member name="T:Dry.Domain.Shared.Extensions.DateTimeExtension">
+            <summary>
+            时间扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Shared.Extensions.DateTimeExtension.GetQuarter(System.DateTime)">
+            <summary>
+            获取指定时间的季度
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Shared.Extensions.MonthExtension">
+            <summary>
+            月份扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Shared.Extensions.MonthExtension.GetQuarter(Dry.Domain.Shared.Enums.Month)">
+            <summary>
+            获取指定月份的季度
+            </summary>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Domain.Shared.Extensions.QuarterExtension">
+            <summary>
+            季度扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Shared.Extensions.QuarterExtension.GetStartMonth(Dry.Domain.Shared.Enums.Quarter)">
+            <summary>
+            获取指定季度的开始月份
+            </summary>
+            <param name="quarter"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

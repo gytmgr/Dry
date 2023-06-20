@@ -110,7 +110,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)
@@ -152,7 +152,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)
@@ -170,7 +170,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)

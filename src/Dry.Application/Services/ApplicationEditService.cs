@@ -35,13 +35,18 @@ public abstract class ApplicationEditService<TBoundedContext, TEntity, TResult, 
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetEditEntityAsync(TKey id)
+        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+
+    /// <summary>
+    /// 映射实体编辑数据
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="editDto"></param>
+    /// <returns></returns>
+    protected virtual Task MapEditEntityAsync(TEntity entity, TEdit editDto)
     {
-        var entity = await _repository.FindAsync(id);
-        if (entity is null)
-        {
-            throw new NullDataBizException();
-        }
-        return entity;
+        _mapper.Map(editDto, entity);
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -89,7 +94,7 @@ public abstract class ApplicationEditService<TBoundedContext, TEntity, TResult, 
     public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
     {
         var entity = await GetEditEntityAsync(id);
-        _mapper.Map(editDto, entity);
+        await MapEditEntityAsync(entity, editDto);
         await SetEditEntityAsync(entity, editDto);
         await _unitOfWork.CompleteAsync();
         await EditedAsync(entity, editDto);
@@ -134,13 +139,18 @@ public abstract class ApplicationQueryEditService<TBoundedContext, TEntity, TRes
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetEditEntityAsync(TKey id)
+        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+
+    /// <summary>
+    /// 映射实体编辑数据
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="editDto"></param>
+    /// <returns></returns>
+    protected virtual Task MapEditEntityAsync(TEntity entity, TEdit editDto)
     {
-        var entity = await _repository.FindAsync(id);
-        if (entity is null)
-        {
-            throw new NullDataBizException();
-        }
-        return entity;
+        _mapper.Map(editDto, entity);
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -188,7 +198,7 @@ public abstract class ApplicationQueryEditService<TBoundedContext, TEntity, TRes
     public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
     {
         var entity = await GetEditEntityAsync(id);
-        _mapper.Map(editDto, entity);
+        await MapEditEntityAsync(entity, editDto);
         await SetEditEntityAsync(entity, editDto);
         await _unitOfWork.CompleteAsync();
         await EditedAsync(entity, editDto);

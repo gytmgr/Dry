@@ -906,7 +906,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Extensions.RepositoryExtension.IncludeFirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.FirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>
             条件查询第一条并提前加载导航属性
             </summary>
@@ -916,13 +916,34 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Extensions.RepositoryExtension.OrderByFirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.FirstAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
             <summary>
             条件查询第一条并排序
             </summary>
             <typeparam name="TEntity"></typeparam>
             <param name="repository"></param>
             <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.FirstAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            查询第一条指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.FirstAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            排序查询第一条指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
             <param name="orderBys"></param>
             <returns></returns>
         </member>
@@ -935,7 +956,7 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Extensions.RepositoryExtension.IncludeToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>
             条件查询并提前加载导航属性
             </summary>
@@ -945,13 +966,55 @@
             <param name="paths"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Domain.Extensions.RepositoryExtension.OrderByToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``1(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
             <summary>
             条件查询并排序
             </summary>
             <typeparam name="TEntity"></typeparam>
             <param name="repository"></param>
             <param name="predicate"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            查询指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            排序查询指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
+            <param name="orderBys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1}}})">
+            <summary>
+            查询指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.RepositoryExtension.ToArrayAsync``2(Dry.Domain.Repositories.IReadOnlyRepository{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1}}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}}[])">
+            <summary>
+            排序查询指定字段
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="repository"></param>
+            <param name="selector"></param>
             <param name="orderBys"></param>
             <returns></returns>
         </member>
@@ -1889,111 +1952,6 @@
             主键查询
             </summary>
             <param name="keyValues"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            条件查询第一条
-            </summary>
-            <param name="predicates"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            条件查询第一条并提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询第一条并排序提前加载导航属性
-            </summary>
-            <param name="predicates"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询第一条指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.FirstAsync``1(System.Func{System.Linq.IQueryable{`0},System.Linq.IQueryable{``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            自定义查询第一条并提前加载导航属性
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="func"></param>
-            <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
-            <summary>
-            条件查询
-            </summary>
-            <param name="predicates"></param>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            条件查询并提前加载导航属性
-            </summary>
-            <param name="predicate"></param>
-            <param name="paths"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            条件查询并排序提前加载导航属性
-            </summary>
-            <param name="predicates"></param>
-            <param name="paths"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicate"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[],System.ValueTuple{System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}}[])">
-            <summary>
-            排序条件查询指定字段
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="selector"></param>
-            <param name="predicates"></param>
-            <param name="orderBys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IRepository`1.ToArrayAsync``1(System.Func{System.Linq.IQueryable{`0},System.Linq.IQueryable{``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
-            <summary>
-            自定义查询并提前加载导航属性
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="func"></param>
-            <param name="paths"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Domain.Repositories.IUnitOfWork`1">

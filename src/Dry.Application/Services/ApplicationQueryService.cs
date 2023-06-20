@@ -75,10 +75,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// <param name="queryDto"></param>
     /// <returns></returns>
     protected virtual Task<TResult> SingleResultMapAsync(TEntity entity, TQuery queryDto)
-    {
-        var result = _mapper.Map<TResult>(entity);
-        return Task.FromResult(result);
-    }
+        => Task.FromResult(_mapper.Map<TResult>(entity));
 
     /// <summary>
     /// 多结果映射
@@ -87,10 +84,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// <param name="queryDto"></param>
     /// <returns></returns>
     protected virtual Task<TResult[]> ArrayResultMapAsync(TEntity[] entities, TQuery queryDto)
-    {
-        var result = _mapper.Map<TResult[]>(entities);
-        return Task.FromResult(result);
-    }
+        => Task.FromResult(_mapper.Map<TResult[]>(entities));
 
     /// <summary>
     /// 是否存在
@@ -278,14 +272,7 @@ public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult,
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-    {
-        var entity = await _repository.FindAsync(id);
-        if (entity is null)
-        {
-            throw new NullDataBizException();
-        }
-        return entity;
-    }
+        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据

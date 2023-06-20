@@ -30,14 +30,7 @@ public abstract class ApplicationCreateDeleteService<TBoundedContext, TEntity, T
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-    {
-        var entity = await _repository.FindAsync(id);
-        if (entity is null)
-        {
-            throw new NullDataBizException();
-        }
-        return entity;
-    }
+        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据
@@ -113,14 +106,7 @@ public abstract class ApplicationQueryCreateDeleteService<TBoundedContext, TEnti
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-    {
-        var entity = await _repository.FindAsync(id);
-        if (entity is null)
-        {
-            throw new NullDataBizException();
-        }
-        return entity;
-    }
+        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据

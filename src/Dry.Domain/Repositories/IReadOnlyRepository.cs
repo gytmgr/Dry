@@ -68,7 +68,7 @@ public interface IReadOnlyRepository<TEntity> where TEntity : IEntity, IBoundedC
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
+    Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
     /// <summary>
     /// 条件查询并排序提前加载导航属性
@@ -87,7 +87,7 @@ public interface IReadOnlyRepository<TEntity> where TEntity : IEntity, IBoundedC
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
+    Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
     /// <summary>
     /// 排序条件查询指定字段
@@ -97,7 +97,7 @@ public interface IReadOnlyRepository<TEntity> where TEntity : IEntity, IBoundedC
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate = null, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
+    Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys);
 
     #endregion
 
