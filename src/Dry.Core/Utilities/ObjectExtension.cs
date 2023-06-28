@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
-
-namespace Dry.Core.Utilities;
+﻿namespace Dry.Core.Utilities;
 
 /// <summary>
 /// 对象扩展
@@ -71,6 +66,32 @@ public static class ObjectExtension
     }
 
     /// <summary>
+    /// 深拷贝
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static T DeepCopyByJson<T>(this T obj)
+    {
+        var options = new JsonSerializerOptions().DefaultConfig();
+        var json = JsonSerializer.Serialize(obj, options);
+        return JsonSerializer.Deserialize<T>(json, options);
+    }
+
+    /// <summary>
+    /// 深拷贝
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static T DeepCopyToByJson<T>(this object obj)
+    {
+        var options = new JsonSerializerOptions().DefaultConfig();
+        var json = JsonSerializer.Serialize(obj, options);
+        return JsonSerializer.Deserialize<T>(json, options);
+    }
+
+    /// <summary>
     /// 转大写
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -118,6 +139,10 @@ public static class ObjectExtension
                         {
                             continue;
                         }
+                        if (item is null)
+                        {
+                            continue;
+                        }
                         if (item.GetType().IsValueType || item is string)
                         {
                             result.Add($"{name}[{i}]={HttpUtility.UrlEncode(item.ToString())}");
@@ -143,5 +168,55 @@ public static class ObjectExtension
             }
             return result;
         }
+    }
+
+    /// <summary>
+    /// 拷贝属性
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="fromObj"></param>
+    /// <param name="toObj"></param>
+    /// <param name="ignorePropertyNames"></param>
+    /// <returns></returns>
+    public static T CopyProperty<T>(this T fromObj, T toObj, params string[] ignorePropertyNames)
+    {
+        if (fromObj is not null and not string && !fromObj.GetType().IsValueType)
+        {
+            toObj ??= (T)Activator.CreateInstance(fromObj.GetType());
+            var properties = fromObj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
+            {
+                try
+                {
+                    if (ignorePropertyNames?.Where(x => x?.Contains('.') is false).Contains(property.Name) is true)
+                    {
+                        continue;
+                    }
+                    var fromPropertyValue = property.GetValue(fromObj);
+                    if (fromPropertyValue is not null and not string && !property.PropertyType.IsValueType)
+                    {
+                        var toPropertyValue = property.GetValue(toObj);
+                        var toPropertyIsNull = toPropertyValue is null;
+                        var ignorePropertyNameStarts = $"{property.Name}.";
+                        toPropertyValue = CopyProperty(fromPropertyValue, toPropertyValue,
+                            ignorePropertyNames?.Where(x => x is not null && x.StartsWith(ignorePropertyNameStarts)).Select(x => x.Substring(ignorePropertyNameStarts.Length)).ToArray());
+                        if (toPropertyIsNull)
+                        {
+                            property.SetValue(toObj, toPropertyValue);
+                        }
+                    }
+                    else
+                    {
+                        property.SetValue(toObj, fromPropertyValue);
+                    }
+                }
+                catch { }
+            }
+        }
+        else
+        {
+            toObj = fromObj;
+        }
+        return toObj;
     }
 }

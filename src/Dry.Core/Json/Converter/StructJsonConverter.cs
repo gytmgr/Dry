@@ -16,7 +16,7 @@ public class StructJsonConverter<TStruct> : DryJsonConverter<TStruct> where TStr
     public override TStruct Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         => (reader.TokenType switch
         {
-            JsonTokenType.Number => reader.GetInt64().ToString(),
+            JsonTokenType.Number => reader.GetDecimal().ToString(),
             JsonTokenType.True or JsonTokenType.False => reader.GetBoolean().ToString(),
             _ => reader.GetString()
         }).TryParse<TStruct>(out var value) ? value : default;
@@ -38,7 +38,7 @@ public class StructNullableJsonConverter<TStruct> : DryJsonConverter<TStruct?> w
     public override TStruct? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         => (reader.TokenType switch
         {
-            JsonTokenType.Number => reader.GetInt64().ToString(),
+            JsonTokenType.Number => reader.GetDecimal().ToString(),
             JsonTokenType.True or JsonTokenType.False => reader.GetBoolean().ToString(),
             _ => reader.GetString()
         }).TryParse<TStruct>(out var value) ? value : null;

@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.xml</DocumentationFile>
 		<Description>DDD应用层</Description>
-		<Version>6.1.1</Version>
+		<Version>6.1.9</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

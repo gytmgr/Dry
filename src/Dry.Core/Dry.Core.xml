@@ -48,6 +48,29 @@
             <param name="options"></param>
             <returns></returns> 
         </member>
+        <member name="T:Dry.Core.Json.DryJsonSerializer">
+            <summary>
+            json序列化
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Json.DryJsonSerializer.Serialize``1(``0,System.Action{System.Text.Json.JsonSerializerOptions})">
+            <summary>
+            序列化
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="value"></param>
+            <param name="setupAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Json.DryJsonSerializer.Deserialize``1(System.String,System.Action{System.Text.Json.JsonSerializerOptions})">
+            <summary>
+            反序列化
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="json"></param>
+            <param name="setupAction"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Json.HttpRequesterExtension">
             <summary>
             http请求扩展
@@ -630,6 +653,29 @@
             <param name="y"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Core.Utilities.ExpressionExtension">
+            <summary>
+            Lambda表达式扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.ExpressionExtension.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件合并_并集
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression1"></param>
+            <param name="expression2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.ExpressionExtension.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            条件合并_交集
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression1"></param>
+            <param name="expression2"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.FileHelper">
             <summary>
             文件操作帮助类
@@ -1002,29 +1048,6 @@
             <param name="orderBys"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Core.Utilities.ExpressionExtension">
-            <summary>
-            Lambda表达式扩展
-            </summary>
-        </member>
-        <member name="M:Dry.Core.Utilities.ExpressionExtension.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
-            <summary>
-            条件合并_并集
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="expression1"></param>
-            <param name="expression2"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Core.Utilities.ExpressionExtension.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
-            <summary>
-            条件合并_交集
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="expression1"></param>
-            <param name="expression2"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.Core.Utilities.LinqHelper">
             <summary>
             linq帮助类
@@ -1124,6 +1147,22 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.ObjectExtension.DeepCopyByJson``1(``0)">
+            <summary>
+            深拷贝
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.ObjectExtension.DeepCopyToByJson``1(System.Object)">
+            <summary>
+            深拷贝
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Core.Utilities.ObjectExtension.ToStringUpper``1(``0)">
             <summary>
             转大写
@@ -1145,6 +1184,16 @@
             对象转url参数
             </summary>
             <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.ObjectExtension.CopyProperty``1(``0,``0,System.String[])">
+            <summary>
+            拷贝属性
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fromObj"></param>
+            <param name="toObj"></param>
+            <param name="ignorePropertyNames"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.StringExtension">

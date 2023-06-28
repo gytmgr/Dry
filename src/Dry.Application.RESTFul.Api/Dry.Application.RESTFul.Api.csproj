@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
 		<Description>RESTFul服务端</Description>
-		<Version>6.1.8</Version>
+		<Version>6.1.9</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
