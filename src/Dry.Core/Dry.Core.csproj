@@ -2,13 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Core.xml</DocumentationFile>
 		<Description>对微软DI的封装</Description>
-		<Version>6.1.9</Version>
+		<Version>6.1.10</Version>
 	</PropertyGroup>
 
 </Project>

@@ -2,13 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.PinYin.xml</DocumentationFile>
 		<Description>拼音的一些方法</Description>
-		<Version>6.0.0</Version>
+		<Version>6.1.10</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

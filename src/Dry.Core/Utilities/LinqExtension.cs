@@ -89,6 +89,8 @@ public static class EnumerableExtension
         return query;
     }
 
+#if NET5_0 || NETCOREAPP3_1
+
     /// <summary>
     /// 指定属性去重
     /// </summary>
@@ -108,6 +110,8 @@ public static class EnumerableExtension
             }
         }
     }
+
+#endif
 
     /// <summary>
     /// 差集

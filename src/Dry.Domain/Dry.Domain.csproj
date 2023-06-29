@@ -2,13 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Domain.xml</DocumentationFile>
 		<Description>领域层</Description>
-		<Version>6.1.9</Version>
+		<Version>6.1.10</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
