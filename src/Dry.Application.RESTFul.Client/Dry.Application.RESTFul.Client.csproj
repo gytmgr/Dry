@@ -9,7 +9,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
 		<Description>RESTFul客户端</Description>
-		<Version>6.1.10</Version>
+		<Version>6.1.12</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
