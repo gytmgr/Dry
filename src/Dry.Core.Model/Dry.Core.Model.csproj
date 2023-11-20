@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Company>Dry</Company>
+		<Authors>gan</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>Dry.Core.Model.xml</DocumentationFile>
+		<Description>通用类型</Description>
+		<Version>6.2.0</Version>
+	</PropertyGroup>
+
+</Project>

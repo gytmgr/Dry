@@ -10,7 +10,7 @@ public interface IDelete
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task DeleteAsync([NotNull] IServiceProvider serviceProvider)
+    public Task DeleteAsync(IServiceProvider serviceProvider)
     {
         if (this is IHasAddTime addTimeEntity)
         {
@@ -27,6 +27,6 @@ public interface IDelete
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task<bool> DeletedAsync([NotNull] IServiceProvider serviceProvider)
+    public Task<bool> DeletedAsync(IServiceProvider serviceProvider)
         => Task.FromResult(false);
 }

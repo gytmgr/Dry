@@ -19,9 +19,7 @@ public abstract class EntityConfig<TBoundedContext, TEntity> : IEntityRegister<T
     /// </summary>
     /// <param name="modelBuilder"></param>
     public virtual void RegistTo(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfiguration(this);
-    }
+        => modelBuilder.ApplyConfiguration(this);
 
     /// <summary>
     /// 配置表信息
@@ -33,23 +31,23 @@ public abstract class EntityConfig<TBoundedContext, TEntity> : IEntityRegister<T
         var entityType = typeof(TEntity);
         if (entityType.IsDerivedFrom(typeof(IHasCode)))
         {
-            builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasCode.Code))).IsRequired().HasMaxLength(50).HasComment("编码");
+            builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasCode.Code))!).IsRequired().HasMaxLength(50).HasComment("编码");
         }
         if (entityType.IsDerivedFrom(typeof(IHasName)))
         {
-            builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasName.Name))).IsRequired().HasMaxLength(50).HasComment("名称");
+            builder.Property(LinqHelper.GetKeySelector<TEntity, string>(nameof(IHasName.Name))!).IsRequired().HasMaxLength(50).HasComment("名称");
         }
         if (entityType.IsDerivedFrom(typeof(IHasOrder)))
         {
-            builder.Property(LinqHelper.GetKeySelector<TEntity, int>(nameof(IHasOrder.Order))).HasComment("排序");
+            builder.Property(LinqHelper.GetKeySelector<TEntity, int>(nameof(IHasOrder.Order))!).HasComment("排序");
         }
         if (entityType.IsDerivedFrom(typeof(IHasAddTime)))
         {
-            builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime>(nameof(IHasAddTime.AddTime))).HasComment("添加时间");
+            builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime>(nameof(IHasAddTime.AddTime))!).HasComment("添加时间");
         }
         if (entityType.IsDerivedFrom(typeof(IHasUpdateTime)))
         {
-            builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime?>(nameof(IHasUpdateTime.UpdateTime))).HasComment("更新时间");
+            builder.Property(LinqHelper.GetKeySelector<TEntity, DateTime?>(nameof(IHasUpdateTime.UpdateTime))!).HasComment("更新时间");
         }
     }
 }

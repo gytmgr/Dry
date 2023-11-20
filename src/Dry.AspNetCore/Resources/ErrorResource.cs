@@ -8,12 +8,12 @@ public class ErrorResource
     /// <summary>
     /// 成功
     /// </summary>
-    public string ErrorCode { get; private set; }
+    public string? ErrorCode { get; private set; }
 
     /// <summary>
     /// 失败信息
     /// </summary>
-    public string[] Messages { get; private set; }
+    public string[]? Messages { get; private set; }
 
     /// <summary>
     /// 构造体

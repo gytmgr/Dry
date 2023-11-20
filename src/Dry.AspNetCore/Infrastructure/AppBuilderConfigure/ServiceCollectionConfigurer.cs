@@ -13,5 +13,5 @@ public class ServiceCollectionConfigurer : IAppBuilderConfigurer, ISingletonDepe
         => _serviceProvider = serviceProvider;
 
     public virtual async Task ConfigureAsync(WebApplicationBuilder builder)
-        => await WebAppHelper.ServicesActionAsync<IServiceConfigurer>(_serviceProvider, async configurer => await configurer.ConfigureAsync(builder.Services));
+        => await _serviceProvider.ServicesActionAsync<IServiceConfigurer>(async configurer => await configurer.ConfigureAsync(builder.Services));
 }

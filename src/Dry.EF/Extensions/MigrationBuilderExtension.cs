@@ -62,8 +62,8 @@ public static class MigrationBuilderExtension
             if (tableDescriptionAnnotation != null)
             {
                 migrationBuilder.AddOrUpdateTableDescription(
-                    tableName,
-                    tableDescriptionAnnotation.Value.ToString(),
+                    tableName!,
+                    tableDescriptionAnnotation.Value!.ToString()!,
                     string.IsNullOrEmpty(schema) ? defaultSchema : schema);
             }
 
@@ -75,9 +75,9 @@ public static class MigrationBuilderExtension
                 if (columnDescriptionAnnotation != null)
                 {
                     migrationBuilder.AddOrUpdateColumnDescription(
-                        tableName,
-                        property.GetColumnName(),
-                        columnDescriptionAnnotation.Value.ToString(),
+                        tableName!,
+                        property.GetColumnBaseName(),
+                        columnDescriptionAnnotation.Value!.ToString()!,
                         string.IsNullOrEmpty(schema) ? defaultSchema : schema);
                 }
             }

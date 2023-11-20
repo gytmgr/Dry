@@ -10,10 +10,10 @@ public static class AssemblyHelper
     /// </summary>
     /// <param name="prefixs">要筛选的程序集前缀</param>
     /// <returns></returns>
-    public static IEnumerable<Assembly> GetAll(params string[] prefixs)
+    public static IEnumerable<Assembly> GetAll(params string[]? prefixs)
     {
         return DependencyContext.Default.RuntimeLibraries
-            .Where(x => prefixs.Length <= 0 || prefixs.Any(y => x.Name.StartsWith(y)))
+            .Where(x => prefixs is null or { Length: 0 } || prefixs.Any(y => x.Name.StartsWith(y)))
             .Select(x =>
              {
                  try
@@ -25,6 +25,6 @@ public static class AssemblyHelper
                      return null;
                  }
              })
-            .Where(x => x is not null);
+            .Where(x => x is not null).Select(x => x!);
     }
 }

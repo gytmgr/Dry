@@ -9,7 +9,6 @@ global using Dry.Application.Services;
 global using Dry.AutoMapper.Mapping;
 global using Dry.Core.Model;
 global using Dry.Core.Utilities;
-global using Dry.Dependency;
 global using MediatR;
 global using System.Linq.Expressions;
 global using App = Dry.Admin.Domain.Entities.Application;

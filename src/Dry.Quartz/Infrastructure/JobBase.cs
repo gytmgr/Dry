@@ -18,7 +18,7 @@ public abstract class JobBase<TJobModel, TTriggerModel> : IJob
     /// <param name="job"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected abstract Task Execute(IJobExecutionContext context, TJobModel job, TTriggerModel trigger);
+    protected abstract Task Execute(IJobExecutionContext context, TJobModel? job, TTriggerModel? trigger);
 
     /// <summary>
     /// 执行

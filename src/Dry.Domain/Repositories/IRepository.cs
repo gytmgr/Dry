@@ -4,9 +4,16 @@
 /// 仓储接口
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : IEntity, IBoundedContext
+public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class, IEntity, IBoundedContext
 {
     #region Tracking
+
+    /// <summary>
+    /// 是否更改
+    /// </summary>
+    /// <param name="entitiy"></param>
+    /// <returns></returns>
+    bool Modified(TEntity entitiy);
 
     /// <summary>
     /// 属性是否更改
@@ -15,7 +22,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression);
+    bool PropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty>> propertyExpression);
 
     /// <summary>
     /// 单数导航属性是否更改
@@ -24,7 +31,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    bool SingleNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class;
+    bool SingleNavigationPropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression) where TProperty : class;
 
     /// <summary>
     /// 复数导航属性是否更改
@@ -33,7 +40,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    bool ArrayNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
+    bool ArrayNavigationPropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
 
     /// <summary>
     /// 单数属性延迟加载
@@ -42,7 +49,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    Task SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class;
+    Task SinglePropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression) where TProperty : class;
 
     /// <summary>
     /// 单数属性延迟加载
@@ -52,7 +59,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="propertyExpression"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    Task<TProperty> SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class;
+    Task<TProperty?> SinglePropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression, params Expression<Func<TProperty, dynamic>>[]? paths) where TProperty : class;
 
     /// <summary>
     /// 复数属性延迟加载
@@ -61,7 +68,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    Task ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
+    Task ArrayPropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class;
 
     /// <summary>
     /// 复数属性延迟加载
@@ -71,7 +78,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="propertyExpression"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class;
+    Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, params Expression<Func<TProperty, dynamic>>[]? paths) where TProperty : class;
 
     #endregion
 
@@ -82,7 +89,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task AddAsync([NotNull] params TEntity[] entities);
+    Task AddAsync(params TEntity[] entities);
 
     #endregion
 
@@ -93,7 +100,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task UpdateAsync([NotNull] params TEntity[] entities);
+    Task UpdateAsync(params TEntity[] entities);
 
     /// <summary>
     /// 条件更新
@@ -101,7 +108,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// <param name="set"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    Task UpdateAsync([NotNull] Action<TEntity> set, params Expression<Func<TEntity, bool>>[] predicates);
+    Task UpdateAsync(Action<TEntity> set, params Expression<Func<TEntity, bool>>[]? predicates);
 
     #endregion
 
@@ -112,21 +119,21 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// </summary>
     /// <param name="keyValues"></param>
     /// <returns></returns>
-    Task RemoveAsync([NotNull] params object[] keyValues);
+    Task RemoveAsync(params object[] keyValues);
 
     /// <summary>
     /// 删除
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task RemoveAsync([NotNull] params TEntity[] entities);
+    Task RemoveAsync(params TEntity[] entities);
 
     /// <summary>
     /// 条件删除
     /// </summary>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    Task RemoveAsync(params Expression<Func<TEntity, bool>>[] predicates);
+    Task RemoveAsync(params Expression<Func<TEntity, bool>>[]? predicates);
 
     #endregion
 
@@ -137,7 +144,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEnti
     /// </summary>
     /// <param name="keyValues"></param>
     /// <returns></returns>
-    Task<TEntity> FindAsync([NotNull] params object[] keyValues);
+    Task<TEntity?> FindAsync(params object[] keyValues);
 
     #endregion
 }

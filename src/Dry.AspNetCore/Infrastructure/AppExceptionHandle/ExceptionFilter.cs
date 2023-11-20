@@ -14,11 +14,11 @@ public class ExceptionFilter : IAsyncExceptionFilter
     {
         try
         {
-            await WebAppHelper.ServicesActionAsync<IAppExceptionHandler>(context.HttpContext.RequestServices, async handler => await handler.HandleAsync(context));
+            await context.HttpContext.RequestServices.ServicesActionAsync<IAppExceptionHandler>(async handler => await handler.HandleAsync(context));
         }
         catch (Exception ex)
         {
-            context.HttpContext.RequestServices.GetService<ILogger<IAppExceptionHandler>>().LogError(ex, "异常处理出错");
+            context.HttpContext.RequestServices.GetService<ILogger<IAppExceptionHandler>>()!.LogError(ex, "异常处理出错");
             context.Result = new ContentResult
             {
                 StatusCode = 500,

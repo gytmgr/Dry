@@ -4,6 +4,95 @@
         <name>Dry.Domain</name>
     </assembly>
     <members>
+        <member name="T:Dry.Domain.Contexts.IDryDbContext">
+            <summary>
+            数据库上下文接口
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.AutoTransactionsEnabled">
+            <summary>
+            自动事务是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.AutoSavepointsEnabled">
+            <summary>
+            自动创建保存点是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.AutoDetectChangesEnabled">
+            <summary>
+            自动检测更改是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.LazyLoadingEnabled">
+            <summary>
+            延迟加载是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.QueryTrackingEnabled">
+            <summary>
+            查询跟踪是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.Domain.Contexts.IDryDbContext.HasChanges">
+            <summary>
+            是否有改动
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.MigrateAsync">
+            <summary>
+            迁移
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.BeginTransactionAsync">
+            <summary>
+            开始事务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.CommitTransactionAsync">
+            <summary>
+            提交事务
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.RollbackTransactionAsync">
+            <summary>
+            回滚事务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.ExecuteSqlRawAsync(System.String,System.Object[])">
+            <summary>
+            执行sql
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.ExecuteSqlInterpolatedAsync(System.FormattableString)">
+            <summary>
+            执行sql
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Contexts.IDryDbContext.TrackingClear">
+            <summary>
+            清除所有实体跟踪
+            </summary>
+        </member>
+        <member name="T:Dry.Domain.Contexts.IDryDbContext`1">
+            <summary>
+            数据库上下文接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
         <member name="T:Dry.Domain.Entities.EntityBase">
             <summary>
             实体基类
@@ -864,6 +953,24 @@
             <param name="dbQueryable"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsSingleQuery``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            单个查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.AsSplitQuery``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            拆分查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Domain.Extensions.QueryableExtension.LoadAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
             <summary>
             延迟加载
@@ -1039,10 +1146,13 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Domain.IBoundedContext">
+        <member name="M:Dry.Domain.Extensions.ServiceProviderExtension.GetDryDbContext``1(System.IServiceProvider)">
             <summary>
-            限界上下文
+            获取数据库上下文
             </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Domain.Queryables.IDbQueryable">
             <summary>
@@ -1621,6 +1731,22 @@
             <param name="tag"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsSingleQuery``1(System.Linq.IQueryable{``0})">
+            <summary>
+            单个查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.AsSplitQuery``1(System.Linq.IQueryable{``0})">
+            <summary>
+            拆分查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Domain.Queryables.IDbQueryable.LoadAsync``1(System.Linq.IQueryable{``0})">
             <summary>
             延迟加载
@@ -1656,6 +1782,21 @@
             <summary>
             获取查询
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.GetQueryableFromSqlRaw(System.String,System.Object[])">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
@@ -1838,6 +1979,13 @@
             仓储接口
             </summary>
             <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IRepository`1.Modified(`0)">
+            <summary>
+            是否更改
+            </summary>
+            <param name="entitiy"></param>
+            <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IRepository`1.PropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>

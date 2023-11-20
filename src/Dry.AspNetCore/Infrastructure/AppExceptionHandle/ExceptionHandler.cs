@@ -19,7 +19,7 @@ public class ExceptionHandler : IAppExceptionHandler, ISingletonDependency<IAppE
                 };
                 break;
             default:
-                context.HttpContext.RequestServices.GetService<ILogger<ExceptionHandler>>().LogError(context.Exception, "未知异常");
+                context.HttpContext.RequestServices.GetService<ILogger<ExceptionHandler>>()!.LogError(context.Exception, "未知异常");
                 context.Result = new ContentResult
                 {
                     StatusCode = 500,

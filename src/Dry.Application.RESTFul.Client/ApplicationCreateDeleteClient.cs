@@ -17,8 +17,8 @@ public abstract class ApplicationCreateDeleteClient<TResult, TCreate, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        => await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
+    public virtual async Task<TResult> DeleteAsync(TKey id)
+        => (await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}"))!;
 }
 
 /// <summary>
@@ -40,6 +40,6 @@ public abstract class ApplicationQueryCreateDeleteClient<TResult, TQuery, TCreat
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        => await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
+    public virtual async Task<TResult> DeleteAsync(TKey id)
+        => (await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}"))!;
 }

@@ -11,21 +11,21 @@ public abstract class EntityBase : IEvents
     /// 获取事件
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<EventBase> GetEvent()
+    public virtual IEnumerable<EventBase> GetEvent()
         => _events;
 
     /// <summary>
     /// 获取事件
     /// </summary>
     /// <param name="eventItem"></param>
-    public void AddEvent(EventBase eventItem)
+    public virtual void AddEvent(EventBase eventItem)
         => _events.Add(eventItem);
 
     /// <summary>
     /// 添加事件
     /// </summary>
     /// <param name="eventItem"></param>
-    public void AddEventIfAbsent(EventBase eventItem)
+    public virtual void AddEventIfAbsent(EventBase eventItem)
     {
         if (!_events.Contains(eventItem))
         {
@@ -36,6 +36,6 @@ public abstract class EntityBase : IEvents
     /// <summary>
     /// 清除事件
     /// </summary>
-    public void ClearEvent()
+    public virtual void ClearEvent()
         => _events.Clear();
 }

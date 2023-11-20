@@ -1,4 +1,6 @@
-﻿namespace Dry.Application.Contracts.Dtos;
+﻿#nullable disable
+
+namespace Dry.Application.Contracts.Dtos;
 
 /// <summary>
 /// 排序

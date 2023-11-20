@@ -22,7 +22,7 @@ public class HiddenApiCocumentFilter : IDocumentFilter
         {
             if (apiDescription.TryGetMethodInfo(out MethodInfo method))
             {
-                if (method.ReflectedType.CustomAttributes.Any(x => x.AttributeType == typeof(HiddenApiAttribute)) || method.CustomAttributes.Any(x => x.AttributeType == typeof(HiddenApiAttribute)))
+                if (method.ReflectedType?.CustomAttributes.Any(x => x.AttributeType == typeof(HiddenApiAttribute)) is true || method.CustomAttributes.Any(x => x.AttributeType == typeof(HiddenApiAttribute)))
                 {
                     var key = "/" + apiDescription.RelativePath;
                     if (key.Contains('?'))

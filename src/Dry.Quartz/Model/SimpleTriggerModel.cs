@@ -19,7 +19,7 @@ public class SimpleTriggerModel : TriggerModel
     /// 检查
     /// </summary>
     /// <returns></returns>
-    public override string Check()
+    public override string? Check()
     {
         if (Interval == default && RepeatCount != 0)
         {

@@ -23,5 +23,5 @@ internal class ScheduleListenService : IScheduleListenService, IDependency<ISche
         where TJobModel : JobModel
         where TTriggerModel : TriggerModel
         where TSchedulerListener : SchedulerListenerBase<TJobModel, TTriggerModel>
-        => _scheduler.ListenerManager.GetSchedulerListeners().Select(x => x as TSchedulerListener).ToArray();
+        => _scheduler.ListenerManager.GetSchedulerListeners().Where(x => x.GetType() == typeof(TSchedulerListener)).Select(x => (TSchedulerListener)x).ToArray();
 }

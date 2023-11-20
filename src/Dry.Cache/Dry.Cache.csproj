@@ -4,12 +4,13 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Cache.xml</DocumentationFile>
 		<Description>对微软Cache的封装</Description>
-		<Version>6.1.10</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

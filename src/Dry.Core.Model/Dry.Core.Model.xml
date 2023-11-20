@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.Core.Model</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.Core.Model.CodeData`1">
+            <summary>
+            编码数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeData`1.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.CodeName">
+            <summary>
+            编码名称
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeName.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.CodeName.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.CodeNameData`1">
+            <summary>
+            编码名称数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.CodeNameData`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.DryData`1">
+            <summary>
+            泛型数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.DryData`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdData`2">
+            <summary>
+            标识数据
+            </summary>
+            <typeparam name="TId"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdData`2.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdName`1">
+            <summary>
+            标识名称
+            </summary>
+            <typeparam name="TId"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdName`1.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IdName`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IdNameData`2">
+            <summary>
+            标识名称数据
+            </summary>
+            <typeparam name="TId"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IdNameData`2.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.KeyData`2">
+            <summary>
+            键数据
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.KeyData`2.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.NameData`1">
+            <summary>
+            名称数据
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.NameData`1.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.BizException">
+            <summary>
+            业务异常类
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.BizException.GetMsgByInnerException">
+            <summary>
+            根据内部异常获取错误信息
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.BizException.Message">
+            <summary>
+            Gets a message that describes the current exception.
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.Core.Model.BizException.#ctor(System.Exception)">
+            <summary>
+            构造体
+            </summary>
+            <param name="sysException"></param>
+        </member>
+        <member name="M:Dry.Core.Model.BizException.CreateFromSysException(System.Exception)">
+            <summary>
+            根据系统异常创建
+            </summary>
+            <param name="sysException"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Model.BizException`1">
+            <summary>
+            业务异常类
+            </summary>
+            <typeparam name="TCode"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.BizException`1.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.BizException`1.#ctor(`0,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.NullDataBizException">
+            <summary>
+            主数据不存在异常类
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Model.NullDataBizException.BizMessage">
+            <summary>
+            异常消息
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.NullDataBizException.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.NullDataBizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.Core.Model.NullDataBizException.#ctor(System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.TypeBizException">
+            <summary>
+            类型异常类
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Model.TypeBizException.BizMessage">
+            <summary>
+            异常消息
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor">
+            <summary>
+            构造体
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor(System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Dry.Core.Model.TypeBizException.#ctor(System.String,System.String)">
+            <summary>
+            构造体
+            </summary>
+            <param name="code"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="T:Dry.Core.Model.IDependency">
+            <summary>
+            依赖注入接口
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IDependency.RootServiceProvider">
+            <summary>
+            根服务引擎
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IDependency`1">
+            <summary>
+            域范围依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Dry.Core.Model.ITransientDependency`1">
+            <summary>
+            瞬时依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Dry.Core.Model.ISingletonDependency`1">
+            <summary>
+            单例依赖注入接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Dry.Core.Model.IHasId`1">
+            <summary>
+            有唯一标识属性
+            </summary>
+            <typeparam name="TId"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.IHasId`1.Id">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IHasOrder">
+            <summary>
+            有顺序属性
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IHasOrder.Order">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.ITenantProvider">
+            <summary>
+            租户提供器接口
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.ITree`1">
+            <summary>
+            值类型id的树状接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.ITree`1.ParentId">
+            <summary>
+            上级id
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.IStringTree">
+            <summary>
+            string类型id的树状接口
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.IStringTree.ParentId">
+            <summary>
+            上级id
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.PagedQuery">
+            <summary>
+            分页查询
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.PagedQuery.PageIndex">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.PagedQuery.PageSize">
+            <summary>
+            每页条目数
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.PagedQuery`1">
+            <summary>
+            分页查询
+            </summary>
+            <typeparam name="TQuery"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.PagedQuery`1.Param">
+            <summary>
+            查询参数
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.PagedResult`1">
+            <summary>
+            分页返回结果
+            </summary>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.PagedResult`1.Total">
+            <summary>
+            总条目数
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.PagedResult`1.Items">
+            <summary>
+            返回条目
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.Result`1">
+            <summary>
+            通用返回结果
+            </summary>
+            <typeparam name="TCode"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.Result`1.Code">
+            <summary>
+            返回代码
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.Result`1.Message">
+            <summary>
+            返回信息
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(`0)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(System.String)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`1.Create(`0,System.String)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Model.Result`2">
+            <summary>
+            通用返回结果
+            </summary>
+            <typeparam name="TCode"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Dry.Core.Model.Result`2.Data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`0,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(System.String,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Model.Result`2.Create(`0,System.String,`1)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Model.TenantProvider">
+            <summary>
+            租户提供器
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.TenantProvider.Id">
+            <summary>
+            id
+            </summary>
+        </member>
+    </members>
+</doc>

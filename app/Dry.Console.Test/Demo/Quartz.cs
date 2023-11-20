@@ -1,4 +1,5 @@
-﻿using Dry.Dependency;
+﻿using Dry.Core.Model;
+using Dry.Dependency;
 using Dry.Quartz;
 using Dry.Quartz.Infrastructure;
 using Dry.Quartz.Model;
@@ -69,7 +70,7 @@ public static class Quartz
         catch (Exception e)
         {
 
-            throw;
+            throw e;
         }
         System.Console.ReadKey();
     }

@@ -83,7 +83,7 @@ public abstract class SchedulerListenerBase<TJobModel, TTriggerModel> : ISchedul
     /// <param name="jobDetail"></param>
     /// <param name="job"></param>
     /// <returns></returns>
-    protected virtual Task JobAdded(IJobDetail jobDetail, TJobModel job) => Task.CompletedTask;
+    protected virtual Task JobAdded(IJobDetail jobDetail, TJobModel? job) => Task.CompletedTask;
 
     /// <summary>
     /// 作业添加触发器调度后
@@ -100,7 +100,7 @@ public abstract class SchedulerListenerBase<TJobModel, TTriggerModel> : ISchedul
     /// <param name="quartzTrigger"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task JobScheduled(ITrigger quartzTrigger, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task JobScheduled(ITrigger quartzTrigger, TTriggerModel? trigger) => Task.CompletedTask;
 
     /// <summary>
     /// 作业解除触发器调度后
@@ -176,7 +176,7 @@ public abstract class SchedulerListenerBase<TJobModel, TTriggerModel> : ISchedul
     /// <param name="triggerGroup"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public virtual Task TriggersPaused(string triggerGroup, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public virtual Task TriggersPaused(string? triggerGroup, CancellationToken cancellationToken = default) => Task.CompletedTask;
 
     /// <summary>
     /// 触发器恢复后
@@ -192,7 +192,7 @@ public abstract class SchedulerListenerBase<TJobModel, TTriggerModel> : ISchedul
     /// <param name="triggerGroup"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public virtual Task TriggersResumed(string triggerGroup, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public virtual Task TriggersResumed(string? triggerGroup, CancellationToken cancellationToken = default) => Task.CompletedTask;
 
     /// <summary>
     /// 触发器结束后
@@ -209,7 +209,7 @@ public abstract class SchedulerListenerBase<TJobModel, TTriggerModel> : ISchedul
     /// <param name="quartzTrigger"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task TriggerFinalized(ITrigger quartzTrigger, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task TriggerFinalized(ITrigger quartzTrigger, TTriggerModel? trigger) => Task.CompletedTask;
 
     #endregion
 }

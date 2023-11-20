@@ -31,7 +31,7 @@ public abstract class TriggerListenerBase<TJobModel, TTriggerModel> : ITriggerLi
     /// <param name="trigger"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    protected virtual Task TriggerFired(ITrigger quartzTrigger, TTriggerModel trigger, IJobExecutionContext context) => Task.CompletedTask;
+    protected virtual Task TriggerFired(ITrigger quartzTrigger, TTriggerModel? trigger, IJobExecutionContext context) => Task.CompletedTask;
 
     /// <summary>
     /// 否决触发
@@ -50,7 +50,7 @@ public abstract class TriggerListenerBase<TJobModel, TTriggerModel> : ITriggerLi
     /// <param name="trigger"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    protected virtual Task<bool> VetoJobExecution(ITrigger quartzTrigger, TTriggerModel trigger, IJobExecutionContext context) => Task.FromResult(false);
+    protected virtual Task<bool> VetoJobExecution(ITrigger quartzTrigger, TTriggerModel? trigger, IJobExecutionContext context) => Task.FromResult(false);
 
     /// <summary>
     /// 触发丢失后
@@ -67,7 +67,7 @@ public abstract class TriggerListenerBase<TJobModel, TTriggerModel> : ITriggerLi
     /// <param name="quartzTrigger"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task TriggerMisfired(ITrigger quartzTrigger, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task TriggerMisfired(ITrigger quartzTrigger, TTriggerModel? trigger) => Task.CompletedTask;
 
     /// <summary>
     /// 完成
@@ -88,5 +88,5 @@ public abstract class TriggerListenerBase<TJobModel, TTriggerModel> : ITriggerLi
     /// <param name="context"></param>
     /// <param name="triggerInstructionCode"></param>
     /// <returns></returns>
-    protected virtual Task TriggerComplete(ITrigger quartzTrigger, TTriggerModel trigger, IJobExecutionContext context, SchedulerInstruction triggerInstructionCode) => Task.CompletedTask;
+    protected virtual Task TriggerComplete(ITrigger quartzTrigger, TTriggerModel? trigger, IJobExecutionContext context, SchedulerInstruction triggerInstructionCode) => Task.CompletedTask;
 }

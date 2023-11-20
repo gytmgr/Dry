@@ -4,19 +4,21 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.EF.xml</DocumentationFile>
 		<Description>对微软EF的封装</Description>
-		<Version>6.1.10</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.25" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
 		<ProjectReference Include="..\Dry.Domain\Dry.Domain.csproj" />
 	</ItemGroup>
 

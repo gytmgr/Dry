@@ -2,10 +2,10 @@
 
 public class ServiceConfigurer : IServiceConfigurer, ISingletonDependency<IServiceConfigurer>
 {
-    private readonly IConfiguration _configuration;
+    private readonly IServiceProvider _serviceProvider;
 
-    public ServiceConfigurer(IConfiguration configuration)
-        => _configuration = configuration;
+    public ServiceConfigurer(IServiceProvider serviceProvider)
+        => _serviceProvider = serviceProvider;
 
     public int Order { get; set; }
 
@@ -35,11 +35,7 @@ public class ServiceConfigurer : IServiceConfigurer, ISingletonDependency<IServi
         .AllowAnyHeader()
         ));
 
-        services.AddAdminSqliteEFContext(_configuration.GetConnectionString("default"));
-
         services.AddCustomAutoMapper();
-
-        services.AddEF();
 
         services.AddMediatR(AssemblyHelper.GetAll("Dry.").ToArray());
 

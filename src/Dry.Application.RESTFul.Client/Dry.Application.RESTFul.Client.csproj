@@ -4,16 +4,18 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
 		<Description>RESTFul客户端</Description>
-		<Version>6.1.12</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
+		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
 	</ItemGroup>
 
 </Project>

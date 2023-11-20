@@ -26,7 +26,7 @@ internal class JobService : IJobService, IDependency<IJobService>
             var jobDetail = JobBuilder.Create<TJob>().WithIdentity(quartzJobKey).WithDescription(job.Description).Build();
             jobDetail.JobDataMap.Add(JobModel.MapKey, job);
 
-            var quartzTriggers = triggers.Select(x => x.BuildTrigger(job.Key)).ToList();
+            var quartzTriggers = triggers.Select(x => x.BuildTrigger(job!.Key)).ToList();
             await _scheduler.ScheduleJob(jobDetail, new ReadOnlyCollection<ITrigger>(quartzTriggers), false);
             return true;
         }
@@ -116,7 +116,7 @@ internal class JobService : IJobService, IDependency<IJobService>
         return jobs.ToArray();
     }
 
-    public async Task<TJobModel> GetAsync<TJobModel>(QuartzKey key)
+    public async Task<TJobModel?> GetAsync<TJobModel>(QuartzKey key)
         where TJobModel : JobModel, new()
     {
         var jobDetail = await _scheduler.GetJobDetail(key.ToJobKey());

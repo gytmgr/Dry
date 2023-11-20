@@ -1,9 +1,7 @@
 ﻿global using Dry.Application.Contracts.Dtos;
 global using Dry.Application.Contracts.Services;
-global using Dry.Core.Json;
 global using Dry.Core.Model;
 global using Dry.Core.Utilities;
-global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
 
 namespace Dry.Application.RESTFul.Client;
@@ -24,17 +22,23 @@ public abstract class ApiClient
     /// <param name="method"></param>
     /// <param name="apiPath"></param>
     /// <param name="param"></param>
+    /// <param name="paramName"></param>
     /// <returns></returns>
-    protected virtual async Task RequestAsync(HttpMethod method, string apiPath = null, object param = null)
+    /// <exception cref="BizException"></exception>
+    /// <exception cref="Exception"></exception>
+    protected virtual async Task RequestAsync(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
         using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        requester.SetRequestParam(param);
+        if (param is not null)
+        {
+            requester.SetRequestParam(param, paramName);
+        }
         var response = await requester.GetStringResultAsync();
-        if (response.Code == HttpStatusCode.OK || response.Code == HttpStatusCode.NoContent)
+        if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {
             return;
         }
-        if (response.Code == HttpStatusCode.BadRequest)
+        if (response.Code is HttpStatusCode.BadRequest)
         {
             throw new BizException(response.Data);
         }
@@ -48,16 +52,23 @@ public abstract class ApiClient
     /// <param name="method"></param>
     /// <param name="apiPath"></param>
     /// <param name="param"></param>
+    /// <param name="paramName"></param>
     /// <returns></returns>
-    protected virtual async Task<TData> RequestAsync<TData>(HttpMethod method, string apiPath = null, object param = null)
+    /// <exception cref="BizException"></exception>
+    /// <exception cref="Exception"></exception>
+    protected virtual async Task<TData?> RequestAsync<TData>(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
         using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        var response = await requester.GetResultAsync<TData>(param);
-        if (response.Code == HttpStatusCode.OK || response.Code == HttpStatusCode.NoContent)
+        if (param is not null)
+        {
+            requester.SetRequestParam(param, paramName);
+        }
+        var response = await requester.GetResultAsync<TData>();
+        if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {
             return response.Data;
         }
-        if (response.Code == HttpStatusCode.BadRequest)
+        if (response.Code is HttpStatusCode.BadRequest)
         {
             throw new BizException(response.Message);
         }

@@ -86,7 +86,7 @@ public interface IJobListenService
     /// <typeparam name="TJobListener"></typeparam>
     /// <param name="name"></param>
     /// <returns></returns>
-    TJobListener Get<TJobModel, TTriggerModel, TJobListener>(string name)
+    TJobListener? Get<TJobModel, TTriggerModel, TJobListener>(string name)
         where TJobModel : JobModel
         where TTriggerModel : TriggerModel
         where TJobListener : JobListenerBase<TJobModel, TTriggerModel>;

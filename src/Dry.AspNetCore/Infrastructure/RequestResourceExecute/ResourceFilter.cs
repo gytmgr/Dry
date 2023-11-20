@@ -5,6 +5,7 @@
 /// </summary>
 public class ResourceFilter : IAsyncResourceFilter
 {
+
     /// <summary>
     /// 触发
     /// </summary>
@@ -15,16 +16,16 @@ public class ResourceFilter : IAsyncResourceFilter
     {
         try
         {
-            await WebAppHelper.ServicesActionAsync<IRequestResourceExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutingAsync(context));
+            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer => await executer.ExecutingAsync(context));
             if (context.Result is null)
             {
                 var executedContext = await next();
-                await WebAppHelper.ServicesActionAsync<IRequestResourceExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+                await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer => await executer.ExecutedAsync(executedContext), false);
             }
         }
         catch (Exception ex)
         {
-            context.HttpContext.RequestServices.GetService<ILogger<IRequestResourceExecuter>>().LogError(ex, "请求资源出错");
+            context.HttpContext.RequestServices.GetService<ILogger<IRequestResourceExecuter>>()!.LogError(ex, "请求资源出错");
             context.Result = new ContentResult
             {
                 StatusCode = 500,

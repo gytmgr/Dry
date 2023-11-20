@@ -13,8 +13,8 @@ public class ResultFilter : IAsyncResultFilter
     /// <returns></returns>
     public virtual async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
-        await WebAppHelper.ServicesActionAsync<IRequestResultExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutingAsync(context));
+        await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResultExecuter>(async executer => await executer.ExecutingAsync(context));
         var executedContext = await next();
-        await WebAppHelper.ServicesActionAsync<IRequestResultExecuter>(context.HttpContext.RequestServices, async executer => await executer.ExecutedAsync(executedContext), false);
+        await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResultExecuter>(async executer => await executer.ExecutedAsync(executedContext), false);
     }
 }

@@ -1,6 +1,5 @@
 ﻿global using AutoMapper;
 global using Dry.Core.Model;
-global using Dry.Core.Utilities;
 global using Dry.Dependency;
 global using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +16,7 @@ public static class AutoMapperExtension
     /// <param name="services"></param>
     /// <param name="prefixs">程序集名称前缀</param>
     /// <returns></returns>
-    public static IServiceCollection AddCustomAutoMapper(this IServiceCollection services, params string[] prefixs)
+    public static IServiceCollection AddCustomAutoMapper(this IServiceCollection services, params string[]? prefixs)
     {
         var prefixList = new string[] { "Dry." };
         if (prefixs is not null)

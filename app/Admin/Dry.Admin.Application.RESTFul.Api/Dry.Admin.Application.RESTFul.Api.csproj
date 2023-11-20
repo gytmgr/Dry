@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>Blue.IntelligentOM.RESTFul.Service.xml</DocumentationFile>
+		<DocumentationFile>Dry.Admin.Application.RESTFul.Api.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
@@ -12,6 +12,9 @@
 		<None Remove="Default.db" />
 		<None Remove="Default.db-shm" />
 		<None Remove="Default.db-wal" />
+		<None Remove="Defaul_Test.db" />
+		<None Remove="Defaul_Test.db-shm" />
+		<None Remove="Defaul_Test.db-wal" />
 	</ItemGroup>
 
 	<ItemGroup>

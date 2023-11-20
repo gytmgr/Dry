@@ -1,4 +1,5 @@
-﻿global using Dry.Dependency;
+﻿global using Dry.Core.Model;
+global using Dry.Dependency;
 global using Dry.Quartz.Infrastructure;
 global using Dry.Quartz.Model;
 global using Microsoft.Extensions.DependencyInjection;
@@ -21,14 +22,14 @@ public static class QuartzExtension
     /// <param name="services"></param>
     /// <param name="prefixs">程序集名称前缀</param>
     /// <returns></returns>
-    public static IServiceCollection AddCustomQuartz(this IServiceCollection services, params string[] prefixs)
+    public static IServiceCollection AddCustomQuartz(this IServiceCollection services, params string[]? prefixs)
     {
         services.AddSingleton<IJobFactory, JobFactory>();
         services.AddSingleton(serviceProvider =>
         {
             var factory = new StdSchedulerFactory();
             var scheduler = factory.GetScheduler().Result;
-            scheduler.JobFactory = serviceProvider.GetService<IJobFactory>();
+            scheduler.JobFactory = serviceProvider.GetService<IJobFactory>()!;
             return scheduler;
         });
 
@@ -99,7 +100,7 @@ public static class QuartzExtension
                 triggerBuilder = triggerBuilder.WithCalendarIntervalSchedule(x => x.WithInterval(calendarTrigger.Interval, calendarTrigger.Unit));
                 break;
             case CronTriggerModel cronTrigger:
-                triggerBuilder = triggerBuilder.WithCronSchedule(cronTrigger.CronExpression);
+                triggerBuilder = triggerBuilder.WithCronSchedule(cronTrigger.CronExpression!);
                 break;
         }
         if (trigger.StartTime.HasValue)

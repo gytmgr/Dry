@@ -27,7 +27,7 @@ public abstract class ApplicationClient<TResult> :
     /// 条件查询第一条
     /// </summary>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync()
+    public virtual async Task<TResult?> FirstAsync()
         => await RequestAsync<TResult>(HttpMethod.Get, "/First");
 
     /// <summary>
@@ -35,15 +35,15 @@ public abstract class ApplicationClient<TResult> :
     /// </summary>
     /// <returns></returns>
     public virtual async Task<TResult[]> ArrayAsync()
-        => await RequestAsync<TResult[]>(HttpMethod.Get);
+        => (await RequestAsync<TResult[]>(HttpMethod.Get))!;
 
     /// <summary>
     /// 分页条件查询
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery queryDto)
-        => await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto);
+    public virtual async Task<PagedResult<TResult>> ArrayAsync(PagedQuery queryDto)
+        => (await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto))!;
 }
 
 /// <summary>
@@ -61,7 +61,7 @@ public abstract class ApplicationClient<TResult, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FindAsync([NotNull] TKey id)
+    public virtual async Task<TResult?> FindAsync(TKey id)
         => await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
 }
 
@@ -84,6 +84,6 @@ public abstract class ApplicationClient<TResult, TCreate, TEdit, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        => await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
+    public virtual async Task<TResult> DeleteAsync(TKey id)
+        => (await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}"))!;
 }

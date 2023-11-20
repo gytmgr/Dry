@@ -86,7 +86,7 @@ public interface ITriggerListenService
     /// <typeparam name="TTriggerListener"></typeparam>
     /// <param name="name"></param>
     /// <returns></returns>
-    TTriggerListener Get<TJobModel, TTriggerModel, TTriggerListener>(string name)
+    TTriggerListener? Get<TJobModel, TTriggerModel, TTriggerListener>(string name)
         where TJobModel : JobModel
         where TTriggerModel : TriggerModel
         where TTriggerListener : TriggerListenerBase<TJobModel, TTriggerModel>;

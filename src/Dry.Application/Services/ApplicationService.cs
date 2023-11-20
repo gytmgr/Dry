@@ -33,7 +33,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     public ApplicationService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-        _mapper = serviceProvider.GetService<IMapper>();
+        _mapper = serviceProvider.GetRequiredService<IMapper>();
         _readOnlyRepository = serviceProvider.GetReadOnlyRepository<TEntity>();
         _repository = serviceProvider.GetRepository<TEntity>();
     }
@@ -43,7 +43,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     /// </summary>
     /// <typeparam name="TOtherEntity"></typeparam>
     /// <returns></returns>
-    protected IReadOnlyRepository<TOtherEntity> ReadOnlyRepository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
+    protected IReadOnlyRepository<TOtherEntity> ReadOnlyRepository<TOtherEntity>() where TOtherEntity : class, IEntity, IBoundedContext
         => _serviceProvider.GetReadOnlyRepository<TOtherEntity>();
 
     /// <summary>
@@ -51,7 +51,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     /// </summary>
     /// <typeparam name="TOtherEntity"></typeparam>
     /// <returns></returns>
-    protected IRepository<TOtherEntity> Repository<TOtherEntity>() where TOtherEntity : IEntity, IBoundedContext
+    protected IRepository<TOtherEntity> Repository<TOtherEntity>() where TOtherEntity : class, IEntity, IBoundedContext
         => _serviceProvider.GetRepository<TOtherEntity>();
 
     /// <summary>
@@ -59,7 +59,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     /// </summary>
     /// <returns></returns>
     protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads()
-        => null;
+        => Array.Empty<Expression<Func<TEntity, dynamic>>>();
 
     /// <summary>
     /// 获取属性加载表达式
@@ -73,7 +73,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     /// </summary>
     /// <returns></returns>
     protected virtual Expression<Func<TEntity, bool>>[] GetPredicates()
-        => null;
+        => Array.Empty<Expression<Func<TEntity, bool>>>();
 
     /// <summary>
     /// 获取查询条件表达式
@@ -87,7 +87,7 @@ public abstract class ApplicationService<TEntity> where TEntity : class, IAggreg
     /// </summary>
     /// <returns></returns>
     protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys()
-        => null;
+        => Array.Empty<(bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)>();
 
     /// <summary>
     /// 获取排序表达式
@@ -161,13 +161,17 @@ public abstract class ApplicationService<TEntity, TResult> :
     /// 查询第一条
     /// </summary>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync()
+    public virtual async Task<TResult?> FirstAsync()
     {
         var propertyLoads = await GetPropertyLoadsAsync();
         var predicates = await GetPredicatesAsync();
         var orderBys = await GetOrderBysAsync();
         var entity = await _readOnlyRepository.GetQueryable().Include(propertyLoads).Where(predicates).OrderBy(orderBys).FirstOrDefaultAsync();
-        return await SingleResultMapAsync(entity);
+        if (entity is not null)
+        {
+            return await SingleResultMapAsync(entity);
+        }
+        return default;
     }
 
     /// <summary>
@@ -188,7 +192,7 @@ public abstract class ApplicationService<TEntity, TResult> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery queryDto)
+    public virtual async Task<PagedResult<TResult>> ArrayAsync(PagedQuery queryDto)
     {
         var propertyLoads = await GetPropertyLoadsAsync();
         var predicates = await GetPredicatesAsync();
@@ -227,10 +231,14 @@ public abstract class ApplicationService<TEntity, TResult, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FindAsync([NotNull] TKey id)
+    public virtual async Task<TResult?> FindAsync(TKey id)
     {
-        var entity = await _repository.FindAsync(id);
-        return await SingleResultMapAsync(entity);
+        var entity = await _repository.FindAsync(id!);
+        if (entity is not null)
+        {
+            return await SingleResultMapAsync(entity);
+        }
+        return default;
     }
 }
 
@@ -266,7 +274,7 @@ public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCre
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+        => await _repository.FindAsync(id!) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据
@@ -299,7 +307,7 @@ public abstract class ApplicationService<TBoundedContext, TEntity, TResult, TCre
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+    public virtual async Task<TResult> DeleteAsync(TKey id)
     {
         var entity = await GetDeleteEntityAsync(id);
         await SetDeleteEntityAsync(entity);

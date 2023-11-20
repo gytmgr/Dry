@@ -25,7 +25,7 @@ public abstract class ApplicationCreateService<TBoundedContext, TEntity, TResult
     /// </summary>
     /// <param name="serviceProvider"></param>
     public ApplicationCreateService(IServiceProvider serviceProvider) : base(serviceProvider)
-        => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+        => _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TBoundedContext>>();
 
     /// <summary>
     /// 映射实体新建数据
@@ -58,7 +58,7 @@ public abstract class ApplicationCreateService<TBoundedContext, TEntity, TResult
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
     {
         var entity = await MapCreateEntityAsync(createDto);
         await SetCreateEntityAsync(entity, createDto);
@@ -111,10 +111,14 @@ public abstract class ApplicationCreateService<TBoundedContext, TEntity, TResult
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FindAsync([NotNull] TKey id)
+    public virtual async Task<TResult?> FindAsync(TKey id)
     {
-        var entity = await _repository.FindAsync(id);
-        return await SingleResultMapAsync(entity);
+        var entity = await _repository.FindAsync(id!);
+        if (entity is not null)
+        {
+            return await SingleResultMapAsync(entity);
+        }
+        return default;
     }
 }
 
@@ -145,7 +149,7 @@ public abstract class ApplicationQueryCreateService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="serviceProvider"></param>
     public ApplicationQueryCreateService(IServiceProvider serviceProvider) : base(serviceProvider)
-        => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+        => _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TBoundedContext>>();
 
     /// <summary>
     /// 映射实体新建数据
@@ -192,7 +196,7 @@ public abstract class ApplicationQueryCreateService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
     {
         var entity = await MapCreateEntityAsync(createDto);
         await SetCreateEntityAsync(entity, createDto);
@@ -231,7 +235,7 @@ public abstract class ApplicationQueryCreateService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="serviceProvider"></param>
     public ApplicationQueryCreateService(IServiceProvider serviceProvider) : base(serviceProvider)
-        => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+        => _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TBoundedContext>>();
 
     /// <summary>
     /// 映射实体新建数据
@@ -278,7 +282,7 @@ public abstract class ApplicationQueryCreateService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
     {
         var entity = await MapCreateEntityAsync(createDto);
         await SetCreateEntityAsync(entity, createDto);

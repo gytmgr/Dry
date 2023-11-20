@@ -19,7 +19,7 @@ public class CalendarTriggerModel : TriggerModel
     /// 检查
     /// </summary>
     /// <returns></returns>
-    public override string Check()
+    public override string? Check()
     {
         if (Unit is IntervalUnit.Millisecond)
         {

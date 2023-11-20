@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Dry.Domain.Queryables;
+﻿namespace Dry.Domain.Queryables;
 
 /// <summary>
 /// 数据库查询接口
@@ -612,6 +610,22 @@ public interface IDbQueryable
     /// <param name="tag"></param>
     /// <returns></returns>
     IQueryable<TSource> TagWith<TSource>(IQueryable<TSource> queryable, string tag);
+
+    /// <summary>
+    /// 单个查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    IQueryable<TEntity> AsSingleQuery<TEntity>(IQueryable<TEntity> queryable) where TEntity : class;
+
+    /// <summary>
+    /// 拆分查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    IQueryable<TEntity> AsSplitQuery<TEntity>(IQueryable<TEntity> queryable) where TEntity : class;
 
     #endregion
 

@@ -11,6 +11,11 @@ public class Resource : IAggregateRoot<Guid>, IAdminContext, ITree<Guid>, IHasAd
     public Guid Id { get; set; }
 
     /// <summary>
+    /// 名称
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
     /// 上级资源id
     /// </summary>
     public Guid? ParentId { get; set; }

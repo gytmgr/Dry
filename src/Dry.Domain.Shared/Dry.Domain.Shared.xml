@@ -275,5 +275,10 @@
             <param name="quarter"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Domain.Shared.IBoundedContext">
+            <summary>
+            限界上下文
+            </summary>
+        </member>
     </members>
 </doc>

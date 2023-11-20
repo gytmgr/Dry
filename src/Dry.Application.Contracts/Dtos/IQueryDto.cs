@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Dry.Application.Contracts.Dtos;
+﻿namespace Dry.Application.Contracts.Dtos;
 
 /// <summary>
 /// 查询dto

@@ -8,17 +8,17 @@ public class DailyTriggerModel : TriggerModel
     /// <summary>
     /// 每周执行日
     /// </summary>
-    public DayOfWeek[] DayOfWeeks { get; set; }
+    public DayOfWeek[]? DayOfWeeks { get; set; }
 
     /// <summary>
     /// 每日开始执行时间
     /// </summary>
-    public TimeOfDay StartTimeOfDay { get; set; }
+    public TimeOfDay? StartTimeOfDay { get; set; }
 
     /// <summary>
     /// 每日结束执行时间
     /// </summary>
-    public TimeOfDay EndTimeOfDay { get; set; }
+    public TimeOfDay? EndTimeOfDay { get; set; }
 
     /// <summary>
     /// 日内执行间隔（秒）（1至86400]）
@@ -40,7 +40,7 @@ public class DailyTriggerModel : TriggerModel
     /// 检查
     /// </summary>
     /// <returns></returns>
-    public override string Check()
+    public override string? Check()
     {
         if (DayOfWeeks?.Length > 0 && DayOfWeeks.GroupBy(x => x).Any(x => x.Count() > 1))
         {

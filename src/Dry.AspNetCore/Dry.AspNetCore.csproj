@@ -4,13 +4,14 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.AspNetCore.xml</DocumentationFile>
 		<Description>对AspNetCore的一些封装</Description>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Version>6.1.10</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
 		<ProjectReference Include="..\Dry.Dependency\Dry.Dependency.csproj" />
 	</ItemGroup>
 

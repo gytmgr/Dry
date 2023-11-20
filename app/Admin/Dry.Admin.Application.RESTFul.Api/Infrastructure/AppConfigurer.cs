@@ -1,15 +1,10 @@
 ﻿namespace Dry.Admin.Application.RESTFul.Api.Infrastructure;
 
-public class AppConfigurer : IAppConfigurer, ISingletonDependency<IAppConfigurer>
+public class AppConfigurer : ConnectionStringConfigure<IAdminContext>
 {
-    public int Order { get; set; }
-
-    public Task ConfigureAsync(WebApplication app)
+    public override async Task ConfigureAsync(WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
+        await base.ConfigureAsync(app);
 
         app.UseCustomSwagger();
 
@@ -23,7 +18,5 @@ public class AppConfigurer : IAppConfigurer, ISingletonDependency<IAppConfigurer
         {
             endpoints.MapControllers();
         });
-
-        return Task.CompletedTask;
     }
 }

@@ -4,56 +4,56 @@
         <name>Dry.Application.RESTFul.Api</name>
     </assembly>
     <members>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`1">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationController`1">
             <summary>
             基础应用控制器
             </summary>
             <typeparam name="TService"></typeparam>
         </member>
-        <member name="P:Dry.Application.RESTFul.Api.ApplicationController`1.AppService">
+        <member name="P:Dry.Application.RESTFul.Api.Controllers.ApplicationController`1.AppService">
             <summary>
             应用服务
             </summary>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`2">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2">
             <summary>
             基础查询应用控制器
             </summary>
             <typeparam name="TService"></typeparam>
             <typeparam name="TResult"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.AnyAsync">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2.AnyAsync">
             <summary>
             是否存在
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.CountAsync">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2.CountAsync">
             <summary>
             数量查询
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.FirstAsync">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2.FirstAsync">
             <summary>
             查询第一条
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2.ArrayAsync">
             <summary>
             查询所有
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`2.ArrayAsync(Dry.Core.Model.PagedQuery)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`2.ArrayAsync(Dry.Core.Model.PagedQuery)">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`3">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationController`3">
             <summary>
             基础查询应用控制器
             </summary>
@@ -61,14 +61,14 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`3.FindAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`3.FindAsync(`2)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationController`5">
             <summary>
             基础查、增、改、删应用控制器
             </summary>
@@ -78,14 +78,14 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationController`5.DeleteAsync(`4)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationController`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationCreateController`3">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateController`3">
             <summary>
             基础查、增应用控制器
             </summary>
@@ -93,14 +93,14 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationCreateController`3.CreateAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateController`3.CreateAsync(`2)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationCreateController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateController`4">
             <summary>
             基础查、增应用控制器
             </summary>
@@ -109,14 +109,14 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationCreateController`4.CreateAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateController`4.CreateAsync(`2)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryCreateController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateController`4">
             <summary>
             条件查、增应用控制器
             </summary>
@@ -125,14 +125,14 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryCreateController`4.CreateAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateController`4.CreateAsync(`3)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryCreateController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateController`5">
             <summary>
             条件查、增应用控制器
             </summary>
@@ -142,14 +142,14 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryCreateController`5.CreateAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateController`5.CreateAsync(`3)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationCreateDeleteController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateDeleteController`4">
             <summary>
             基础查、增、删应用控制器
             </summary>
@@ -158,14 +158,14 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationCreateDeleteController`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateDeleteController`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryCreateDeleteController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateDeleteController`5">
             <summary>
             条件查、增、删应用控制器
             </summary>
@@ -175,14 +175,14 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryCreateDeleteController`5.DeleteAsync(`4)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateDeleteController`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationCreateEditController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateEditController`5">
             <summary>
             基础查、增、改应用控制器
             </summary>
@@ -192,7 +192,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationCreateEditController`5.EditAsync(`4,`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationCreateEditController`5.EditAsync(`4,`3)">
             <summary>
             编辑
             </summary>
@@ -200,7 +200,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryCreateEditController`6">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateEditController`6">
             <summary>
             条件查、增、改应用控制器
             </summary>
@@ -211,7 +211,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryCreateEditController`6.EditAsync(`5,`4)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryCreateEditController`6.EditAsync(`5,`4)">
             <summary>
             编辑
             </summary>
@@ -219,7 +219,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationDeleteController`3">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationDeleteController`3">
             <summary>
             基础查、删应用控制器
             </summary>
@@ -227,14 +227,14 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationDeleteController`3.DeleteAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationDeleteController`3.DeleteAsync(`2)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryDeleteController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryDeleteController`4">
             <summary>
             条件查、删应用控制器
             </summary>
@@ -243,14 +243,14 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryDeleteController`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryDeleteController`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationEditController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationEditController`4">
             <summary>
             基础查、改应用控制器
             </summary>
@@ -259,7 +259,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationEditController`4.EditAsync(`3,`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationEditController`4.EditAsync(`3,`2)">
             <summary>
             编辑
             </summary>
@@ -267,7 +267,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryEditController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryEditController`5">
             <summary>
             条件查、改应用控制器
             </summary>
@@ -277,7 +277,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryEditController`5.EditAsync(`4,`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryEditController`5.EditAsync(`4,`3)">
             <summary>
             编辑
             </summary>
@@ -285,7 +285,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationEditDeleteController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationEditDeleteController`4">
             <summary>
             基础查、改、删应用控制器
             </summary>
@@ -294,14 +294,14 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationEditDeleteController`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationEditDeleteController`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryEditDeleteController`5">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryEditDeleteController`5">
             <summary>
             件查、改、删应用控制器
             </summary>
@@ -311,14 +311,14 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryEditDeleteController`5.DeleteAsync(`4)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryEditDeleteController`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`3">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3">
             <summary>
             条件查询应用控制器
             </summary>
@@ -326,42 +326,42 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.AnyAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3.AnyAsync(`2)">
             <summary>
             是否存在
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.CountAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3.CountAsync(`2)">
             <summary>
             数量查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.FirstAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3.FirstAsync(`2)">
             <summary>
             条件查询第一条
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3.ArrayAsync(`2)">
             <summary>
             条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`3.ArrayAsync(Dry.Core.Model.PagedQuery{`2})">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`3.ArrayAsync(Dry.Core.Model.PagedQuery{`2})">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`4">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`4">
             <summary>
             条件查询应用控制器
             </summary>
@@ -370,14 +370,14 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`4.FindAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`4.FindAsync(`3)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Api.ApplicationQueryController`6">
+        <member name="T:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`6">
             <summary>
             条件查、增、改、删应用控制器
             </summary>
@@ -388,7 +388,7 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Api.ApplicationQueryController`6.DeleteAsync(`5)">
+        <member name="M:Dry.Application.RESTFul.Api.Controllers.ApplicationQueryController`6.DeleteAsync(`5)">
             <summary>
             删除
             </summary>

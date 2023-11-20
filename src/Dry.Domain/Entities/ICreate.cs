@@ -10,7 +10,7 @@ public interface ICreate
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task CreateAsync([NotNull] IServiceProvider serviceProvider)
+    public Task CreateAsync(IServiceProvider serviceProvider)
     {
         if (this is IHasAddTime addTimeEntity)
         {
@@ -24,6 +24,6 @@ public interface ICreate
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task<bool> CreatedAsync([NotNull] IServiceProvider serviceProvider)
+    public Task<bool> CreatedAsync(IServiceProvider serviceProvider)
         => Task.FromResult(false);
 }

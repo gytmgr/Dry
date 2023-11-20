@@ -1,4 +1,6 @@
-﻿namespace Dry.Domain.Entities.ValueObjects;
+﻿#nullable disable
+
+namespace Dry.Domain.Entities.ValueObjects;
 
 /// <summary>
 /// 树状实体与祖先关系

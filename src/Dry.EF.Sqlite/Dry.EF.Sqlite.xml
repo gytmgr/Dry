@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.EF.Sqlite</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.EF.Sqlite.SqliteDbContextConfigurer`1">
+            <summary>
+            sqlite ef上下文配置器
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="P:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.DbFieldName">
+            <summary>
+            数据库字段名称
+            </summary>
+        </member>
+        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.GetTenantConnectionStringDbSpan(System.String,System.String)">
+            <summary>
+            获取租户连接字符串数据库片段
+            </summary>
+            <param name="tenantId"></param>
+            <param name="connectionStringDbSpan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.Configuring(System.IServiceProvider,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            配置
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="T:Dry.EF.Sqlite.SqliteDbContextFactory`1">
+            <summary>
+            sqlite ef上下文工厂（生产迁移脚本用）
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="P:Dry.EF.Sqlite.SqliteDbContextFactory`1.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+    </members>
+</doc>

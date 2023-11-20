@@ -14,16 +14,19 @@
             接口地址
             </summary>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync(System.Net.Http.HttpMethod,System.String,System.Object)">
+        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
             http请求
             </summary>
             <param name="method"></param>
             <param name="apiPath"></param>
             <param name="param"></param>
+            <param name="paramName"></param>
             <returns></returns>
+            <exception cref="T:Dry.Core.Model.BizException"></exception>
+            <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object)">
+        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
             http请求
             </summary>
@@ -31,7 +34,10 @@
             <param name="method"></param>
             <param name="apiPath"></param>
             <param name="param"></param>
+            <param name="paramName"></param>
             <returns></returns>
+            <exception cref="T:Dry.Core.Model.BizException"></exception>
+            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="T:Dry.Application.RESTFul.Client.ApplicationClient`1">
             <summary>

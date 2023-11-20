@@ -12,10 +12,8 @@ public static class DbDescriptionExtension
     /// <param name="entityTypeBuilder"></param>
     /// <param name="description"></param>
     /// <returns></returns>
-    public static EntityTypeBuilder<TEntity> HasDescription<TEntity>([NotNull] this EntityTypeBuilder<TEntity> entityTypeBuilder, [NotNull] string description) where TEntity : class
-    {
-        return entityTypeBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
-    }
+    public static EntityTypeBuilder<TEntity> HasDescription<TEntity>(this EntityTypeBuilder<TEntity> entityTypeBuilder, string description) where TEntity : class
+        => entityTypeBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
 
     /// <summary>
     /// 表说明
@@ -25,10 +23,8 @@ public static class DbDescriptionExtension
     /// <param name="ownedNavigationBuilder"></param>
     /// <param name="description"></param>
     /// <returns></returns>
-    public static OwnedNavigationBuilder<TEntity, TDependentEntity> HasDescription<TEntity, TDependentEntity>([NotNull] this OwnedNavigationBuilder<TEntity, TDependentEntity> ownedNavigationBuilder, [NotNull] string description) where TEntity : class where TDependentEntity : class
-    {
-        return ownedNavigationBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
-    }
+    public static OwnedNavigationBuilder<TEntity, TDependentEntity> HasDescription<TEntity, TDependentEntity>(this OwnedNavigationBuilder<TEntity, TDependentEntity> ownedNavigationBuilder, string description) where TEntity : class where TDependentEntity : class
+        => ownedNavigationBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
 
     /// <summary>
     /// 列说明
@@ -37,8 +33,6 @@ public static class DbDescriptionExtension
     /// <param name="propertyBuilder"></param>
     /// <param name="description"></param>
     /// <returns></returns>
-    public static PropertyBuilder<TProperty> HasDescription<TProperty>([NotNull] this PropertyBuilder<TProperty> propertyBuilder, [NotNull] string description)
-    {
-        return propertyBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
-    }
+    public static PropertyBuilder<TProperty> HasDescription<TProperty>(this PropertyBuilder<TProperty> propertyBuilder, string description)
+        => propertyBuilder.HasAnnotation(ModelBuilderExtension.DbDescriptionAnnotationName, description);
 }

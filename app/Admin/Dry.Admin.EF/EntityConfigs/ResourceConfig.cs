@@ -16,6 +16,7 @@ public class ResourceConfig : TreeEntityConfig<IAdminContext, Resource, Guid>, I
 
         base.Configure(builder);
 
+        builder.Property(x => x.Name).IsRequired().HasMaxLength(50).HasComment("名称");
         builder.Property(x => x.ParentId).HasComment("上级资源id");
         builder.Property(x => x.AddTime).HasComment("添加时间");
 

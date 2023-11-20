@@ -8,13 +8,13 @@ public class CronTriggerModel : TriggerModel
     /// <summary>
     /// Cron表达式
     /// </summary>
-    public string CronExpression { get; set; }
+    public string? CronExpression { get; set; }
 
     /// <summary>
     /// 检查
     /// </summary>
     /// <returns></returns>
-    public override string Check()
+    public override string? Check()
     {
         if (string.IsNullOrWhiteSpace(CronExpression))
         {

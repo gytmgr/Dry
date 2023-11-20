@@ -8,5 +8,5 @@ public abstract class EventBase : INotification
     /// <summary>
     /// 提交前执行
     /// </summary>
-    public bool PreExecute { get; set; }
+    public virtual bool PreExecute { get; set; }
 }

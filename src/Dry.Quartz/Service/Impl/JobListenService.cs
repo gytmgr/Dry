@@ -38,9 +38,9 @@ internal class JobListenService : IJobListenService, IDependency<IJobListenServi
         where TJobModel : JobModel
         where TTriggerModel : TriggerModel
         where TJobListener : JobListenerBase<TJobModel, TTriggerModel>
-        => _scheduler.ListenerManager.GetJobListeners().Select(x => x as TJobListener).ToArray();
+        => _scheduler.ListenerManager.GetJobListeners().Where(x => x.GetType() == typeof(TJobListener)).Select(x => (TJobListener)x).ToArray();
 
-    public TJobListener Get<TJobModel, TTriggerModel, TJobListener>(string name)
+    public TJobListener? Get<TJobModel, TTriggerModel, TJobListener>(string name)
         where TJobModel : JobModel
         where TTriggerModel : TriggerModel
         where TJobListener : JobListenerBase<TJobModel, TTriggerModel>

@@ -18,8 +18,11 @@ public static class ExportExcellUtility
     /// </summary>
     /// <param name="cell">单元格</param>
     /// <returns></returns>
-    public static string GetStringValue(this ICell cell)
-        => cell.CellType switch
+    public static string? GetStringValue(this ICell cell)
+    {
+        cell.CheckParamNull(nameof(cell), true);
+
+        return cell.CellType switch
         {
             CellType.Numeric when DateUtil.IsCellDateFormatted(cell) => cell.DateCellValue.ToString(),
             CellType.Numeric => cell.NumericCellValue.ToString(),
@@ -35,14 +38,17 @@ public static class ExportExcellUtility
             },
             _ => null
         };
+    }
 
     /// <summary>
     /// 单元格设值
     /// </summary>
     /// <param name="cell">单元格</param>
     /// <param name="value">值</param>
-    public static void SetValue(this ICell cell, object value)
+    public static void SetValue(this ICell cell, object? value)
     {
+        cell.CheckParamNull(nameof(cell), true);
+
         if (value is not null)
         {
             switch (value)
@@ -72,6 +78,8 @@ public static class ExportExcellUtility
     /// <returns></returns>
     public static ICell GetOrCreateCell(this ISheet sheet, int columnIndex, int rowIndex)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+
         var row = sheet.GetRow(rowIndex);
         if (row is null)
         {
@@ -92,8 +100,10 @@ public static class ExportExcellUtility
     /// <param name="columnIndex">列索引</param>
     /// <param name="rowIndex">行索引</param>
     /// <param name="value">值</param>
-    public static void SetCellValue(this ISheet sheet, int columnIndex, int rowIndex, object value)
+    public static void SetCellValue(this ISheet sheet, int columnIndex, int rowIndex, object? value)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+
         var cell = sheet.GetOrCreateCell(columnIndex, rowIndex);
         cell.SetValue(value);
     }
@@ -104,8 +114,10 @@ public static class ExportExcellUtility
     /// <param name="sheet">工作表</param>
     /// <param name="cellPoint">单元格位置</param>
     /// <param name="value">值</param>
-    public static void SetCellValue(this ISheet sheet, Point cellPoint, object value)
+    public static void SetCellValue(this ISheet sheet, Point cellPoint, object? value)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+
         var cell = sheet.GetOrCreateCell(cellPoint.Y, cellPoint.X);
         cell.SetValue(value);
     }
@@ -118,8 +130,11 @@ public static class ExportExcellUtility
     /// <param name="cellPoint">单元格位置</param>
     /// <param name="obj">设值对象</param>
     /// <param name="fieldName">设值字段名称</param>
-    public static void SetCellValue<T>(this ISheet sheet, Point cellPoint, T obj, string fieldName)
+    public static void SetCellValue<T>(this ISheet sheet, Point cellPoint, T? obj, string fieldName)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+        fieldName.CheckParamNull(nameof(fieldName), true);
+
         if (obj is not null)
         {
             var property = obj.GetType().GetProperty(fieldName);
@@ -141,6 +156,9 @@ public static class ExportExcellUtility
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     public static void SetData<T>(this ISheet sheet, T[] data, Column[] columns, Point contentCellStartPoint, int? columnRowStartIndex = default)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+        data.CheckParamNull(nameof(data), true);
+
         CheckColumn<T>(columns);
         var columnStartIndex = contentCellStartPoint.Y;
         if (columnRowStartIndex.HasValue)
@@ -173,6 +191,9 @@ public static class ExportExcellUtility
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     public static void SetData(this ISheet sheet, DataTable data, Point contentCellStartPoint, int? columnRowStartIndex = default)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+        data.CheckParamNull(nameof(data), true);
+
         var columnStartIndex = contentCellStartPoint.Y;
         if (columnRowStartIndex.HasValue)
         {
@@ -202,6 +223,9 @@ public static class ExportExcellUtility
     /// <param name="data">数据</param>
     public static void SetData(this ISheet sheet, Dictionary<Point, object> data)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+        data.CheckParamNull(nameof(data), true);
+
         foreach (var item in data)
         {
             sheet.SetCellValue(item.Key, item.Value);
@@ -219,6 +243,8 @@ public static class ExportExcellUtility
     /// <returns></returns>
     public static T[] GetData<T>(this ISheet sheet, Column[] columns, int columnRowIndex, int contentRowStartIndex) where T : class, new()
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+
         CheckColumn<T>(columns);
         var columnRow = sheet.GetRow(columnRowIndex);
         if (columnRow is null)
@@ -257,7 +283,7 @@ public static class ExportExcellUtility
                 }
             }
         }
-        var notExistColumns = columns.Except(existColumns, (x, y) => x.Title == y.Title).ToArray();
+        var notExistColumns = columns.Except(existColumns, (x, y) => x!.Title == y!.Title).ToArray();
         if (notExistColumns.Length > 0)
         {
             throw new ExcelBizException(ExcelExceptionCode.ColumnError, $"【列：{string.Join("，", notExistColumns.Select(x => x.Title))}】不存在", columnRowIndex, default);
@@ -270,7 +296,7 @@ public static class ExportExcellUtility
 
             foreach (var column in columns)
             {
-                var cell = row.GetCell(column.Index.Value);
+                var cell = row.GetCell(column.Index!.Value);
                 if (cell is not null)
                 {
                     if (cell is { CellType: CellType.Error } or { CellType: CellType.Formula, CachedFormulaResultType: CellType.Error })
@@ -288,13 +314,13 @@ public static class ExportExcellUtility
                     else
                     {
                         var property = item.GetType().GetProperty(column.Field);
-                        if (property.PropertyType == typeof(string))
+                        if (property!.PropertyType == typeof(string))
                         {
                             property.SetValue(item, cellValue);
                         }
                         else
                         {
-                            if (cellValue.TryParse(property.PropertyType, out object propertyValue))
+                            if (cellValue.TryParse(property.PropertyType, out object? propertyValue))
                             {
                                 property.SetValue(item, propertyValue);
                             }
@@ -328,6 +354,8 @@ public static class ExportExcellUtility
     /// <returns></returns>
     public static DataTable GetData(this ISheet sheet, int? columnRowIndex = default, int? contentRowStartIndex = default)
     {
+        sheet.CheckParamNull(nameof(sheet), true);
+
         var dt = new DataTable();
         var columns = new List<(string columnName, int excelColumnIndex)>();
         if (columnRowIndex.HasValue)
@@ -405,8 +433,10 @@ public static class ExportExcellUtility
     /// <param name="workbook">工作薄</param>
     /// <param name="sheetName">工作表名称</param>
     /// <returns></returns>
-    public static ISheet GetOrCreateSheet(this IWorkbook workbook, string sheetName = default)
+    public static ISheet GetOrCreateSheet(this IWorkbook workbook, string? sheetName = default)
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         ISheet sheet;
         if (string.IsNullOrEmpty(sheetName))
         {
@@ -433,8 +463,10 @@ public static class ExportExcellUtility
     /// <param name="workbook">工作薄</param>
     /// <param name="sheetName">工作表名称</param>
     /// <returns></returns>
-    public static ISheet GetNamedOrFirstSheet(this IWorkbook workbook, string sheetName = default)
+    public static ISheet GetNamedOrFirstSheet(this IWorkbook workbook, string? sheetName = default)
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         var sheet = string.IsNullOrEmpty(sheetName) ? workbook.GetSheetAt(0) : workbook.GetSheet(sheetName);
         if (sheet is null)
         {
@@ -453,8 +485,10 @@ public static class ExportExcellUtility
     /// <param name="contentCellStartPoint">数据单元格开始位置</param>
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
-    public static void SetData<T>(this IWorkbook workbook, T[] data, Column[] columns, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+    public static void SetData<T>(this IWorkbook workbook, T[] data, Column[] columns, Point contentCellStartPoint, string? sheetName = default, int? columnRowStartIndex = default)
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         var sheet = workbook.GetOrCreateSheet(sheetName);
         sheet.SetData(data, columns, contentCellStartPoint, columnRowStartIndex);
     }
@@ -467,8 +501,10 @@ public static class ExportExcellUtility
     /// <param name="contentCellStartPoint">数据单元格开始位置</param>
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
-    public static void SetData(this IWorkbook workbook, DataTable data, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+    public static void SetData(this IWorkbook workbook, DataTable data, Point contentCellStartPoint, string? sheetName = default, int? columnRowStartIndex = default)
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         var sheet = workbook.GetOrCreateSheet(sheetName);
         sheet.SetData(data, contentCellStartPoint, columnRowStartIndex);
     }
@@ -483,8 +519,10 @@ public static class ExportExcellUtility
     /// <param name="contentRowStartIndex">数据行开始索引</param>
     /// <param name="sheetName">工作表名称</param>
     /// <returns></returns>
-    public static T[] GetData<T>(this IWorkbook workbook, Column[] columns, int columnRowIndex, int contentRowStartIndex, string sheetName = default) where T : class, new()
+    public static T[] GetData<T>(this IWorkbook workbook, Column[] columns, int columnRowIndex, int contentRowStartIndex, string? sheetName = default) where T : class, new()
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         var sheet = workbook.GetNamedOrFirstSheet(sheetName);
         return sheet.GetData<T>(columns, columnRowIndex, contentRowStartIndex);
     }
@@ -497,8 +535,10 @@ public static class ExportExcellUtility
     /// <param name="columnRowIndex">列名所在的行索引</param>
     /// <param name="contentRowStartIndex">数据行的开始索引</param>
     /// <returns></returns>
-    public static DataTable GetData(this IWorkbook workbook, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+    public static DataTable GetData(this IWorkbook workbook, string? sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
     {
+        workbook.CheckParamNull(nameof(workbook), true);
+
         var sheet = workbook.GetNamedOrFirstSheet(sheetName);
         return sheet.GetData(columnRowIndex, contentRowStartIndex);
     }
@@ -524,6 +564,8 @@ public static class ExportExcellUtility
     /// <param name="columns">列信息</param>
     public static void CheckColumn<T>(Column[] columns)
     {
+        columns.CheckParamNull(nameof(columns), true);
+
         foreach (var column in columns)
         {
             if (column.Field is null or { Length: 0 })
@@ -555,7 +597,7 @@ public static class ExportExcellUtility
     /// <param name="isXlsx">是否xlsx版本</param>
     /// <param name="stream">文件流</param>
     /// <returns></returns>
-    public static IWorkbook GetWorkbook(bool isXlsx = false, Stream stream = default)
+    public static IWorkbook GetWorkbook(bool isXlsx = false, Stream? stream = default)
     {
         if (stream is null)
         {
@@ -579,7 +621,7 @@ public static class ExportExcellUtility
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     /// <param name="templateFileStream">模板文件流</param>
     /// <returns></returns>
-    public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default, Stream templateFileStream = default) where T : class
+    public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, bool isXlsx = false, string? sheetName = default, int? columnRowStartIndex = default, Stream? templateFileStream = default) where T : class
     {
         var workbook = GetWorkbook(isXlsx, templateFileStream);
         try
@@ -604,7 +646,7 @@ public static class ExportExcellUtility
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     /// <returns></returns>
-    public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, string templateFilePath, string sheetName = default, int? columnRowStartIndex = default) where T : class
+    public static MemoryStream ObjectToExcel<T>(T[] objs, Column[] columns, Point contentCellStartPoint, string? templateFilePath, string? sheetName = default, int? columnRowStartIndex = default) where T : class
     {
         var fs = default(FileStream);
         if (!string.IsNullOrEmpty(templateFilePath))
@@ -617,7 +659,7 @@ public static class ExportExcellUtility
         }
         try
         {
-            return ObjectToExcel(objs, columns, contentCellStartPoint, templateFilePath.EndsWith(".xlsx"), sheetName, columnRowStartIndex, fs);
+            return ObjectToExcel(objs, columns, contentCellStartPoint, templateFilePath?.EndsWith(".xlsx") ?? default, sheetName, columnRowStartIndex, fs);
         }
         finally
         {
@@ -635,7 +677,7 @@ public static class ExportExcellUtility
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     /// <param name="templateFileStream">模板文件流</param>
     /// <returns></returns>
-    public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, bool isXlsx = false, string sheetName = default, int? columnRowStartIndex = default, Stream templateFileStream = default)
+    public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, bool isXlsx = false, string? sheetName = default, int? columnRowStartIndex = default, Stream? templateFileStream = default)
     {
         var workbook = GetWorkbook(isXlsx, templateFileStream);
         try
@@ -658,7 +700,7 @@ public static class ExportExcellUtility
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
     /// <returns></returns>
-    public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, string templateFilePath, string sheetName = default, int? columnRowStartIndex = default)
+    public static MemoryStream DataTableToExcel(DataTable dt, Point contentCellStartPoint, string? templateFilePath, string? sheetName = default, int? columnRowStartIndex = default)
     {
         var fs = default(FileStream);
         if (!string.IsNullOrEmpty(templateFilePath))
@@ -671,7 +713,7 @@ public static class ExportExcellUtility
         }
         try
         {
-            return DataTableToExcel(dt, contentCellStartPoint, templateFilePath.EndsWith(".xlsx"), sheetName, columnRowStartIndex, fs);
+            return DataTableToExcel(dt, contentCellStartPoint, templateFilePath?.EndsWith(".xlsx") ?? default, sheetName, columnRowStartIndex, fs);
         }
         finally
         {
@@ -690,7 +732,7 @@ public static class ExportExcellUtility
     /// <param name="isXlsx">是否xlsx版本</param>
     /// <param name="sheetName">工作表名称</param>
     /// <returns></returns>
-    public static T[] ExcelToObject<T>(Stream excelFileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string sheetName = default) where T : class, new()
+    public static T[] ExcelToObject<T>(Stream excelFileStream, Column[] columns, int columnRowIndex, int contentRowStartIndex, bool isXlsx = false, string? sheetName = default) where T : class, new()
     {
         var workbook = GetWorkbook(isXlsx, excelFileStream);
         try
@@ -713,7 +755,7 @@ public static class ExportExcellUtility
     /// <param name="contentRowStartIndex">数据行开始索引</param>
     /// <param name="sheetName">工作表名称</param>
     /// <returns></returns>
-    public static T[] ExcelToObject<T>(string excelFilePath, Column[] columns, int columnRowIndex, int contentRowStartIndex, string sheetName = default) where T : class, new()
+    public static T[] ExcelToObject<T>(string excelFilePath, Column[] columns, int columnRowIndex, int contentRowStartIndex, string? sheetName = default) where T : class, new()
     {
         var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         try
@@ -735,7 +777,7 @@ public static class ExportExcellUtility
     /// <param name="columnRowIndex">列名所在的行索引</param>
     /// <param name="contentRowStartIndex">数据行的开始索引</param>
     /// <returns></returns>
-    public static DataTable ExcelToDataTable(Stream excelFileStream, bool isXlsx = default, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+    public static DataTable ExcelToDataTable(Stream excelFileStream, bool isXlsx = default, string? sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
     {
         var workbook = GetWorkbook(isXlsx, excelFileStream);
         try
@@ -756,7 +798,7 @@ public static class ExportExcellUtility
     /// <param name="columnRowIndex">列名所在的行索引</param>
     /// <param name="contentRowStartIndex">数据行的开始索引</param>
     /// <returns></returns>
-    public static DataTable ExcelToDataTable(string excelFilePath, string sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
+    public static DataTable ExcelToDataTable(string excelFilePath, string? sheetName = default, int? columnRowIndex = default, int? contentRowStartIndex = default)
     {
         var fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         try
@@ -779,7 +821,7 @@ public static class ExportExcellUtility
     /// <param name="contentCellStartPoint">数据单元格开始位置</param>
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
-    public static void Write<T>(string excelFilePath, T[] objs, Column[] columns, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+    public static void Write<T>(string excelFilePath, T[] objs, Column[] columns, Point contentCellStartPoint, string? sheetName = default, int? columnRowStartIndex = default)
     {
         using var readFileStream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         var workbook = GetWorkbook(excelFilePath.EndsWith(".xlsx"), readFileStream);
@@ -805,7 +847,7 @@ public static class ExportExcellUtility
     /// <param name="contentCellStartPoint">数据单元格开始位置</param>
     /// <param name="sheetName">工作表名称</param>
     /// <param name="columnRowStartIndex">列所在行的开始索引</param>
-    public static void Write(string excelFilePath, DataTable dt, Point contentCellStartPoint, string sheetName = default, int? columnRowStartIndex = default)
+    public static void Write(string excelFilePath, DataTable dt, Point contentCellStartPoint, string? sheetName = default, int? columnRowStartIndex = default)
     {
         using var readFileStream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         var workbook = GetWorkbook(excelFilePath.EndsWith(".xlsx"), readFileStream);
@@ -1575,7 +1617,7 @@ public class Column
     /// <summary>
     /// 列序号
     /// </summary>
-    public string No { get; set; }
+    public string? No { get; set; }
 
     /// <summary>
     /// 宽度
@@ -1585,12 +1627,12 @@ public class Column
     /// <summary>
     /// 字段
     /// </summary>
-    public string Field { get; set; }
+    public string Field { get; set; } = string.Empty;
 
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// 水平对齐
@@ -1626,5 +1668,5 @@ public class MyCell
     /// <summary>
     /// 单元格值
     /// </summary>
-    public string Val { get; set; }
+    public string? Val { get; set; }
 }

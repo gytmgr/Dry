@@ -34,7 +34,7 @@ public static class ModelBuilderExtension
                     property.PropertyInfo?.CustomAttributes.Any(attr => attr.AttributeType == typeof(DescriptionAttribute)) == true)
                 {
                     var propertyInfo = property.PropertyInfo;
-                    var propertyType = propertyInfo?.PropertyType;
+                    var propertyType = propertyInfo.PropertyType;
                     //如果该列的实体属性是枚举类型，把枚举的说明追加到列说明
                     var enumDbDescription = string.Empty;
                     if (propertyType.IsEnum || (propertyType.IsDerivedFrom(typeof(Nullable<>)) && propertyType.GenericTypeArguments[0].IsEnum))

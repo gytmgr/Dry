@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Dry.Domain.Extensions;
+﻿namespace Dry.Domain.Extensions;
 
 /// <summary>
 /// 仓储扩展
@@ -14,7 +12,7 @@ public static class RepositoryExtension
     /// <param name="repository"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>>? predicate = null) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>>? predicate = null) where TEntity : class, IEntity, IBoundedContext
         => await repository.FirstAsync(predicate, paths: null, null);
 
     /// <summary>
@@ -25,7 +23,7 @@ public static class RepositoryExtension
     /// <param name="predicate"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths) where TEntity : class, IEntity, IBoundedContext
         => await repository.FirstAsync(predicate, paths, null);
 
     /// <summary>
@@ -36,7 +34,7 @@ public static class RepositoryExtension
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity?> FirstAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : class, IEntity, IBoundedContext
         => await repository.FirstAsync(predicate, paths: null, orderBys);
 
     /// <summary>
@@ -47,7 +45,7 @@ public static class RepositoryExtension
     /// <param name="repository"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public static async Task<TResult?> FirstAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult?> FirstAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector) where TEntity : class, IEntity, IBoundedContext
         => await repository.FirstAsync(selector, null);
 
     /// <summary>
@@ -59,7 +57,7 @@ public static class RepositoryExtension
     /// <param name="selector"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public static async Task<TResult?> FirstAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult?> FirstAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : class, IEntity, IBoundedContext
         => await repository.FirstAsync(selector, null, orderBys);
 
     /// <summary>
@@ -69,7 +67,7 @@ public static class RepositoryExtension
     /// <param name="repository"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>>? predicate = null) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>>? predicate = null) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(predicate, paths: null, null);
 
     /// <summary>
@@ -80,7 +78,7 @@ public static class RepositoryExtension
     /// <param name="predicate"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, dynamic>>[] paths) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(predicate, paths, null);
 
     /// <summary>
@@ -91,7 +89,7 @@ public static class RepositoryExtension
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : IEntity, IBoundedContext
+    public static async Task<TEntity[]> ToArrayAsync<TEntity>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(predicate, paths: null, orderBys);
 
     /// <summary>
@@ -102,7 +100,7 @@ public static class RepositoryExtension
     /// <param name="repository"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(selector, null);
 
     /// <summary>
@@ -114,7 +112,7 @@ public static class RepositoryExtension
     /// <param name="selector"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, TResult>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(selector, null, orderBys);
 
     /// <summary>
@@ -125,7 +123,7 @@ public static class RepositoryExtension
     /// <param name="repository"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, IEnumerable<TResult>>> selector) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, IEnumerable<TResult>>> selector) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(selector, null);
 
     /// <summary>
@@ -137,6 +135,6 @@ public static class RepositoryExtension
     /// <param name="selector"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, IEnumerable<TResult>>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : IEntity, IBoundedContext
+    public static async Task<TResult[]> ToArrayAsync<TEntity, TResult>(this IReadOnlyRepository<TEntity> repository, Expression<Func<TEntity, IEnumerable<TResult>>> selector, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys) where TEntity : class, IEntity, IBoundedContext
         => await repository.ToArrayAsync(selector, null, orderBys);
 }

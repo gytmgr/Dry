@@ -1,6 +1,4 @@
-﻿using Dry.Admin.Domain.Events;
-
-namespace Dry.Admin.Domain.Entities;
+﻿namespace Dry.Admin.Domain.Entities;
 
 /// <summary>
 /// 应用

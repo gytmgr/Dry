@@ -84,7 +84,7 @@ public class DryProfile : Profile
     /// <param name="source"></param>
     /// <param name="destination"></param>
     /// <returns></returns>
-    public static TData MappingFunction<TData>(DryData<TData> source, TData destination)
+    public static TData MappingFunction<TData>(DryData<TData>? source, TData destination)
         => source is null ? destination : source.Data;
 
     /// <summary>

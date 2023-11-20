@@ -16,7 +16,7 @@ public abstract class ApplicationQueryClient<TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<bool> AnyAsync(TQuery queryDto)
+    public virtual async Task<bool> AnyAsync(TQuery? queryDto)
         => await RequestAsync<bool>(HttpMethod.Get, "/Any", queryDto);
 
     /// <summary>
@@ -24,7 +24,7 @@ public abstract class ApplicationQueryClient<TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<int> CountAsync(TQuery queryDto)
+    public virtual async Task<int> CountAsync(TQuery? queryDto)
         => await RequestAsync<int>(HttpMethod.Get, "/Count", queryDto);
 
     /// <summary>
@@ -32,7 +32,7 @@ public abstract class ApplicationQueryClient<TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync(TQuery queryDto)
+    public virtual async Task<TResult?> FirstAsync(TQuery? queryDto)
         => await RequestAsync<TResult>(HttpMethod.Get, "/First", queryDto);
 
     /// <summary>
@@ -40,16 +40,16 @@ public abstract class ApplicationQueryClient<TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
-        => await RequestAsync<TResult[]>(HttpMethod.Get, null, queryDto);
+    public virtual async Task<TResult[]> ArrayAsync(TQuery? queryDto)
+        => (await RequestAsync<TResult[]>(HttpMethod.Get, null, queryDto))!;
 
     /// <summary>
     /// 分页条件查询
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto)
-        => await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto);
+    public virtual async Task<PagedResult<TResult>> ArrayAsync(PagedQuery<TQuery> queryDto)
+        => (await RequestAsync<PagedResult<TResult>>(HttpMethod.Get, "/Paged", queryDto))!;
 }
 
 /// <summary>
@@ -69,7 +69,7 @@ public abstract class ApplicationQueryClient<TResult, TQuery, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FindAsync([NotNull] TKey id)
+    public virtual async Task<TResult?> FindAsync(TKey id)
         => await RequestAsync<TResult>(HttpMethod.Get, $"/{id}");
 }
 
@@ -94,6 +94,6 @@ public abstract class ApplicationQueryClient<TResult, TQuery, TCreate, TEdit, TK
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
-        => await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}");
+    public virtual async Task<TResult> DeleteAsync(TKey id)
+        => (await RequestAsync<TResult>(HttpMethod.Delete, $"/{id}"))!;
 }

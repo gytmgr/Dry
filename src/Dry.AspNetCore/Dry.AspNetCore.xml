@@ -326,15 +326,5 @@
             <param name="dependencyPrefixs"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.AspNetCore.WebAppHelper.ServicesActionAsync``1(System.IServiceProvider,System.Func{``0,System.Threading.Tasks.Task},System.Boolean)">
-            <summary>
-            多服务操作
-            </summary>
-            <typeparam name="TService"></typeparam>
-            <param name="serviceProvider"></param>
-            <param name="serviceAction"></param>
-            <param name="ascOrder"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

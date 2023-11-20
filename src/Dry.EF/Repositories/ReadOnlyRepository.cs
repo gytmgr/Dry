@@ -1,15 +1,23 @@
-﻿namespace Dry.EF.Repositories;
+﻿using ServiceProviderHelper = Dry.Domain.Extensions.ServiceProviderExtension;
+
+namespace Dry.EF.Repositories;
 
 /// <summary>
 /// ef只读仓储
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class, IEntity, IBoundedContext
+public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>, IDependency<IReadOnlyRepository<TEntity>> where TEntity : class, IEntity, IBoundedContext
 {
     /// <summary>
     /// 服务提供者
     /// </summary>
-    protected readonly IServiceProvider _provider;
+    protected readonly IServiceProvider _serviceProvider;
+
+    /// <summary>
+    /// 数据库上下文
+    /// </summary>
+
+    protected readonly IDryDbContext _dryDbContext;
 
     /// <summary>
     /// ef上下文
@@ -19,14 +27,15 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <summary>
     /// 构造体
     /// </summary>
-    /// <param name="provider"></param>
-    public ReadOnlyRepository(IServiceProvider provider)
+    /// <param name="serviceProvider"></param>
+    public ReadOnlyRepository(IServiceProvider serviceProvider)
     {
-        _provider = provider;
-        var interfaces = typeof(TEntity).GetInterfaces();
-        var boundedContextType = interfaces.First(x => x != typeof(IBoundedContext) && typeof(IBoundedContext).IsAssignableFrom(x));
-        _context = (DbContext)_provider.GetService(boundedContextType);
+        _serviceProvider = serviceProvider;
+        _dryDbContext = ServiceProviderHelper.GetDryDbContext<TEntity>(serviceProvider);
+        _context = (DbContext)_dryDbContext;
     }
+
+    #region Queryable
 
     /// <summary>
     /// 获取查询
@@ -34,6 +43,25 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <returns></returns>
     public virtual IQueryable<TEntity> GetQueryable()
         => _context.Set<TEntity>().AsNoTracking();
+
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public virtual IQueryable<TEntity> GetQueryableFromSqlRaw(string sql, params object[] parameters)
+        => _context.Set<TEntity>().FromSqlRaw(sql, parameters).AsNoTracking();
+
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <returns></returns>
+    public virtual IQueryable<TEntity> GetQueryableFromSqlInterpolated(FormattableString sql)
+        => _context.Set<TEntity>().FromSqlInterpolated(sql).AsNoTracking();
+
+    #endregion
 
     #region Bool
 
@@ -43,7 +71,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="allPredicate"></param>
     /// <param name="wherePredicates"></param>
     /// <returns></returns>
-    public virtual async Task<bool> AllAsync([NotNull] Expression<Func<TEntity, bool>> allPredicate, params Expression<Func<TEntity, bool>>[] wherePredicates)
+    public virtual async Task<bool> AllAsync(Expression<Func<TEntity, bool>> allPredicate, params Expression<Func<TEntity, bool>>[]? wherePredicates)
         => await GetQueryable().Where(wherePredicates).AllAsync(allPredicate);
 
     /// <summary>
@@ -51,7 +79,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// </summary>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<bool> AnyAsync(params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<bool> AnyAsync(params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AnyAsync();
 
     #endregion
@@ -63,7 +91,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// </summary>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<int> CountAsync(params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<int> CountAsync(params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).CountAsync();
 
     /// <summary>
@@ -71,7 +99,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// </summary>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<long> LongCountAsync(params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<long> LongCountAsync(params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).LongCountAsync();
 
     #endregion
@@ -85,7 +113,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="paths"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TEntity?> FirstAsync(Expression<Func<TEntity, bool>>? predicate, Expression<Func<TEntity, dynamic>>[]? paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]? orderBys)
     {
         var queryable = GetQueryable();
         if (paths is not null)
@@ -110,7 +138,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult?> FirstAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>? predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]? orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)
@@ -127,7 +155,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="paths"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>>[] paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TEntity[]> ToArrayAsync(Expression<Func<TEntity, bool>>? predicate, Expression<Func<TEntity, dynamic>>[]? paths, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]? orderBys)
     {
         var queryable = GetQueryable();
         if (paths is not null)
@@ -152,7 +180,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>>? predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]? orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)
@@ -170,7 +198,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="predicate"></param>
     /// <param name="orderBys"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ToArrayAsync<TResult>([NotNull] Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>> predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] orderBys)
+    public virtual async Task<TResult[]> ToArrayAsync<TResult>(Expression<Func<TEntity, IEnumerable<TResult>>> selector, Expression<Func<TEntity, bool>>? predicate, params (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]? orderBys)
     {
         var queryable = GetQueryable();
         if (predicate is not null)
@@ -190,7 +218,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<int?> SumAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<int?> SumAsync(Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).SumAsync(selector);
 
     /// <summary>
@@ -199,7 +227,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<long?> SumAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<long?> SumAsync(Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).SumAsync(selector);
 
     /// <summary>
@@ -208,7 +236,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<float?> SumAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<float?> SumAsync(Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).SumAsync(selector);
 
     /// <summary>
@@ -217,7 +245,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<double?> SumAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<double?> SumAsync(Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).SumAsync(selector);
 
     /// <summary>
@@ -226,7 +254,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<decimal?> SumAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<decimal?> SumAsync(Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).SumAsync(selector);
 
     #endregion
@@ -240,7 +268,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> MaxAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<TResult> MaxAsync<TResult>(Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).MaxAsync(selector);
 
     #endregion
@@ -254,7 +282,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> MinAsync<TResult>([NotNull] Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<TResult> MinAsync<TResult>(Expression<Func<TEntity, TResult>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).MinAsync(selector);
 
     #endregion
@@ -267,7 +295,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, int?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AverageAsync(selector);
 
     /// <summary>
@@ -276,7 +304,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, long?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AverageAsync(selector);
 
     /// <summary>
@@ -285,7 +313,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<float?> AverageAsync([NotNull] Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<float?> AverageAsync(Expression<Func<TEntity, float?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AverageAsync(selector);
 
     /// <summary>
@@ -294,7 +322,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<double?> AverageAsync([NotNull] Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<double?> AverageAsync(Expression<Func<TEntity, double?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AverageAsync(selector);
 
     /// <summary>
@@ -303,7 +331,7 @@ public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TE
     /// <param name="selector"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task<decimal?> AverageAsync([NotNull] Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task<decimal?> AverageAsync(Expression<Func<TEntity, decimal?>> selector, params Expression<Func<TEntity, bool>>[]? predicates)
         => await GetQueryable().Where(predicates).AverageAsync(selector);
 
     #endregion

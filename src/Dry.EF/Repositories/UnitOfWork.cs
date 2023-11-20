@@ -4,7 +4,7 @@
 /// 工作单元
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TBoundedContext : IBoundedContext
+public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext>, IDependency<IUnitOfWork<TBoundedContext>> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// ef上下文
@@ -21,9 +21,9 @@ public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TB
     /// </summary>
     /// <param name="context"></param>
     /// <param name="mediator"></param>
-    public UnitOfWork(TBoundedContext context, IMediator mediator)
+    public UnitOfWork(IDryDbContext<TBoundedContext> context, IMediator mediator)
     {
-        _context = context as DbContext;
+        _context = (context as DbContext)!;
         _mediator = mediator;
     }
 
@@ -31,7 +31,7 @@ public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TB
     /// 异步提交
     /// </summary>
     /// <returns></returns>
-    public async Task<int> CompleteAsync()
+    public virtual async Task<int> CompleteAsync()
     {
         var changeEntries = _context.ChangeTracker.Entries<IEvents>().Where(x => x.Entity.GetEvent().Any());
         var events = changeEntries.SelectMany(x => x.Entity.GetEvent()).ToArray();

@@ -339,3 +339,10 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /app/Admin/Dry.Admin.Application.RESTFul.Api/Default.db
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Default.db-shm
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Default.db-wal
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Defaul_Test.db
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Defaul_Test.db-shm
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Defaul_Test.db-wal
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Default.db-shm
+/app/Admin/Dry.Admin.Application.RESTFul.Api/Default.db-wal

@@ -10,7 +10,7 @@ public interface IEdit
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task EditAsync([NotNull] IServiceProvider serviceProvider)
+    public Task EditAsync(IServiceProvider serviceProvider)
     {
         if (this is IHasUpdateTime updateTimeEntity)
         {
@@ -24,6 +24,6 @@ public interface IEdit
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public Task<bool> EditedAsync([NotNull] IServiceProvider serviceProvider)
+    public Task<bool> EditedAsync(IServiceProvider serviceProvider)
         => Task.FromResult(false);
 }

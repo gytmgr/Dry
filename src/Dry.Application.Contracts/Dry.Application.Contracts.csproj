@@ -4,16 +4,18 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
 		<Description>应用契约层</Description>
-		<Version>6.1.10</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dry.Core\Dry.Core.csproj" />
+	  <ProjectReference Include="..\Dry.Core.Model\Dry.Core.Model.csproj" />
+	  <ProjectReference Include="..\Dry.Domain.Shared\Dry.Domain.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

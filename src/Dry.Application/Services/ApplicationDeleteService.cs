@@ -24,7 +24,7 @@ public abstract class ApplicationDeleteService<TBoundedContext, TEntity, TResult
     /// </summary>
     /// <param name="serviceProvider"></param>
     public ApplicationDeleteService(IServiceProvider serviceProvider) : base(serviceProvider)
-        => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+        => _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TBoundedContext>>();
 
     /// <summary>
     /// 获取删除实体
@@ -33,7 +33,7 @@ public abstract class ApplicationDeleteService<TBoundedContext, TEntity, TResult
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+        => await _repository.FindAsync(id!) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据
@@ -66,7 +66,7 @@ public abstract class ApplicationDeleteService<TBoundedContext, TEntity, TResult
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+    public virtual async Task<TResult> DeleteAsync(TKey id)
     {
         var entity = await GetDeleteEntityAsync(id);
         await SetDeleteEntityAsync(entity);
@@ -103,7 +103,7 @@ public abstract class ApplicationQueryDeleteService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="serviceProvider"></param>
     public ApplicationQueryDeleteService(IServiceProvider serviceProvider) : base(serviceProvider)
-        => _unitOfWork = serviceProvider.GetService<IUnitOfWork<TBoundedContext>>();
+        => _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TBoundedContext>>();
 
     /// <summary>
     /// 获取删除实体
@@ -112,7 +112,7 @@ public abstract class ApplicationQueryDeleteService<TBoundedContext, TEntity, TR
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+        => await _repository.FindAsync(id!) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据
@@ -145,7 +145,7 @@ public abstract class ApplicationQueryDeleteService<TBoundedContext, TEntity, TR
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+    public virtual async Task<TResult> DeleteAsync(TKey id)
     {
         var entity = await GetDeleteEntityAsync(id);
         await SetDeleteEntityAsync(entity);

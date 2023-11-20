@@ -13,5 +13,5 @@ public class DataConfigurer : IAppBuilderConfigurer, ISingletonDependency<IAppBu
         => _serviceProvider = serviceProvider;
 
     public virtual async Task ConfigureAsync(WebApplicationBuilder builder)
-        => await WebAppHelper.ServicesActionAsync<IDataIniter>(_serviceProvider, async initer => await initer.InitAsync());
+        => await _serviceProvider.ServicesActionAsync<IDataIniter>(async initer => await initer.InitAsync());
 }

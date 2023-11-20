@@ -10,7 +10,7 @@ internal class JobFactory : IJobFactory
     public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
     {
         var serviceScope = _serviceProvider.CreateScope();
-        return serviceScope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob;
+        return (serviceScope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob)!;
     }
 
     public void ReturnJob(IJob job)

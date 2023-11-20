@@ -10,6 +10,6 @@ public abstract class DryController : Controller
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     /// <returns></returns>
-    protected virtual TService Service<TService>()
+    protected virtual TService? Service<TService>()
         => HttpContext.RequestServices.GetService<TService>();
 }

@@ -17,7 +17,7 @@ public class StartupFilter : IStartupFilter, ISingletonDependency<IStartupFilter
     /// <returns></returns>
     public virtual Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
-        WebAppHelper.ServicesActionAsync<IAppStartuper>(_serviceProvider, async startup => await startup.StartupAsync()).Wait();
+        _serviceProvider.ServicesActionAsync<IAppStartuper>(async startup => await startup.StartupAsync()).Wait();
         return next;
     }
 }

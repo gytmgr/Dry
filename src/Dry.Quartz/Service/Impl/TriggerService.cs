@@ -132,7 +132,7 @@ internal class TriggerService : ITriggerService, IDependency<ITriggerService>
         return triggers.ToArray();
     }
 
-    public async Task<TTriggerModel> GetAsync<TTriggerModel>(QuartzKey key)
+    public async Task<TTriggerModel?> GetAsync<TTriggerModel>(QuartzKey key)
         where TTriggerModel : TriggerModel, new()
     {
         var quartzTrigger = await _scheduler.GetTrigger(key.ToTriggerKey());

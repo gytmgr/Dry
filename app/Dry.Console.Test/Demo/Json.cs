@@ -1,6 +1,5 @@
-﻿using Dry.Core.Json;
-using Dry.Core.Json.Converter;
-using Dry.Dependency;
+﻿using Dry.Core.Model;
+using Dry.Core.Utilities;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;

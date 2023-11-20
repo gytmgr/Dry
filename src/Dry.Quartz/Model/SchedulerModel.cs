@@ -1,4 +1,6 @@
-﻿namespace Dry.Quartz.Model;
+﻿#nullable disable
+
+namespace Dry.Quartz.Model;
 
 /// <summary>
 /// 调度模型

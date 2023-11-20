@@ -18,7 +18,7 @@ public class JobModel
     /// <summary>
     /// 说明
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// 已执行次数

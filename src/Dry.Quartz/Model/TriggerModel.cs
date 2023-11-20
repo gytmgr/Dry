@@ -23,7 +23,7 @@ public class TriggerModel
     /// <summary>
     /// 说明
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// 开始执行时间
@@ -49,5 +49,5 @@ public class TriggerModel
     /// 检查
     /// </summary>
     /// <returns></returns>
-    public virtual string Check() => null;
+    public virtual string? Check() => null;
 }

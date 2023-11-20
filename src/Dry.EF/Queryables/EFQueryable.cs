@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Dry.EF.Queryables;
+﻿namespace Dry.EF.Queryables;
 
 /// <summary>
 /// EF查询
@@ -12,7 +10,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public string ToQueryString(IQueryable queryable)
+    public virtual string ToQueryString(IQueryable queryable)
         => queryable.ToQueryString();
 
     #region 判断
@@ -24,7 +22,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<bool> AnyAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<bool> AnyAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.AnyAsync() : await queryable.AnyAsync(predicate);
 
     /// <summary>
@@ -34,7 +32,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<bool> AllAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>> predicate)
+    public virtual async Task<bool> AllAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>> predicate)
         => await queryable.AllAsync(predicate);
 
     /// <summary>
@@ -44,7 +42,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    public async Task<bool> ContainsAsync<TSource>(IQueryable<TSource> queryable, TSource item)
+    public virtual async Task<bool> ContainsAsync<TSource>(IQueryable<TSource> queryable, TSource item)
         => await queryable.ContainsAsync(item);
 
     #endregion
@@ -58,7 +56,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<int> CountAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<int> CountAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.CountAsync() : await queryable.CountAsync(predicate);
 
     /// <summary>
@@ -68,7 +66,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<long> LongCountAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<long> LongCountAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.LongCountAsync() : await queryable.LongCountAsync(predicate);
 
     #endregion
@@ -82,7 +80,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource> FirstAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource> FirstAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.FirstAsync() : await queryable.FirstAsync(predicate);
 
     /// <summary>
@@ -92,7 +90,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource?> FirstOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource?> FirstOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.FirstOrDefaultAsync() : await queryable.FirstOrDefaultAsync(predicate);
 
     /// <summary>
@@ -102,7 +100,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource> LastAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource> LastAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.LastAsync() : await queryable.LastAsync(predicate);
 
     /// <summary>
@@ -112,7 +110,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource?> LastOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource?> LastOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.LastOrDefaultAsync() : await queryable.LastOrDefaultAsync(predicate);
 
     /// <summary>
@@ -122,7 +120,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource> SingleAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource> SingleAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.SingleAsync() : await queryable.SingleAsync(predicate);
 
     /// <summary>
@@ -132,7 +130,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public async Task<TSource?> SingleOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
+    public virtual async Task<TSource?> SingleOrDefaultAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, bool>>? predicate = null)
         => predicate is null ? await queryable.SingleOrDefaultAsync() : await queryable.SingleOrDefaultAsync(predicate);
 
     /// <summary>
@@ -141,7 +139,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<List<TSource>> ToListAsync<TSource>(IQueryable<TSource> queryable)
+    public virtual async Task<List<TSource>> ToListAsync<TSource>(IQueryable<TSource> queryable)
         => await queryable.ToListAsync();
 
     /// <summary>
@@ -150,7 +148,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<TSource[]> ToArrayAsync<TSource>(IQueryable<TSource> queryable)
+    public virtual async Task<TSource[]> ToArrayAsync<TSource>(IQueryable<TSource> queryable)
         => await queryable.ToArrayAsync();
 
     /// <summary>
@@ -162,7 +160,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="keySelector"></param>
     /// <param name="comparer"></param>
     /// <returns></returns>
-    public async Task<Dictionary<TKey, TSource>> ToDictionaryAsync<TSource, TKey>(IQueryable<TSource> queryable, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
+    public virtual async Task<Dictionary<TKey, TSource>> ToDictionaryAsync<TSource, TKey>(IQueryable<TSource> queryable, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
         => comparer is null ? await queryable.ToDictionaryAsync(keySelector) : await queryable.ToDictionaryAsync(keySelector, comparer);
 
     /// <summary>
@@ -176,7 +174,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="elementSelector"></param>
     /// <param name="comparer"></param>
     /// <returns></returns>
-    public async Task<Dictionary<TKey, TElement>> ToDictionaryAsync<TSource, TKey, TElement>(IQueryable<TSource> queryable, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
+    public virtual async Task<Dictionary<TKey, TElement>> ToDictionaryAsync<TSource, TKey, TElement>(IQueryable<TSource> queryable, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
         => comparer is null ? await queryable.ToDictionaryAsync(keySelector, elementSelector) : await queryable.ToDictionaryAsync(keySelector, elementSelector, comparer);
 
     #endregion
@@ -191,7 +189,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<TSource> MinAsync<TSource>(IQueryable<TSource> queryable)
+    public virtual async Task<TSource> MinAsync<TSource>(IQueryable<TSource> queryable)
         => await queryable.MinAsync();
 
     /// <summary>
@@ -202,7 +200,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<TResult> MinAsync<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<TSource, TResult>> selector)
+    public virtual async Task<TResult> MinAsync<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<TSource, TResult>> selector)
         => await queryable.MinAsync(selector);
 
     #endregion
@@ -215,7 +213,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<TSource> MaxAsync<TSource>(IQueryable<TSource> queryable)
+    public virtual async Task<TSource> MaxAsync<TSource>(IQueryable<TSource> queryable)
         => await queryable.MaxAsync();
 
     /// <summary>
@@ -226,7 +224,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<TResult> MaxAsync<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<TSource, TResult>> selector)
+    public virtual async Task<TResult> MaxAsync<TSource, TResult>(IQueryable<TSource> queryable, Expression<Func<TSource, TResult>> selector)
         => await queryable.MaxAsync(selector);
 
     #endregion
@@ -238,7 +236,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<decimal> SumAsync(IQueryable<decimal> queryable)
+    public virtual async Task<decimal> SumAsync(IQueryable<decimal> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -246,7 +244,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<decimal?> SumAsync(IQueryable<decimal?> queryable)
+    public virtual async Task<decimal?> SumAsync(IQueryable<decimal?> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -256,7 +254,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<decimal> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal>> selector)
+    public virtual async Task<decimal> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal>> selector)
         => await queryable.SumAsync(selector);
 
     /// <summary>
@@ -266,7 +264,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<decimal?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal?>> selector)
+    public virtual async Task<decimal?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal?>> selector)
         => await queryable.SumAsync(selector);
 
     /// <summary>
@@ -274,7 +272,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<int> SumAsync(IQueryable<int> queryable)
+    public virtual async Task<int> SumAsync(IQueryable<int> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -282,43 +280,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<int?> SumAsync(IQueryable<int?> queryable)
-        => await queryable.SumAsync();
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<int> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int>> selector)
-        => await queryable.SumAsync(selector);
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<int?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int?>> selector)
-        => await queryable.SumAsync(selector);
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<long> SumAsync(IQueryable<long> queryable)
-        => await queryable.SumAsync();
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<long?> SumAsync(IQueryable<long?> queryable)
+    public virtual async Task<int?> SumAsync(IQueryable<int?> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -328,7 +290,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<long> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long>> selector)
+    public virtual async Task<int> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int>> selector)
         => await queryable.SumAsync(selector);
 
     /// <summary>
@@ -338,7 +300,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<long?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long?>> selector)
+    public virtual async Task<int?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int?>> selector)
         => await queryable.SumAsync(selector);
 
     /// <summary>
@@ -346,7 +308,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double> SumAsync(IQueryable<double> queryable)
+    public virtual async Task<long> SumAsync(IQueryable<long> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -354,43 +316,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double?> SumAsync(IQueryable<double?> queryable)
-        => await queryable.SumAsync();
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double>> selector)
-        => await queryable.SumAsync(selector);
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double?>> selector)
-        => await queryable.SumAsync(selector);
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<float> SumAsync(IQueryable<float> queryable)
-        => await queryable.SumAsync();
-
-    /// <summary>
-    /// 和
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<float?> SumAsync(IQueryable<float?> queryable)
+    public virtual async Task<long?> SumAsync(IQueryable<long?> queryable)
         => await queryable.SumAsync();
 
     /// <summary>
@@ -400,7 +326,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<float> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float>> selector)
+    public virtual async Task<long> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long>> selector)
         => await queryable.SumAsync(selector);
 
     /// <summary>
@@ -410,7 +336,79 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<float?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float?>> selector)
+    public virtual async Task<long?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long?>> selector)
+        => await queryable.SumAsync(selector);
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<double> SumAsync(IQueryable<double> queryable)
+        => await queryable.SumAsync();
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<double?> SumAsync(IQueryable<double?> queryable)
+        => await queryable.SumAsync();
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<double> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double>> selector)
+        => await queryable.SumAsync(selector);
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<double?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double?>> selector)
+        => await queryable.SumAsync(selector);
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<float> SumAsync(IQueryable<float> queryable)
+        => await queryable.SumAsync();
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<float?> SumAsync(IQueryable<float?> queryable)
+        => await queryable.SumAsync();
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<float> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float>> selector)
+        => await queryable.SumAsync(selector);
+
+    /// <summary>
+    /// 和
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<float?> SumAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float?>> selector)
         => await queryable.SumAsync(selector);
 
     #endregion
@@ -422,7 +420,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<decimal> AverageAsync(IQueryable<decimal> queryable)
+    public virtual async Task<decimal> AverageAsync(IQueryable<decimal> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -430,7 +428,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<decimal?> AverageAsync(IQueryable<decimal?> queryable)
+    public virtual async Task<decimal?> AverageAsync(IQueryable<decimal?> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -440,7 +438,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<decimal> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal>> selector)
+    public virtual async Task<decimal> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal>> selector)
         => await queryable.AverageAsync(selector);
 
     /// <summary>
@@ -450,7 +448,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<decimal?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal?>> selector)
+    public virtual async Task<decimal?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, decimal?>> selector)
         => await queryable.AverageAsync(selector);
 
     /// <summary>
@@ -458,7 +456,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double> AverageAsync(IQueryable<int> queryable)
+    public virtual async Task<double> AverageAsync(IQueryable<int> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -466,43 +464,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double?> AverageAsync(IQueryable<int?> queryable)
-        => await queryable.AverageAsync();
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int>> selector)
-        => await queryable.AverageAsync(selector);
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int?>> selector)
-        => await queryable.AverageAsync(selector);
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<double> AverageAsync(IQueryable<long> queryable)
-        => await queryable.AverageAsync();
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<double?> AverageAsync(IQueryable<long?> queryable)
+    public virtual async Task<double?> AverageAsync(IQueryable<int?> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -512,7 +474,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long>> selector)
+    public virtual async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int>> selector)
         => await queryable.AverageAsync(selector);
 
     /// <summary>
@@ -522,7 +484,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long?>> selector)
+    public virtual async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, int?>> selector)
         => await queryable.AverageAsync(selector);
 
     /// <summary>
@@ -530,7 +492,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double> AverageAsync(IQueryable<double> queryable)
+    public virtual async Task<double> AverageAsync(IQueryable<long> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -538,43 +500,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// </summary>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task<double?> AverageAsync(IQueryable<double?> queryable)
-        => await queryable.AverageAsync();
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double>> selector)
-        => await queryable.AverageAsync(selector);
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="queryable"></param>
-    /// <param name="selector"></param>
-    /// <returns></returns>
-    public async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double?>> selector)
-        => await queryable.AverageAsync(selector);
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<float> AverageAsync(IQueryable<float> queryable)
-        => await queryable.AverageAsync();
-
-    /// <summary>
-    /// 平均
-    /// </summary>
-    /// <param name="queryable"></param>
-    /// <returns></returns>
-    public async Task<float?> AverageAsync(IQueryable<float?> queryable)
+    public virtual async Task<double?> AverageAsync(IQueryable<long?> queryable)
         => await queryable.AverageAsync();
 
     /// <summary>
@@ -584,7 +510,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<float> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float>> selector)
+    public virtual async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long>> selector)
         => await queryable.AverageAsync(selector);
 
     /// <summary>
@@ -594,7 +520,79 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    public async Task<float?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float?>> selector)
+    public virtual async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, long?>> selector)
+        => await queryable.AverageAsync(selector);
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<double> AverageAsync(IQueryable<double> queryable)
+        => await queryable.AverageAsync();
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<double?> AverageAsync(IQueryable<double?> queryable)
+        => await queryable.AverageAsync();
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<double> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double>> selector)
+        => await queryable.AverageAsync(selector);
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<double?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, double?>> selector)
+        => await queryable.AverageAsync(selector);
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<float> AverageAsync(IQueryable<float> queryable)
+        => await queryable.AverageAsync();
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<float?> AverageAsync(IQueryable<float?> queryable)
+        => await queryable.AverageAsync();
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<float> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float>> selector)
+        => await queryable.AverageAsync(selector);
+
+    /// <summary>
+    /// 平均
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    public virtual async Task<float?> AverageAsync<TSource>(IQueryable<TSource> queryable, Expression<Func<TSource, float?>> selector)
         => await queryable.AverageAsync(selector);
 
     #endregion
@@ -611,7 +609,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="navigationPropertyPath"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> Include<TEntity, TProperty>(IQueryable<TEntity> queryable, Expression<Func<TEntity, TProperty>> navigationPropertyPath) where TEntity : class
+    public virtual IQueryable<TEntity> Include<TEntity, TProperty>(IQueryable<TEntity> queryable, Expression<Func<TEntity, TProperty>> navigationPropertyPath) where TEntity : class
         => queryable.Include(navigationPropertyPath);
 
     /// <summary>
@@ -623,7 +621,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="navigationPropertyPath"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> ThenInclude<TEntity, TPreviousProperty, TProperty>(IQueryable<TEntity> queryable, Expression<Func<TPreviousProperty, TProperty>> navigationPropertyPath) where TEntity : class
+    public virtual IQueryable<TEntity> ThenInclude<TEntity, TPreviousProperty, TProperty>(IQueryable<TEntity> queryable, Expression<Func<TPreviousProperty, TProperty>> navigationPropertyPath) where TEntity : class
         => queryable switch
         {
             IIncludableQueryable<TEntity, IEnumerable<TPreviousProperty>> includableQueryableArray => includableQueryableArray.ThenInclude(navigationPropertyPath),
@@ -637,7 +635,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> IgnoreAutoIncludes<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public virtual IQueryable<TEntity> IgnoreAutoIncludes<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
         => queryable.IgnoreAutoIncludes();
 
     /// <summary>
@@ -646,7 +644,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> IgnoreQueryFilters<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public virtual IQueryable<TEntity> IgnoreQueryFilters<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
         => queryable.IgnoreQueryFilters();
 
     /// <summary>
@@ -655,7 +653,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> AsNoTracking<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public virtual IQueryable<TEntity> AsNoTracking<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
         => queryable.AsNoTracking();
 
     /// <summary>
@@ -664,7 +662,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> AsNoTrackingWithIdentityResolution<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public virtual IQueryable<TEntity> AsNoTrackingWithIdentityResolution<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
         => queryable.AsNoTrackingWithIdentityResolution();
 
     /// <summary>
@@ -673,7 +671,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IQueryable<TEntity> AsTracking<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public virtual IQueryable<TEntity> AsTracking<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
         => queryable.AsTracking();
 
     /// <summary>
@@ -683,8 +681,26 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    public IQueryable<TSource> TagWith<TSource>(IQueryable<TSource> queryable, string tag)
+    public virtual IQueryable<TSource> TagWith<TSource>(IQueryable<TSource> queryable, string tag)
         => queryable.TagWith(tag);
+
+    /// <summary>
+    /// 单个查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual IQueryable<TEntity> AsSingleQuery<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+        => queryable.AsSingleQuery();
+
+    /// <summary>
+    /// 拆分查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual IQueryable<TEntity> AsSplitQuery<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+        => queryable.AsSplitQuery();
 
     #endregion
 
@@ -696,7 +712,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public async Task LoadAsync<TSource>(IQueryable<TSource> queryable)
+    public virtual async Task LoadAsync<TSource>(IQueryable<TSource> queryable)
         => await queryable.LoadAsync();
 
     #endregion
@@ -710,7 +726,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <param name="queryable"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    public async Task ForEachAsync<TSource>(IQueryable<TSource> queryable, Action<TSource> action)
+    public virtual async Task ForEachAsync<TSource>(IQueryable<TSource> queryable, Action<TSource> action)
         => await queryable.ForEachAsync(action);
 
     /// <summary>
@@ -719,7 +735,7 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public IAsyncEnumerable<TSource> AsAsyncEnumerable<TSource>(IQueryable<TSource> queryable)
+    public virtual IAsyncEnumerable<TSource> AsAsyncEnumerable<TSource>(IQueryable<TSource> queryable)
         => queryable.AsAsyncEnumerable();
 
     #endregion

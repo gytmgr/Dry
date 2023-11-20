@@ -90,7 +90,7 @@ public interface ITriggerService
     /// <typeparam name="TTriggerModel"></typeparam>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<TTriggerModel> GetAsync<TTriggerModel>(QuartzKey key)
+    Task<TTriggerModel?> GetAsync<TTriggerModel>(QuartzKey key)
         where TTriggerModel : TriggerModel, new();
 
     /// <summary>

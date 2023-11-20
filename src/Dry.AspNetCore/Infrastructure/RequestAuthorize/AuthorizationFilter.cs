@@ -15,11 +15,11 @@ public class AuthorizationFilter : AuthorizeFilter
         await base.OnAuthorizationAsync(context);
         try
         {
-            await WebAppHelper.ServicesActionAsync<IRequestAuthorizer>(context.HttpContext.RequestServices, async authorizer => await authorizer.AuthorizeAsync(context));
+            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestAuthorizer>(async authorizer => await authorizer.AuthorizeAsync(context));
         }
         catch (Exception ex)
         {
-            context.HttpContext.RequestServices.GetService<ILogger<IRequestAuthorizer>>().LogError(ex, "鉴权出错");
+            context.HttpContext.RequestServices.GetService<ILogger<IRequestAuthorizer>>()!.LogError(ex, "鉴权出错");
             context.Result = new ContentResult
             {
                 StatusCode = 500,

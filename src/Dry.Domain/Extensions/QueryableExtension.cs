@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Dry.Domain.Extensions;
+﻿namespace Dry.Domain.Extensions;
 
 /// <summary>
 /// Queryable扩展
@@ -8,7 +6,7 @@ namespace Dry.Domain.Extensions;
 public static class QueryableExtension
 {
     private static IDbQueryable GetDbQueryable(IDbQueryable? dbQueryable)
-        => dbQueryable is null ? IDependency.RootServiceProvider.GetService<IDbQueryable>()! : dbQueryable;
+        => dbQueryable ?? IDependency.RootServiceProvider!.GetRequiredService<IDbQueryable>();
 
     #region 判断
 
@@ -764,6 +762,26 @@ public static class QueryableExtension
     /// <returns></returns>
     public static IQueryable<TSource> TagWith<TSource>(this IQueryable<TSource> queryable, string tag, IDbQueryable? dbQueryable = null)
         => GetDbQueryable(dbQueryable).TagWith(queryable, tag);
+
+    /// <summary>
+    /// 单个查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="dbQueryable"></param>
+    /// <returns></returns>
+    public static IQueryable<TEntity> AsSingleQuery<TEntity>(this IQueryable<TEntity> queryable, IDbQueryable? dbQueryable = null) where TEntity : class
+        => GetDbQueryable(dbQueryable).AsSingleQuery(queryable);
+
+    /// <summary>
+    /// 拆分查询
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="dbQueryable"></param>
+    /// <returns></returns>
+    public static IQueryable<TEntity> AsSplitQuery<TEntity>(this IQueryable<TEntity> queryable, IDbQueryable? dbQueryable = null) where TEntity : class
+        => GetDbQueryable(dbQueryable).AsSplitQuery(queryable);
 
     #endregion
 

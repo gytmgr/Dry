@@ -1,5 +1,13 @@
 ﻿global using Dry.Application.Contracts.Dtos;
 global using Dry.Application.Contracts.Services;
 global using Dry.AspNetCore.Controllers;
+global using Dry.AspNetCore.Infrastructure.AppConfigure;
+global using Dry.AspNetCore.Infrastructure.RequestResourceExecute;
 global using Dry.Core.Model;
+global using Dry.Domain.Shared;
+global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;

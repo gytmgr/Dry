@@ -18,7 +18,7 @@ public static class SwaggerExtensions
     /// </summary>
     /// <param name="options"></param>
     /// <param name="title"></param>
-    private static void BasicConfig(SwaggerGenOptions options, string title)
+    private static void BasicConfig(SwaggerGenOptions options, string? title)
     {
         if (string.IsNullOrEmpty(title))
         {
@@ -50,7 +50,7 @@ public static class SwaggerExtensions
     /// <param name="services"></param>
     /// <param name="title"></param>
     /// <returns></returns>
-    public static IServiceCollection AddCustomSwagger(this IServiceCollection services, string title = null)
+    public static IServiceCollection AddCustomSwagger(this IServiceCollection services, string? title = null)
     {
         services.AddSwaggerGen(x => BasicConfig(x, title));
         return services;
@@ -62,7 +62,7 @@ public static class SwaggerExtensions
     /// <param name="services"></param>
     /// <param name="title"></param>
     /// <returns></returns>
-    public static IServiceCollection AddJwtSwagger(this IServiceCollection services, string title = null)
+    public static IServiceCollection AddJwtSwagger(this IServiceCollection services, string? title = null)
     {
         services.AddSwaggerGen(x =>
         {

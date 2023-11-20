@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Company>Dry</Company>
+		<Authors>gan</Authors>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>Dry.Core.Utilities.xml</DocumentationFile>
+		<Description>工具</Description>
+		<Version>6.2.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Dry.Core.Model\Dry.Core.Model.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -47,7 +47,7 @@ public static class PinYinHelper
         foreach (var pinyins in totalPingYins)
         {
             var items = pinyins.Value;
-            result.ListPinYin.Add(FirstCharToUpper(items[0].ToString()));
+            result.ListPinYin.Add(FirstCharToUpper(items[0].ToString())!);
             if (result.TotalPingYin.Count <= 0)
             {
                 result.TotalPingYin = items;
@@ -82,7 +82,7 @@ public static class PinYinHelper
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static string FirstCharToUpper(string input)
+    public static string? FirstCharToUpper(string? input)
     {
         if (string.IsNullOrEmpty(input))
         {
@@ -721,7 +721,7 @@ public static class PinYinConverter
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-    public static string GetFirst(string str)
+    public static string GetFirst(string? str)
     {
         if (string.IsNullOrEmpty(str)) return string.Empty;
 
@@ -831,7 +831,7 @@ public static class PinYinConverter
     /// </summary>
     /// <param name="str">汉字字符串</param>
     /// <returns>转换后的拼音(全拼)字符串</returns>
-    public static string Get(string str)
+    public static string Get(string? str)
     {
         if (string.IsNullOrEmpty(str)) return string.Empty;
 

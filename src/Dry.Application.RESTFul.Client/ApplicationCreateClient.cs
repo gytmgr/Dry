@@ -16,8 +16,8 @@ public abstract class ApplicationCreateClient<TResult, TCreate> :
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        => await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
+        => (await RequestAsync<TResult>(HttpMethod.Post, null, createDto))!;
 }
 
 /// <summary>
@@ -37,8 +37,8 @@ public abstract class ApplicationCreateClient<TResult, TCreate, TKey> :
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        => await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
+        => (await RequestAsync<TResult>(HttpMethod.Post, null, createDto))!;
 }
 
 /// <summary>
@@ -59,8 +59,8 @@ public abstract class ApplicationQueryCreateClient<TResult, TQuery, TCreate> :
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        => await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
+        => (await RequestAsync<TResult>(HttpMethod.Post, null, createDto))!;
 }
 
 /// <summary>
@@ -82,6 +82,6 @@ public abstract class ApplicationQueryCreateClient<TResult, TQuery, TCreate, TKe
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> CreateAsync([NotNull] TCreate createDto)
-        => await RequestAsync<TResult>(HttpMethod.Post, null, createDto);
+    public virtual async Task<TResult> CreateAsync(TCreate createDto)
+        => (await RequestAsync<TResult>(HttpMethod.Post, null, createDto))!;
 }

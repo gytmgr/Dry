@@ -14,35 +14,35 @@ public interface IApplicationQueryService<TResult, TQuery>
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<bool> AnyAsync(TQuery queryDto = default);
+    Task<bool> AnyAsync(TQuery? queryDto = default);
 
     /// <summary>
     /// 数量查询
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<int> CountAsync(TQuery queryDto = default);
+    Task<int> CountAsync(TQuery? queryDto = default);
 
     /// <summary>
     /// 条件查询第一条
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<TResult> FirstAsync(TQuery queryDto = default);
+    Task<TResult?> FirstAsync(TQuery? queryDto = default);
 
     /// <summary>
     /// 条件查询
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<TResult[]> ArrayAsync(TQuery queryDto = default);
+    Task<TResult[]> ArrayAsync(TQuery? queryDto = default);
 
     /// <summary>
     /// 分页条件查询
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto);
+    Task<PagedResult<TResult>> ArrayAsync(PagedQuery<TQuery> queryDto);
 }
 
 /// <summary>

@@ -13,5 +13,5 @@ public class ConfigurationConfigurer : IAppBuilderConfigurer, ISingletonDependen
         => _serviceProvider = serviceProvider;
 
     public virtual async Task ConfigureAsync(WebApplicationBuilder builder)
-        => await WebAppHelper.ServicesActionAsync<IConfigurationReader>(_serviceProvider, async reader => await reader.ReadAsync(builder.Configuration));
+        => await _serviceProvider.ServicesActionAsync<IConfigurationReader>(async reader => await reader.ReadAsync(builder.Configuration));
 }

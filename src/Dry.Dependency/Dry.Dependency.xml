@@ -16,34 +16,6 @@
             <param name="prefixs">要筛选的程序集前缀</param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Dependency.IDependency">
-            <summary>
-            依赖注入接口
-            </summary>
-        </member>
-        <member name="P:Dry.Dependency.IDependency.RootServiceProvider">
-            <summary>
-            根服务引擎
-            </summary>
-        </member>
-        <member name="T:Dry.Dependency.IDependency`1">
-            <summary>
-            域范围依赖注入接口
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:Dry.Dependency.ITransientDependency`1">
-            <summary>
-            瞬时依赖注入接口
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:Dry.Dependency.ISingletonDependency`1">
-            <summary>
-            单例依赖注入接口
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
         <member name="T:Dry.Dependency.ServiceCollectionExtension">
             <summary>
             依赖注入扩展
@@ -64,6 +36,21 @@
             <param name="services"></param>
             <param name="onlyLeaf">只注入叶子派生类</param>
             <param name="prefixs">程序集命名前缀</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Dependency.ServiceProviderExtension">
+            <summary>
+            服务扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Dependency.ServiceProviderExtension.ServicesActionAsync``1(System.IServiceProvider,System.Func{``0,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            多服务操作
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="serviceAction"></param>
+            <param name="ascOrder"></param>
             <returns></returns>
         </member>
     </members>

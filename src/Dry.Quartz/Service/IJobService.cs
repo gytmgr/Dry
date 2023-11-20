@@ -93,7 +93,7 @@ public interface IJobService
     /// <typeparam name="TJobModel"></typeparam>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<TJobModel> GetAsync<TJobModel>(QuartzKey key)
+    Task<TJobModel?> GetAsync<TJobModel>(QuartzKey key)
         where TJobModel : JobModel, new();
 
     /// <summary>

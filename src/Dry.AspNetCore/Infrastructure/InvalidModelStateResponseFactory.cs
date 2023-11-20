@@ -12,7 +12,7 @@ public static class InvalidModelStateResponseFactory
     /// <returns></returns>
     public static IActionResult ProduceErrorResponse(ActionContext context)
     {
-        var errors = context.ModelState.SelectMany(m => m.Value.Errors).Select(m => m.ErrorMessage).ToArray();
+        var errors = context.ModelState.Where(x => x.Value is not null).SelectMany(x => x.Value!.Errors).Select(x => x.ErrorMessage).ToArray();
         var response = new ErrorResource(messages: errors);
         return new BadRequestObjectResult(response);
     }

@@ -1,42 +1,65 @@
 ﻿#nullable enable
 
+using Dry.Core.Model;
 using Dry.Core.Utilities;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Dry.Console.Test
 {
-    public class QQ
+    public interface IQQ
     {
-        public string AA { get; set; }
-        public string ZZ { get; set; }
+        void SetAA(string aa);
 
-        public WW? WW { get; set; }
-    };
-    public class WW
-    {
-        public string SS { get; set; }
-        public string XX { get; set; }
     }
 
+    public abstract class QQ<T> : IQQ where T : class, IQQ
+    {
+        public static string AA { get; set; }
+        public QQ()
+        {
+            Instance = this as T;
+        }
+
+        public void SetAA(string aa)
+        {
+            AA = aa;
+        }
+
+        public static T Instance { get; set; }
+    };
+    public class WW : QQ<WW>
+    {
+        public int BB { get; set; }
+    }
+    public class EE : QQ<EE>, ISingletonDependency<EE>
+    {
+        public EE()
+        {
+        }
+    }
 
     class Program
     {
         static async Task Main(string[] args)
         {
-            var from = new QQ { AA = "from", ZZ = "from", WW = new WW { SS = "from", XX = "from" } };
-            var to = new QQ { AA = "to", ZZ = "to", WW = null };
-            from.CopyProperty(to, "ZZ", "WW.XX");
+            var requester = new HttpRequester(HttpMethod.Get, "http://localhost:61073/api/Application");
+            requester.Headers = new Collection<KeyValuePair<string, string>>();
+            requester.Headers.Add(new KeyValuePair<string, string>("TenantId", "Test"));
+            var result = await requester.GetResultAsync<JsonNode[]>();
             System.Console.ReadKey();
         }
 
-        static async void GG()
+        static async Task GG(int no, WW ww)
         {
-            System.Console.WriteLine(DateTime.Now);
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            System.Console.WriteLine(DateTime.Now);
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            System.Console.WriteLine(DateTime.Now);
+            ww.BB++;
+            System.Console.WriteLine($"GG{no} Start: {DateTime.Now}");
+            await Task.Delay(5000);
+            System.Console.WriteLine($"GG{no} End: {DateTime.Now}");
         }
     }
 }

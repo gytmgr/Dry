@@ -4,17 +4,19 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.xml</DocumentationFile>
 		<Description>DDD应用层</Description>
-		<Version>6.1.10</Version>
+		<Version>6.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Dry.AutoMapper\Dry.AutoMapper.csproj" />
+		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
 		<ProjectReference Include="..\Dry.Domain\Dry.Domain.csproj" />
 	</ItemGroup>
 

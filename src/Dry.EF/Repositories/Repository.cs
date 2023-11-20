@@ -4,7 +4,7 @@
 /// ef仓储
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEntity> where TEntity : class, IEntity, IBoundedContext
+public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEntity>, IDependency<IRepository<TEntity>> where TEntity : class, IEntity, IBoundedContext
 {
     /// <summary>
     /// 构造体
@@ -21,9 +21,38 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     public override IQueryable<TEntity> GetQueryable()
         => _context.Set<TEntity>().AsQueryable();
 
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public override IQueryable<TEntity> GetQueryableFromSqlRaw(string sql, params object[] parameters)
+        => _context.Set<TEntity>().FromSqlRaw(sql, parameters);
+
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <returns></returns>
+    public override IQueryable<TEntity> GetQueryableFromSqlInterpolated(FormattableString sql)
+        => _context.Set<TEntity>().FromSqlInterpolated(sql);
+
     #endregion
 
     #region Tracking
+
+    /// <summary>
+    /// 是否更改
+    /// </summary>
+    /// <param name="entitiy"></param>
+    /// <returns></returns>
+    public virtual bool Modified(TEntity entitiy)
+        => _context.Entry(entitiy).State switch
+        {
+            EntityState.Added or EntityState.Unchanged => true,
+            _ => false
+        };
 
     /// <summary>
     /// 属性是否更改
@@ -32,7 +61,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    public virtual bool PropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression)
+    public virtual bool PropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty>> propertyExpression)
         => _context.Entry(entitiy).Property(propertyExpression).IsModified;
 
     /// <summary>
@@ -42,7 +71,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    public virtual bool SingleNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class
+    public virtual bool SingleNavigationPropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression) where TProperty : class
         => _context.Entry(entitiy).Reference(propertyExpression).IsModified;
 
     /// <summary>
@@ -52,7 +81,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    public virtual bool ArrayNavigationPropertyModified<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
+    public virtual bool ArrayNavigationPropertyModified<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
         => _context.Entry(entitiy).Collection(propertyExpression).IsModified;
 
     /// <summary>
@@ -62,7 +91,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    public virtual async Task SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression) where TProperty : class
+    public virtual async Task SinglePropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression) where TProperty : class
         => await _context.Entry(entitiy).Reference(propertyExpression).LoadAsync();
 
     /// <summary>
@@ -73,7 +102,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="propertyExpression"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    public virtual async Task<TProperty> SinglePropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, TProperty>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class
+    public virtual async Task<TProperty?> SinglePropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, TProperty?>> propertyExpression, params Expression<Func<TProperty, dynamic>>[]? paths) where TProperty : class
     {
         var queryable = _context.Entry(entitiy).Reference(propertyExpression).Query();
         if (paths is not null)
@@ -93,7 +122,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="entitiy"></param>
     /// <param name="propertyExpression"></param>
     /// <returns></returns>
-    public virtual async Task ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
+    public virtual async Task ArrayPropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression) where TProperty : class
         => await _context.Entry(entitiy).Collection(propertyExpression).LoadAsync();
 
     /// <summary>
@@ -104,7 +133,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="propertyExpression"></param>
     /// <param name="paths"></param>
     /// <returns></returns>
-    public virtual async Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>([NotNull] TEntity entitiy, [NotNull] Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, [NotNull] params Expression<Func<TProperty, dynamic>>[] paths) where TProperty : class
+    public virtual async Task<TProperty[]> ArrayPropertyLazyLoadAsync<TProperty>(TEntity entitiy, Expression<Func<TEntity, IEnumerable<TProperty>>> propertyExpression, params Expression<Func<TProperty, dynamic>>[]? paths) where TProperty : class
     {
         var queryable = _context.Entry(entitiy).Collection(propertyExpression).Query();
         if (paths is not null)
@@ -126,7 +155,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual async Task AddAsync([NotNull] params TEntity[] entities)
+    public virtual async Task AddAsync(params TEntity[] entities)
         => await _context.AddRangeAsync(entities);
 
     #endregion
@@ -138,7 +167,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual Task UpdateAsync([NotNull] params TEntity[] entities)
+    public virtual Task UpdateAsync(params TEntity[] entities)
     {
         _context.UpdateRange(entities);
         return Task.CompletedTask;
@@ -150,7 +179,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <param name="set"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task UpdateAsync([NotNull] Action<TEntity> set, params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task UpdateAsync(Action<TEntity> set, params Expression<Func<TEntity, bool>>[]? predicates)
     {
         var entities = await _context.Set<TEntity>().Where(predicates).ToArrayAsync();
         foreach (var entity in entities)
@@ -168,7 +197,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="keyValues"></param>
     /// <returns></returns>
-    public virtual async Task RemoveAsync([NotNull] params object[] keyValues)
+    public virtual async Task RemoveAsync(params object[] keyValues)
     {
         var entity = await _context.FindAsync<TEntity>(keyValues);
         if (entity is not null)
@@ -182,7 +211,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    public virtual Task RemoveAsync([NotNull] params TEntity[] entities)
+    public virtual Task RemoveAsync(params TEntity[] entities)
     {
         _context.RemoveRange(entities);
         return Task.CompletedTask;
@@ -193,7 +222,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="predicates"></param>
     /// <returns></returns>
-    public virtual async Task RemoveAsync(params Expression<Func<TEntity, bool>>[] predicates)
+    public virtual async Task RemoveAsync(params Expression<Func<TEntity, bool>>[]? predicates)
     {
         var entities = await _context.Set<TEntity>().Where(predicates).ToArrayAsync();
         _context.RemoveRange(entities);
@@ -208,7 +237,7 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// </summary>
     /// <param name="keyValues"></param>
     /// <returns></returns>
-    public virtual async Task<TEntity> FindAsync([NotNull] params object[] keyValues)
+    public virtual async Task<TEntity?> FindAsync(params object[] keyValues)
         => await _context.FindAsync<TEntity>(keyValues);
 
     #endregion

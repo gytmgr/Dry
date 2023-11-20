@@ -20,8 +20,8 @@ public abstract class ApplicationCreateEditClient<TResult, TCreate, TEdit, TKey>
     /// <param name="id"></param>
     /// <param name="editDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
-        => await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto);
+    public virtual async Task<TResult> EditAsync(TKey id, TEdit editDto)
+        => (await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto))!;
 }
 
 /// <summary>
@@ -46,6 +46,6 @@ public abstract class ApplicationQueryCreateEditClient<TResult, TQuery, TCreate,
     /// <param name="id"></param>
     /// <param name="editDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto)
-        => await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto);
+    public virtual async Task<TResult> EditAsync(TKey id, TEdit editDto)
+        => (await RequestAsync<TResult>(HttpMethod.Put, $"/{id}", editDto))!;
 }

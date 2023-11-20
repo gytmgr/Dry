@@ -34,7 +34,7 @@ public abstract class JobListenerBase<TJobModel, TTriggerModel> : IJobListener
     /// <param name="job"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task JobToBeExecuted(IJobExecutionContext context, TJobModel job, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task JobToBeExecuted(IJobExecutionContext context, TJobModel? job, TTriggerModel? trigger) => Task.CompletedTask;
 
     /// <summary>
     /// 被否决
@@ -56,7 +56,7 @@ public abstract class JobListenerBase<TJobModel, TTriggerModel> : IJobListener
     /// <param name="job"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task JobExecutionVetoed(IJobExecutionContext context, TJobModel job, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task JobExecutionVetoed(IJobExecutionContext context, TJobModel? job, TTriggerModel? trigger) => Task.CompletedTask;
 
     /// <summary>
     /// 执行后
@@ -65,7 +65,7 @@ public abstract class JobListenerBase<TJobModel, TTriggerModel> : IJobListener
     /// <param name="jobException"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public virtual async Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException, CancellationToken cancellationToken = default)
+    public virtual async Task JobWasExecuted(IJobExecutionContext context, JobExecutionException? jobException, CancellationToken cancellationToken = default)
     {
         var job = context.JobDetail.JobDataMap.Get(JobModel.MapKey) as TJobModel;
         var trigger = context.Trigger.JobDataMap.Get(TriggerModel.MapKey) as TTriggerModel;
@@ -79,5 +79,5 @@ public abstract class JobListenerBase<TJobModel, TTriggerModel> : IJobListener
     /// <param name="job"></param>
     /// <param name="trigger"></param>
     /// <returns></returns>
-    protected virtual Task JobWasExecuted(IJobExecutionContext context, TJobModel job, TTriggerModel trigger) => Task.CompletedTask;
+    protected virtual Task JobWasExecuted(IJobExecutionContext context, TJobModel? job, TTriggerModel? trigger) => Task.CompletedTask;
 }

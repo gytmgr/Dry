@@ -13,7 +13,7 @@ public interface IFindService<TResult, TKey>
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<TResult> FindAsync([NotNull] TKey id);
+    Task<TResult?> FindAsync(TKey id);
 }
 
 /// <summary>
@@ -30,7 +30,7 @@ public interface ICreateService<TResult, TCreate>
     /// </summary>
     /// <param name="createDto"></param>
     /// <returns></returns>
-    Task<TResult> CreateAsync([NotNull] TCreate createDto);
+    Task<TResult> CreateAsync(TCreate createDto);
 }
 
 /// <summary>
@@ -49,7 +49,7 @@ public interface IEditService<TResult, TEdit, TKey>
     /// <param name="id"></param>
     /// <param name="editDto"></param>
     /// <returns></returns>
-    Task<TResult> EditAsync([NotNull] TKey id, [NotNull] TEdit editDto);
+    Task<TResult> EditAsync(TKey id, TEdit editDto);
 }
 
 /// <summary>
@@ -65,5 +65,5 @@ public interface IDeleteService<TResult, TKey>
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<TResult> DeleteAsync([NotNull] TKey id);
+    Task<TResult> DeleteAsync(TKey id);
 }

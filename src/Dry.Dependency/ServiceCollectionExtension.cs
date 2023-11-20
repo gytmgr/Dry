@@ -1,4 +1,5 @@
-﻿global using Microsoft.Extensions.DependencyInjection;
+﻿global using Dry.Core.Model;
+global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyModel;
 global using System.Reflection;
 
@@ -15,7 +16,7 @@ public static class ServiceCollectionExtension
     /// <param name="services"></param>
     /// <param name="prefixs">程序集命名前缀</param>
     /// <returns></returns>
-    public static IServiceCollection AddDependency(this IServiceCollection services, params string[] prefixs)
+    public static IServiceCollection AddDependency(this IServiceCollection services, params string[]? prefixs)
         => services.AddDependency(false, prefixs);
 
     /// <summary>
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtension
     /// <param name="onlyLeaf">只注入叶子派生类</param>
     /// <param name="prefixs">程序集命名前缀</param>
     /// <returns></returns>
-    public static IServiceCollection AddDependency(this IServiceCollection services, bool onlyLeaf, params string[] prefixs)
+    public static IServiceCollection AddDependency(this IServiceCollection services, bool onlyLeaf, params string[]? prefixs)
     {
         var prefixList = new string[] { "Dry." };
         if (prefixs is not null)
@@ -40,6 +41,19 @@ public static class ServiceCollectionExtension
             .ToArray();
 
         var serviceDescriptors = new List<ServiceDescriptor>();
+
+        var getServiceDescriptor = ServiceDescriptor (Type scopedServiceType, Type implType, ServiceLifetime lifetime) =>
+        {
+            if (scopedServiceType.IsGenericType && implType.IsGenericType)
+            {
+                var firstArgumentType = scopedServiceType.GenericTypeArguments.FirstOrDefault();
+                if (firstArgumentType is not null and { IsGenericTypeParameter: true })
+                {
+                    return ServiceDescriptor.Describe(scopedServiceType.GetGenericTypeDefinition(), implType.GetGenericTypeDefinition(), lifetime);
+                }
+            }
+            return ServiceDescriptor.Describe(scopedServiceType, implType, lifetime);
+        };
         foreach (var implType in implTypes)
         {
             var genericTypes = implType.GetInterfaces().Where(x => x.IsGenericType).ToArray();
@@ -49,7 +63,7 @@ public static class ServiceCollectionExtension
             {
                 if (singletonServiceType.IsAssignableFrom(implType))
                 {
-                    serviceDescriptors.Add(ServiceDescriptor.Singleton(singletonServiceType, implType));
+                    serviceDescriptors.Add(getServiceDescriptor(singletonServiceType, implType, ServiceLifetime.Singleton));
                 }
             }
 
@@ -58,7 +72,7 @@ public static class ServiceCollectionExtension
             {
                 if (scopedServiceType.IsAssignableFrom(implType))
                 {
-                    serviceDescriptors.Add(ServiceDescriptor.Scoped(scopedServiceType, implType));
+                    serviceDescriptors.Add(getServiceDescriptor(scopedServiceType, implType, ServiceLifetime.Scoped));
                 }
             }
 
@@ -67,7 +81,7 @@ public static class ServiceCollectionExtension
             {
                 if (transientServiceType.IsAssignableFrom(implType))
                 {
-                    serviceDescriptors.Add(ServiceDescriptor.Transient(transientServiceType, implType));
+                    serviceDescriptors.Add(getServiceDescriptor(transientServiceType, implType, ServiceLifetime.Transient));
                 }
             }
         }
@@ -75,7 +89,7 @@ public static class ServiceCollectionExtension
         var serviceDescriptorGroups = serviceDescriptors.GroupBy(x => new { x.Lifetime, x.ServiceType }).ToArray();
         foreach (var serviceDescriptorGroup in serviceDescriptorGroups)
         {
-            var filteredServiceDescriptors = onlyLeaf ? serviceDescriptorGroup.Where(x => !serviceDescriptorGroup.Any(y => y.ImplementationType != x.ImplementationType && x.ImplementationType.IsAssignableFrom(y.ImplementationType))).ToArray() : serviceDescriptorGroup.ToArray();
+            var filteredServiceDescriptors = onlyLeaf ? serviceDescriptorGroup.Where(x => !serviceDescriptorGroup.Any(y => y.ImplementationType != x.ImplementationType && x.ImplementationType!.IsAssignableFrom(y.ImplementationType))).ToArray() : serviceDescriptorGroup.ToArray();
             foreach (var filteredServiceDescriptor in filteredServiceDescriptors)
             {
                 services.Add(filteredServiceDescriptor);

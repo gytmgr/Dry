@@ -25,7 +25,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads(TQuery queryDto)
+    protected virtual Expression<Func<TEntity, dynamic>>[] GetPropertyLoads(TQuery? queryDto)
         => GetPropertyLoadsAsync().GetAwaiter().GetResult();
 
     /// <summary>
@@ -33,7 +33,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Task<Expression<Func<TEntity, dynamic>>[]> GetPropertyLoadsAsync(TQuery queryDto)
+    protected virtual Task<Expression<Func<TEntity, dynamic>>[]> GetPropertyLoadsAsync(TQuery? queryDto)
         => Task.FromResult(GetPropertyLoads(queryDto));
 
     /// <summary>
@@ -41,7 +41,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto)
+    protected virtual Expression<Func<TEntity, bool>>[] GetPredicates(TQuery? queryDto)
         => GetPredicatesAsync().GetAwaiter().GetResult();
 
     /// <summary>
@@ -49,7 +49,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Task<Expression<Func<TEntity, bool>>[]> GetPredicatesAsync(TQuery queryDto)
+    protected virtual Task<Expression<Func<TEntity, bool>>[]> GetPredicatesAsync(TQuery? queryDto)
         => Task.FromResult(GetPredicates(queryDto));
 
     /// <summary>
@@ -57,7 +57,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto)
+    protected virtual (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery? queryDto)
         => GetOrderBysAsync().GetAwaiter().GetResult();
 
     /// <summary>
@@ -65,7 +65,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Task<(bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]> GetOrderBysAsync(TQuery queryDto)
+    protected virtual Task<(bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[]> GetOrderBysAsync(TQuery? queryDto)
         => Task.FromResult(GetOrderBys(queryDto));
 
     /// <summary>
@@ -74,7 +74,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// <param name="entity"></param>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Task<TResult> SingleResultMapAsync(TEntity entity, TQuery queryDto)
+    protected virtual Task<TResult> SingleResultMapAsync(TEntity entity, TQuery? queryDto)
         => Task.FromResult(_mapper.Map<TResult>(entity));
 
     /// <summary>
@@ -83,7 +83,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// <param name="entities"></param>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected virtual Task<TResult[]> ArrayResultMapAsync(TEntity[] entities, TQuery queryDto)
+    protected virtual Task<TResult[]> ArrayResultMapAsync(TEntity[] entities, TQuery? queryDto)
         => Task.FromResult(_mapper.Map<TResult[]>(entities));
 
     /// <summary>
@@ -91,7 +91,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<bool> AnyAsync(TQuery queryDto)
+    public virtual async Task<bool> AnyAsync(TQuery? queryDto)
     {
         var predicates = await GetPredicatesAsync(queryDto);
         return await _readOnlyRepository.AnyAsync(predicates);
@@ -102,7 +102,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<int> CountAsync(TQuery queryDto)
+    public virtual async Task<int> CountAsync(TQuery? queryDto)
     {
         var predicates = await GetPredicatesAsync(queryDto);
         return await _readOnlyRepository.CountAsync(predicates);
@@ -113,13 +113,13 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FirstAsync(TQuery queryDto)
+    public virtual async Task<TResult?> FirstAsync(TQuery? queryDto)
     {
         var propertyLoads = await GetPropertyLoadsAsync(queryDto);
         var predicates = await GetPredicatesAsync(queryDto);
         var orderBys = await GetOrderBysAsync(queryDto);
         var entity = await _readOnlyRepository.GetQueryable().Include(propertyLoads).Where(predicates).OrderBy(orderBys).FirstOrDefaultAsync();
-        if (entity != null)
+        if (entity is not null)
         {
             return await SingleResultMapAsync(entity, queryDto);
         }
@@ -131,7 +131,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<TResult[]> ArrayAsync(TQuery queryDto)
+    public virtual async Task<TResult[]> ArrayAsync(TQuery? queryDto)
     {
         var propertyLoads = await GetPropertyLoadsAsync(queryDto);
         var predicates = await GetPredicatesAsync(queryDto);
@@ -145,7 +145,7 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    public virtual async Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery<TQuery> queryDto)
+    public virtual async Task<PagedResult<TResult>> ArrayAsync(PagedQuery<TQuery> queryDto)
     {
         var propertyLoads = await GetPropertyLoadsAsync(queryDto.Param);
         var predicates = await GetPredicatesAsync(queryDto.Param);
@@ -186,18 +186,18 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery, TKey> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected override Expression<Func<TEntity, bool>>[] GetPredicates(TQuery queryDto)
+    protected override Expression<Func<TEntity, bool>>[] GetPredicates(TQuery? queryDto)
     {
         var predicates = base.GetPredicates(queryDto)?.ToList() ?? new List<Expression<Func<TEntity, bool>>>();
         if (queryDto is not null)
         {
             if (queryDto.Id is not null && !queryDto.Id.Equals(default(TKey)))
             {
-                predicates.Add(x => x.Id.Equals(queryDto.Id));
+                predicates.Add(x => queryDto.Id.Equals(x.Id));
             }
             if (queryDto.IdNotEqual is not null && !queryDto.IdNotEqual.Equals(default(TKey)))
             {
-                predicates.Add(x => !x.Id.Equals(queryDto.IdNotEqual));
+                predicates.Add(x => !queryDto.IdNotEqual.Equals(x.Id));
             }
             if (queryDto.Ids is not null)
             {
@@ -216,12 +216,12 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery, TKey> :
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    protected override (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery queryDto)
+    protected override (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] GetOrderBys(TQuery? queryDto)
     {
         var orderBys = base.GetOrderBys(queryDto);
         if (orderBys is null or { Length: 0 })
         {
-            return new (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] { (true, x => x.Id) };
+            return new (bool isAsc, Expression<Func<TEntity, dynamic>> keySelector)[] { (true, x => x.Id!) };
         }
         return orderBys;
     }
@@ -231,10 +231,14 @@ public abstract class ApplicationQueryService<TEntity, TResult, TQuery, TKey> :
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> FindAsync([NotNull] TKey id)
+    public virtual async Task<TResult?> FindAsync(TKey id)
     {
-        var entity = await _repository.FindAsync(id);
-        return await SingleResultMapAsync(entity, default);
+        var entity = await _repository.FindAsync(id!);
+        if (entity is not null)
+        {
+            return await SingleResultMapAsync(entity, default);
+        }
+        return default;
     }
 }
 
@@ -272,7 +276,7 @@ public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult,
     /// <returns></returns>
     /// <exception cref="NullDataBizException"></exception>
     protected virtual async Task<TEntity> GetDeleteEntityAsync(TKey id)
-        => await _repository.FindAsync(id) ?? throw new NullDataBizException();
+        => await _repository.FindAsync(id!) ?? throw new NullDataBizException();
 
     /// <summary>
     /// 配置实体删除数据
@@ -305,7 +309,7 @@ public abstract class ApplicationQueryService<TBoundedContext, TEntity, TResult,
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TResult> DeleteAsync([NotNull] TKey id)
+    public virtual async Task<TResult> DeleteAsync(TKey id)
     {
         var entity = await GetDeleteEntityAsync(id);
         await SetDeleteEntityAsync(entity);

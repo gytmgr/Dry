@@ -4,29 +4,205 @@
         <name>Dry.EF</name>
     </assembly>
     <members>
+        <member name="T:Dry.EF.Contexts.DbContextFactory`1">
+            <summary>
+            ef上下文工厂（生产迁移脚本用）
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="P:Dry.EF.Contexts.DbContextFactory`1.DependencyPrefixs">
+            <summary>
+            注入程序集命名前缀
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DbContextFactory`1.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="M:Dry.EF.Contexts.DbContextFactory`1.CreateDbContext(System.String[])">
+            <summary>
+            创建上下文
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.EF.Contexts.DryDbContext`1">
             <summary>
             ef上下文
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="F:Dry.EF.Contexts.DryDbContext`1._entityRegisters">
+        <member name="F:Dry.EF.Contexts.DryDbContext`1._serviceProvider">
             <summary>
-            实体配置信息
+            服务提供器
             </summary>
         </member>
-        <member name="M:Dry.EF.Contexts.DryDbContext`1.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions,System.Collections.Generic.IEnumerable{Dry.EF.EntityConfigs.IEntityRegister{`0}})">
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.AutoTransactionsEnabled">
+            <summary>
+            自动事务是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.AutoSavepointsEnabled">
+            <summary>
+            自动创建保存点是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.AutoDetectChangesEnabled">
+            <summary>
+            自动检测更改是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.LazyLoadingEnabled">
+            <summary>
+            延迟加载是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.QueryTrackingEnabled">
+            <summary>
+            查询跟踪是否启用
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContext`1.HasChanges">
+            <summary>
+            是否有改动
+            </summary>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
-            <param name="options"></param>
-            <param name="entityRegisters"></param>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            选项配置
+            </summary>
+            <param name="optionsBuilder"></param>
         </member>
         <member name="M:Dry.EF.Contexts.DryDbContext`1.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
             注册实体配置
             </summary>
             <param name="modelBuilder"></param>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.MigrateAsync">
+            <summary>
+            迁移
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.BeginTransactionAsync">
+            <summary>
+            开始事务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.CommitTransactionAsync">
+            <summary>
+            提交事务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.RollbackTransactionAsync">
+            <summary>
+            回滚事务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.ExecuteSqlRawAsync(System.String,System.Object[])">
+            <summary>
+            执行sql
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.ExecuteSqlInterpolatedAsync(System.FormattableString)">
+            <summary>
+            执行sql
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContext`1.TrackingClear">
+            <summary>
+            清除所有实体跟踪
+            </summary>
+        </member>
+        <member name="T:Dry.EF.Contexts.DryDbContextConfigurer`1">
+            <summary>
+            ef上下文配置器
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContextConfigurer`1.DbFieldName">
+            <summary>
+            数据库字段名称
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContextConfigurer`1.QuerySplittingBehavior">
+            <summary>
+            全局拆分查询配置
+            </summary>
+        </member>
+        <member name="P:Dry.EF.Contexts.DryDbContextConfigurer`1.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContextConfigurer`1.GetTenantConnectionStringDbSpan(System.String,System.String)">
+            <summary>
+            获取租户连接字符串数据库片段
+            </summary>
+            <param name="tenantId"></param>
+            <param name="connectionStringDbSpan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContextConfigurer`1.GetTenantConnectionString(System.IServiceProvider)">
+            <summary>
+            获取租户连接字符串
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContextConfigurer`1.DvContextOptionsBuilderConfiguring``2(``0)">
+            <summary>
+            上下文选项配置
+            </summary>
+            <typeparam name="TBuilder"></typeparam>
+            <typeparam name="TExtension"></typeparam>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="M:Dry.EF.Contexts.DryDbContextConfigurer`1.Configuring(System.IServiceProvider,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            配置
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="T:Dry.EF.Contexts.IDryDbContextConfigurer`1">
+            <summary>
+            ef上下文配置器接口
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="P:Dry.EF.Contexts.IDryDbContextConfigurer`1.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="M:Dry.EF.Contexts.IDryDbContextConfigurer`1.Configuring(System.IServiceProvider,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            配置
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="optionsBuilder"></param>
         </member>
         <member name="T:Dry.EF.EntityConfigs.EntityConfig`2">
             <summary>
@@ -222,18 +398,6 @@
             </summary>
             <param name="modelBuilder">模型构造器</param>
             <returns>模型构造器</returns>
-        </member>
-        <member name="T:Dry.EF.Extensions.ServiceCollectionExtension">
-            <summary>
-            IOC注入扩展
-            </summary>
-        </member>
-        <member name="M:Dry.EF.Extensions.ServiceCollectionExtension.AddEF(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            添加持久层注入
-            </summary>
-            <param name="services"></param>
-            <returns></returns>
         </member>
         <member name="T:Dry.EF.Queryables.EFQueryable">
             <summary>
@@ -812,6 +976,22 @@
             <param name="tag"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.EF.Queryables.EFQueryable.AsSingleQuery``1(System.Linq.IQueryable{``0})">
+            <summary>
+            单个查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Queryables.EFQueryable.AsSplitQuery``1(System.Linq.IQueryable{``0})">
+            <summary>
+            拆分查询
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.EF.Queryables.EFQueryable.LoadAsync``1(System.Linq.IQueryable{``0})">
             <summary>
             延迟加载
@@ -843,9 +1023,14 @@
             </summary>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="F:Dry.EF.Repositories.ReadOnlyRepository`1._provider">
+        <member name="F:Dry.EF.Repositories.ReadOnlyRepository`1._serviceProvider">
             <summary>
             服务提供者
+            </summary>
+        </member>
+        <member name="F:Dry.EF.Repositories.ReadOnlyRepository`1._dryDbContext">
+            <summary>
+            数据库上下文
             </summary>
         </member>
         <member name="F:Dry.EF.Repositories.ReadOnlyRepository`1._context">
@@ -857,12 +1042,27 @@
             <summary>
             构造体
             </summary>
-            <param name="provider"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.EF.Repositories.ReadOnlyRepository`1.GetQueryable">
             <summary>
             获取查询
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.ReadOnlyRepository`1.GetQueryableFromSqlRaw(System.String,System.Object[])">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.ReadOnlyRepository`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Repositories.ReadOnlyRepository`1.AllAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}[])">
@@ -1058,6 +1258,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.GetQueryableFromSqlRaw(System.String,System.Object[])">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.EF.Repositories.Repository`1.Modified(`0)">
+            <summary>
+            是否更改
+            </summary>
+            <param name="entitiy"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.EF.Repositories.Repository`1.PropertyModified``1(`0,System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             属性是否更改
@@ -1189,7 +1411,7 @@
             中介者
             </summary>
         </member>
-        <member name="M:Dry.EF.Repositories.UnitOfWork`1.#ctor(`0,MediatR.IMediator)">
+        <member name="M:Dry.EF.Repositories.UnitOfWork`1.#ctor(Dry.Domain.Contexts.IDryDbContext{`0},MediatR.IMediator)">
             <summary>
             构造体
             </summary>

@@ -23,7 +23,7 @@ public interface IApplicationService<TResult>
     /// 查询第一条
     /// </summary>
     /// <returns></returns>
-    Task<TResult> FirstAsync();
+    Task<TResult?> FirstAsync();
 
     /// <summary>
     /// 查询所有
@@ -36,7 +36,7 @@ public interface IApplicationService<TResult>
     /// </summary>
     /// <param name="queryDto"></param>
     /// <returns></returns>
-    Task<PagedResult<TResult>> ArrayAsync([NotNull] PagedQuery queryDto);
+    Task<PagedResult<TResult>> ArrayAsync(PagedQuery queryDto);
 }
 
 /// <summary>

@@ -164,7 +164,7 @@
             编辑后处理
             </summary>
             <param name="entity"></param>
-            <param name="createDto"></param>
+            <param name="editDto"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationCreateEditService`6.EditAsync(`5,`4)">
@@ -222,7 +222,7 @@
             编辑后处理
             </summary>
             <param name="entity"></param>
-            <param name="createDto"></param>
+            <param name="editDto"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryCreateEditService`7.EditAsync(`6,`5)">
@@ -711,7 +711,7 @@
             编辑后处理
             </summary>
             <param name="entity"></param>
-            <param name="createDto"></param>
+            <param name="editDto"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Application.Services.ApplicationQueryEditService`6.EditAsync(`5,`4)">
@@ -1117,6 +1117,36 @@
             删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.Services.DomainApplicationService`1">
+            <summary>
+            领域应用服务
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="F:Dry.Application.Services.DomainApplicationService`1._serviceProvider">
+            <summary>
+            服务生成器
+            </summary>
+        </member>
+        <member name="M:Dry.Application.Services.DomainApplicationService`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.Services.DomainApplicationService`1.DbConnectionStringSetAsync(System.String)">
+            <summary>
+            数据库连接字符串配置
+            </summary>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.Services.DomainApplicationService`1.DbMigrateAsync">
+            <summary>
+            数据库迁移
+            </summary>
             <returns></returns>
         </member>
     </members>

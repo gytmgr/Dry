@@ -23,12 +23,12 @@ public abstract class TreeEntityConfig<TBoundedContext, TTreeEntity, TKey> : Ent
     /// <summary>
     /// 实体祖先关系属性表达式
     /// </summary>
-    protected virtual Expression<Func<TTreeEntity, IEnumerable<TreeAncestorRelation<TTreeEntity, TKey>>>> AncestorRelationsExpression => null;
+    protected virtual Expression<Func<TTreeEntity, IEnumerable<TreeAncestorRelation<TTreeEntity, TKey>>>>? AncestorRelationsExpression => null;
 
     /// <summary>
     /// 实体子孙关系属性表达式
     /// </summary>
-    protected virtual Expression<Func<TTreeEntity, IEnumerable<TreeAncestorRelation<TTreeEntity, TKey>>>> DescendantRelationsExpression => null;
+    protected virtual Expression<Func<TTreeEntity, IEnumerable<TreeAncestorRelation<TTreeEntity, TKey>>>>? DescendantRelationsExpression => null;
 
     /// <summary>
     /// 实体祖先和关系实体的对多配置
@@ -43,7 +43,7 @@ public abstract class TreeEntityConfig<TBoundedContext, TTreeEntity, TKey> : Ent
         }
         else
         {
-            return hasOne.WithMany(AncestorRelationsExpression);
+            return hasOne.WithMany(AncestorRelationsExpression!);
         }
     }
 
@@ -60,7 +60,7 @@ public abstract class TreeEntityConfig<TBoundedContext, TTreeEntity, TKey> : Ent
         }
         else
         {
-            return hasOne.WithMany(DescendantRelationsExpression);
+            return hasOne.WithMany(DescendantRelationsExpression!);
         }
     }
 
@@ -72,9 +72,9 @@ public abstract class TreeEntityConfig<TBoundedContext, TTreeEntity, TKey> : Ent
     {
         base.Configure(builder);
 
-        string tableComment = builder.Metadata.GetComment();
+        var tableComment = builder.Metadata.GetComment();
 
-        builder.HasMany(AncestorsExpression).WithMany(DescendantsExpression).UsingEntity<TreeAncestorRelation<TTreeEntity, TKey>>(
+        builder.HasMany(AncestorsExpression!).WithMany(DescendantsExpression!).UsingEntity<TreeAncestorRelation<TTreeEntity, TKey>>(
             x => AncestorWithMany(x.HasOne(y => y.Ancestor)).HasForeignKey(y => y.AncestorId).OnDelete(DeleteBehavior.Restrict),
             x => DescendantWithMany(x.HasOne(y => y.Relation)).HasForeignKey(y => y.RelationId).OnDelete(DeleteBehavior.Cascade),
             x =>
