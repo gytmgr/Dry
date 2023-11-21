@@ -4,7 +4,7 @@
 /// 领域应用服务
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public class DomainApplicationService<TBoundedContext> : IDomainApplicationService<TBoundedContext>, ISingletonDependency<IDomainApplicationService<TBoundedContext>> where TBoundedContext : IBoundedContext
+public class DomainApplicationService<TBoundedContext> : IDomainApplicationService<TBoundedContext>, IDependency<IDomainApplicationService<TBoundedContext>> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// 服务生成器
@@ -25,8 +25,7 @@ public class DomainApplicationService<TBoundedContext> : IDomainApplicationServi
     /// <returns></returns>
     public virtual Task DbConnectionStringSetAsync(string connectionString)
     {
-        using var scope = _serviceProvider.CreateScope();
-        scope.ServiceProvider.GetRequiredService<IDryDbContext<TBoundedContext>>().ConnectionString = connectionString;
+        _serviceProvider.GetRequiredService<IDryDbContext<TBoundedContext>>().ConnectionString = connectionString;
         return Task.CompletedTask;
     }
 
@@ -35,8 +34,5 @@ public class DomainApplicationService<TBoundedContext> : IDomainApplicationServi
     /// </summary>
     /// <returns></returns>
     public virtual async Task DbMigrateAsync()
-    {
-        using var scope = _serviceProvider.CreateScope();
-        await scope.ServiceProvider.GetRequiredService<IDryDbContext<TBoundedContext>>().MigrateAsync();
-    }
+        => await _serviceProvider.GetRequiredService<IDryDbContext<TBoundedContext>>().MigrateAsync();
 }

@@ -7,5 +7,8 @@ public abstract class ConnectionStringConfigure<TBoundedContext> : IAppConfigure
     public virtual int Order { get; set; } = default;
 
     public virtual async Task ConfigureAsync(WebApplication app)
-        => await app.Services.GetRequiredService<IDomainApplicationService<TBoundedContext>>().DbConnectionStringSetAsync(app.Services.GetService<IConfiguration>().GetConnectionString(ConnectionStringKey));
+    {
+        using var scope = app.Services.CreateScope();
+        await scope.ServiceProvider.GetRequiredService<IDomainApplicationService<TBoundedContext>>().DbConnectionStringSetAsync(app.Services.GetService<IConfiguration>().GetConnectionString(ConnectionStringKey));
+    }
 }
