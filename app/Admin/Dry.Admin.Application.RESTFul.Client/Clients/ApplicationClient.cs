@@ -4,6 +4,9 @@ public class ApplicationClient : ApplicationQueryClient<ApplicationDto, Applicat
 {
     protected override string ApiUrl => $"{AdminClientStatic.ApiUrl}/Api/Application";
 
+    public ApplicationClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 获取应用类型
     /// </summary>

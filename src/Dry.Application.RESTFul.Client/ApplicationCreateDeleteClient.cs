@@ -13,6 +13,13 @@ public abstract class ApplicationCreateDeleteClient<TResult, TCreate, TKey> :
     where TCreate : ICreateDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationCreateDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 删除
     /// </summary>
     /// <param name="id"></param>
@@ -35,6 +42,13 @@ public abstract class ApplicationQueryCreateDeleteClient<TResult, TQuery, TCreat
     where TQuery : QueryDto<TKey>
     where TCreate : ICreateDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryCreateDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 删除
     /// </summary>

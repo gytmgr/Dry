@@ -10,6 +10,13 @@ public abstract class ApplicationClient<TResult> :
     where TResult : IResultDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 是否存在
     /// </summary>
     /// <returns></returns>
@@ -57,6 +64,13 @@ public abstract class ApplicationClient<TResult, TKey> :
     where TResult : IResultDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 主键查询
     /// </summary>
     /// <param name="id"></param>
@@ -79,6 +93,13 @@ public abstract class ApplicationClient<TResult, TCreate, TEdit, TKey> :
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 删除
     /// </summary>

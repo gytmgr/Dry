@@ -11,6 +11,13 @@ public abstract class ApplicationDeleteClient<TResult, TKey> :
     where TResult : IResultDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 删除
     /// </summary>
     /// <param name="id"></param>
@@ -31,6 +38,13 @@ public abstract class ApplicationQueryDeleteClient<TResult, TQuery, TKey> :
     where TResult : IResultDto
     where TQuery : QueryDto<TKey>
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 删除
     /// </summary>

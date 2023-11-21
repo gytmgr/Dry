@@ -13,6 +13,13 @@ public abstract class ApplicationEditDeleteClient<TResult, TEdit, TKey> :
     where TEdit : IEditDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationEditDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 删除
     /// </summary>
     /// <param name="id"></param>
@@ -35,6 +42,13 @@ public abstract class ApplicationQueryEditDeleteClient<TResult, TQuery, TEdit, T
     where TQuery : QueryDto<TKey>
     where TEdit : IEditDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryEditDeleteClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 删除
     /// </summary>

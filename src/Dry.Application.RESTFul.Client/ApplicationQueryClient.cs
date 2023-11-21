@@ -12,6 +12,13 @@ public abstract class ApplicationQueryClient<TResult, TQuery> :
     where TQuery : IQueryDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 是否存在
     /// </summary>
     /// <param name="queryDto"></param>
@@ -65,6 +72,13 @@ public abstract class ApplicationQueryClient<TResult, TQuery, TKey> :
     where TQuery : QueryDto<TKey>
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 主键查询
     /// </summary>
     /// <param name="id"></param>
@@ -89,6 +103,13 @@ public abstract class ApplicationQueryClient<TResult, TQuery, TCreate, TEdit, TK
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 删除
     /// </summary>

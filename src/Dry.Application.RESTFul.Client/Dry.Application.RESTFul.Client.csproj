@@ -10,12 +10,13 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Client.xml</DocumentationFile>
 		<Description>RESTFul客户端</Description>
-		<Version>6.2.0</Version>
+		<Version>6.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
+		<ProjectReference Include="..\Dry.Dependency\Dry.Dependency.csproj" />
 	</ItemGroup>
 
 </Project>

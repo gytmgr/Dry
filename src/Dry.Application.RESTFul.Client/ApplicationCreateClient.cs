@@ -12,6 +12,13 @@ public abstract class ApplicationCreateClient<TResult, TCreate> :
     where TCreate : ICreateDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationCreateClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 新建
     /// </summary>
     /// <param name="createDto"></param>
@@ -32,6 +39,13 @@ public abstract class ApplicationCreateClient<TResult, TCreate, TKey> :
     where TResult : IResultDto
     where TCreate : ICreateDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationCreateClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 新建
     /// </summary>
@@ -55,6 +69,13 @@ public abstract class ApplicationQueryCreateClient<TResult, TQuery, TCreate> :
     where TCreate : ICreateDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryCreateClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 新建
     /// </summary>
     /// <param name="createDto"></param>
@@ -77,6 +98,13 @@ public abstract class ApplicationQueryCreateClient<TResult, TQuery, TCreate, TKe
     where TQuery : QueryDto<TKey>
     where TCreate : ICreateDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryCreateClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 新建
     /// </summary>

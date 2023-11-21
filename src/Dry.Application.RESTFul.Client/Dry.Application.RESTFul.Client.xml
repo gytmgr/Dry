@@ -9,10 +9,34 @@
             api客户端
             </summary>
         </member>
+        <member name="F:Dry.Application.RESTFul.Client.ApiClient._tenantIdKey">
+            <summary>
+            租户id键
+            </summary>
+        </member>
+        <member name="F:Dry.Application.RESTFul.Client.ApiClient._serviceProvider">
+            <summary>
+            服务生成器
+            </summary>
+        </member>
         <member name="P:Dry.Application.RESTFul.Client.ApiClient.ApiUrl">
             <summary>
             接口地址
             </summary>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApiClient.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestParamSet(Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
+            <summary>
+            http请求参数设置
+            </summary>
+            <param name="requester"></param>
+            <param name="param"></param>
+            <param name="paramName"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApiClient.RequestAsync(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
@@ -44,6 +68,12 @@
             基础查询客户端
             </summary>
             <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`1.AnyAsync">
             <summary>
@@ -83,6 +113,12 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`2.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`2.FindAsync(`1)">
             <summary>
             主键查询
@@ -99,6 +135,12 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationClient`4.DeleteAsync(`3)">
             <summary>
             删除
@@ -112,6 +154,12 @@
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClient`2.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClient`2.CreateAsync(`1)">
             <summary>
@@ -128,6 +176,12 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClient`3.CreateAsync(`1)">
             <summary>
             新建
@@ -142,6 +196,12 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClient`3.CreateAsync(`2)">
             <summary>
@@ -159,6 +219,12 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClient`4.CreateAsync(`2)">
             <summary>
             新建
@@ -173,6 +239,12 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateDeleteClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateDeleteClient`3.DeleteAsync(`2)">
             <summary>
@@ -190,6 +262,12 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateDeleteClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateDeleteClient`4.DeleteAsync(`3)">
             <summary>
             删除
@@ -205,6 +283,12 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateEditClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateEditClient`4.EditAsync(`3,`2)">
             <summary>
@@ -224,6 +308,12 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateEditClient`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateEditClient`5.EditAsync(`4,`3)">
             <summary>
             编辑
@@ -238,6 +328,12 @@
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationDeleteClient`2.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationDeleteClient`2.DeleteAsync(`1)">
             <summary>
@@ -254,6 +350,12 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryDeleteClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryDeleteClient`3.DeleteAsync(`2)">
             <summary>
             删除
@@ -268,6 +370,12 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationEditClient`3.EditAsync(`2,`1)">
             <summary>
@@ -286,6 +394,12 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditClient`4.EditAsync(`3,`2)">
             <summary>
             编辑
@@ -301,6 +415,12 @@
             <typeparam name="TResult"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditDeleteClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationEditDeleteClient`3.DeleteAsync(`2)">
             <summary>
@@ -318,6 +438,12 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditDeleteClient`4.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditDeleteClient`4.DeleteAsync(`3)">
             <summary>
             删除
@@ -331,6 +457,12 @@
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`2.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`2.AnyAsync(`1)">
             <summary>
@@ -375,6 +507,12 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`3.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`3.FindAsync(`2)">
             <summary>
             主键查询
@@ -391,6 +529,12 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`5.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClient`5.DeleteAsync(`4)">
             <summary>

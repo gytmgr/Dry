@@ -7,7 +7,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\Dry.Application.RESTFul.Client\Dry.Application.RESTFul.Client.csproj" />
-		<ProjectReference Include="..\..\..\src\Dry.Dependency\Dry.Dependency.csproj" />
 		<ProjectReference Include="..\Dry.Admin.Application.Contracts\Dry.Admin.Application.Contracts.csproj" />
 	</ItemGroup>
 

@@ -15,6 +15,13 @@ public abstract class ApplicationCreateEditClient<TResult, TCreate, TEdit, TKey>
     where TEdit : IEditDto
 {
     /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationCreateEditClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
+    /// <summary>
     /// 编辑
     /// </summary>
     /// <param name="id"></param>
@@ -40,6 +47,13 @@ public abstract class ApplicationQueryCreateEditClient<TResult, TQuery, TCreate,
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {
+    /// <summary>
+    /// 构造体
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public ApplicationQueryCreateEditClient(IServiceProvider serviceProvider) : base(serviceProvider)
+    { }
+
     /// <summary>
     /// 编辑
     /// </summary>
