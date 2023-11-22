@@ -1,7 +1,12 @@
-﻿global using Dry.Core.Utilities;
+﻿global using Dry.Core.Model;
+global using Dry.Core.Utilities;
+global using Dry.Dependency;
+global using Dry.Swagger.DocumentFilter;
+global using Dry.Swagger.OperationFilter;
 global using Dry.Swagger.SchemaFilter;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.OpenApi.Any;
 global using Microsoft.OpenApi.Models;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using System.Reflection;
@@ -40,8 +45,9 @@ public static class SwaggerExtensions
             options.IncludeXmlComments(file, true);
         });
 
-        options.DocumentFilter<HiddenApiCocumentFilter>();
-        options.SchemaFilter<EnumSchemaFilter>();
+        options.DocumentFilter<MainDocumentFilter>();
+        options.SchemaFilter<MainSchemaFilter>();
+        options.OperationFilter<MainOperationFilter>();
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace Dry.Swagger.SchemaFilter;
+﻿namespace Dry.Swagger.DocumentFilter;
 
 /// <summary>
 /// 接口隐藏特性
@@ -9,14 +9,14 @@ public class HiddenApiAttribute : Attribute { }
 /// <summary>
 /// 隐藏接口过滤器
 /// </summary>
-public class HiddenApiCocumentFilter : IDocumentFilter
+public class HiddenApiCocumentFilter : ICustomDocumentFilter
 {
     /// <summary>
     /// 过滤器方法
     /// </summary>
     /// <param name="swaggerDoc"></param>
     /// <param name="context"></param>
-    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    public virtual void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
         foreach (var apiDescription in context.ApiDescriptions)
         {

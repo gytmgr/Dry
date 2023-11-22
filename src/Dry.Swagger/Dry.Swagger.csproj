@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Swagger.xml</DocumentationFile>
 		<Description>对Swagger的一些封装</Description>
-		<Version>6.2.0</Version>
+		<Version>6.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
+		<ProjectReference Include="..\Dry.Dependency\Dry.Dependency.csproj" />
 	</ItemGroup>
 
 </Project>

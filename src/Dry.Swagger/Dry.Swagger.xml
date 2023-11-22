@@ -4,6 +4,91 @@
         <name>Dry.Swagger</name>
     </assembly>
     <members>
+        <member name="T:Dry.Swagger.DocumentFilter.HiddenApiAttribute">
+            <summary>
+            接口隐藏特性
+            </summary>
+        </member>
+        <member name="T:Dry.Swagger.DocumentFilter.HiddenApiCocumentFilter">
+            <summary>
+            隐藏接口过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.DocumentFilter.HiddenApiCocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Dry.Swagger.DocumentFilter.ICustomDocumentFilter">
+            <summary>
+            自定义文档过滤器接口
+            </summary>
+        </member>
+        <member name="T:Dry.Swagger.DocumentFilter.MainDocumentFilter">
+            <summary>
+            文档过滤器
+            </summary>
+        </member>
+        <member name="F:Dry.Swagger.DocumentFilter.MainDocumentFilter._serviceProvider">
+            <summary>
+            服务供应器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.DocumentFilter.MainDocumentFilter.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Swagger.DocumentFilter.MainDocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Dry.Swagger.OperationFilter.ICustomOperationFilter">
+            <summary>
+            自定义操作过滤器接口
+            </summary>
+        </member>
+        <member name="T:Dry.Swagger.OperationFilter.MainOperationFilter">
+            <summary>
+            操作过滤器
+            </summary>
+        </member>
+        <member name="F:Dry.Swagger.OperationFilter.MainOperationFilter._serviceProvider">
+            <summary>
+            服务供应器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.OperationFilter.MainOperationFilter.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Swagger.OperationFilter.MainOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Dry.Swagger.OperationFilter.TenantOperationFilter">
+            <summary>
+            租户操作过滤器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.OperationFilter.TenantOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            过滤器方法
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Dry.Swagger.SchemaFilter.EnumSchemaFilter">
             <summary>
             枚举过滤器
@@ -13,24 +98,35 @@
             <summary>
             过滤器方法
             </summary>
-            <param name="model"></param>
+            <param name="schema"></param>
             <param name="context"></param>
         </member>
-        <member name="T:Dry.Swagger.SchemaFilter.HiddenApiAttribute">
+        <member name="T:Dry.Swagger.SchemaFilter.ICustomSchemaFilter">
             <summary>
-            接口隐藏特性
+            自定义架构过滤器接口
             </summary>
         </member>
-        <member name="T:Dry.Swagger.SchemaFilter.HiddenApiCocumentFilter">
+        <member name="T:Dry.Swagger.SchemaFilter.MainSchemaFilter">
             <summary>
-            隐藏接口过滤器
+            架构过滤器
             </summary>
         </member>
-        <member name="M:Dry.Swagger.SchemaFilter.HiddenApiCocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+        <member name="F:Dry.Swagger.SchemaFilter.MainSchemaFilter._serviceProvider">
+            <summary>
+            服务供应器
+            </summary>
+        </member>
+        <member name="M:Dry.Swagger.SchemaFilter.MainSchemaFilter.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Dry.Swagger.SchemaFilter.MainSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
             <summary>
             过滤器方法
             </summary>
-            <param name="swaggerDoc"></param>
+            <param name="schema"></param>
             <param name="context"></param>
         </member>
         <member name="T:Dry.Swagger.SwaggerExtensions">
