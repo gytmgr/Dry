@@ -45,8 +45,8 @@ public abstract class DryDbContextConfigurer<TBoundedContext> : IDryDbContextCon
         {
             var connetionStringSpans = ConnectionString.Split(';');
             var connectionStringDbSpanInfo = connetionStringSpans
-                .Where(x => x.StartsWith($"{DbFieldName}=", StringComparison.CurrentCultureIgnoreCase))
                 .Select((x, index) => new { Index = index, ConnectionStringDbSpan = x })
+                .Where(x => x.ConnectionStringDbSpan.StartsWith($"{DbFieldName}=", StringComparison.CurrentCultureIgnoreCase))
                 .FirstOrDefault();
             if (connectionStringDbSpanInfo is not null)
             {

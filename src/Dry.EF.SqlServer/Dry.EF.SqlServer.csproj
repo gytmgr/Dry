@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.EF.SqlServer.xml</DocumentationFile>
 		<Description>对微软EF SqlServer数据库的封装</Description>
-		<Version>6.2.0</Version>
+		<Version>6.2.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
