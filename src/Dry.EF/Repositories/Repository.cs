@@ -4,7 +4,7 @@
 /// ef仓储
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEntity>, IDependency<IRepository<TEntity>> where TEntity : class, IEntity, IBoundedContext
+public class Repository<TEntity> : ReadOnlyRepositoryBase<TEntity>, IRepository<TEntity>, IDependency<IRepository<TEntity>> where TEntity : class, IEntity, IBoundedContext
 {
     /// <summary>
     /// 构造体
@@ -37,6 +37,18 @@ public class Repository<TEntity> : ReadOnlyRepository<TEntity>, IRepository<TEnt
     /// <returns></returns>
     public override IQueryable<TEntity> GetQueryableFromSqlInterpolated(FormattableString sql)
         => _context.Set<TEntity>().FromSqlInterpolated(sql);
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <returns></returns>
+    public override IQueryable<TEntity> GetQueryableFromSql(FormattableString sql)
+        => _context.Set<TEntity>().FromSql(sql);
+
+#endif
 
     #endregion
 

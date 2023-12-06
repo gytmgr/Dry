@@ -72,7 +72,7 @@ public class HttpRequester : IDisposable
     /// </summary>
     /// <param name="param"></param>
     /// <param name="paramName"></param>
-    public void SetRequestParam(object param, string? paramName = null)
+    public void SetRequestParam(object? param = null, string? paramName = null)
     {
         if (Method == HttpMethod.Post || Method == HttpMethod.Put || Method == HttpMethod.Patch)
         {
@@ -100,11 +100,11 @@ public class HttpRequester : IDisposable
     }
 
     /// <summary>
-    /// 返回结果
+    /// 获取响应
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>
-    public async Task<HttpResponseMessage> GetResultAsync(HttpClient? client = null)
+    public async Task<HttpResponseMessage> GetResponseAsync(HttpClient? client = null)
     {
         using var request = new HttpRequestMessage(Method, new Uri(Url));
         if (Url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
@@ -135,7 +135,7 @@ public class HttpRequester : IDisposable
     }
 
     /// <summary>
-    /// 返回泛型结果
+    /// 获取泛型结果
     /// </summary>
     /// <typeparam name="TData"></typeparam>
     /// <param name="client"></param>
@@ -158,7 +158,7 @@ public class HttpRequester : IDisposable
     /// <returns></returns>
     public async Task<Result<HttpStatusCode, string>> GetStringResultAsync(HttpClient? client = null)
     {
-        using var httpResponseMessage = await GetResultAsync(client);
+        using var httpResponseMessage = await GetResponseAsync(client);
         var result = await httpResponseMessage.Content.ReadAsStringAsync();
         return Result<HttpStatusCode, string>.Create(httpResponseMessage.StatusCode, result);
     }
@@ -168,9 +168,9 @@ public class HttpRequester : IDisposable
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>
-    public async Task<Result<HttpStatusCode, byte[]>> GetByteResult(HttpClient? client = null)
+    public async Task<Result<HttpStatusCode, byte[]>> GetByteResultAsync(HttpClient? client = null)
     {
-        using var httpResponseMessage = await GetResultAsync(client);
+        using var httpResponseMessage = await GetResponseAsync(client);
         var result = await httpResponseMessage.Content.ReadAsByteArrayAsync();
         return Result<HttpStatusCode, byte[]>.Create(httpResponseMessage.StatusCode, result);
     }
@@ -180,12 +180,58 @@ public class HttpRequester : IDisposable
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>
-    public async Task<Result<HttpStatusCode, Stream>> GetStreamResult(HttpClient? client = null)
+    public async Task<Result<HttpStatusCode, Stream>> GetStreamResultAsync(HttpClient? client = null)
     {
-        using var httpResponseMessage = await GetResultAsync(client);
+        using var httpResponseMessage = await GetResponseAsync(client);
         var result = await httpResponseMessage.Content.ReadAsStreamAsync();
         return Result<HttpStatusCode, Stream>.Create(httpResponseMessage.StatusCode, result);
     }
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 从json返回获取异步enumerable结果
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
+    /// <param name="client"></param>
+    /// <returns></returns>
+    public async Task<Result<HttpStatusCode, IAsyncEnumerable<TData?>>> GetAsyncEnumerableResultFromJsonAsync<TData>(HttpClient? client = null)
+    {
+        using var httpResponseMessage = await GetResponseAsync(client);
+        var result = httpResponseMessage.Content.ReadFromJsonAsAsyncEnumerable<TData>(new JsonSerializerOptions().DefaultConfig());
+        return Result<HttpStatusCode, IAsyncEnumerable<TData?>>.Create(httpResponseMessage.StatusCode, result);
+    }
+
+    /// <summary>
+    /// 从json返回获取对象结果
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="client"></param>
+    /// <returns></returns>
+    public async Task<Result<HttpStatusCode, object>> GetResultFromJsonAsync(Type type, HttpClient? client = null)
+    {
+        using var httpResponseMessage = await GetResponseAsync(client);
+        var result = await httpResponseMessage.Content.ReadFromJsonAsync(type, new JsonSerializerOptions().DefaultConfig());
+        return Result<HttpStatusCode, object>.Create(httpResponseMessage.StatusCode, result);
+    }
+
+    /// <summary>
+    /// 从json返回获取泛型结果
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
+    /// <param name="client"></param>
+    /// <returns></returns>
+    public async Task<Result<HttpStatusCode, TData>> GetResultFromJsonAsync<TData>(HttpClient? client = null)
+    {
+        using var httpResponseMessage = await GetResponseAsync(client);
+        var result = await httpResponseMessage.Content.ReadFromJsonAsync<TData>(new JsonSerializerOptions().DefaultConfig());
+        return Result<HttpStatusCode, TData>.Create(httpResponseMessage.StatusCode, result);
+    }
+
+#else
+
+
+#endif
 
     /// <summary>
     /// 释放资源

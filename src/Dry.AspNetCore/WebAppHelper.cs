@@ -34,15 +34,17 @@ public static class WebAppHelper
         builder.Services.AddDependency(true, dependencyPrefixs);
         builder.Services.AddHttpClient();
 
-        var serviceProvider = builder.Services.BuildServiceProvider();
-        HttpRequester.GetClient = () => serviceProvider.GetService<IHttpClientFactory>().CreateClient();
+        var provider = builder.Services.BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        HttpRequester.GetClient = () => scope.ServiceProvider.GetRequiredService<IHttpClientFactory>().CreateClient();
 
-        await serviceProvider.ServicesActionAsync<IAppBuilderConfigurer>(async service => await service.ConfigureAsync(builder));
+        await scope.ServiceProvider.ServicesActionAsync<IAppBuilderConfigurer>(async service => await service.ConfigureAsync(builder));
 
         var app = builder.Build();
-        HttpRequester.GetClient = () => app.Services.GetService<IHttpClientFactory>().CreateClient();
+        HttpRequester.GetClient = () => app.Services.GetRequiredService<IHttpClientFactory>().CreateClient();
 
-        await app.Services.ServicesActionAsync<IAppConfigurer>(async service => await service.ConfigureAsync(app));
+        using var appScope = app.Services.CreateScope();
+        await appScope.ServiceProvider.ServicesActionAsync<IAppConfigurer>(async service => await service.ConfigureAsync(app));
 
         return app;
     }

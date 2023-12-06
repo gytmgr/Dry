@@ -360,6 +360,26 @@
             <param name="dbQueryable"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ElementAtAsync``1(System.Linq.IQueryable{``0},System.Int32,Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            指定索引
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="index"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ElementAtOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Int32,Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            指定索引或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="index"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dry.Domain.Extensions.QueryableExtension.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},Dry.Domain.Queryables.IDbQueryable)">
             <summary>
             第一条
@@ -999,6 +1019,15 @@
             <param name="dbQueryable"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Extensions.QueryableExtension.ExecuteDeleteAsync``1(System.Linq.IQueryable{``0},Dry.Domain.Queryables.IDbQueryable)">
+            <summary>
+            删除
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="dbQueryable"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Extensions.RepositoryExtension">
             <summary>
             仓储扩展
@@ -1154,6 +1183,14 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Extensions.ServiceProviderExtension.GetUnitOfWork``1(System.IServiceProvider)">
+            <summary>
+            获取工作单元
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Queryables.IDbQueryable">
             <summary>
             数据库查询接口
@@ -1209,6 +1246,24 @@
             <typeparam name="TSource"></typeparam>
             <param name="queryable"></param>
             <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ElementAtAsync``1(System.Linq.IQueryable{``0},System.Int32)">
+            <summary>
+            指定索引
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ElementAtOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Int32)">
+            <summary>
+            指定索引或默认
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <param name="index"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Domain.Queryables.IDbQueryable.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -1772,6 +1827,14 @@
             <param name="queryable"></param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Domain.Queryables.IDbQueryable.ExecuteDeleteAsync``1(System.Linq.IQueryable{``0})">
+            <summary>
+            删除
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="queryable"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Repositories.IReadOnlyRepository`1">
             <summary>
             只读仓储接口
@@ -1793,6 +1856,13 @@
             <returns></returns>
         </member>
         <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IReadOnlyRepository`1.GetQueryableFromSql(System.FormattableString)">
             <summary>
             获取查询
             </summary>
@@ -2102,17 +2172,22 @@
             <param name="keyValues"></param>
             <returns></returns>
         </member>
+        <member name="T:Dry.Domain.Repositories.IUnitOfWork">
+            <summary>
+            工作单元
+            </summary>
+        </member>
+        <member name="M:Dry.Domain.Repositories.IUnitOfWork.CompleteAsync">
+            <summary>
+            提交
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Domain.Repositories.IUnitOfWork`1">
             <summary>
             工作单元
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
-        </member>
-        <member name="M:Dry.Domain.Repositories.IUnitOfWork`1.CompleteAsync">
-            <summary>
-            提交
-            </summary>
-            <returns></returns>
         </member>
     </members>
 </doc>

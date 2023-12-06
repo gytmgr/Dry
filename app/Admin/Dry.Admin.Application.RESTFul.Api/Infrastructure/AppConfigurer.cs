@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.Application.RESTFul.Api.Infrastructure;
 
-public class AppConfigurer : ConnectionStringConfigure<IAdminContext>
+public class AppConfigurer : ConnectionStringConfigureBase<IAdminContext>
 {
     public override async Task ConfigureAsync(WebApplication app)
     {

@@ -5,7 +5,6 @@
 /// </summary>
 public class ResourceFilter : IAsyncResourceFilter
 {
-
     /// <summary>
     /// 触发
     /// </summary>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -10,12 +10,12 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.Contracts.xml</DocumentationFile>
 		<Description>应用契约层</Description>
-		<Version>6.2.0</Version>
+		<Version>8.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Dry.Core.Model\Dry.Core.Model.csproj" />
-	  <ProjectReference Include="..\Dry.Domain.Shared\Dry.Domain.Shared.csproj" />
+		<ProjectReference Include="..\Dry.Core.Model\Dry.Core.Model.csproj" />
+		<ProjectReference Include="..\Dry.Domain.Shared\Dry.Domain.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

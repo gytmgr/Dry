@@ -4,6 +4,22 @@
         <name>Dry.Core.Utilities</name>
     </assembly>
     <members>
+        <member name="T:Dry.Core.Utilities.AsyncHelper">
+            <summary>
+            异步帮助类
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.AsyncHelper.SplitExecuteAsync``2(``0[],System.Int32,System.Func{``0[],System.Threading.Tasks.Task{``1[]}})">
+            <summary>
+            分片异步执行
+            </summary>
+            <typeparam name="TParam"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="splitParams"></param>
+            <param name="splitCount"></param>
+            <param name="executeMethod"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.DateTimeExtension">
             <summary>
             时间扩展
@@ -231,6 +247,18 @@
             </summary>
             <param name="x"></param>
             <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.ExceptionExtension">
+            <summary>
+            异常扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.ExceptionExtension.ToMessage(System.Exception)">
+            <summary>
+            转字符串消息
+            </summary>
+            <param name="e"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.ExpressionExtension">
@@ -531,16 +559,16 @@
             <param name="param"></param>
             <param name="paramName"></param>
         </member>
-        <member name="M:Dry.Core.Utilities.HttpRequester.GetResultAsync(System.Net.Http.HttpClient)">
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetResponseAsync(System.Net.Http.HttpClient)">
             <summary>
-            返回结果
+            获取响应
             </summary>
             <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.Core.Utilities.HttpRequester.GetResultAsync``1(System.Net.Http.HttpClient)">
             <summary>
-            返回泛型结果
+            获取泛型结果
             </summary>
             <typeparam name="TData"></typeparam>
             <param name="client"></param>
@@ -553,14 +581,14 @@
             <param name="client"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.HttpRequester.GetByteResult(System.Net.Http.HttpClient)">
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetByteResultAsync(System.Net.Http.HttpClient)">
             <summary>
             获取字节结果
             </summary>
             <param name="client"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Core.Utilities.HttpRequester.GetStreamResult(System.Net.Http.HttpClient)">
+        <member name="M:Dry.Core.Utilities.HttpRequester.GetStreamResultAsync(System.Net.Http.HttpClient)">
             <summary>
             获取流结果
             </summary>
@@ -571,6 +599,21 @@
             <summary>
             释放资源
             </summary>
+        </member>
+        <member name="T:Dry.Core.Utilities.CommonJsonConverter`1">
+            <summary>
+            通用json转换
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dry.Core.Utilities.CommonJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            读
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.DryJsonConverter`1">
             <summary>

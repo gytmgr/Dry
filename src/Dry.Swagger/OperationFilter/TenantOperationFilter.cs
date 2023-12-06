@@ -12,18 +12,22 @@ public class TenantOperationFilter : ICustomOperationFilter
     /// <param name="context"></param>
     public virtual void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        operation.Parameters ??= new List<OpenApiParameter>();
-        operation.Parameters.Add(new OpenApiParameter
+        var filterPipeline = context.ApiDescription.ActionDescriptor.FilterDescriptors;
+        if (!filterPipeline.Any(x => x.Filter is AuthorizeFilter) || filterPipeline.Any(x => x.Filter is IAllowAnonymousFilter))
         {
-            Name = "TenantId",
-            In = ParameterLocation.Header,
-            Description = "租户id",
-            Required = false,
-            Schema = new OpenApiSchema
+            operation.Parameters ??= new List<OpenApiParameter>();
+            operation.Parameters.Add(new OpenApiParameter
             {
-                Type = "string",
-                Default = new OpenApiString(null)
-            }
-        });
+                Name = "TenantId",
+                In = ParameterLocation.Header,
+                Description = "租户id",
+                Required = false,
+                Schema = new OpenApiSchema
+                {
+                    Type = "string",
+                    Default = new OpenApiString(null)
+                }
+            });
+        }
     }
 }

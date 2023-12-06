@@ -3,11 +3,11 @@
 /// <summary>
 /// Configuration配置类
 /// </summary>
-public class ConfigurationConfigurer : IAppBuilderConfigurer, ISingletonDependency<IAppBuilderConfigurer>
+public class ConfigurationConfigurer : IAppBuilderConfigurer
 {
     protected readonly IServiceProvider _serviceProvider;
 
-    public int Order { get; set; } = int.MinValue;
+    public virtual int Order { get; set; } = int.MinValue;
 
     public ConfigurationConfigurer(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;

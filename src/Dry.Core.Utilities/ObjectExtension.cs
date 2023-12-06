@@ -81,6 +81,8 @@ public static class ObjectExtension
         }
     }
 
+#if NET6_0
+
     /// <summary>
     /// 深拷贝
     /// </summary>
@@ -127,6 +129,8 @@ public static class ObjectExtension
             return (T)retval!;
         }
     }
+
+#endif
 
     /// <summary>
     /// 深拷贝

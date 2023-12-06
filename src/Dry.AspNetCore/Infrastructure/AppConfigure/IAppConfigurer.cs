@@ -3,7 +3,7 @@
 /// <summary>
 /// 应用配置器接口
 /// </summary>
-public interface IAppConfigurer : IHasOrder
+public interface IAppConfigurer : IHasOrder, IDependency<IAppConfigurer>
 {
     /// <summary>
     /// 配置

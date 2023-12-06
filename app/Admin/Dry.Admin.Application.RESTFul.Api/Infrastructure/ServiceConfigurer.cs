@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.Application.RESTFul.Api.Infrastructure;
 
-public class ServiceConfigurer : IServiceConfigurer, ISingletonDependency<IServiceConfigurer>
+public class ServiceConfigurer : IServiceConfigurer
 {
     private readonly IServiceProvider _serviceProvider;
 

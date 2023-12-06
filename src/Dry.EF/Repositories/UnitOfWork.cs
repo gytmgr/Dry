@@ -4,7 +4,7 @@
 /// 工作单元
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext>, IDependency<IUnitOfWork<TBoundedContext>> where TBoundedContext : IBoundedContext
+public class UnitOfWork<TBoundedContext> : IUnitOfWork<TBoundedContext> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// ef上下文

@@ -4,31 +4,31 @@
         <name>Dry.EF.SqlServer</name>
     </assembly>
     <members>
-        <member name="T:Dry.EF.SqlServer.SqlServerDbContextConfigurer`1">
+        <member name="T:Dry.EF.SqlServer.SqlServerDbContextConfigurerBase`1">
             <summary>
             sql server ef上下文配置器
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="P:Dry.EF.SqlServer.SqlServerDbContextConfigurer`1.DbFieldName">
+        <member name="P:Dry.EF.SqlServer.SqlServerDbContextConfigurerBase`1.DbFieldName">
             <summary>
             数据库字段名称
             </summary>
         </member>
-        <member name="M:Dry.EF.SqlServer.SqlServerDbContextConfigurer`1.Configuring(System.IServiceProvider,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+        <member name="M:Dry.EF.SqlServer.SqlServerDbContextConfigurerBase`1.UseDb(System.String,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
-            配置
+            配置数据库
             </summary>
-            <param name="serviceProvider"></param>
+            <param name="tenantConnectionString"></param>
             <param name="optionsBuilder"></param>
         </member>
-        <member name="T:Dry.EF.SqlServer.SqlServerDbContextFactory`1">
+        <member name="T:Dry.EF.SqlServer.SqlServerDbContextFactoryBase`1">
             <summary>
             sql server ef上下文工厂（生产迁移脚本用）
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="P:Dry.EF.SqlServer.SqlServerDbContextFactory`1.ConnectionString">
+        <member name="P:Dry.EF.SqlServer.SqlServerDbContextFactoryBase`1.ConnectionString">
             <summary>
             连接字符串
             </summary>

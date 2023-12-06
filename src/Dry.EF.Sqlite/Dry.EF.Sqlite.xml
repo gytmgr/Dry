@@ -4,18 +4,18 @@
         <name>Dry.EF.Sqlite</name>
     </assembly>
     <members>
-        <member name="T:Dry.EF.Sqlite.SqliteDbContextConfigurer`1">
+        <member name="T:Dry.EF.Sqlite.SqliteDbContextConfigurerBase`1">
             <summary>
             sqlite ef上下文配置器
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="P:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.DbFieldName">
+        <member name="P:Dry.EF.Sqlite.SqliteDbContextConfigurerBase`1.DbFieldName">
             <summary>
             数据库字段名称
             </summary>
         </member>
-        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.GetTenantConnectionStringDbSpan(System.String,System.String)">
+        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurerBase`1.GetTenantConnectionStringDbSpan(System.String,System.String)">
             <summary>
             获取租户连接字符串数据库片段
             </summary>
@@ -23,20 +23,20 @@
             <param name="connectionStringDbSpan"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurer`1.Configuring(System.IServiceProvider,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+        <member name="M:Dry.EF.Sqlite.SqliteDbContextConfigurerBase`1.UseDb(System.String,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
-            配置
+            配置数据库
             </summary>
-            <param name="serviceProvider"></param>
+            <param name="tenantConnectionString"></param>
             <param name="optionsBuilder"></param>
         </member>
-        <member name="T:Dry.EF.Sqlite.SqliteDbContextFactory`1">
+        <member name="T:Dry.EF.Sqlite.SqliteDbContextFactoryBase`1">
             <summary>
             sqlite ef上下文工厂（生产迁移脚本用）
             </summary>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="P:Dry.EF.Sqlite.SqliteDbContextFactory`1.ConnectionString">
+        <member name="P:Dry.EF.Sqlite.SqliteDbContextFactoryBase`1.ConnectionString">
             <summary>
             连接字符串
             </summary>

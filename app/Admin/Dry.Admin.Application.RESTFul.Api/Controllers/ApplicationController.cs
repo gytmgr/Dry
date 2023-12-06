@@ -8,7 +8,7 @@ namespace Dry.Admin.Application.RESTFul.Api.Controllers;
 [Route("api/[controller]")]
 [Produces("application/json")]
 [ApiController]
-public class ApplicationController : ApplicationQueryController<IApplicationAppService, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService
+public class ApplicationController : ApplicationQueryControllerBase<IApplicationAppService, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService
 {
     /// <summary>
     /// 获取应用类型

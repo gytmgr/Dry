@@ -4,7 +4,7 @@
 /// 领域应用服务
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public class DomainApplicationService<TBoundedContext> : IDomainApplicationService<TBoundedContext>, IDependency<IDomainApplicationService<TBoundedContext>> where TBoundedContext : IBoundedContext
+public class DomainApplicationService<TBoundedContext> : IDomainApplicationService<TBoundedContext> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// 服务生成器

@@ -3,7 +3,7 @@
 /// <summary>
 /// 领域应用服务接口
 /// </summary>
-public interface IDomainApplicationService<TBoundedContext> where TBoundedContext : IBoundedContext
+public interface IDomainApplicationService<TBoundedContext> : IDependency<IDomainApplicationService<TBoundedContext>> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// 数据库连接字符串配置

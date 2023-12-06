@@ -17,7 +17,8 @@ public class StartupFilter : IStartupFilter, ISingletonDependency<IStartupFilter
     /// <returns></returns>
     public virtual Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
-        _serviceProvider.ServicesActionAsync<IAppStartuper>(async startup => await startup.StartupAsync()).Wait();
+        using var scope = _serviceProvider.CreateScope();
+        scope.ServiceProvider.ServicesActionAsync<IAppStartuper>(async startup => await startup.StartupAsync()).Wait();
         return next;
     }
 }

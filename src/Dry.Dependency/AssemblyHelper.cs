@@ -12,7 +12,7 @@ public static class AssemblyHelper
     /// <returns></returns>
     public static IEnumerable<Assembly> GetAll(params string[]? prefixs)
     {
-        return DependencyContext.Default.RuntimeLibraries
+        return DependencyContext.Default?.RuntimeLibraries
             .Where(x => prefixs is null or { Length: 0 } || prefixs.Any(y => x.Name.StartsWith(y)))
             .Select(x =>
              {
@@ -25,6 +25,6 @@ public static class AssemblyHelper
                      return null;
                  }
              })
-            .Where(x => x is not null).Select(x => x!);
+            .Where(x => x is not null).Select(x => x!) ?? Enumerable.Empty<Assembly>();
     }
 }

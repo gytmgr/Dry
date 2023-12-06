@@ -1,10 +1,13 @@
 ﻿global using Dry.Core.Model;
 global using System.Collections;
+global using System.Collections.Concurrent;
+global using System.Collections.ObjectModel;
 global using System.ComponentModel;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using System.Linq.Expressions;
 global using System.Net;
+global using System.Net.Http.Json;
 global using System.Net.Security;
 global using System.Reflection;
 global using System.Runtime.Serialization.Formatters.Binary;

@@ -10,7 +10,7 @@ public static class Dependency
     public static Task Run()
     {
         var sc = new ServiceCollection();
-        sc.AddDependency(); ;
+        sc.AddDependency(true); ;
         var sp = sc.BuildServiceProvider();
         var ee = sp.GetService<IAppClient>();
         ee.App = new object();

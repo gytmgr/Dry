@@ -9,6 +9,15 @@ public interface IDependency
     /// 根服务引擎
     /// </summary>
     public static IServiceProvider? RootServiceProvider { get; set; }
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 服务键
+    /// </summary>
+    public static object? ServiceKey { get; }
+
+#endif
 }
 
 /// <summary>

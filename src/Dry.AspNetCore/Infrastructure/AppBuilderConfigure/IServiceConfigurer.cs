@@ -3,7 +3,7 @@
 /// <summary>
 /// 服务配置器接口
 /// </summary>
-public interface IServiceConfigurer : IHasOrder
+public interface IServiceConfigurer : IHasOrder, IDependency<IServiceConfigurer>
 {
     /// <summary>
     /// 配置

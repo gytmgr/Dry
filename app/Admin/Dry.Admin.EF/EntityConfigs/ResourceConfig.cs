@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.EF.EntityConfigs;
 
-public class ResourceConfig : TreeEntityConfig<IAdminContext, Resource, Guid>, IDependency<IEntityRegister<IAdminContext>>
+public class ResourceConfig : TreeEntityConfigBase<IAdminContext, Resource, Guid>, IDependency<IEntityRegister<IAdminContext>>
 {
     protected override Expression<Func<Resource, IEnumerable<Resource>>> AncestorsExpression => x => x.Ancestors;
 

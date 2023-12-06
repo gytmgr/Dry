@@ -3,11 +3,11 @@
 /// <summary>
 /// 服务配置类
 /// </summary>
-public class ServiceCollectionConfigurer : IAppBuilderConfigurer, ISingletonDependency<IAppBuilderConfigurer>
+public class ServiceCollectionConfigurer : IAppBuilderConfigurer
 {
     protected readonly IServiceProvider _serviceProvider;
 
-    public int Order { get; set; } = 100;
+    public virtual int Order { get; set; } = 100;
 
     public ServiceCollectionConfigurer(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;

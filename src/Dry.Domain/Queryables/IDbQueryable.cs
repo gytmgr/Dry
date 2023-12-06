@@ -3,7 +3,7 @@
 /// <summary>
 /// 数据库查询接口
 /// </summary>
-public interface IDbQueryable
+public interface IDbQueryable : ISingletonDependency<IDbQueryable>
 {
     /// <summary>
     /// 查询字符串
@@ -66,6 +66,28 @@ public interface IDbQueryable
     #endregion
 
     #region 数据
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 指定索引
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    Task<TSource> ElementAtAsync<TSource>(IQueryable<TSource> queryable, int index);
+
+    /// <summary>
+    /// 指定索引或默认
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    Task<TSource> ElementAtOrDefaultAsync<TSource>(IQueryable<TSource> queryable, int index);
+
+#endif
 
     /// <summary>
     /// 第一条
@@ -661,4 +683,21 @@ public interface IDbQueryable
     IAsyncEnumerable<TSource> AsAsyncEnumerable<TSource>(IQueryable<TSource> queryable);
 
     #endregion
+
+#if NET8_0_OR_GREATER
+
+    #region 删除
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    Task<int> ExecuteDeleteAsync<TSource>(IQueryable<TSource> queryable);
+
+    #endregion
+
+#endif
+
 }

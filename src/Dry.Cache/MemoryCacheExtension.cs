@@ -22,7 +22,7 @@ public static class MemoryCacheExtension
             cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(cacheExpirationSeconds);
             cacheEntry.PostEvictionCallbacks.Add(new PostEvictionCallbackRegistration
             {
-                EvictionCallback = (object key, object value, EvictionReason reason, object state) =>
+                EvictionCallback = (object key, object? value, EvictionReason reason, object? state) =>
                 {
                     if (value is IDisposable dis)
                     {

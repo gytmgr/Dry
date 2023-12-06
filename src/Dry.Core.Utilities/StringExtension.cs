@@ -360,6 +360,28 @@ public static class StringExtension
         return false;
     }
 
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 字符串转泛型
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="str"></param>
+    /// <param name="provider"></param>
+    /// <param name="outResult"></param>
+    /// <returns></returns>
+    public static bool TryParse<T>(this string? str, IFormatProvider? provider, out T? outResult) where T : IParsable<T>
+    {
+        outResult = default;
+        if (string.IsNullOrEmpty(str))
+        {
+            return false;
+        }
+        return T.TryParse(str, provider, out outResult);
+    }
+
+#endif
+
     /// <summary>
     /// 字符串转值类型
     /// </summary>
@@ -372,7 +394,9 @@ public static class StringExtension
         outType.CheckParamNull(nameof(outType));
 
         outResult = default;
-        if (outType.IsGenericType && outType.GetGenericTypeDefinition() == typeof(Nullable<>))
+
+        var nullableType = outType.IsGenericType && outType.GetGenericTypeDefinition() == typeof(Nullable<>);
+        if (nullableType)
         {
             outType = outType.GetGenericArguments()[0];
         }
@@ -382,7 +406,7 @@ public static class StringExtension
         }
         if (string.IsNullOrEmpty(str))
         {
-            return false;
+            return nullableType;
         }
         if (outType.IsEnum)
         {

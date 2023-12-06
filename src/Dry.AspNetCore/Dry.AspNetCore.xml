@@ -4,16 +4,39 @@
         <name>Dry.AspNetCore</name>
     </assembly>
     <members>
-        <member name="T:Dry.AspNetCore.Controllers.DryController">
+        <member name="T:Dry.AspNetCore.Controllers.DryControllerBase">
             <summary>
             基础控制器
             </summary>
         </member>
-        <member name="M:Dry.AspNetCore.Controllers.DryController.Service``1">
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.Service``1">
             <summary>
             获取服务
             </summary>
             <typeparam name="TService"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.RequiredService``1">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.KeyedService``1(System.String)">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.RequiredKeyedService``1(System.String)">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceKey"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.ConfigurationConfigurer">

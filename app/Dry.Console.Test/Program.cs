@@ -1,20 +1,19 @@
 ﻿#nullable enable
 
+using Dry.Console.Test.Demo;
 using Dry.Core.Model;
-using Dry.Core.Utilities;
+using Dry.Dependency;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Dry.Console.Test
 {
-    public interface IQQ
+    public interface IQQ : ISingletonDependency<IQQ>
     {
         void SetAA(string aa);
 
+        static string? Key { get; }
     }
 
     public abstract class QQ<T> : IQQ where T : class, IQQ
@@ -32,6 +31,19 @@ namespace Dry.Console.Test
 
         public static T Instance { get; set; }
     };
+
+    public class RR : IQQ, ISingletonDependency<IQQ>
+    {
+        public static object? ServiceKey { get; } = "gg";
+
+        public void SetAA(string aa)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string? Key => "gg";
+    }
+
     public class WW : QQ<WW>
     {
         public int BB { get; set; }
@@ -47,10 +59,6 @@ namespace Dry.Console.Test
     {
         static async Task Main(string[] args)
         {
-            var requester = new HttpRequester(HttpMethod.Get, "http://localhost:61073/api/Application");
-            requester.Headers = new Collection<KeyValuePair<string, string>>();
-            requester.Headers.Add(new KeyValuePair<string, string>("TenantId", "Test"));
-            var result = await requester.GetResultAsync<JsonNode[]>();
             System.Console.ReadKey();
         }
 

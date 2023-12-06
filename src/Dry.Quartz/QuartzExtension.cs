@@ -29,7 +29,7 @@ public static class QuartzExtension
         {
             var factory = new StdSchedulerFactory();
             var scheduler = factory.GetScheduler().Result;
-            scheduler.JobFactory = serviceProvider.GetService<IJobFactory>()!;
+            scheduler.JobFactory = serviceProvider.GetRequiredService<IJobFactory>();
             return scheduler;
         });
 

@@ -29,6 +29,17 @@ public interface IReadOnlyRepository<TEntity> where TEntity : class, IEntity, IB
     /// <returns></returns>
     IQueryable<TEntity> GetQueryableFromSqlInterpolated(FormattableString sql);
 
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 获取查询
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <returns></returns>
+    IQueryable<TEntity> GetQueryableFromSql(FormattableString sql);
+
+#endif
+
     #endregion
 
     #region Bool

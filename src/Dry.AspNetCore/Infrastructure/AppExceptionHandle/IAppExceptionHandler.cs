@@ -3,7 +3,7 @@
 /// <summary>
 /// 应用异常处理器接口
 /// </summary>
-public interface IAppExceptionHandler : IHasOrder
+public interface IAppExceptionHandler : IHasOrder, IDependency<IAppExceptionHandler>
 {
     /// <summary>
     /// 处理

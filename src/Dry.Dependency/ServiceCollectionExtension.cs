@@ -42,17 +42,31 @@ public static class ServiceCollectionExtension
 
         var serviceDescriptors = new List<ServiceDescriptor>();
 
-        var getServiceDescriptor = ServiceDescriptor (Type scopedServiceType, Type implType, ServiceLifetime lifetime) =>
+        var getServiceDescriptor = ServiceDescriptor (Type serviceType, Type implType, ServiceLifetime lifetime) =>
         {
-            if (scopedServiceType.IsGenericType && implType.IsGenericType)
+            var describeServiceType = serviceType;
+            var describeImplType = implType;
+            if (serviceType.IsGenericType && implType.IsGenericType)
             {
-                var firstArgumentType = scopedServiceType.GenericTypeArguments.FirstOrDefault();
+                var firstArgumentType = serviceType.GenericTypeArguments.FirstOrDefault();
                 if (firstArgumentType is not null and { IsGenericTypeParameter: true })
                 {
-                    return ServiceDescriptor.Describe(scopedServiceType.GetGenericTypeDefinition(), implType.GetGenericTypeDefinition(), lifetime);
+                    describeServiceType = serviceType.GetGenericTypeDefinition();
+                    describeImplType = implType.GetGenericTypeDefinition();
                 }
             }
-            return ServiceDescriptor.Describe(scopedServiceType, implType, lifetime);
+
+#if NET8_0_OR_GREATER
+
+            var serviceKey = implType.GetProperty(nameof(IDependency.ServiceKey))?.GetValue(null);
+            if (serviceKey is not null)
+            {
+                return ServiceDescriptor.DescribeKeyed(describeServiceType, serviceKey, describeImplType, lifetime);
+            }
+
+#endif
+
+            return ServiceDescriptor.Describe(describeServiceType, describeImplType, lifetime);
         };
         foreach (var implType in implTypes)
         {

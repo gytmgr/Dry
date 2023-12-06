@@ -3,7 +3,7 @@
 /// <summary>
 /// 应用启动器接口
 /// </summary>
-public interface IAppStartuper : IHasOrder
+public interface IAppStartuper : IHasOrder, IDependency<IAppStartuper>
 {
     /// <summary>
     /// 启动

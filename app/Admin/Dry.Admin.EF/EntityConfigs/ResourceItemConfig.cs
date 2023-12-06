@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.EF.EntityConfigs;
 
-internal sealed class ResourceItemConfig : EntityConfig<IAdminContext, ResourceItem>, IDependency<IEntityRegister<IAdminContext>>
+internal sealed class ResourceItemConfig : EntityConfigBase<IAdminContext, ResourceItem>, IDependency<IEntityRegister<IAdminContext>>
 {
     public override void Configure(EntityTypeBuilder<ResourceItem> builder)
     {

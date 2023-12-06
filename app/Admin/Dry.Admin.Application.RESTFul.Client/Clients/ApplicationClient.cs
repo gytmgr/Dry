@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.Application.RESTFul.Client.Clients;
 
-public class ApplicationClient : ApplicationQueryClient<ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService, IDependency<IApplicationAppService>
+public class ApplicationClient : ApplicationQueryClientBase<ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService, IDependency<IApplicationAppService>
 {
     protected override string ApiUrl => $"{AdminClientStatic.ApiUrl}/Api/Application";
 

@@ -88,6 +88,6 @@ public interface IDryDbContext
 /// 数据库上下文接口
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public interface IDryDbContext<TBoundedContext> : IDryDbContext where TBoundedContext : IBoundedContext
+public interface IDryDbContext<TBoundedContext> : IDryDbContext, IDependency<IDryDbContext<TBoundedContext>> where TBoundedContext : IBoundedContext
 {
 }

@@ -3,7 +3,7 @@
 /// <summary>
 /// 应用生成配置器接口
 /// </summary>
-public interface IAppBuilderConfigurer : IHasOrder
+public interface IAppBuilderConfigurer : IHasOrder, IDependency<IAppBuilderConfigurer>
 {
     /// <summary>
     /// 配置

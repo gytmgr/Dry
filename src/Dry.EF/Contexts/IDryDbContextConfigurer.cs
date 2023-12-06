@@ -4,7 +4,7 @@
 /// ef上下文配置器接口
 /// </summary>
 /// <typeparam name="TBoundedContext"></typeparam>
-public interface IDryDbContextConfigurer<TBoundedContext> where TBoundedContext : IBoundedContext
+public interface IDryDbContextConfigurer<TBoundedContext> : ISingletonDependency<IDryDbContextConfigurer<TBoundedContext>> where TBoundedContext : IBoundedContext
 {
     /// <summary>
     /// 连接字符串

@@ -3,7 +3,7 @@
 /// <summary>
 /// 请求鉴权器接口
 /// </summary>
-public interface IRequestAuthorizer : IHasOrder
+public interface IRequestAuthorizer : IHasOrder, ISingletonDependency<IRequestAuthorizer>
 {
     /// <summary>
     /// 鉴权

@@ -3,11 +3,11 @@
 /// <summary>
 /// 数据配置类
 /// </summary>
-public class DataConfigurer : IAppBuilderConfigurer, ISingletonDependency<IAppBuilderConfigurer>
+public class DataConfigurer : IAppBuilderConfigurer
 {
     protected readonly IServiceProvider _serviceProvider;
 
-    public int Order { get; set; } = default;
+    public virtual int Order { get; set; } = default;
 
     public DataConfigurer(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;

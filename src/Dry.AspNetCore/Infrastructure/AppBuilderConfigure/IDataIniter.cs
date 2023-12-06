@@ -3,7 +3,7 @@
 /// <summary>
 /// 数据初始化器接口
 /// </summary>
-public interface IDataIniter : IHasOrder
+public interface IDataIniter : IHasOrder, IDependency<IDataIniter>
 {
     /// <summary>
     /// 初始化

@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.Application.RESTFul.Api.Infrastructure;
 
-public class SerilogConfigurer : IAppBuilderConfigurer, ISingletonDependency<IAppBuilderConfigurer>
+public class SerilogConfigurer : IAppBuilderConfigurer
 {
     public int Order { get; set; } = int.MaxValue;
 

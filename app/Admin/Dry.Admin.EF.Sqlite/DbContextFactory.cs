@@ -1,5 +1,5 @@
 ﻿namespace Dry.Admin.EF.Sqlite;
 
-public class DbContextFactory : SqliteDbContextFactory<IAdminContext>
+public class DbContextFactory : SqliteDbContextFactoryBase<IAdminContext>
 {
 }

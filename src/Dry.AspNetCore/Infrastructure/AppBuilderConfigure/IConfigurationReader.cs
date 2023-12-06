@@ -3,7 +3,7 @@
 /// <summary>
 /// Configuration读取器接口
 /// </summary>
-public interface IConfigurationReader
+public interface IConfigurationReader : IDependency<IConfigurationReader>
 {
     /// <summary>
     /// 读

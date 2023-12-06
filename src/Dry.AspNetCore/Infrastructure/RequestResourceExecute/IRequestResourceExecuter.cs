@@ -3,7 +3,7 @@
 /// <summary>
 /// 请求资源执行器接口
 /// </summary>
-public interface IRequestResourceExecuter : IHasOrder
+public interface IRequestResourceExecuter : IHasOrder, ISingletonDependency<IRequestResourceExecuter>
 {
     /// <summary>
     /// 进入执行

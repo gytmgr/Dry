@@ -1,6 +1,6 @@
 ﻿namespace Dry.Admin.EF.EntityConfigs;
 
-internal sealed class ApplicationConfig : EntityConfig<IAdminContext, Application, string>, IDependency<IEntityRegister<IAdminContext>>
+internal sealed class ApplicationConfig : EntityConfigBase<IAdminContext, Application, string>, IDependency<IEntityRegister<IAdminContext>>
 {
     public override void Configure(EntityTypeBuilder<Application> builder)
     {

@@ -21,7 +21,7 @@ public static class Quartz
             var now = DateTime.Now;
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddDependency();
+            serviceCollection.AddDependency(true);
             serviceCollection.AddCustomQuartz();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var test1 = serviceProvider.GetService<ITest1>();

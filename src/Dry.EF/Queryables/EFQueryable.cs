@@ -3,7 +3,7 @@
 /// <summary>
 /// EF查询
 /// </summary>
-public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
+public class EFQueryable : IDbQueryable
 {
     /// <summary>
     /// 查询字符串
@@ -72,6 +72,30 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
     #endregion
 
     #region 数据
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 指定索引
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public virtual async Task<TSource> ElementAtAsync<TSource>(IQueryable<TSource> queryable, int index)
+        => await queryable.ElementAtAsync(index);
+
+    /// <summary>
+    /// 指定索引或默认
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public virtual async Task<TSource> ElementAtOrDefaultAsync<TSource>(IQueryable<TSource> queryable, int index)
+        => await queryable.ElementAtOrDefaultAsync(index);
+
+#endif
 
     /// <summary>
     /// 第一条
@@ -739,4 +763,23 @@ public class EFQueryable : IDbQueryable, ISingletonDependency<IDbQueryable>
         => queryable.AsAsyncEnumerable();
 
     #endregion
+
+#if NET8_0_OR_GREATER
+
+
+    #region 删除
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <returns></returns>
+    public virtual async Task<int> ExecuteDeleteAsync<TSource>(IQueryable<TSource> queryable)
+        => await queryable.ExecuteDeleteAsync();
+
+    #endregion
+
+#endif
+
 }

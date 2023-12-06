@@ -13,8 +13,8 @@ public static class Json
         var options = new JsonSerializerOptions().DefaultConfig();
         options.NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString;
         options.Converters.Add(new StructJsonConverter<bool>());
-        options.Converters.Add(new StructNullableJsonConverter<bool>());
-        var objs = JsonSerializer.Deserialize<GG>("{\"QQ\":16156}", options);
+        //options.Converters.Add(new CommonJsonConverter<bool?>());
+        var objs = JsonSerializer.Deserialize<GG>("{\"QQ\":354}", options);
 
         System.Console.ReadKey();
 
@@ -34,7 +34,7 @@ public static class Json
 
 public class GG : ISingletonDependency<GG>
 {
-    public bool QQ { get; set; }
+    public bool? QQ { get; set; }
     public int? WW { get; set; }
     public int EE { get; set; }
     public decimal? RR { get; set; }

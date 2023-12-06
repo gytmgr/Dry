@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -10,11 +10,11 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Quartz.xml</DocumentationFile>
 		<Description>对Quartz的一些封装</Description>
-		<Version>6.2.0</Version>
+		<Version>8.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Quartz" Version="3.7.0" />
+		<PackageReference Include="Quartz" Version="3.8.0" />
 	</ItemGroup>
 
 	<ItemGroup>

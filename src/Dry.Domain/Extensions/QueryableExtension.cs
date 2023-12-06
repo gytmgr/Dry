@@ -73,6 +73,32 @@ public static class QueryableExtension
 
     #region 数据
 
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 指定索引
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <param name="dbQueryable"></param>
+    /// <returns></returns>
+    public static async Task<TSource> ElementAtAsync<TSource>(this IQueryable<TSource> queryable, int index, IDbQueryable? dbQueryable = null)
+        => await GetDbQueryable(dbQueryable).ElementAtAsync(queryable, index);
+
+    /// <summary>
+    /// 指定索引或默认
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="index"></param>
+    /// <param name="dbQueryable"></param>
+    /// <returns></returns>
+    public static async Task<TSource> ElementAtOrDefaultAsync<TSource>(this IQueryable<TSource> queryable, int index, IDbQueryable? dbQueryable = null)
+        => await GetDbQueryable(dbQueryable).ElementAtOrDefaultAsync(queryable, index);
+
+#endif
+
     /// <summary>
     /// 第一条
     /// </summary>
@@ -823,4 +849,23 @@ public static class QueryableExtension
         => GetDbQueryable(dbQueryable).AsAsyncEnumerable(queryable);
 
     #endregion
+
+#if NET8_0_OR_GREATER
+
+    #region 删除
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <param name="queryable"></param>
+    /// <param name="dbQueryable"></param>
+    /// <returns></returns>
+    public static async Task<int> ExecuteDeleteAsync<TSource>(this IQueryable<TSource> queryable, IDbQueryable? dbQueryable = null)
+        => await GetDbQueryable(dbQueryable).ExecuteDeleteAsync(queryable);
+
+    #endregion
+
+#endif
+
 }

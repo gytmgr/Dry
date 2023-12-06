@@ -3,7 +3,7 @@
 /// <summary>
 /// 请求操作执行器接口
 /// </summary>
-public interface IRequestActionExecuter : IHasOrder
+public interface IRequestActionExecuter : IHasOrder, ISingletonDependency<IRequestActionExecuter>
 {
     /// <summary>
     /// 进入执行

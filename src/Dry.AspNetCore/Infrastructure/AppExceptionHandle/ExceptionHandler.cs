@@ -3,9 +3,9 @@
 /// <summary>
 /// 异常处理器
 /// </summary>
-public class ExceptionHandler : IAppExceptionHandler, ISingletonDependency<IAppExceptionHandler>
+public class ExceptionHandler : IAppExceptionHandler
 {
-    public int Order { get; set; } = int.MinValue;
+    public virtual int Order { get; set; } = int.MinValue;
 
     public virtual Task HandleAsync(ExceptionContext context)
     {
