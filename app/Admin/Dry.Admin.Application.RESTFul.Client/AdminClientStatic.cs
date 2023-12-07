@@ -1,6 +1,6 @@
 ﻿global using Dry.Admin.Application.Contracts.Dtos;
 global using Dry.Admin.Application.Contracts.Services;
-global using Dry.Application.RESTFul.Client;
+global using Dry.Application.RESTFul.Client.Clients;
 global using Dry.Core.Model;
 
 namespace Dry.Admin.Application.RESTFul.Client;

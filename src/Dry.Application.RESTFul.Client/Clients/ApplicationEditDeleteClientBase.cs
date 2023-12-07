@@ -1,20 +1,22 @@
-﻿namespace Dry.Application.RESTFul.Client;
+﻿namespace Dry.Application.RESTFul.Client.Clients;
 
 /// <summary>
-/// 基础查、删客户端
+/// 基础查、改、删客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
+/// <typeparam name="TEdit"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationDeleteClientBase<TResult, TKey> :
-    ApplicationClientBase<TResult, TKey>,
-    IApplicationDeleteService<TResult, TKey>
+public abstract class ApplicationEditDeleteClientBase<TResult, TEdit, TKey> :
+    ApplicationEditClientBase<TResult, TEdit, TKey>,
+    IApplicationEditDeleteService<TResult, TEdit, TKey>
     where TResult : IResultDto
+    where TEdit : IEditDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationEditDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>
@@ -27,22 +29,24 @@ public abstract class ApplicationDeleteClientBase<TResult, TKey> :
 }
 
 /// <summary>
-/// 条件查、删客户端
+/// 条件查、改、删客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
 /// <typeparam name="TQuery"></typeparam>
+/// <typeparam name="TEdit"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationQueryDeleteClientBase<TResult, TQuery, TKey> :
-    ApplicationQueryClientBase<TResult, TQuery, TKey>,
-    IApplicationQueryDeleteService<TResult, TQuery, TKey>
+public abstract class ApplicationQueryEditDeleteClientBase<TResult, TQuery, TEdit, TKey> :
+    ApplicationQueryEditClientBase<TResult, TQuery, TEdit, TKey>,
+    IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
     where TQuery : QueryDto<TKey>
+    where TEdit : IEditDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationQueryDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationQueryEditDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>

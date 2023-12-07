@@ -1,4 +1,4 @@
-﻿namespace Dry.Application.RESTFul.Client;
+﻿namespace Dry.Application.RESTFul.Client.Clients;
 
 /// <summary>
 /// 条件查询客户端

@@ -1,12 +1,4 @@
-﻿global using Dry.Application.Contracts.Dtos;
-global using Dry.Application.Contracts.Services;
-global using Dry.Core.Model;
-global using Dry.Core.Utilities;
-global using Microsoft.Extensions.DependencyInjection;
-global using System.Collections.ObjectModel;
-global using System.Net;
-
-namespace Dry.Application.RESTFul.Client;
+﻿namespace Dry.Application.RESTFul.Client.Clients;
 
 /// <summary>
 /// api客户端
@@ -41,7 +33,8 @@ public abstract class ApiClientBase
     /// <param name="requester"></param>
     /// <param name="param"></param>
     /// <param name="paramName"></param>
-    protected virtual void RequestParamSet(HttpRequester requester, object? param = null, string? paramName = null)
+    /// <returns></returns>
+    protected virtual async Task RequestParamSettingAsync(HttpRequester requester, object? param = null, string? paramName = null)
     {
         var tenant = _serviceProvider.GetRequiredService<ITenantProvider>();
         if (tenant.Id is not null)
@@ -50,6 +43,7 @@ public abstract class ApiClientBase
             requester.Headers.Add(new KeyValuePair<string, string>(_tenantIdKey, tenant.Id));
         }
         requester.SetRequestParam(param, paramName);
+        await _serviceProvider.ServicesActionAsync<IClientRequestConfigurer>(async service => await service.ConfigureAsync(_serviceProvider, requester, param, paramName));
     }
 
     /// <summary>
@@ -65,7 +59,7 @@ public abstract class ApiClientBase
     protected virtual async Task RequestAsync(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
         using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        RequestParamSet(requester, param, paramName);
+        await RequestParamSettingAsync(requester, param, paramName);
         var response = await requester.GetStringResultAsync();
         if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {
@@ -92,7 +86,7 @@ public abstract class ApiClientBase
     protected virtual async Task<TData?> RequestAsync<TData>(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
         using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        RequestParamSet(requester, param, paramName);
+        await RequestParamSettingAsync(requester, param, paramName);
         var response = await requester.GetResultAsync<TData>();
         if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {

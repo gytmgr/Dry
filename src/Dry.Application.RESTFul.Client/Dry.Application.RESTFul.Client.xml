@@ -4,41 +4,42 @@
         <name>Dry.Application.RESTFul.Client</name>
     </assembly>
     <members>
-        <member name="T:Dry.Application.RESTFul.Client.ApiClientBase">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApiClientBase">
             <summary>
             api客户端
             </summary>
         </member>
-        <member name="F:Dry.Application.RESTFul.Client.ApiClientBase._tenantIdKey">
+        <member name="F:Dry.Application.RESTFul.Client.Clients.ApiClientBase._tenantIdKey">
             <summary>
             租户id键
             </summary>
         </member>
-        <member name="F:Dry.Application.RESTFul.Client.ApiClientBase._serviceProvider">
+        <member name="F:Dry.Application.RESTFul.Client.Clients.ApiClientBase._serviceProvider">
             <summary>
             服务生成器
             </summary>
         </member>
-        <member name="P:Dry.Application.RESTFul.Client.ApiClientBase.ApiUrl">
+        <member name="P:Dry.Application.RESTFul.Client.Clients.ApiClientBase.ApiUrl">
             <summary>
             接口地址
             </summary>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClientBase.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClientBase.RequestParamSet(Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.RequestParamSettingAsync(Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
             <summary>
             http请求参数设置
             </summary>
             <param name="requester"></param>
             <param name="param"></param>
             <param name="paramName"></param>
+            <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClientBase.RequestAsync(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.RequestAsync(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
             http请求
             </summary>
@@ -50,7 +51,7 @@
             <exception cref="T:Dry.Core.Model.BizException"></exception>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApiClientBase.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.RequestAsync``1(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
             http请求
             </summary>
@@ -63,70 +64,70 @@
             <exception cref="T:Dry.Core.Model.BizException"></exception>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationClientBase`1">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1">
             <summary>
             基础查询客户端
             </summary>
             <typeparam name="TResult"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.AnyAsync">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.AnyAsync">
             <summary>
             是否存在
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.CountAsync">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.CountAsync">
             <summary>
             数量查询
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.FirstAsync">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.FirstAsync">
             <summary>
             条件查询第一条
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.ArrayAsync">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.ArrayAsync">
             <summary>
             查询所有
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`1.ArrayAsync(Dry.Core.Model.PagedQuery)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`1.ArrayAsync(Dry.Core.Model.PagedQuery)">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationClientBase`2">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`2">
             <summary>
             基础查询客户端
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`2.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`2.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`2.FindAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`2.FindAsync(`1)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`4">
             <summary>
             基础查、增、改、删客户端
             </summary>
@@ -135,40 +136,40 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationClientBase`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationClientBase`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`2">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`2">
             <summary>
             基础查、增客户端
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`2.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`2.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`2.CreateAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`2.CreateAsync(`1)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`3">
             <summary>
             基础查、增客户端
             </summary>
@@ -176,20 +177,20 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateClientBase`3.CreateAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateClientBase`3.CreateAsync(`1)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`3">
             <summary>
             条件查、增客户端
             </summary>
@@ -197,20 +198,20 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TCreate"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`3.CreateAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`3.CreateAsync(`2)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`4">
             <summary>
             条件查、增客户端
             </summary>
@@ -219,20 +220,20 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateClientBase`4.CreateAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateClientBase`4.CreateAsync(`2)">
             <summary>
             新建
             </summary>
             <param name="createDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationCreateDeleteClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationCreateDeleteClientBase`3">
             <summary>
             基础查、增、删客户端
             </summary>
@@ -240,20 +241,20 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateDeleteClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateDeleteClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateDeleteClientBase`3.DeleteAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateDeleteClientBase`3.DeleteAsync(`2)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryCreateDeleteClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateDeleteClientBase`4">
             <summary>
             条件查、增、删客户端
             </summary>
@@ -262,20 +263,20 @@
             <typeparam name="TCreate"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateDeleteClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateDeleteClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateDeleteClientBase`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateDeleteClientBase`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationCreateEditClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationCreateEditClientBase`4">
             <summary>
             基础查、增、改客户端
             </summary>
@@ -284,13 +285,13 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateEditClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateEditClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationCreateEditClientBase`4.EditAsync(`3,`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationCreateEditClientBase`4.EditAsync(`3,`2)">
             <summary>
             编辑
             </summary>
@@ -298,7 +299,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryCreateEditClientBase`5">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateEditClientBase`5">
             <summary>
             条件查、增、改客户端
             </summary>
@@ -308,13 +309,13 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateEditClientBase`5.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateEditClientBase`5.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryCreateEditClientBase`5.EditAsync(`4,`3)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryCreateEditClientBase`5.EditAsync(`4,`3)">
             <summary>
             编辑
             </summary>
@@ -322,27 +323,27 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationDeleteClientBase`2">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationDeleteClientBase`2">
             <summary>
             基础查、删客户端
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationDeleteClientBase`2.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationDeleteClientBase`2.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationDeleteClientBase`2.DeleteAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationDeleteClientBase`2.DeleteAsync(`1)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryDeleteClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryDeleteClientBase`3">
             <summary>
             条件查、删客户端
             </summary>
@@ -350,20 +351,20 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryDeleteClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryDeleteClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryDeleteClientBase`3.DeleteAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryDeleteClientBase`3.DeleteAsync(`2)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationEditClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationEditClientBase`3">
             <summary>
             基础查、改客户端
             </summary>
@@ -371,13 +372,13 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationEditClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditClientBase`3.EditAsync(`2,`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationEditClientBase`3.EditAsync(`2,`1)">
             <summary>
             编辑
             </summary>
@@ -385,7 +386,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryEditClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditClientBase`4">
             <summary>
             条件查、改客户端
             </summary>
@@ -394,13 +395,13 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditClientBase`4.EditAsync(`3,`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditClientBase`4.EditAsync(`3,`2)">
             <summary>
             编辑
             </summary>
@@ -408,7 +409,7 @@
             <param name="editDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationEditDeleteClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationEditDeleteClientBase`3">
             <summary>
             基础查、改、删客户端
             </summary>
@@ -416,20 +417,20 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditDeleteClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationEditDeleteClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationEditDeleteClientBase`3.DeleteAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationEditDeleteClientBase`3.DeleteAsync(`2)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryEditDeleteClientBase`4">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditDeleteClientBase`4">
             <summary>
             条件查、改、删客户端
             </summary>
@@ -438,68 +439,68 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditDeleteClientBase`4.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditDeleteClientBase`4.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryEditDeleteClientBase`4.DeleteAsync(`3)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryEditDeleteClientBase`4.DeleteAsync(`3)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2">
             <summary>
             条件查询客户端
             </summary>
             <typeparam name="TResult"></typeparam>
             <typeparam name="TQuery"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.AnyAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.AnyAsync(`1)">
             <summary>
             是否存在
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.CountAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.CountAsync(`1)">
             <summary>
             数量查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.FirstAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.FirstAsync(`1)">
             <summary>
             条件查询第一条
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.ArrayAsync(`1)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.ArrayAsync(`1)">
             <summary>
             条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`2.ArrayAsync(Dry.Core.Model.PagedQuery{`1})">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`2.ArrayAsync(Dry.Core.Model.PagedQuery{`1})">
             <summary>
             分页条件查询
             </summary>
             <param name="queryDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`3">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`3">
             <summary>
             条件查询客户端
             </summary>
@@ -507,20 +508,20 @@
             <typeparam name="TQuery"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`3.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`3.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`3.FindAsync(`2)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`3.FindAsync(`2)">
             <summary>
             主键查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`5">
+        <member name="T:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`5">
             <summary>
             条件查、增、改、删客户端
             </summary>
@@ -530,17 +531,32 @@
             <typeparam name="TEdit"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`5.#ctor(System.IServiceProvider)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`5.#ctor(System.IServiceProvider)">
             <summary>
             构造体
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.ApplicationQueryClientBase`5.DeleteAsync(`4)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApplicationQueryClientBase`5.DeleteAsync(`4)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Application.RESTFul.Client.IClientRequestConfigurer">
+            <summary>
+            客户端请求配置器接口
+            </summary>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.IClientRequestConfigurer.ConfigureAsync(System.IServiceProvider,Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
+            <summary>
+            配置
+            </summary>
+            <param name="provider"></param>
+            <param name="requester"></param>
+            <param name="param"></param>
+            <param name="paramName"></param>
             <returns></returns>
         </member>
     </members>

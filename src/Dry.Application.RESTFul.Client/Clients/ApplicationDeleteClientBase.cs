@@ -1,22 +1,20 @@
-﻿namespace Dry.Application.RESTFul.Client;
+﻿namespace Dry.Application.RESTFul.Client.Clients;
 
 /// <summary>
-/// 基础查、增、删客户端
+/// 基础查、删客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
-/// <typeparam name="TCreate"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationCreateDeleteClientBase<TResult, TCreate, TKey> :
-    ApplicationCreateClientBase<TResult, TCreate, TKey>,
-    IApplicationCreateDeleteService<TResult, TCreate, TKey>
+public abstract class ApplicationDeleteClientBase<TResult, TKey> :
+    ApplicationClientBase<TResult, TKey>,
+    IApplicationDeleteService<TResult, TKey>
     where TResult : IResultDto
-    where TCreate : ICreateDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationCreateDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>
@@ -29,24 +27,22 @@ public abstract class ApplicationCreateDeleteClientBase<TResult, TCreate, TKey> 
 }
 
 /// <summary>
-/// 条件查、增、删客户端
+/// 条件查、删客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
 /// <typeparam name="TQuery"></typeparam>
-/// <typeparam name="TCreate"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationQueryCreateDeleteClientBase<TResult, TQuery, TCreate, TKey> :
-    ApplicationQueryCreateClientBase<TResult, TQuery, TCreate, TKey>,
-    IApplicationQueryCreateDeleteService<TResult, TQuery, TCreate, TKey>
+public abstract class ApplicationQueryDeleteClientBase<TResult, TQuery, TKey> :
+    ApplicationQueryClientBase<TResult, TQuery, TKey>,
+    IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TResult : IResultDto
     where TQuery : QueryDto<TKey>
-    where TCreate : ICreateDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationQueryCreateDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationQueryDeleteClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>

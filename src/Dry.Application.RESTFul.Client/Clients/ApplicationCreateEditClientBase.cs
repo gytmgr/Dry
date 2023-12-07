@@ -1,22 +1,24 @@
-﻿namespace Dry.Application.RESTFul.Client;
+﻿namespace Dry.Application.RESTFul.Client.Clients;
 
 /// <summary>
-/// 基础查、改客户端
+/// 基础查、增、改客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
+/// <typeparam name="TCreate"></typeparam>
 /// <typeparam name="TEdit"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationEditClientBase<TResult, TEdit, TKey> :
-    ApplicationClientBase<TResult, TKey>,
-    IApplicationEditService<TResult, TEdit, TKey>
+public abstract class ApplicationCreateEditClientBase<TResult, TCreate, TEdit, TKey> :
+    ApplicationCreateClientBase<TResult, TCreate, TKey>,
+    IApplicationCreateEditService<TResult, TCreate, TEdit, TKey>
     where TResult : IResultDto
+    where TCreate : ICreateDto
     where TEdit : IEditDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationEditClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationCreateEditClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>
@@ -30,24 +32,26 @@ public abstract class ApplicationEditClientBase<TResult, TEdit, TKey> :
 }
 
 /// <summary>
-/// 条件查、改客户端
+/// 条件查、增、改客户端
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
 /// <typeparam name="TQuery"></typeparam>
+/// <typeparam name="TCreate"></typeparam>
 /// <typeparam name="TEdit"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public abstract class ApplicationQueryEditClientBase<TResult, TQuery, TEdit, TKey> :
-    ApplicationQueryClientBase<TResult, TQuery, TKey>,
-    IApplicationQueryEditService<TResult, TQuery, TEdit, TKey>
+public abstract class ApplicationQueryCreateEditClientBase<TResult, TQuery, TCreate, TEdit, TKey> :
+    ApplicationQueryCreateClientBase<TResult, TQuery, TCreate, TKey>,
+    IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TEdit, TKey>
     where TResult : IResultDto
     where TQuery : QueryDto<TKey>
+    where TCreate : ICreateDto
     where TEdit : IEditDto
 {
     /// <summary>
     /// 构造体
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ApplicationQueryEditClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ApplicationQueryCreateEditClientBase(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
 
     /// <summary>
