@@ -1,6 +1,4 @@
-﻿using Dry.Application.RESTFul.Api.Controllers;
-
-namespace Dry.Admin.Application.RESTFul.Api.Controllers;
+﻿namespace Dry.Admin.Application.RESTFul.Api.Controllers;
 
 /// <summary>
 /// 应用接口

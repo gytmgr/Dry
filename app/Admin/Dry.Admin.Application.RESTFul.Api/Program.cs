@@ -1,6 +1,7 @@
 global using Dry.Admin.Application.Contracts.Dtos;
 global using Dry.Admin.Application.Contracts.Services;
 global using Dry.Admin.Domain;
+global using Dry.Application.RESTFul.Api.Controllers;
 global using Dry.Application.RESTFul.Api.Infrastructure;
 global using Dry.AspNetCore;
 global using Dry.AspNetCore.Infrastructure;
@@ -10,7 +11,6 @@ global using Dry.AspNetCore.Infrastructure.RequestActionExecute;
 global using Dry.AspNetCore.Infrastructure.RequestResourceExecute;
 global using Dry.AspNetCore.Infrastructure.RequestResultExecute;
 global using Dry.AutoMapper;
-global using Dry.Core.Model;
 global using Dry.Core.Utilities;
 global using Dry.Dependency;
 global using Dry.Serilog.Extensions;

@@ -13,7 +13,18 @@ public class TenantOperationFilter : ICustomOperationFilter
     public virtual void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var filterPipeline = context.ApiDescription.ActionDescriptor.FilterDescriptors;
-        if (!filterPipeline.Any(x => x.Filter is AuthorizeFilter) || filterPipeline.Any(x => x.Filter is IAllowAnonymousFilter))
+        var allowAnonymousAttr = bool () =>
+        {
+            if (context.ApiDescription.TryGetMethodInfo(out MethodInfo method))
+            {
+                if (method.ReflectedType?.CustomAttributes.Any(x => x.AttributeType == typeof(IAllowAnonymous)) is true || method.CustomAttributes.Any(x => x.AttributeType == typeof(IAllowAnonymous)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
+        if (!filterPipeline.Any(x => x.Filter is AuthorizeFilter) || filterPipeline.Any(x => x.Filter is IAllowAnonymousFilter) || allowAnonymousAttr())
         {
             operation.Parameters ??= new List<OpenApiParameter>();
             operation.Parameters.Add(new OpenApiParameter

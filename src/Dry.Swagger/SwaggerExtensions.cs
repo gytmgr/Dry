@@ -4,6 +4,7 @@ global using Dry.Dependency;
 global using Dry.Swagger.DocumentFilter;
 global using Dry.Swagger.OperationFilter;
 global using Dry.Swagger.SchemaFilter;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Mvc.Authorization;
 global using Microsoft.Extensions.DependencyInjection;
