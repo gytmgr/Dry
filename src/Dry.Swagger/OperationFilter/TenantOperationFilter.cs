@@ -17,7 +17,7 @@ public class TenantOperationFilter : ICustomOperationFilter
         {
             if (context.ApiDescription.TryGetMethodInfo(out MethodInfo method))
             {
-                if (method.ReflectedType?.CustomAttributes.Any(x => x.AttributeType == typeof(IAllowAnonymous)) is true || method.CustomAttributes.Any(x => x.AttributeType == typeof(IAllowAnonymous)))
+                if (method.ReflectedType?.CustomAttributes.Any(x => typeof(IAllowAnonymous).IsAssignableFrom(x.AttributeType)) is true || method.CustomAttributes.Any(x => typeof(IAllowAnonymous).IsAssignableFrom(x.AttributeType)))
                 {
                     return true;
                 }
