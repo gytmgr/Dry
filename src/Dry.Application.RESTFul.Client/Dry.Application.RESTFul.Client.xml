@@ -9,19 +9,19 @@
             api客户端
             </summary>
         </member>
-        <member name="F:Dry.Application.RESTFul.Client.Clients.ApiClientBase._tenantIdKey">
+        <member name="P:Dry.Application.RESTFul.Client.Clients.ApiClientBase.RequestConfigurer">
             <summary>
-            租户id键
+            客户端请求配置器
+            </summary>
+        </member>
+        <member name="P:Dry.Application.RESTFul.Client.Clients.ApiClientBase.ApiRelativeUrl">
+            <summary>
+            接口相对地址
             </summary>
         </member>
         <member name="F:Dry.Application.RESTFul.Client.Clients.ApiClientBase._serviceProvider">
             <summary>
             服务生成器
-            </summary>
-        </member>
-        <member name="P:Dry.Application.RESTFul.Client.Clients.ApiClientBase.ApiUrl">
-            <summary>
-            接口地址
             </summary>
         </member>
         <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.#ctor(System.IServiceProvider)">
@@ -30,11 +30,12 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.RequestParamSettingAsync(Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
+        <member name="M:Dry.Application.RESTFul.Client.Clients.ApiClientBase.CreateRequester(System.Net.Http.HttpMethod,System.String,System.Object,System.String)">
             <summary>
-            http请求参数设置
+            创建http请求
             </summary>
-            <param name="requester"></param>
+            <param name="method"></param>
+            <param name="apiPath"></param>
             <param name="param"></param>
             <param name="paramName"></param>
             <returns></returns>
@@ -549,14 +550,23 @@
             客户端请求配置器接口
             </summary>
         </member>
-        <member name="M:Dry.Application.RESTFul.Client.IClientRequestConfigurer.ConfigureAsync(System.IServiceProvider,Dry.Core.Utilities.HttpRequester,System.Object,System.String)">
+        <member name="F:Dry.Application.RESTFul.Client.IClientRequestConfigurer._tenantIdKey">
+            <summary>
+            租户id键
+            </summary>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.IClientRequestConfigurer.GetServiceUrl">
+            <summary>
+            获取服务地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Application.RESTFul.Client.IClientRequestConfigurer.ConfigureAsync(System.IServiceProvider,Dry.Core.Utilities.HttpRequester)">
             <summary>
             配置
             </summary>
-            <param name="provider"></param>
+            <param name="serviceProvider"></param>
             <param name="requester"></param>
-            <param name="param"></param>
-            <param name="paramName"></param>
             <returns></returns>
         </member>
     </members>

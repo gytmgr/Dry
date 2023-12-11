@@ -6,19 +6,19 @@
 public abstract class ApiClientBase
 {
     /// <summary>
-    /// 租户id键
+    /// 客户端请求配置器
     /// </summary>
-    protected const string _tenantIdKey = "TenantId";
+    protected abstract IClientRequestConfigurer RequestConfigurer { get; }
+
+    /// <summary>
+    /// 接口相对地址
+    /// </summary>
+    protected abstract string ApiRelativeUrl { get; }
 
     /// <summary>
     /// 服务生成器
     /// </summary>
     protected readonly IServiceProvider _serviceProvider;
-
-    /// <summary>
-    /// 接口地址
-    /// </summary>
-    protected abstract string ApiUrl { get; }
 
     /// <summary>
     /// 构造体
@@ -28,22 +28,20 @@ public abstract class ApiClientBase
         => _serviceProvider = serviceProvider;
 
     /// <summary>
-    /// http请求参数设置
+    /// 创建http请求
     /// </summary>
-    /// <param name="requester"></param>
+    /// <param name="method"></param>
+    /// <param name="apiPath"></param>
     /// <param name="param"></param>
     /// <param name="paramName"></param>
     /// <returns></returns>
-    protected virtual async Task RequestParamSettingAsync(HttpRequester requester, object? param = null, string? paramName = null)
+    protected virtual async Task<HttpRequester> CreateRequester(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
-        var tenant = _serviceProvider.GetRequiredService<ITenantProvider>();
-        if (tenant.Id is not null)
-        {
-            requester.Headers = new Collection<KeyValuePair<string, string>>();
-            requester.Headers.Add(new KeyValuePair<string, string>(_tenantIdKey, tenant.Id));
-        }
+        var serviceUrl = RequestConfigurer.GetServiceUrl();
+        var requester = new HttpRequester(method, serviceUrl + ApiRelativeUrl + apiPath);
+        await RequestConfigurer.ConfigureAsync(_serviceProvider, requester);
         requester.SetRequestParam(param, paramName);
-        await _serviceProvider.ServicesActionAsync<IClientRequestConfigurer>(async service => await service.ConfigureAsync(_serviceProvider, requester, param, paramName));
+        return requester;
     }
 
     /// <summary>
@@ -58,8 +56,7 @@ public abstract class ApiClientBase
     /// <exception cref="Exception"></exception>
     protected virtual async Task RequestAsync(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
-        using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        await RequestParamSettingAsync(requester, param, paramName);
+        using var requester = await CreateRequester(method, apiPath, param, paramName);
         var response = await requester.GetStringResultAsync();
         if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {
@@ -85,8 +82,7 @@ public abstract class ApiClientBase
     /// <exception cref="Exception"></exception>
     protected virtual async Task<TData?> RequestAsync<TData>(HttpMethod method, string? apiPath = null, object? param = null, string? paramName = null)
     {
-        using var requester = new HttpRequester(method, ApiUrl + apiPath);
-        await RequestParamSettingAsync(requester, param, paramName);
+        using var requester = await CreateRequester(method, apiPath, param, paramName);
         var response = await requester.GetResultAsync<TData>();
         if (response.Code is HttpStatusCode.OK or HttpStatusCode.NoContent)
         {
