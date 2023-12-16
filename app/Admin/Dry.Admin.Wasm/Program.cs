@@ -19,12 +19,14 @@ namespace Dry.Admin.Wasm
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddDependency(true);
-            AdminClientStatic.ApiUrl = "http://localhost:61073";
+
             builder.Services.AddAntDesign();
 
             builder.Services.AddSingleton<LoginUser<string>>();
-
-            await builder.Build().RunAsync();
+            var host = builder.Build();
+            var clientRequestConfigurer = host.Services.GetService<ClientRequestConfigurer>();
+            clientRequestConfigurer.ApiUrl = "http://localhost:61073";
+            await host.RunAsync();
         }
     }
 }

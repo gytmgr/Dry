@@ -2,7 +2,9 @@
 
 public class ApplicationClient : ApplicationQueryClientBase<ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService, IDependency<IApplicationAppService>
 {
-    protected override string ApiUrl => $"{AdminClientStatic.ApiUrl}/Api/Application";
+    protected override IClientRequestConfigurer RequestConfigurer => _serviceProvider.GetService<ClientRequestConfigurer>();
+
+    protected override string ApiRelativeUrl => "/Api/Application";
 
     public ApplicationClient(IServiceProvider serviceProvider) : base(serviceProvider)
     { }
