@@ -61,7 +61,7 @@ public abstract class ApplicationCreateEditServiceBase<TBoundedContext, TEntity,
         if (entity is IHasUpdateTime hasUpdateTimeEntity)
         {
             var updateTimeExpression = LinqHelper.GetKeySelector<TEntity, DateTime?>(nameof(IHasUpdateTime.UpdateTime));
-            if (!_repository.PropertyModified(entity, updateTimeExpression!))
+            if (!_repository.PropertyModified(entity, updateTimeExpression!) && _repository.Modified(entity))
             {
                 hasUpdateTimeEntity.UpdateTime = DateTime.Now;
             }
@@ -162,7 +162,7 @@ public abstract class ApplicationQueryCreateEditServiceBase<TBoundedContext, TEn
         if (entity is IHasUpdateTime hasUpdateTimeEntity)
         {
             var updateTimeExpression = LinqHelper.GetKeySelector<TEntity, DateTime?>(nameof(IHasUpdateTime.UpdateTime));
-            if (!_repository.PropertyModified(entity, updateTimeExpression!))
+            if (!_repository.PropertyModified(entity, updateTimeExpression!) && _repository.Modified(entity))
             {
                 hasUpdateTimeEntity.UpdateTime = DateTime.Now;
             }

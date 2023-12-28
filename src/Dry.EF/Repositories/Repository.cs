@@ -60,11 +60,7 @@ public class Repository<TEntity> : ReadOnlyRepositoryBase<TEntity>, IRepository<
     /// <param name="entitiy"></param>
     /// <returns></returns>
     public virtual bool Modified(TEntity entitiy)
-        => _context.Entry(entitiy).State switch
-        {
-            EntityState.Added or EntityState.Unchanged => true,
-            _ => false
-        };
+        => _context.Entry(entitiy).State is EntityState.Modified;
 
     /// <summary>
     /// 属性是否更改
