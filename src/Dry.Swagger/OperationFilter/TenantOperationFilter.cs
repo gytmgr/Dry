@@ -6,6 +6,11 @@
 public class TenantOperationFilter : ICustomOperationFilter
 {
     /// <summary>
+    /// 默认租户id
+    /// </summary>
+    protected virtual string? DefaultTenantId { get; }
+
+    /// <summary>
     /// 过滤器方法
     /// </summary>
     /// <param name="operation"></param>
@@ -36,7 +41,7 @@ public class TenantOperationFilter : ICustomOperationFilter
                 Schema = new OpenApiSchema
                 {
                     Type = "string",
-                    Default = new OpenApiString(null)
+                    Default = new OpenApiString(DefaultTenantId)
                 }
             });
         }

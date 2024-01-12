@@ -82,6 +82,11 @@
             租户操作过滤器
             </summary>
         </member>
+        <member name="P:Dry.Swagger.OperationFilter.TenantOperationFilter.DefaultTenantId">
+            <summary>
+            默认租户id
+            </summary>
+        </member>
         <member name="M:Dry.Swagger.OperationFilter.TenantOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
             <summary>
             过滤器方法
