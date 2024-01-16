@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Domain.xml</DocumentationFile>
 		<Description>领域层</Description>
-		<Version>8.0.0</Version>
+		<Version>8.0.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -10,12 +10,12 @@ public interface IRequestResultExecuter : IHasOrder, ISingletonDependency<IReque
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    Task ExecutingAsync(ResultExecutingContext context);
+    Task<bool> ExecutingAsync(ResultExecutingContext context);
 
     /// <summary>
     /// 结束执行
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    Task ExecutedAsync(ResultExecutedContext context);
+    Task<bool> ExecutedAsync(ResultExecutedContext context);
 }

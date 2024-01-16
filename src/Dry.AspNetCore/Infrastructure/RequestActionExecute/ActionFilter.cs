@@ -13,11 +13,19 @@ public class ActionFilter : IAsyncActionFilter
     /// <returns></returns>
     public virtual async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        await context.HttpContext.RequestServices.ServicesActionAsync<IRequestActionExecuter>(async executer => await executer.ExecutingAsync(context));
+        await context.HttpContext.RequestServices.ServicesActionAsync<IRequestActionExecuter>(async executer =>
+        {
+            await executer.ExecutingAsync(context);
+            return context.Result is not null;
+        });
         if (context.Result is null)
         {
             var executedContext = await next();
-            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestActionExecuter>(async executer => await executer.ExecutedAsync(executedContext), false);
+            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestActionExecuter>(async executer =>
+            {
+                await executer.ExecutedAsync(executedContext);
+                return context.Result is not null;
+            }, false);
         }
     }
 }

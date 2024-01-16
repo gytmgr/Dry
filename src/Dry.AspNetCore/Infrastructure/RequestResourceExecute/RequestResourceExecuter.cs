@@ -2,14 +2,12 @@
 
 public class RequestResourceExecuter : IRequestResourceExecuter
 {
-    protected const string _tenantIdKey = "TenantId";
-
     public virtual int Order { get; set; } = int.MinValue;
 
     public virtual Task ExecutingAsync(ResourceExecutingContext context)
     {
-        var tenant = context.HttpContext.RequestServices.GetRequiredService<ITenantProvider>();
-        tenant.Id = context.HttpContext.Request.Headers[_tenantIdKey].FirstOrDefault().EmptyToNull();
+        var tenantId = context.HttpContext.Request.Headers[ITenantProvider.IdKey].FirstOrDefault();
+        context.HttpContext.RequestServices.SetTenantId(tenantId);
         return Task.CompletedTask;
     }
 

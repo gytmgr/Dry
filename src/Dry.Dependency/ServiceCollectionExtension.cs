@@ -1,4 +1,5 @@
 ﻿global using Dry.Core.Model;
+global using Dry.Core.Utilities;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyModel;
 global using System.Reflection;

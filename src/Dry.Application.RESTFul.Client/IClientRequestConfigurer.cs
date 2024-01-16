@@ -14,11 +14,6 @@ namespace Dry.Application.RESTFul.Client;
 public interface IClientRequestConfigurer
 {
     /// <summary>
-    /// 租户id键
-    /// </summary>
-    protected static string _tenantIdKey = "TenantId";
-
-    /// <summary>
     /// 获取服务地址
     /// </summary>
     /// <returns></returns>
@@ -36,7 +31,7 @@ public interface IClientRequestConfigurer
         if (tenant.Id is not null)
         {
             requester.Headers = new Collection<KeyValuePair<string, string>>();
-            requester.Headers.Add(new KeyValuePair<string, string>(_tenantIdKey, tenant.Id));
+            requester.Headers.Add(new KeyValuePair<string, string>(ITenantProvider.IdKey, tenant.Id));
         }
         return Task.CompletedTask;
     }

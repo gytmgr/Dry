@@ -550,11 +550,6 @@
             客户端请求配置器接口
             </summary>
         </member>
-        <member name="F:Dry.Application.RESTFul.Client.IClientRequestConfigurer._tenantIdKey">
-            <summary>
-            租户id键
-            </summary>
-        </member>
         <member name="M:Dry.Application.RESTFul.Client.IClientRequestConfigurer.GetServiceUrl">
             <summary>
             获取服务地址

@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.NPOI.xml</DocumentationFile>
 		<Description>对NPOI的一些封装</Description>
-		<Version>8.0.0</Version>
+		<Version>8.0.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

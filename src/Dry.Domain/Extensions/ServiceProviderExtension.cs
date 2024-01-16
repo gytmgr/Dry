@@ -40,13 +40,17 @@ public static class ServiceProviderExtension
     /// <summary>
     /// 获取工作单元
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="T"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public static IUnitOfWork GetUnitOfWork<TEntity>(this IServiceProvider serviceProvider) where TEntity : class, IEntity, IBoundedContext
+    public static IUnitOfWork GetUnitOfWork<T>(this IServiceProvider serviceProvider) where T : IBoundedContext
     {
-        var interfaces = typeof(TEntity).GetInterfaces();
-        var boundedContextType = interfaces.First(x => x != typeof(IBoundedContext) && typeof(IBoundedContext).IsAssignableFrom(x));
+        var boundedContextType = typeof(T);
+        if (!boundedContextType.IsInterface)
+        {
+            var interfaces = typeof(T).GetInterfaces();
+            boundedContextType = interfaces.First(x => x != typeof(IBoundedContext) && typeof(IBoundedContext).IsAssignableFrom(x));
+        }
         var dbContextType = typeof(IUnitOfWork<>).MakeGenericType(boundedContextType);
         return (IUnitOfWork)serviceProvider.GetRequiredService(dbContextType);
     }

@@ -15,16 +15,35 @@ public class ResourceFilter : IAsyncResourceFilter
     {
         try
         {
-            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer => await executer.ExecutingAsync(context));
+            await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer =>
+            {
+                await executer.ExecutingAsync(context);
+                return context.Result is not null;
+            });
             if (context.Result is null)
             {
                 var executedContext = await next();
-                await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer => await executer.ExecutedAsync(executedContext), false);
+                await context.HttpContext.RequestServices.ServicesActionAsync<IRequestResourceExecuter>(async executer =>
+                {
+                    await executer.ExecutedAsync(executedContext);
+                    return context.Result is not null;
+                }, false);
+            }
+        }
+        catch (BizException ex)
+        {
+            if (context.Result is null)
+            {
+                context.Result = new ContentResult
+                {
+                    StatusCode = 400,
+                    Content = ex.Message
+                };
             }
         }
         catch (Exception ex)
         {
-            context.HttpContext.RequestServices.GetService<ILogger<IRequestResourceExecuter>>()!.LogError(ex, "请求资源出错");
+            context.HttpContext.RequestServices.GetService<ILogger<IRequestResourceExecuter>>()!.LogError(ex, "资源过滤器出错");
             context.Result = new ContentResult
             {
                 StatusCode = 500,

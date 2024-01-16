@@ -233,6 +233,11 @@
             根服务引擎
             </summary>
         </member>
+        <member name="P:Dry.Core.Model.IDependency.ServiceKey">
+            <summary>
+            服务键
+            </summary>
+        </member>
         <member name="T:Dry.Core.Model.IDependency`1">
             <summary>
             域范围依赖注入接口
@@ -275,6 +280,11 @@
         <member name="T:Dry.Core.Model.ITenantProvider">
             <summary>
             租户提供器接口
+            </summary>
+        </member>
+        <member name="F:Dry.Core.Model.ITenantProvider.IdKey">
+            <summary>
+            id存储键
             </summary>
         </member>
         <member name="T:Dry.Core.Model.ITree`1">

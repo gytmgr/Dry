@@ -34,7 +34,7 @@ public class TenantOperationFilter : ICustomOperationFilter
             operation.Parameters ??= new List<OpenApiParameter>();
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name = "TenantId",
+                Name = ITenantProvider.IdKey,
                 In = ParameterLocation.Header,
                 Description = "租户id",
                 Required = false,

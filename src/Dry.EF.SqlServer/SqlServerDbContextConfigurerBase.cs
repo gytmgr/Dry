@@ -17,11 +17,32 @@ public abstract class SqlServerDbContextConfigurerBase<TBoundedContext> : DryDbC
     /// </summary>
     protected override string DbFieldName { get; } = "initial catalog";
 
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 数据库兼容性级别
+    /// </summary>
+    protected virtual int? CompatibilityLevel { get; }
+
+#endif
+
     /// <summary>
     /// 配置数据库
     /// </summary>
     /// <param name="tenantConnectionString"></param>
     /// <param name="optionsBuilder"></param>
     protected override void UseDb(string tenantConnectionString, DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(tenantConnectionString!, x => DvContextOptionsBuilderConfiguring<SqlServerDbContextOptionsBuilder, SqlServerOptionsExtension>(x));
+        => optionsBuilder.UseSqlServer(tenantConnectionString!, x =>
+        {
+            DvContextOptionsBuilderConfiguring<SqlServerDbContextOptionsBuilder, SqlServerOptionsExtension>(x);
+
+#if NET8_0_OR_GREATER
+
+            if (CompatibilityLevel.HasValue)
+            {
+                x.UseCompatibilityLevel(CompatibilityLevel.Value);
+            }
+
+#endif
+        });
 }

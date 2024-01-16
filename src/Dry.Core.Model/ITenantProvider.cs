@@ -5,4 +5,8 @@
 /// </summary>
 public interface ITenantProvider : IHasId<string?>
 {
+    /// <summary>
+    /// id存储键
+    /// </summary>
+    public const string IdKey = "TenantId";
 }
