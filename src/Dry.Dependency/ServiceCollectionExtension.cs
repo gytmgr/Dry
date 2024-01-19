@@ -101,10 +101,25 @@ public static class ServiceCollectionExtension
             }
         }
 
+        var getImplementationType = Type? (ServiceDescriptor serviceDescriptor) =>
+        {
+
+#if NET8_0_OR_GREATER
+
+            if (serviceDescriptor.IsKeyedService)
+            {
+                return serviceDescriptor.KeyedImplementationType;
+            }
+
+#endif
+
+            return serviceDescriptor.ImplementationType;
+        };
+
         var serviceDescriptorGroups = serviceDescriptors.GroupBy(x => new { x.Lifetime, x.ServiceType }).ToArray();
         foreach (var serviceDescriptorGroup in serviceDescriptorGroups)
         {
-            var filteredServiceDescriptors = onlyLeaf ? serviceDescriptorGroup.Where(x => !serviceDescriptorGroup.Any(y => y.ImplementationType != x.ImplementationType && x.ImplementationType!.IsAssignableFrom(y.ImplementationType))).ToArray() : serviceDescriptorGroup.ToArray();
+            var filteredServiceDescriptors = onlyLeaf ? serviceDescriptorGroup.Where(x => !serviceDescriptorGroup.Any(y => getImplementationType(y) != getImplementationType(x) && getImplementationType(x)!.IsAssignableFrom(getImplementationType(y)))).ToArray() : serviceDescriptorGroup.ToArray();
             foreach (var filteredServiceDescriptor in filteredServiceDescriptors)
             {
                 services.Add(filteredServiceDescriptor);

@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.EF.Sqlite.xml</DocumentationFile>
 		<Description>对微软EF Sqlite数据库的封装</Description>
-		<Version>8.0.4</Version>
+		<Version>8.0.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">

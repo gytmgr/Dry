@@ -10,7 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Quartz.xml</DocumentationFile>
 		<Description>对Quartz的一些封装</Description>
-		<Version>8.0.4</Version>
+		<Version>8.0.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -29,7 +29,7 @@ public abstract class DryControllerBase : Controller
     /// <typeparam name="TService"></typeparam>
     /// <param name="serviceKey"></param>
     /// <returns></returns>
-    protected virtual TService? KeyedService<TService>(string serviceKey)
+    protected virtual TService? KeyedService<TService>(object serviceKey)
         => HttpContext.RequestServices.GetKeyedService<TService>(serviceKey);
 
     /// <summary>
@@ -38,7 +38,7 @@ public abstract class DryControllerBase : Controller
     /// <typeparam name="TService"></typeparam>
     /// <param name="serviceKey"></param>
     /// <returns></returns>
-    protected virtual TService RequiredKeyedService<TService>(string serviceKey) where TService : notnull
+    protected virtual TService RequiredKeyedService<TService>(object serviceKey) where TService : notnull
         => HttpContext.RequestServices.GetRequiredKeyedService<TService>(serviceKey);
 
 #endif

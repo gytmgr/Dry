@@ -15,6 +15,11 @@
             数据库字段名称
             </summary>
         </member>
+        <member name="P:Dry.EF.SqlServer.SqlServerDbContextConfigurerBase`1.CompatibilityLevel">
+            <summary>
+            数据库兼容性级别
+            </summary>
+        </member>
         <member name="M:Dry.EF.SqlServer.SqlServerDbContextConfigurerBase`1.UseDb(System.String,Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
             配置数据库

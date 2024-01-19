@@ -23,6 +23,22 @@
             <typeparam name="TService"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.KeyedService``1(System.Object)">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.AspNetCore.Controllers.DryControllerBase.RequiredKeyedService``1(System.Object)">
+            <summary>
+            获取服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.AspNetCore.Infrastructure.AppBuilderConfigure.ConfigurationConfigurer">
             <summary>
             Configuration配置类

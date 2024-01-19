@@ -11,7 +11,7 @@
 		<DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
 		<Description>RESTFul服务端</Description>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Version>8.0.4</Version>
+		<Version>8.0.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

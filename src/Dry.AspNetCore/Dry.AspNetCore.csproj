@@ -11,7 +11,7 @@
 		<DocumentationFile>Dry.AspNetCore.xml</DocumentationFile>
 		<Description>对AspNetCore的一些封装</Description>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Version>8.0.4</Version>
+		<Version>8.0.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
