@@ -132,6 +132,7 @@ public class DryDbContext<TBoundedContext> : DbContext, IDryDbContext<TBoundedCo
 
 #endif
 
+        _serviceProvider.GetRequiredService<IDryDbContextConfigurer<TBoundedContext>>().OnModelCreated(modelBuilder);
     }
 
     /// <summary>

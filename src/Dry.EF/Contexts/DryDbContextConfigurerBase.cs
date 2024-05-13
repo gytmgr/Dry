@@ -93,4 +93,10 @@ public abstract class DryDbContextConfigurerBase<TBoundedContext> : IDryDbContex
         var tenantConnectionString = GetTenantConnectionString(serviceProvider);
         UseDb(tenantConnectionString!, optionsBuilder);
     }
+
+    /// <summary>
+    /// 模型创建完成
+    /// </summary>
+    /// <param name="modelBuilder"></param>
+    public virtual void OnModelCreated(ModelBuilder modelBuilder) { }
 }

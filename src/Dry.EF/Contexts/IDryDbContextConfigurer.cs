@@ -17,4 +17,10 @@ public interface IDryDbContextConfigurer<TBoundedContext> : ISingletonDependency
     /// <param name="serviceProvider"></param>
     /// <param name="optionsBuilder"></param>
     void Configuring(IServiceProvider serviceProvider, DbContextOptionsBuilder optionsBuilder);
+
+    /// <summary>
+    /// 模型创建完成
+    /// </summary>
+    /// <param name="modelBuilder"></param>
+    void OnModelCreated(ModelBuilder modelBuilder);
 }

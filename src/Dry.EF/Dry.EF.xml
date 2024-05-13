@@ -193,6 +193,12 @@
             <param name="serviceProvider"></param>
             <param name="optionsBuilder"></param>
         </member>
+        <member name="M:Dry.EF.Contexts.DryDbContextConfigurerBase`1.OnModelCreated(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            模型创建完成
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
         <member name="T:Dry.EF.Contexts.IDryDbContextConfigurer`1">
             <summary>
             ef上下文配置器接口
@@ -210,6 +216,12 @@
             </summary>
             <param name="serviceProvider"></param>
             <param name="optionsBuilder"></param>
+        </member>
+        <member name="M:Dry.EF.Contexts.IDryDbContextConfigurer`1.OnModelCreated(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            模型创建完成
+            </summary>
+            <param name="modelBuilder"></param>
         </member>
         <member name="T:Dry.EF.EntityConfigs.EntityConfigBase`2">
             <summary>
