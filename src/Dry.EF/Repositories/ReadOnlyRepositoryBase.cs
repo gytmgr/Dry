@@ -69,7 +69,7 @@ public abstract class ReadOnlyRepositoryBase<TEntity> : IReadOnlyRepository<TEnt
     /// <param name="sql"></param>
     /// <returns></returns>
     public virtual IQueryable<TEntity> GetQueryableFromSql(FormattableString sql)
-        => _context.Set<TEntity>().FromSql(sql).AsNoTracking();
+        => GetQueryableFromSqlInterpolated(sql);
 
 #endif
 

@@ -1,0 +1,9 @@
+﻿global using Dry.Domain.Entities;
+global using Dry.Domain.Entities.ValueObjects;
+global using Dry.Domain.Shared;
+global using Dry.EF.Contexts;
+global using Dry.EF.EntityConfigs;
+global using Dry.EF.Queryables;
+global using Dry.EF.Repositories;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;

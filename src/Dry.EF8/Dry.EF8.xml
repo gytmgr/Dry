@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dry.EF8</name>
+    </assembly>
+    <members>
+        <member name="T:Dry.EF8.Contexts.EF8DryDbContext`1">
+            <summary>
+            ef8上下文
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+        </member>
+        <member name="M:Dry.EF8.Contexts.EF8DryDbContext`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="T:Dry.EF8.EntityConfigs.EF8TreeEntityConfigBase`3">
+            <summary>
+            树状实体配置
+            </summary>
+            <typeparam name="TBoundedContext"></typeparam>
+            <typeparam name="TTreeEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Dry.EF8.EntityConfigs.EF8TreeEntityConfigBase`3.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`1})">
+            <summary>
+            配置实体（表注释要在base调用之前配置，关系表才会有注释）
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Dry.EF8.Queryables.EF8Queryable">
+            <summary>
+            EF8查询
+            </summary>
+        </member>
+        <member name="T:Dry.EF8.Repositories.EF8ReadOnlyRepository`1">
+            <summary>
+            ef8只读仓储
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.EF8.Repositories.EF8ReadOnlyRepository`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="T:Dry.EF8.Repositories.EF8Repository`1">
+            <summary>
+            ef8仓储
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Dry.EF8.Repositories.EF8Repository`1.#ctor(System.IServiceProvider)">
+            <summary>
+            构造体
+            </summary>
+            <param name="provider"></param>
+        </member>
+    </members>
+</doc>

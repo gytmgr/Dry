@@ -83,7 +83,7 @@ public class EFQueryable : IDbQueryable
     /// <param name="index"></param>
     /// <returns></returns>
     public virtual async Task<TSource> ElementAtAsync<TSource>(IQueryable<TSource> queryable, int index)
-        => await queryable.ElementAtAsync(index);
+        => await queryable.Skip(index).Take(1).FirstAsync();
 
     /// <summary>
     /// 指定索引或默认
@@ -93,7 +93,7 @@ public class EFQueryable : IDbQueryable
     /// <param name="index"></param>
     /// <returns></returns>
     public virtual async Task<TSource> ElementAtOrDefaultAsync<TSource>(IQueryable<TSource> queryable, int index)
-        => await queryable.ElementAtOrDefaultAsync(index);
+        => (await queryable.Skip(index).Take(1).FirstOrDefaultAsync())!;
 
 #endif
 
@@ -766,7 +766,6 @@ public class EFQueryable : IDbQueryable
 
 #if NET8_0_OR_GREATER
 
-
     #region 删除
 
     /// <summary>
@@ -775,11 +774,10 @@ public class EFQueryable : IDbQueryable
     /// <typeparam name="TSource"></typeparam>
     /// <param name="queryable"></param>
     /// <returns></returns>
-    public virtual async Task<int> ExecuteDeleteAsync<TSource>(IQueryable<TSource> queryable)
-        => await queryable.ExecuteDeleteAsync();
+    public virtual Task<int> ExecuteDeleteAsync<TSource>(IQueryable<TSource> queryable)
+        => throw new NotImplementedException();
 
     #endregion
 
 #endif
-
 }

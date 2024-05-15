@@ -475,24 +475,6 @@
             <param name="predicate"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ElementAtAsync``1(System.Linq.IQueryable{``0},System.Int32)">
-            <summary>
-            指定索引
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ElementAtOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Int32)">
-            <summary>
-            指定索引或默认
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.EF.Queryables.EFQueryable.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             第一条
@@ -1054,14 +1036,6 @@
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ExecuteDeleteAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            删除
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.EF.Repositories.ReadOnlyRepository`1">
             <summary>
             ef只读仓储
@@ -1116,13 +1090,6 @@
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Repositories.ReadOnlyRepositoryBase`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
-            <summary>
-            获取查询
-            </summary>
-            <param name="sql"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.ReadOnlyRepositoryBase`1.GetQueryableFromSql(System.FormattableString)">
             <summary>
             获取查询
             </summary>
@@ -1331,13 +1298,6 @@
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Repositories.Repository`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
-            <summary>
-            获取查询
-            </summary>
-            <param name="sql"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.Repository`1.GetQueryableFromSql(System.FormattableString)">
             <summary>
             获取查询
             </summary>

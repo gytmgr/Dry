@@ -35,7 +35,7 @@ public abstract class TreeEntityConfigBase<TBoundedContext, TTreeEntity, TKey> :
     /// </summary>
     /// <param name="hasOne"></param>
     /// <returns></returns>
-    private ReferenceCollectionBuilder<TTreeEntity, TreeAncestorRelation<TTreeEntity, TKey>> AncestorWithMany(ReferenceNavigationBuilder<TreeAncestorRelation<TTreeEntity, TKey>, TTreeEntity> hasOne)
+    protected virtual ReferenceCollectionBuilder<TTreeEntity, TreeAncestorRelation<TTreeEntity, TKey>> AncestorWithMany(ReferenceNavigationBuilder<TreeAncestorRelation<TTreeEntity, TKey>, TTreeEntity> hasOne)
     {
         if (AncestorRelationsExpression is null)
         {
@@ -52,7 +52,7 @@ public abstract class TreeEntityConfigBase<TBoundedContext, TTreeEntity, TKey> :
     /// </summary>
     /// <param name="hasOne"></param>
     /// <returns></returns>
-    private ReferenceCollectionBuilder<TTreeEntity, TreeAncestorRelation<TTreeEntity, TKey>> DescendantWithMany(ReferenceNavigationBuilder<TreeAncestorRelation<TTreeEntity, TKey>, TTreeEntity> hasOne)
+    protected virtual ReferenceCollectionBuilder<TTreeEntity, TreeAncestorRelation<TTreeEntity, TKey>> DescendantWithMany(ReferenceNavigationBuilder<TreeAncestorRelation<TTreeEntity, TKey>, TTreeEntity> hasOne)
     {
         if (DescendantRelationsExpression is null)
         {
@@ -82,15 +82,7 @@ public abstract class TreeEntityConfigBase<TBoundedContext, TTreeEntity, TKey> :
                 x.ToTable(TableName + "Ancestor");
                 if (!string.IsNullOrEmpty(tableComment))
                 {
-#if NET8_0_OR_GREATER
-
-                    x.ToTable(x => x.HasComment(tableComment + "祖先关系"));
-
-#else
-
                     x.HasComment(tableComment + "祖先关系");
-
-#endif
                 }
                 x.HasKey(x => new { x.RelationId, x.AncestorId });
                 x.Property(x => x.RelationId).HasComment(string.IsNullOrEmpty(tableComment) ? "关系" : tableComment + "id");

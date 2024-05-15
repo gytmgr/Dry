@@ -20,19 +20,6 @@ public class DryDbContext<TBoundedContext> : DbContext, IDryDbContext<TBoundedCo
         set => _serviceProvider.GetRequiredService<IDryDbContextConfigurer<TBoundedContext>>().ConnectionString = value;
     }
 
-#if NET8_0_OR_GREATER
-
-    /// <summary>
-    /// 自动事务是否启用
-    /// </summary>
-    public virtual bool AutoTransactionsEnabled
-    {
-        get => Database.AutoTransactionBehavior is not AutoTransactionBehavior.Never;
-        set => Database.AutoTransactionBehavior = value ? AutoTransactionBehavior.WhenNeeded : AutoTransactionBehavior.Never;
-    }
-
-#else
-
     /// <summary>
     /// 自动事务是否启用
     /// </summary>
@@ -41,8 +28,6 @@ public class DryDbContext<TBoundedContext> : DbContext, IDryDbContext<TBoundedCo
         get => Database.AutoTransactionsEnabled;
         set => Database.AutoTransactionsEnabled = value;
     }
-
-#endif
 
     /// <summary>
     /// 自动创建保存点是否启用

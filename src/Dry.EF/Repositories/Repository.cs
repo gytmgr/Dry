@@ -38,18 +38,6 @@ public class Repository<TEntity> : ReadOnlyRepositoryBase<TEntity>, IRepository<
     public override IQueryable<TEntity> GetQueryableFromSqlInterpolated(FormattableString sql)
         => _context.Set<TEntity>().FromSqlInterpolated(sql);
 
-#if NET8_0_OR_GREATER
-
-    /// <summary>
-    /// 获取查询
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <returns></returns>
-    public override IQueryable<TEntity> GetQueryableFromSql(FormattableString sql)
-        => _context.Set<TEntity>().FromSql(sql);
-
-#endif
-
     #endregion
 
     #region Tracking
