@@ -47,6 +47,20 @@
             <param name="toDate">目标日期（为空则取当前日期）</param>
             <returns></returns>
         </member>
+        <member name="M:Dry.Core.Utilities.DateTimeExtension.ToUtcSeconds(System.DateTime)">
+            <summary>
+            转Utc秒
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.DateTimeExtension.ToUtcMilliseconds(System.DateTime)">
+            <summary>
+            转Utc毫秒
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dry.Core.Utilities.Des3Encrypt">
             <summary>
             ES3 ECB加密类
@@ -66,6 +80,25 @@
             </summary>
             <param name="str"></param>
             <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dry.Core.Utilities.DoubleExtension">
+            <summary>
+            浮点数扩展
+            </summary>
+        </member>
+        <member name="M:Dry.Core.Utilities.DoubleExtension.UtcSecondsToDateTime(System.Double)">
+            <summary>
+            Utc秒转DateTime
+            </summary>
+            <param name="utcSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dry.Core.Utilities.DoubleExtension.UtcMillisecondsToDateTime(System.Double)">
+            <summary>
+            Utc毫秒转DateTime
+            </summary>
+            <param name="utcMilliseconds"></param>
             <returns></returns>
         </member>
         <member name="T:Dry.Core.Utilities.EnumerableExtension">

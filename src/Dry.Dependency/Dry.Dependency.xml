@@ -63,28 +63,6 @@
             <param name="ascOrder"></param>
             <returns>是否中断跳出</returns>
         </member>
-        <member name="M:Dry.Dependency.ServiceProviderExtension.ServicesActionAsync``1(System.IServiceProvider,System.Object,System.Func{``0,System.Threading.Tasks.Task},System.Boolean)">
-            <summary>
-            多服务操作
-            </summary>
-            <typeparam name="TService"></typeparam>
-            <param name="serviceProvider"></param>
-            <param name="serviceKey"></param>
-            <param name="serviceAction"></param>
-            <param name="ascOrder"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.Dependency.ServiceProviderExtension.ServicesActionAsync``1(System.IServiceProvider,System.Object,System.Func{``0,System.Threading.Tasks.Task{System.Boolean}},System.Boolean)">
-            <summary>
-            多服务操作
-            </summary>
-            <typeparam name="TService"></typeparam>
-            <param name="serviceProvider"></param>
-            <param name="serviceKey"></param>
-            <param name="serviceAction"></param>
-            <param name="ascOrder"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dry.Dependency.ServiceProviderExtension.SetTenantId(System.IServiceProvider,System.String)">
             <summary>
             设置租户id

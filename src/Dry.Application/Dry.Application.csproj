@@ -2,21 +2,20 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.xml</DocumentationFile>
 		<Description>DDD应用层</Description>
-		<Version>8.0.5</Version>
+		<Version>8.0.8</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dry.Application.Contracts\Dry.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Dry.AutoMapper\Dry.AutoMapper.csproj" />
-		<ProjectReference Include="..\Dry.Core.Utilities\Dry.Core.Utilities.csproj" />
 		<ProjectReference Include="..\Dry.Domain\Dry.Domain.csproj" />
 	</ItemGroup>
 

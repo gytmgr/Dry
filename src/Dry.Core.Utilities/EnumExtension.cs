@@ -35,6 +35,66 @@ public static class EnumExtension
         }
         return attribute?.Description;
     }
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 获取指定枚举项键值特性
+    /// </summary>
+    /// <typeparam name="TAttributeKey"></typeparam>
+    /// <typeparam name="TAttributeValue"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static KeyValueAttribute<TAttributeKey, TAttributeValue>[]? GetAttribute<TAttributeKey, TAttributeValue>(this Enum value)
+    {
+        value.CheckParamNull(nameof(value));
+
+        var type = value.GetType();
+        var name = Enum.GetName(type, value);
+        if (name is null)
+        {
+            return default;
+        }
+
+        var field = type.GetField(name);
+        if (field is null)
+        {
+            return default;
+        }
+
+        return Attribute.GetCustomAttributes(field, typeof(KeyValueAttribute<TAttributeKey, TAttributeValue>)) as KeyValueAttribute<TAttributeKey, TAttributeValue>[];
+    }
+
+    /// <summary>
+    /// 获取指定枚举项键值
+    /// </summary>
+    /// <typeparam name="TAttributeKey"></typeparam>
+    /// <typeparam name="TAttributeValue"></typeparam>
+    /// <param name="value"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static TAttributeValue? GetAttributeValue<TAttributeKey, TAttributeValue>(this Enum value, TAttributeKey key)
+    {
+        var attributeValue = value.GetAttribute<TAttributeKey, TAttributeValue>()?.FirstOrDefault(x => x.Key!.Equals(key));
+        if (attributeValue is null)
+        {
+            return default;
+        }
+
+        return attributeValue.Value;
+    }
+
+    /// <summary>
+    /// 获取指定枚举项键值
+    /// </summary>
+    /// <typeparam name="TAttributeValue"></typeparam>
+    /// <param name="value"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static TAttributeValue? GetAttributeValue<TAttributeValue>(this Enum value, string key)
+        => value.GetAttributeValue<string, TAttributeValue>(key);
+
+#endif
 }
 
 /// <summary>

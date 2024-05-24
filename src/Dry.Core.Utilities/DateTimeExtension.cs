@@ -54,4 +54,32 @@ public static class DateTimeExtension
         }
         return age;
     }
+
+    /// <summary>
+    /// 转Utc秒
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <returns></returns>
+    public static double ToUtcSeconds(this DateTime dateTime)
+        => (dateTime - DateTime.UnixEpoch).TotalSeconds;
+
+    /// <summary>
+    /// 转Utc毫秒
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <returns></returns>
+    public static double ToUtcMilliseconds(this DateTime dateTime)
+        => (dateTime - DateTime.UnixEpoch).TotalMilliseconds;
+
+#if NET8_0_OR_GREATER
+
+    /// <summary>
+    /// 转Utc微秒
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <returns></returns>
+    public static double ToUtcMicroseconds(this DateTime dateTime)
+        => (dateTime - DateTime.UnixEpoch).TotalMicroseconds;
+
+#endif
 }

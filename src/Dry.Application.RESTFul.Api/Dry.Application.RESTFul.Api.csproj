@@ -2,16 +2,16 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Application.RESTFul.Api.xml</DocumentationFile>
 		<Description>RESTFul服务端</Description>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Version>8.0.5</Version>
+		<Version>8.0.8</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

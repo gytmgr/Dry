@@ -2,15 +2,15 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Company>Dry</Company>
 		<Authors>gan</Authors>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>Dry.Core.Utilities.xml</DocumentationFile>
 		<Description>工具</Description>
-		<Version>8.0.4</Version>
+		<Version>8.0.8</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

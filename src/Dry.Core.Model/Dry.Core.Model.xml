@@ -104,6 +104,46 @@
             键
             </summary>
         </member>
+        <member name="T:Dry.Core.Model.KeyValueAttribute`2">
+            <summary>
+            键值特性
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+        </member>
+        <member name="M:Dry.Core.Model.KeyValueAttribute`2.#ctor(`0)">
+            <summary>
+            键值特性
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+        </member>
+        <member name="P:Dry.Core.Model.KeyValueAttribute`2.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:Dry.Core.Model.KeyValueAttribute`2.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:Dry.Core.Model.KeyValueAttribute`1">
+            <summary>
+            键值特性
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+        </member>
+        <member name="M:Dry.Core.Model.KeyValueAttribute`1.#ctor(System.String)">
+            <summary>
+            键值特性
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+        </member>
         <member name="T:Dry.Core.Model.NameData`1">
             <summary>
             名称数据
