@@ -1,5 +1,6 @@
 ﻿global using Dry.Domain.Shared;
 global using Dry.EF.Contexts;
+global using Dry.EF8.Contexts;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;

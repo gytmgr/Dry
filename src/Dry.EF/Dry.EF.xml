@@ -4,23 +4,24 @@
         <name>Dry.EF</name>
     </assembly>
     <members>
-        <member name="T:Dry.EF.Contexts.DbContextFactoryBase`1">
+        <member name="T:Dry.EF.Contexts.DbContextFactoryBase`2">
             <summary>
             ef上下文工厂（生产迁移脚本用）
             </summary>
+            <typeparam name="TDbContext"></typeparam>
             <typeparam name="TBoundedContext"></typeparam>
         </member>
-        <member name="P:Dry.EF.Contexts.DbContextFactoryBase`1.DependencyPrefixs">
+        <member name="P:Dry.EF.Contexts.DbContextFactoryBase`2.DependencyPrefixs">
             <summary>
             注入程序集命名前缀
             </summary>
         </member>
-        <member name="P:Dry.EF.Contexts.DbContextFactoryBase`1.ConnectionString">
+        <member name="P:Dry.EF.Contexts.DbContextFactoryBase`2.ConnectionString">
             <summary>
             连接字符串
             </summary>
         </member>
-        <member name="M:Dry.EF.Contexts.DbContextFactoryBase`1.CreateDbContext(System.String[])">
+        <member name="M:Dry.EF.Contexts.DbContextFactoryBase`2.CreateDbContext(System.String[])">
             <summary>
             创建上下文
             </summary>
@@ -473,24 +474,6 @@
             <typeparam name="TSource"></typeparam>
             <param name="queryable"></param>
             <param name="predicate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ElementAtAsync``1(System.Linq.IQueryable{``0},System.Int32)">
-            <summary>
-            指定索引
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ElementAtOrDefaultAsync``1(System.Linq.IQueryable{``0},System.Int32)">
-            <summary>
-            指定索引或默认
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <param name="index"></param>
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Queryables.EFQueryable.FirstAsync``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -1054,14 +1037,6 @@
             <param name="queryable"></param>
             <returns></returns>
         </member>
-        <member name="M:Dry.EF.Queryables.EFQueryable.ExecuteDeleteAsync``1(System.Linq.IQueryable{``0})">
-            <summary>
-            删除
-            </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="queryable"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dry.EF.Repositories.ReadOnlyRepository`1">
             <summary>
             ef只读仓储
@@ -1116,13 +1091,6 @@
             <returns></returns>
         </member>
         <member name="M:Dry.EF.Repositories.ReadOnlyRepositoryBase`1.GetQueryableFromSqlInterpolated(System.FormattableString)">
-            <summary>
-            获取查询
-            </summary>
-            <param name="sql"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dry.EF.Repositories.ReadOnlyRepositoryBase`1.GetQueryableFromSql(System.FormattableString)">
             <summary>
             获取查询
             </summary>
