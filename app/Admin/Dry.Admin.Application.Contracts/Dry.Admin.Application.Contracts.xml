@@ -164,6 +164,46 @@
             是否可用
             </summary>
         </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ResourceDto">
+            <summary>
+            系统资源dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceDto.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceDto.ParentId">
+            <summary>
+            上级资源id
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceDto.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Dtos.ResourceQueryDto">
+            <summary>
+            系统资源查询dto
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceQueryDto.NameLike">
+            <summary>
+            名称模糊查询
+            </summary>
+        </member>
+        <member name="P:Dry.Admin.Application.Contracts.Dtos.ResourceQueryDto.ParentId">
+            <summary>
+            上级资源id
+            </summary>
+        </member>
         <member name="T:Dry.Admin.Application.Contracts.Services.IApplicationAppService">
             <summary>
             应用服务接口
@@ -174,6 +214,11 @@
             获取应用类型
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Dry.Admin.Application.Contracts.Services.IResourceAppService">
+            <summary>
+            系统资源服务接口
+            </summary>
         </member>
     </members>
 </doc>

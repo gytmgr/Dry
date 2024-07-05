@@ -69,7 +69,7 @@ public abstract class ApplicationQueryClientBase<TResult, TQuery, TKey> :
     ApplicationQueryClientBase<TResult, TQuery>,
     IApplicationQueryService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 构造体
@@ -99,7 +99,7 @@ public abstract class ApplicationQueryClientBase<TResult, TQuery, TCreate, TEdit
     ApplicationQueryCreateEditClientBase<TResult, TQuery, TCreate, TEdit, TKey>,
     IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {

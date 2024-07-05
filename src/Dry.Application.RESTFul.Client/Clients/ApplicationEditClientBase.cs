@@ -40,7 +40,7 @@ public abstract class ApplicationQueryEditClientBase<TResult, TQuery, TEdit, TKe
     ApplicationQueryClientBase<TResult, TQuery, TKey>,
     IApplicationQueryEditService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 {
     /// <summary>

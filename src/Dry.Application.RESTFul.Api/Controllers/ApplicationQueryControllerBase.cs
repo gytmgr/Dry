@@ -71,7 +71,7 @@ public abstract class ApplicationQueryControllerBase<TService, TResult, TQuery, 
     IApplicationQueryService<TResult, TQuery, TKey>
     where TService : IApplicationQueryService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 主键查询
@@ -97,7 +97,7 @@ public abstract class ApplicationQueryControllerBase<TService, TResult, TQuery, 
     IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
     where TService : IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {

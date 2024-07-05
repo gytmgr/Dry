@@ -89,7 +89,7 @@ public abstract class ApplicationQueryEditDeleteServiceBase<TBoundedContext, TEn
     where TBoundedContext : IBoundedContext
     where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 {
     /// <summary>

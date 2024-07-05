@@ -37,7 +37,7 @@ public abstract class ApplicationQueryEditDeleteControllerBase<TService, TResult
     IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
     where TService : IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 {
     /// <summary>

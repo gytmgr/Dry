@@ -39,7 +39,7 @@ public abstract class ApplicationQueryCreateDeleteClientBase<TResult, TQuery, TC
     ApplicationQueryCreateClientBase<TResult, TQuery, TCreate, TKey>,
     IApplicationQueryCreateDeleteService<TResult, TQuery, TCreate, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 {
     /// <summary>

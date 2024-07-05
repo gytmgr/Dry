@@ -172,7 +172,7 @@ public abstract class ApplicationQueryServiceBase<TEntity, TResult, TQuery, TKey
     IApplicationQueryService<TResult, TQuery, TKey>
     where TEntity : class, IAggregateRoot<TKey>, IBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 构造体
@@ -191,21 +191,43 @@ public abstract class ApplicationQueryServiceBase<TEntity, TResult, TQuery, TKey
         var predicates = base.GetPredicates(queryDto)?.ToList() ?? new List<Expression<Func<TEntity, bool>>>();
         if (queryDto is not null)
         {
-            if (queryDto.Id is not null && !queryDto.Id.Equals(default(TKey)))
+            var queryDtoType = queryDto.GetType();
+            var idProperty = queryDtoType.GetProperty("Id");
+            if (idProperty is not null)
             {
-                predicates.Add(x => queryDto.Id.Equals(x.Id));
+                var id = idProperty.GetValue(queryDto);
+                if (id is not null && id is TKey tId)
+                {
+                    var idNullable = idProperty.PropertyType.IsGenericType && idProperty.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+                    if (idNullable || !tId.Equals(default(TKey)))
+                    {
+                        predicates.Add(x => tId.Equals(x.Id));
+                    }
+                }
             }
-            if (queryDto.IdNotEqual is not null && !queryDto.IdNotEqual.Equals(default(TKey)))
+            var idNotEqualProperty = queryDtoType.GetProperty("IdNotEqual");
+            if (idNotEqualProperty is not null)
             {
-                predicates.Add(x => !queryDto.IdNotEqual.Equals(x.Id));
+                var idNotEqual = idNotEqualProperty.GetValue(queryDto);
+                if (idNotEqual is not null && idNotEqual is TKey tIdNotEqual)
+                {
+                    var idNotEqualNullable = idNotEqualProperty.PropertyType.IsGenericType && idNotEqualProperty.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+                    if (idNotEqualNullable || !tIdNotEqual.Equals(default(TKey)))
+                    {
+                        predicates.Add(x => !tIdNotEqual.Equals(x.Id));
+                    }
+                }
             }
-            if (queryDto.Ids is not null)
+            if (queryDto is IQueryDto<TKey> hasKeyQueryDto)
             {
-                predicates.Add(x => queryDto.Ids.Contains(x.Id));
-            }
-            if (queryDto.IdsNotEqual is not null)
-            {
-                predicates.Add(x => !queryDto.IdsNotEqual.Contains(x.Id));
+                if (hasKeyQueryDto.Ids?.Length > 0)
+                {
+                    predicates.Add(x => hasKeyQueryDto.Ids.Contains(x.Id));
+                }
+                if (hasKeyQueryDto.IdsNotEqual?.Length > 0)
+                {
+                    predicates.Add(x => !hasKeyQueryDto.IdsNotEqual.Contains(x.Id));
+                }
             }
         }
         return predicates.ToArray();
@@ -258,7 +280,7 @@ public abstract class ApplicationQueryServiceBase<TBoundedContext, TEntity, TRes
     where TBoundedContext : IBoundedContext
     where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {

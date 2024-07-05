@@ -27,7 +27,7 @@ public interface IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TE
     IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>,
     IApplicationQueryEditService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 { }

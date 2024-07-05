@@ -55,7 +55,7 @@ public interface IApplicationQueryService<TResult, TQuery, TKey> :
     IApplicationQueryService<TResult, TQuery>,
     IFindService<TResult, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 { }
 
 /// <summary>
@@ -71,7 +71,7 @@ public interface IApplicationQueryService<TResult, TQuery, TCreate, TEdit, TKey>
     IApplicationQueryCreateDeleteService<TResult, TQuery, TCreate, TKey>,
     IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 { }

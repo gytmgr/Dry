@@ -54,7 +54,7 @@ public class ApplicationDto : IResultDto
 /// <summary>
 /// 应用查询dto
 /// </summary>
-public class ApplicationQueryDto : QueryDto<string>
+public class ApplicationQueryDto : ObjKeyQueryDto<string>
 {
     /// <summary>
     /// 类型id

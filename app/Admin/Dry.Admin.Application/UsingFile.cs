@@ -2,6 +2,7 @@
 global using Dry.Admin.Application.Contracts.Dtos;
 global using Dry.Admin.Application.Contracts.Services;
 global using Dry.Admin.Domain;
+global using Dry.Admin.Domain.Entities;
 global using Dry.Admin.Domain.Events;
 global using Dry.Admin.Domain.Shared.Enums;
 global using Dry.Application.Extensions;

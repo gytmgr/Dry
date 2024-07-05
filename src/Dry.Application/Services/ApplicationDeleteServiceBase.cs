@@ -85,7 +85,7 @@ public abstract class ApplicationQueryDeleteServiceBase<TBoundedContext, TEntity
     where TBoundedContext : IBoundedContext
     where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 构造体

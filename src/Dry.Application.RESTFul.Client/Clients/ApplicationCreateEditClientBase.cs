@@ -43,7 +43,7 @@ public abstract class ApplicationQueryCreateEditClientBase<TResult, TQuery, TCre
     ApplicationQueryCreateClientBase<TResult, TQuery, TCreate, TKey>,
     IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {

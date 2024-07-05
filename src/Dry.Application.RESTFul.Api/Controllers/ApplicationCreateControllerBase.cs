@@ -85,7 +85,7 @@ public abstract class ApplicationQueryCreateControllerBase<TService, TResult, TQ
     IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>
     where TService : IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 {
     /// <summary>

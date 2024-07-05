@@ -21,5 +21,5 @@ public interface IApplicationQueryDeleteService<TResult, TQuery, TKey> :
     IApplicationQueryService<TResult, TQuery, TKey>,
     IDeleteService<TResult, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 { }

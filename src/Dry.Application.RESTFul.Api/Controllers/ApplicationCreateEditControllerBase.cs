@@ -41,7 +41,7 @@ public abstract class ApplicationQueryCreateEditControllerBase<TService, TResult
     IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TEdit, TKey>
     where TService : IApplicationQueryCreateEditService<TResult, TQuery, TCreate, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
     where TEdit : IEditDto
 {

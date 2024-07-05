@@ -24,6 +24,6 @@ public interface IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey
     IApplicationQueryEditService<TResult, TQuery, TEdit, TKey>,
     IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 { }

@@ -36,7 +36,7 @@ public abstract class ApplicationQueryDeleteClientBase<TResult, TQuery, TKey> :
     ApplicationQueryClientBase<TResult, TQuery, TKey>,
     IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 构造体

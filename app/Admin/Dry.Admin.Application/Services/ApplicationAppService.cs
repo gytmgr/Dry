@@ -1,11 +1,7 @@
 ﻿namespace Dry.Admin.Application.Services;
 
-public class ApplicationAppService : ApplicationQueryServiceBase<IAdminContext, App, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>, IApplicationAppService, IDependency<IApplicationAppService>
+public class ApplicationAppService(IServiceProvider serviceProvider) : ApplicationQueryServiceBase<IAdminContext, App, ApplicationDto, ApplicationQueryDto, ApplicationCreateDto, ApplicationEditDto, string>(serviceProvider), IApplicationAppService, IDependency<IApplicationAppService>
 {
-    public ApplicationAppService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     protected override Expression<Func<App, bool>>[] GetPredicates(ApplicationQueryDto queryDto)
     {
         var predicates = base.GetPredicates(queryDto).ToList();
@@ -24,7 +20,7 @@ public class ApplicationAppService : ApplicationQueryServiceBase<IAdminContext, 
                 predicates.Add(x => x.Enable == queryDto.Enable.Value);
             }
         }
-        return predicates.ToArray();
+        return [.. predicates];
     }
 
     protected override (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] GetOrderBys(ApplicationQueryDto queryDto)
@@ -38,7 +34,7 @@ public class ApplicationAppService : ApplicationQueryServiceBase<IAdminContext, 
                 ApplicationQuerySortField.AddTime => x => x.AddTime,
                 _ => x => x.AddTime
             };
-            return new (bool isAsc, Expression<Func<App, dynamic>> keySelector)[] { queryDto.Sort.GetOrderByParam<App, ApplicationQuerySortField>().Value };
+            return [queryDto.Sort.GetOrderByParam<App, ApplicationQuerySortField>().Value];
         }
         return base.GetOrderBys(queryDto);
     }

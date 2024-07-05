@@ -95,7 +95,7 @@ public abstract class ApplicationQueryCreateClientBase<TResult, TQuery, TCreate,
     ApplicationQueryClientBase<TResult, TQuery, TKey>,
     IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 {
     /// <summary>

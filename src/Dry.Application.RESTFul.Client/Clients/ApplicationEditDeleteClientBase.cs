@@ -39,7 +39,7 @@ public abstract class ApplicationQueryEditDeleteClientBase<TResult, TQuery, TEdi
     ApplicationQueryEditClientBase<TResult, TQuery, TEdit, TKey>,
     IApplicationQueryEditDeleteService<TResult, TQuery, TEdit, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 {
     /// <summary>

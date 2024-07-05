@@ -19,6 +19,22 @@
             查询dto
             </summary>
         </member>
+        <member name="T:Dry.Application.Contracts.Dtos.IQueryDto`1">
+            <summary>
+            查询dto
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.IQueryDto`1.Ids">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.IQueryDto`1.IdsNotEqual">
+            <summary>
+            系统id不等于
+            </summary>
+        </member>
         <member name="T:Dry.Application.Contracts.Dtos.QueryDto`1">
             <summary>
             查询dto
@@ -41,6 +57,32 @@
             </summary>
         </member>
         <member name="P:Dry.Application.Contracts.Dtos.QueryDto`1.IdsNotEqual">
+            <summary>
+            系统id不等于
+            </summary>
+        </member>
+        <member name="T:Dry.Application.Contracts.Dtos.ObjKeyQueryDto`1">
+            <summary>
+            查询dto
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.ObjKeyQueryDto`1.Id">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.ObjKeyQueryDto`1.IdNotEqual">
+            <summary>
+            系统id不等于
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.ObjKeyQueryDto`1.Ids">
+            <summary>
+            系统id
+            </summary>
+        </member>
+        <member name="P:Dry.Application.Contracts.Dtos.ObjKeyQueryDto`1.IdsNotEqual">
             <summary>
             系统id不等于
             </summary>

@@ -24,6 +24,6 @@ public interface IApplicationQueryCreateDeleteService<TResult, TQuery, TCreate, 
     IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey>,
     IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 { }

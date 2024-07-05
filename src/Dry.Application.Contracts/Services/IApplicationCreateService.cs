@@ -50,6 +50,6 @@ public interface IApplicationQueryCreateService<TResult, TQuery, TCreate, TKey> 
     IApplicationQueryService<TResult, TQuery, TKey>,
     IApplicationQueryCreateService<TResult, TQuery, TCreate>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 { }

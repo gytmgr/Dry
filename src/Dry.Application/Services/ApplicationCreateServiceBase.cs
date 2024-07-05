@@ -210,7 +210,7 @@ public abstract class ApplicationQueryCreateServiceBase<TBoundedContext, TEntity
     where TBoundedContext : IBoundedContext
     where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TCreate : ICreateDto
 {
     /// <summary>

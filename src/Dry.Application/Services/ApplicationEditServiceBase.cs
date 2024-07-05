@@ -111,7 +111,7 @@ public abstract class ApplicationQueryEditServiceBase<TBoundedContext, TEntity, 
     where TBoundedContext : IBoundedContext
     where TEntity : class, IAggregateRoot<TKey>, TBoundedContext
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
     where TEdit : IEditDto
 {
     /// <summary>

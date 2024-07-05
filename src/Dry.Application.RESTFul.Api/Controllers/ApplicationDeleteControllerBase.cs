@@ -34,7 +34,7 @@ public abstract class ApplicationQueryDeleteControllerBase<TService, TResult, TQ
     IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TService : IApplicationQueryDeleteService<TResult, TQuery, TKey>
     where TResult : IResultDto
-    where TQuery : QueryDto<TKey>
+    where TQuery : IQueryDto
 {
     /// <summary>
     /// 删除
